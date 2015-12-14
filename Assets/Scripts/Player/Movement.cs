@@ -26,12 +26,11 @@ public class Movement : MonoBehaviour
 
     public float moveForce;
     public float maxSpeed;
-    public float jumpStrength;
-    public float maxJumpTime;
     private Rigidbody player;
     private bool isGrounded;
-    private bool canJump;
-    private bool jumpButtonPressed;
+
+    public delegate void JumpDelegate(bool canJump);
+    public static event JumpDelegate AbleToJump;
 
     void Awake()
     {
@@ -46,28 +45,14 @@ public class Movement : MonoBehaviour
     void Start()
     {
         player = GetComponent<Rigidbody>();
-        canJump = true;
-        jumpButtonPressed = false;
         MapStateFunctions();
+        AbleToJump(true);
         ChangeState(MovementState.GROUND);
     }
 
     void FixedUpdate()
     {
         SetState[(int)state]();
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log("Space: " + Time.time);
-        }
-        if(!isGrounded)
-        {
-            Debug.Log("Air: " + Time.time);
-        }
-        jumpButtonPressed = isGrounded && Input.GetKeyDown(KeyCode.Space);
     }
 
     void ChangeState(MovementState newState)
@@ -78,7 +63,10 @@ public class Movement : MonoBehaviour
     void Ground()
     {
         if (!isGrounded)
+        {
+            AbleToJump(false);
             ChangeState(MovementState.AIR);
+        }
 
         Vector3 lateralForce = Vector3.right * Input.GetAxisRaw("Horizontal") * moveForce;
         if (Mathf.Abs(player.velocity.x) < maxSpeed)
@@ -89,16 +77,16 @@ public class Movement : MonoBehaviour
         {
             player.velocity = new Vector3(0, player.velocity.y, player.velocity.z);
         }
-        if (jumpButtonPressed && canJump)
-        {
-            StartCoroutine(JumpTimer());
-        }
+        
     }
 
     void Air()
     {
         if (isGrounded)
+        {
+            AbleToJump(true);
             ChangeState(MovementState.GROUND);
+        }
 
         Vector3 lateralForce = Vector3.right * Input.GetAxisRaw("Horizontal") * moveForce;
         if (Mathf.Abs(player.velocity.x) < maxSpeed)
@@ -115,24 +103,6 @@ public class Movement : MonoBehaviour
     void Disabled()
     {
 
-    }
-
-    IEnumerator JumpTimer()
-    {
-        float time = maxJumpTime;
-        canJump = false;
-        while(time > 0)
-        {
-            time -= Time.deltaTime;
-            player.velocity = new Vector3(player.velocity.x, jumpStrength, player.velocity.z);
-            if (Input.GetKeyUp(KeyCode.Space))
-            {
-                time = 0;
-                canJump = true;
-            }
-            yield return null;
-        }
-        canJump = true;
     }
 
     public IEnumerator DisableMovement(float disableTime)
