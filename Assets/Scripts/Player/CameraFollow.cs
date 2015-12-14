@@ -21,10 +21,12 @@ public class CameraFollow : MonoBehaviour
         if (player == null)
             Debug.LogError("Camera has nothing to follow. Did you forget to assign the camera a follow target?");
         else
+        {
             body = player.GetComponent<Rigidbody>();
 
-        if (body == null)
-            Debug.LogError("Target has no RigidBody attached to it.");
+            if (body == null)
+                Debug.LogError("Target has no RigidBody attached to it.");
+        }
     }
 
     void Update()
@@ -37,7 +39,7 @@ public class CameraFollow : MonoBehaviour
     {
         //Use camera's Y position if FollowVertically is disabled
         Vector3 targetPosition = followVertically ? player.transform.position 
-            : new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
+            : new Vector3(player.transform.position.x, 0, player.transform.position.z);
         Vector3 destination = targetPosition + (Vector3.back * followDistance) + (Vector3.up * heightAbovePlayer);
         transform.position = destination;
     }
