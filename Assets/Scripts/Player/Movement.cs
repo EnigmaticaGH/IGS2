@@ -7,10 +7,14 @@ public class Movement : MonoBehaviour
     {
         GROUND,
         AIR,
+        JUMP,
+        HOVER,
         DISABLED
     }
     private delegate void StateFunction();
     private StateFunction[] SetState;
+    public delegate void StateChange(string state);
+    public static event StateChange StateChangeEvent;
     private MovementState state;
 
     void MapStateFunctions()
@@ -18,6 +22,8 @@ public class Movement : MonoBehaviour
         SetState = new StateFunction[] {
             Ground,
             Air,
+            Jump,
+            Hover,
             Disabled
         };
     }
@@ -29,24 +35,28 @@ public class Movement : MonoBehaviour
     private Rigidbody player;
     private bool isGrounded;
 
-    public delegate void JumpDelegate(bool canJump);
-    public static event JumpDelegate AbleToJump;
-
     void Awake()
     {
         GroundSensor.SensorReading += ReadGroundSensor;
+        JumpControl.OnJump += OnJump;
+        HoverControl.OnHoverStart += OnHoverStart;
+        HoverControl.OnHoverDone += OnHoverDone;
+        DeathControl.OnDeath += OnDeath;
     }
 
     void OnDestroy()
     {
         GroundSensor.SensorReading -= ReadGroundSensor;
+        JumpControl.OnJump -= OnJump;
+        HoverControl.OnHoverStart += OnHoverStart;
+        HoverControl.OnHoverDone -= OnHoverDone;
+        DeathControl.OnDeath -= OnDeath;
     }
 
     void Start()
     {
         player = GetComponent<Rigidbody>();
         MapStateFunctions();
-        AbleToJump(true);
         ChangeState(MovementState.GROUND);
     }
 
@@ -58,46 +68,63 @@ public class Movement : MonoBehaviour
     void ChangeState(MovementState newState)
     {
         state = newState;
+        if(StateChangeEvent != null)
+            StateChangeEvent(state.ToString());
+    }
+
+    void UpdateMovement()
+    {
+        Vector3 lateralForce = Vector3.right * Input.GetAxisRaw("Horizontal") * moveForce;
+        if (Mathf.Abs(player.velocity.x) < maxSpeed)
+            player.AddForce(lateralForce);
+
+        if (player.velocity.x > 0 && Input.GetAxisRaw("Horizontal") < 0
+         || player.velocity.x < 0 && Input.GetAxisRaw("Horizontal") > 0)
+        {
+            player.velocity = new Vector3(0, player.velocity.y, player.velocity.z);
+            if (!isGrounded)
+                StartCoroutine(DisableMovement(AIR_STOP_TIME));
+        }
     }
 
     void Ground()
     {
         if (!isGrounded)
         {
-            AbleToJump(false);
             ChangeState(MovementState.AIR);
         }
 
-        Vector3 lateralForce = Vector3.right * Input.GetAxisRaw("Horizontal") * moveForce;
-        if (Mathf.Abs(player.velocity.x) < maxSpeed)
-            player.AddForce(lateralForce);
-
-        if (player.velocity.x > 0 && Input.GetAxisRaw("Horizontal") < 0
-         || player.velocity.x < 0 && Input.GetAxisRaw("Horizontal") > 0)
-        {
-            player.velocity = new Vector3(0, player.velocity.y, player.velocity.z);
-        }
-        
+        UpdateMovement();
     }
 
     void Air()
     {
         if (isGrounded)
         {
-            AbleToJump(true);
             ChangeState(MovementState.GROUND);
         }
 
-        Vector3 lateralForce = Vector3.right * Input.GetAxisRaw("Horizontal") * moveForce;
-        if (Mathf.Abs(player.velocity.x) < maxSpeed)
-            player.AddForce(lateralForce);
+        UpdateMovement();
+    }
 
-        if (player.velocity.x > 0 && Input.GetAxisRaw("Horizontal") < 0
-         || player.velocity.x < 0 && Input.GetAxisRaw("Horizontal") > 0)
+    void Jump()
+    {
+        if (isGrounded)
         {
-            player.velocity = new Vector3(0, player.velocity.y, player.velocity.z);
-            StartCoroutine(DisableMovement(AIR_STOP_TIME));
+            ChangeState(MovementState.GROUND);
         }
+
+        UpdateMovement();
+    }
+
+    void Hover()
+    {
+        if (isGrounded)
+        {
+            ChangeState(MovementState.GROUND);
+        }
+
+        UpdateMovement();
     }
 
     void Disabled()
@@ -116,5 +143,25 @@ public class Movement : MonoBehaviour
     void ReadGroundSensor(bool status)
     {
         isGrounded = status;
+    }
+
+    void OnJump()
+    {
+        ChangeState(MovementState.JUMP);
+    }
+
+    void OnHoverStart()
+    {
+        ChangeState(MovementState.HOVER);
+    }
+
+    void OnHoverDone()
+    {
+        ChangeState(MovementState.AIR);
+    }
+
+    void OnDeath(float respawnTime)
+    {
+        StartCoroutine(DisableMovement(respawnTime));
     }
 }

@@ -8,10 +8,12 @@ public class JumpControl : MonoBehaviour
     public float jumpStrength;
     public float maxJumpTime;
     private Rigidbody player;
+    public delegate void JumpState();
+    public static event JumpState OnJump;
 
     void Awake()
     {
-        Movement.AbleToJump += AbleToJump;
+        Movement.StateChangeEvent += MovementState;
     }
 
     void Start()
@@ -21,15 +23,20 @@ public class JumpControl : MonoBehaviour
 
     void OnDestroy()
     {
-        Movement.AbleToJump -= AbleToJump;
+        Movement.StateChangeEvent -= MovementState;
     }
 
     void Update()
     {
-        if (canJump && Input.GetKey(KeyCode.Space))
+        if (canJump && Input.GetKeyDown(KeyCode.Space))
         {
             StartCoroutine(JumpKeyDown());
         }
+    }
+
+    void MovementState(string state)
+    {
+        canJump = state == "GROUND";
     }
 
     void FixedUpdate()
@@ -40,14 +47,11 @@ public class JumpControl : MonoBehaviour
         }
     }
 
-    void AbleToJump(bool status)
-    {
-        canJump = status;
-    }
-
     IEnumerator JumpTimer()
     {
         float time = maxJumpTime;
+        if (OnJump != null)
+            OnJump();
         while (time > 0)
         {
             time -= Time.deltaTime;

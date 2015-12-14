@@ -12,12 +12,12 @@ public class GroundSensor : MonoBehaviour
     }
     void OnTriggerEnter(Collider c)
     {
-        if (!TagsToIgnore(c.tag))
+        if (!TagsToIgnore(c.tag) && SensorReading != null)
             SensorReading(true);
     }
     void OnTriggerExit(Collider c)
     {
-        if (!TagsToIgnore(c.tag))
+        if (!TagsToIgnore(c.tag) && SensorReading != null)
             SensorReading(false);
     }
     bool TagsToIgnore(string tag)
