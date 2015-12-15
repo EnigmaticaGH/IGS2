@@ -9,6 +9,7 @@ public class Movement : MonoBehaviour
         AIR,
         JUMP,
         HOVER,
+        LANDING,
         DISABLED
     }
     private delegate void StateFunction();
@@ -24,6 +25,7 @@ public class Movement : MonoBehaviour
             Air,
             Jump,
             Hover,
+            Landing,
             Disabled
         };
     }
@@ -39,18 +41,18 @@ public class Movement : MonoBehaviour
     {
         GroundSensor.SensorReading += ReadGroundSensor;
         JumpControl.OnJump += OnJump;
-        HoverControl.OnHoverStart += OnHoverStart;
+        HoverControl.OnHoverStartOrResume += OnHoverStartOrResume;
+        HoverControl.OnHoverPause += OnHoverPause;
         HoverControl.OnHoverDone += OnHoverDone;
-        DeathControl.OnDeath += OnDeath;
     }
 
     void OnDestroy()
     {
         GroundSensor.SensorReading -= ReadGroundSensor;
         JumpControl.OnJump -= OnJump;
-        HoverControl.OnHoverStart += OnHoverStart;
+        HoverControl.OnHoverStartOrResume += OnHoverStartOrResume;
+        HoverControl.OnHoverPause -= OnHoverPause;
         HoverControl.OnHoverDone -= OnHoverDone;
-        DeathControl.OnDeath -= OnDeath;
     }
 
     void Start()
@@ -107,7 +109,7 @@ public class Movement : MonoBehaviour
         UpdateMovement();
     }
 
-    void Jump()
+    void Jump() //The player initiated a jump
     {
         if (isGrounded)
         {
@@ -117,7 +119,17 @@ public class Movement : MonoBehaviour
         UpdateMovement();
     }
 
-    void Hover()
+    void Hover() //The player is currently hovering
+    {
+        if (isGrounded)
+        {
+            ChangeState(MovementState.GROUND);
+        }
+
+        UpdateMovement();
+    }
+
+    void Landing() //The player is landing from a hover
     {
         if (isGrounded)
         {
@@ -129,7 +141,7 @@ public class Movement : MonoBehaviour
 
     void Disabled()
     {
-
+        //The player is unable to move
     }
 
     public IEnumerator DisableMovement(float disableTime)
@@ -150,18 +162,18 @@ public class Movement : MonoBehaviour
         ChangeState(MovementState.JUMP);
     }
 
-    void OnHoverStart()
+    void OnHoverStartOrResume()
     {
         ChangeState(MovementState.HOVER);
     }
 
-    void OnHoverDone()
+    void OnHoverPause()
     {
         ChangeState(MovementState.AIR);
     }
 
-    void OnDeath(float respawnTime)
+    void OnHoverDone()
     {
-        StartCoroutine(DisableMovement(respawnTime));
+        ChangeState(MovementState.LANDING);
     }
 }

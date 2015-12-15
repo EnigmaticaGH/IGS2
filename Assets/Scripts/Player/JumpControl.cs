@@ -52,29 +52,19 @@ public class JumpControl : MonoBehaviour
         float time = maxJumpTime;
         if (OnJump != null)
             OnJump();
-        while (time > 0)
+        while (time > 0 && Input.GetKey(KeyCode.Space))
         {
             time -= Time.deltaTime;
             player.velocity = new Vector3(player.velocity.x, jumpStrength, player.velocity.z);
-            if (Input.GetKeyUp(KeyCode.Space))
-            {
-                time = 0;
-            }
             yield return null;
         }
     }
 
     IEnumerator JumpKeyDown()
     {
-        float time = 0.4f;
         jumpButtonPressed = true;
-        while (time > 0 && canJump)
+        while (canJump && Input.GetKey(KeyCode.Space))
         {
-            time -= Time.deltaTime;
-            if (Input.GetKeyUp(KeyCode.Space))
-            {
-                time = 0;
-            }
             yield return null;
         }
         jumpButtonPressed = false;

@@ -4,7 +4,8 @@ using System.Collections;
 public class HoverControl : MonoBehaviour
 {
     public delegate void HoverState();
-    public static event HoverState OnHoverStart;
+    public static event HoverState OnHoverStartOrResume;
+    public static event HoverState OnHoverPause;
     public static event HoverState OnHoverDone;
 
     private Rigidbody player;
@@ -51,16 +52,26 @@ public class HoverControl : MonoBehaviour
     IEnumerator HoverTimer()
     {
         float time = maxHoverTime;
-        if (OnHoverStart != null)
-            OnHoverStart();
+        if (OnHoverStartOrResume != null)
+            OnHoverStartOrResume();
         while (time > 0)
         {
             time -= Time.deltaTime;
-            player.velocity = new Vector3(player.velocity.x, 0, player.velocity.z);
-            player.useGravity = false;
-            if (Input.GetKeyUp(KeyCode.LeftShift))
+            if (Input.GetKeyDown(KeyCode.LeftShift))
             {
-                time = 0;
+                if (OnHoverStartOrResume != null)
+                    OnHoverStartOrResume();
+            }
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                player.velocity = new Vector3(player.velocity.x, 0, player.velocity.z);
+                player.useGravity = false;
+            }
+            else
+            {
+                if (OnHoverPause!= null)
+                    OnHoverPause();
+                player.useGravity = true;
             }
             yield return null;
         }
@@ -71,15 +82,9 @@ public class HoverControl : MonoBehaviour
 
     IEnumerator HoverKeyDown()
     {
-        float time = 0.1f;
         hoverButtonPressed = true;
-        while (time > 0 && canHover)
+        while (canHover && Input.GetKey(KeyCode.LeftShift))
         {
-            time -= Time.deltaTime;
-            if (Input.GetKeyUp(KeyCode.LeftShift))
-            {
-                time = 0;
-            }
             yield return null;
         }
         hoverButtonPressed = false;
