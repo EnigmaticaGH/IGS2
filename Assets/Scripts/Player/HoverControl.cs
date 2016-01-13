@@ -13,6 +13,7 @@ public class HoverControl : MonoBehaviour
     public float maxHoverTime;
     private bool hoverButtonPressed;
     private bool inAir;
+    private bool isHovering;
 
     void Awake()
     {
@@ -22,6 +23,7 @@ public class HoverControl : MonoBehaviour
     void Start()
     {
         player = GetComponent<Rigidbody>();
+        isHovering = false;
     }
 
     void OnDestroy()
@@ -32,7 +34,7 @@ public class HoverControl : MonoBehaviour
     void MovementState(string state)
     {
         canHover = state == "AIR" || state == "JUMP";
-        inAir = state == "AIR" || state == "JUMP" || state == "HOVER" || state == "LANDING";
+        inAir = state != "GROUND";
     }
 
     void Update()
@@ -45,7 +47,7 @@ public class HoverControl : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (hoverButtonPressed)
+        if (hoverButtonPressed && !isHovering)
         {
             StartCoroutine(HoverTimer());
         }
@@ -53,6 +55,8 @@ public class HoverControl : MonoBehaviour
 
     IEnumerator HoverTimer()
     {
+        Debug.Log("Started Hover");
+        isHovering = true;
         float time = maxHoverTime;
         if (OnHoverStartOrResume != null)
             OnHoverStartOrResume();
@@ -80,6 +84,7 @@ public class HoverControl : MonoBehaviour
         player.useGravity = true;
         if (OnHoverDone != null)
             OnHoverDone();
+        isHovering = false;
     }
 
     IEnumerator HoverKeyDown()
