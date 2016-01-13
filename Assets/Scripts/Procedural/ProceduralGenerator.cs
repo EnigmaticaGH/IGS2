@@ -52,6 +52,11 @@ public class ProceduralGenerator : MonoBehaviour
                 //If the land ahoy doesn't exist, then make it so!
                 Generate(sectorX + direction);
             }
+            if (!indexedGameObjects.ContainsKey(sectorX + (direction * 2)))
+            {
+                //If the land ahoy ahoy doesn't exist, then make it so!
+                Generate(sectorX + (direction * 2));
+            }
             //We only want the stuff directly around us to do anything
             UpdateVisibleSectors();
         }
@@ -68,7 +73,7 @@ public class ProceduralGenerator : MonoBehaviour
     {
         foreach (KeyValuePair<int, GameObject> indexedGameObject in indexedGameObjects)
         {
-            indexedGameObject.Value.SetActive(Mathf.Abs(indexedGameObject.Key - sectorX) <= 1);
+            indexedGameObject.Value.SetActive(Mathf.Abs(indexedGameObject.Key - sectorX) <= 2);
         }
     }
 

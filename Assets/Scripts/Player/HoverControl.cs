@@ -12,6 +12,7 @@ public class HoverControl : MonoBehaviour
     private bool canHover;
     public float maxHoverTime;
     private bool hoverButtonPressed;
+    private bool inAir;
 
     void Awake()
     {
@@ -31,11 +32,12 @@ public class HoverControl : MonoBehaviour
     void MovementState(string state)
     {
         canHover = state == "AIR" || state == "JUMP";
+        inAir = state == "AIR" || state == "JUMP" || state == "HOVER" || state == "LANDING";
     }
 
     void Update()
     {
-        if (canHover && Input.GetKeyDown(KeyCode.LeftShift))
+        if (canHover && Input.GetKeyDown(KeyCode.Space))
         {
             StartCoroutine(HoverKeyDown());
         }
@@ -54,15 +56,15 @@ public class HoverControl : MonoBehaviour
         float time = maxHoverTime;
         if (OnHoverStartOrResume != null)
             OnHoverStartOrResume();
-        while (time > 0)
+        while (time > 0 && inAir)
         {
             time -= Time.deltaTime;
-            if (Input.GetKeyDown(KeyCode.LeftShift))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 if (OnHoverStartOrResume != null)
                     OnHoverStartOrResume();
             }
-            if (Input.GetKey(KeyCode.LeftShift))
+            if (Input.GetKey(KeyCode.Space))
             {
                 player.velocity = new Vector3(player.velocity.x, 0, player.velocity.z);
                 player.useGravity = false;
@@ -83,7 +85,7 @@ public class HoverControl : MonoBehaviour
     IEnumerator HoverKeyDown()
     {
         hoverButtonPressed = true;
-        while (canHover && Input.GetKey(KeyCode.LeftShift))
+        while (canHover && Input.GetKey(KeyCode.Space))
         {
             yield return null;
         }
