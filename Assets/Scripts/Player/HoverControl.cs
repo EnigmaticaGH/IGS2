@@ -55,7 +55,6 @@ public class HoverControl : MonoBehaviour
 
     IEnumerator HoverTimer()
     {
-        Debug.Log("Started Hover");
         isHovering = true;
         float time = maxHoverTime;
         if (OnHoverStartOrResume != null)

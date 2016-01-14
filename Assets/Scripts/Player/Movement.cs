@@ -74,18 +74,20 @@ public class Movement : MonoBehaviour
             StateChangeEvent(state.ToString());
     }
 
-    void UpdateMovement()
+    void UpdateMovementGround()
+    {
+        float lateralVelocity = Input.GetAxis("Horizontal") * maxSpeed;
+        player.velocity = new Vector3(lateralVelocity, player.velocity.y, player.velocity.z);
+    }
+
+    void UpdateMovementAir()
     {
         Vector3 lateralForce = Vector3.right * Input.GetAxisRaw("Horizontal") * moveForce;
         if (Mathf.Abs(player.velocity.x) < maxSpeed)
             player.AddForce(lateralForce);
-
-        if (player.velocity.x > 0 && Input.GetAxisRaw("Horizontal") < 0
-         || player.velocity.x < 0 && Input.GetAxisRaw("Horizontal") > 0)
+        if (Mathf.Approximately(Input.GetAxis("Horizontal"), 0))
         {
-            player.velocity = new Vector3(0, player.velocity.y, player.velocity.z);
-            if (!isGrounded)
-                StartCoroutine(DisableMovement(AIR_STOP_TIME));
+            StartCoroutine(DisableMovement(AIR_STOP_TIME));
         }
     }
 
@@ -96,7 +98,7 @@ public class Movement : MonoBehaviour
             ChangeState(MovementState.AIR);
         }
 
-        UpdateMovement();
+        UpdateMovementGround();
     }
 
     void Air()
@@ -106,7 +108,7 @@ public class Movement : MonoBehaviour
             ChangeState(MovementState.GROUND);
         }
 
-        UpdateMovement();
+        UpdateMovementAir();
     }
 
     void Jump() //The player initiated a jump
@@ -116,7 +118,7 @@ public class Movement : MonoBehaviour
             ChangeState(MovementState.GROUND);
         }
 
-        UpdateMovement();
+        UpdateMovementAir();
     }
 
     void Hover() //The player is currently hovering
@@ -126,17 +128,17 @@ public class Movement : MonoBehaviour
             ChangeState(MovementState.GROUND);
         }
 
-        UpdateMovement();
+        UpdateMovementAir();
     }
 
-    void Landing() //The player is landing from a hover
+    void Landing() //The player is landing from a hover (but still in the air)
     {
         if (isGrounded)
         {
             ChangeState(MovementState.GROUND);
         }
 
-        UpdateMovement();
+        UpdateMovementAir();
     }
 
     void Disabled()

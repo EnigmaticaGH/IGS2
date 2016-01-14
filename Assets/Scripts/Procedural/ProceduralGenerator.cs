@@ -24,6 +24,9 @@ public class ProceduralGenerator : MonoBehaviour
     //Start us off with 3 sections surrounding the origin
     void InitalizeLevel()
     {
+        indexedGameObjects.Add(-2, (GameObject)Instantiate(prefabs[indexes[(int)(Random.value * prefabs.Count)]],
+            Vector3.left * ProceduralPartSize * 2, Quaternion.identity));
+
         indexedGameObjects.Add(-1, (GameObject)Instantiate(prefabs[indexes[(int)(Random.value * prefabs.Count)]],
             Vector3.left * ProceduralPartSize, Quaternion.identity));
 
@@ -32,6 +35,9 @@ public class ProceduralGenerator : MonoBehaviour
 
         indexedGameObjects.Add(1, (GameObject)Instantiate(prefabs[indexes[(int)(Random.value * prefabs.Count)]],
             Vector3.right * ProceduralPartSize, Quaternion.identity));
+
+        indexedGameObjects.Add(2, (GameObject)Instantiate(prefabs[indexes[(int)(Random.value * prefabs.Count)]],
+            Vector3.right * ProceduralPartSize * 2, Quaternion.identity));
     }
 
     void Update()
