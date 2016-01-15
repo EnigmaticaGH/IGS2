@@ -76,16 +76,16 @@ public class Movement : MonoBehaviour
 
     void UpdateMovementGround()
     {
-        float lateralVelocity = Input.GetAxis("Horizontal") * maxSpeed;
+        float lateralVelocity = Input.GetAxis("kb_Horizontal") * maxSpeed;
         player.velocity = new Vector3(lateralVelocity, player.velocity.y, player.velocity.z);
     }
 
     void UpdateMovementAir()
     {
-        Vector3 lateralForce = Vector3.right * Input.GetAxisRaw("Horizontal") * moveForce;
+        Vector3 lateralForce = Vector3.right * Input.GetAxisRaw("kb_Horizontal") * moveForce;
         if (Mathf.Abs(player.velocity.x) < maxSpeed)
             player.AddForce(lateralForce);
-        if (Mathf.Approximately(Input.GetAxis("Horizontal"), 0))
+        if (Mathf.Approximately(Input.GetAxis("kb_Horizontal"), 0))
         {
             StartCoroutine(DisableMovement(AIR_STOP_TIME));
         }
