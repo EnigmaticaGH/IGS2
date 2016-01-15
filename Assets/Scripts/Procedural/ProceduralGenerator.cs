@@ -21,7 +21,7 @@ public class ProceduralGenerator : MonoBehaviour
         LoadAssets();
     }
 
-    //Start us off with 3 sections surrounding the origin
+    //Start us off with 5 sections surrounding the origin
     void InitalizeLevel()
     {
         indexedGameObjects.Add(-2, (GameObject)Instantiate(prefabs[indexes[(int)(Random.value * prefabs.Count)]],
