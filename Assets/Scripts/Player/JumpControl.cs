@@ -3,7 +3,7 @@ using System.Collections;
 
 public class JumpControl : MonoBehaviour
 {
-    private bool canJump;
+    private bool canNormalJump;
     private bool jumpButtonPressed;
     public float jumpStrength;
     public float maxJumpTime;
@@ -13,6 +13,7 @@ public class JumpControl : MonoBehaviour
 
     public float wallJumpStrength;
     private bool canWallJump;
+    private bool jumpButtonUp;
     private int direction;
     private float wallJumpForce;
 
@@ -28,6 +29,7 @@ public class JumpControl : MonoBehaviour
     {
         player = GetComponent<Rigidbody>();
         movement = GetComponent<Movement>();
+        jumpButtonUp = false;
     }
 
     void OnDestroy()
@@ -38,11 +40,11 @@ public class JumpControl : MonoBehaviour
 
     void Update()
     {
-        if (canJump && Input.GetButton("A_1") && !jumpButtonPressed)
+        if (canNormalJump && Input.GetButton("A_1") && !jumpButtonPressed)
         {
             StartCoroutine(JumpKeyDown());
         }
-        if(canWallJump && Input.GetButton("A_1"))
+        if(canWallJump && Input.GetButton("A_1") && jumpButtonUp && !canNormalJump)
         {
             player.velocity = new Vector3(wallJumpForce, Mathf.Abs(wallJumpForce), player.velocity.z);
             canWallJump = false;
@@ -52,7 +54,7 @@ public class JumpControl : MonoBehaviour
 
     void MovementState(string state)
     {
-        canJump = state == "GROUND";
+        canNormalJump = state == "GROUND";
     }
 
     void FixedUpdate()
@@ -65,6 +67,7 @@ public class JumpControl : MonoBehaviour
 
     IEnumerator JumpTimer()
     {
+        jumpButtonUp = false;
         float time = maxJumpTime;
         if (OnJump != null)
             OnJump();
@@ -74,12 +77,13 @@ public class JumpControl : MonoBehaviour
             player.velocity = new Vector3(player.velocity.x, jumpStrength, player.velocity.z);
             yield return null;
         }
+        jumpButtonUp = true;
     }
 
     IEnumerator JumpKeyDown()
     {
         jumpButtonPressed = true;
-        while (canJump && Input.GetButton("A_1"))
+        while (canNormalJump && Input.GetButton("A_1"))
         {
             yield return null;
         }
