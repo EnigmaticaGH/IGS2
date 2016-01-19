@@ -76,16 +76,16 @@ public class Movement : MonoBehaviour
 
     void UpdateMovementGround()
     {
-        float lateralVelocity = Input.GetAxis("kb_Horizontal") * maxSpeed;
+        float lateralVelocity = Input.GetAxis("L_XAxis_1") * maxSpeed;
         player.velocity = new Vector3(lateralVelocity, player.velocity.y, player.velocity.z);
     }
 
     void UpdateMovementAir()
     {
-        Vector3 lateralForce = Vector3.right * Input.GetAxisRaw("kb_Horizontal") * moveForce;
+        Vector3 lateralForce = Vector3.right * Input.GetAxisRaw("L_XAxis_1") * moveForce;
         if (Mathf.Abs(player.velocity.x) < maxSpeed)
             player.AddForce(lateralForce);
-        if (Mathf.Approximately(Input.GetAxis("kb_Horizontal"), 0))
+        if (Mathf.Approximately(Input.GetAxis("L_XAxis_1"), 0))
         {
             StartCoroutine(DisableMovement(AIR_STOP_TIME));
         }
@@ -146,12 +146,18 @@ public class Movement : MonoBehaviour
         //The player is unable to move
     }
 
-    public IEnumerator DisableMovement(float disableTime)
+    IEnumerator DisableMovement(float disableTime)
     {
         MovementState oldState = state;
         ChangeState(MovementState.DISABLED);
         yield return new WaitForSeconds(disableTime);
+        oldState = oldState.ToString() != "DISABLED" ? oldState : MovementState.AIR;
         ChangeState(oldState);
+    }
+
+    public void Disable(float time)
+    {
+        StartCoroutine(DisableMovement(time));
     }
 
     void ReadGroundSensor(bool status)

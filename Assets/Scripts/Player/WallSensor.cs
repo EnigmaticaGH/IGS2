@@ -1,24 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GroundSensor : MonoBehaviour
+public class WallSensor : MonoBehaviour
 {
-    public delegate void SensorStatus(bool grounded);
+    public delegate void SensorStatus(char wall);
     public static event SensorStatus SensorReading;
 
     void Start()
     {
-        SensorReading(true);
+        SensorReading(' ');
     }
     void OnTriggerEnter(Collider c)
     {
         if (c.CompareTag("Untagged") && SensorReading != null)
-            SensorReading(true);
+            SensorReading(name[0]);
     }
     void OnTriggerExit(Collider c)
     {
         if (c.CompareTag("Untagged") && SensorReading != null)
-            SensorReading(false);
+            SensorReading(' ');
     }
     bool TagsToIgnore(string tag)
     {

@@ -30,6 +30,17 @@ public class DeathControl : MonoBehaviour
         }
     }
 
+    public void Kill()
+    {
+        if(doneRespawning)
+        {
+            if (OnDeath != null)
+                OnDeath(respawnTime);
+            StartCoroutine(Respawn(respawnTime));
+            doneRespawning = false;
+        }
+    }
+
     IEnumerator Respawn(float respawnTime)
     {
         player.velocity = Vector3.zero;
