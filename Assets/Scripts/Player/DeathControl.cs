@@ -45,9 +45,9 @@ public class DeathControl : MonoBehaviour
     {
         player.velocity = Vector3.zero;
         player.isKinematic = true;
-        GetComponent<MeshRenderer>().enabled = false;
+        GetComponentInChildren<SpriteRenderer>().enabled = false;
         yield return new WaitForSeconds(respawnTime);
-        GetComponent<MeshRenderer>().enabled = true;
+        GetComponentInChildren<SpriteRenderer>().enabled = true;
         player.isKinematic = false;
         transform.position = startPosition;
         doneRespawning = true;
