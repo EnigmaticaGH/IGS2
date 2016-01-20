@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Movement : MonoBehaviour
 {
+    public int controllerNumber;
     enum MovementState
     {
         GROUND,
@@ -76,16 +77,16 @@ public class Movement : MonoBehaviour
 
     void UpdateMovementGround()
     {
-        float lateralVelocity = Input.GetAxis("L_XAxis_1") * maxSpeed;
+        float lateralVelocity = Input.GetAxis("L_XAxis_" + controllerNumber) * maxSpeed;
         player.velocity = new Vector3(lateralVelocity, player.velocity.y, player.velocity.z);
     }
 
     void UpdateMovementAir()
     {
-        Vector3 lateralForce = Vector3.right * Input.GetAxisRaw("L_XAxis_1") * moveForce;
+        Vector3 lateralForce = Vector3.right * Input.GetAxisRaw("L_XAxis_" + controllerNumber) * moveForce;
         if (Mathf.Abs(player.velocity.x) < maxSpeed)
             player.AddForce(lateralForce);
-        if (Mathf.Approximately(Input.GetAxis("L_XAxis_1"), 0))
+        if (Mathf.Approximately(Input.GetAxis("L_XAxis_" + controllerNumber), 0))
         {
             StartCoroutine(DisableMovement(AIR_STOP_TIME));
         }

@@ -57,6 +57,10 @@ public class DeathControl : MonoBehaviour
 
     void OnTriggerEnter(Collider c)
     {
-
+        if (c.CompareTag("Bullet")) Kill();
+    }
+    void OnCollisionEnter(Collision c)
+    {
+        if (c.collider.CompareTag("Bullet")) Kill();
     }
 }

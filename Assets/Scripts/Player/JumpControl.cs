@@ -3,6 +3,7 @@ using System.Collections;
 
 public class JumpControl : MonoBehaviour
 {
+    private int controllerNumber;
     private bool canNormalJump;
     private bool jumpButtonPressed;
     public float jumpStrength;
@@ -27,6 +28,7 @@ public class JumpControl : MonoBehaviour
 
     void Start()
     {
+        controllerNumber = GetComponent<Movement>().controllerNumber;
         player = GetComponent<Rigidbody>();
         movement = GetComponent<Movement>();
         jumpButtonUp = false;
@@ -40,11 +42,11 @@ public class JumpControl : MonoBehaviour
 
     void Update()
     {
-        if (canNormalJump && Input.GetButton("A_1") && !jumpButtonPressed)
+        if (canNormalJump && Input.GetButton("A_" + controllerNumber) && !jumpButtonPressed)
         {
             StartCoroutine(JumpKeyDown());
         }
-        if(canWallJump && Input.GetButton("A_1") && jumpButtonUp && !canNormalJump)
+        if(canWallJump && Input.GetButton("A_" + controllerNumber) && jumpButtonUp && !canNormalJump)
         {
             player.velocity = new Vector3(wallJumpForce, Mathf.Abs(wallJumpForce), player.velocity.z);
             canWallJump = false;
@@ -71,7 +73,7 @@ public class JumpControl : MonoBehaviour
         float time = maxJumpTime;
         if (OnJump != null)
             OnJump();
-        while (time > 0 && Input.GetButton("A_1"))
+        while (time > 0 && Input.GetButton("A_" + controllerNumber))
         {
             time -= Time.deltaTime;
             player.velocity = new Vector3(player.velocity.x, jumpStrength, player.velocity.z);
@@ -83,7 +85,7 @@ public class JumpControl : MonoBehaviour
     IEnumerator JumpKeyDown()
     {
         jumpButtonPressed = true;
-        while (canNormalJump && Input.GetButton("A_1"))
+        while (canNormalJump && Input.GetButton("A_" + controllerNumber))
         {
             yield return null;
         }

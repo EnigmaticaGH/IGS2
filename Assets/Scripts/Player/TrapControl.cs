@@ -3,39 +3,66 @@ using System.Collections;
 
 public class TrapControl : MonoBehaviour
 {
-    private string trap1;
-    private string trap2;
-
-    public float trap1cooldown;
-    public float trap2cooldown;
-
-    private bool trap1activated;
-    private bool trap2activated;
+    [System.Serializable]
+    public struct Trap
+    {
+        public string Name;
+        public string Button;
+        public float Cooldown;
+        [HideInInspector]
+        public bool Activated;
+        [HideInInspector]
+        public GameObject[] Objects;
+    }
+    public Trap[] traps;
+    public delegate void TrapInit(string[] names);
+    public static event TrapInit TrapInitEvent;
+    public delegate void TrapStatus(string status, int index, float time);
+    public static event TrapStatus TrapStatusEvent;
 
     private Vector3 posX;
     private Vector3 pos;
     public GameObject block;
     public GameObject wall;
-    private GameObject trap1block;
-    private GameObject[] trap2walls = new GameObject[2];
+    public GameObject bullet;
 
     private DeathControl playerLife;
 
     // Use this for initialization
     void Start()
     {
-        trap1 = "B_1";
-        trap2 = "X_1";
-        trap1activated = false;
-        trap2activated = false;
+        for (int i = 0; i < traps.Length; i++)
+        {
+            traps[i].Activated = false;
+        }
 
-        trap1block = (GameObject)Instantiate(block, Vector3.zero, Quaternion.identity);
-        trap1block.SetActive(false);
+        traps[0].Objects = new GameObject[1]
+        {
+            (GameObject)Instantiate(block, Vector3.zero, Quaternion.identity)
+        };
+        traps[0].Objects[0].SetActive(false);
 
-        trap2walls[0] = (GameObject)Instantiate(wall, Vector3.zero, Quaternion.identity);
-        trap2walls[1] = (GameObject)Instantiate(wall, Vector3.zero, Quaternion.identity);
-        trap2walls[0].SetActive(false);
-        trap2walls[1].SetActive(false);
+        traps[1].Objects = new GameObject[2]
+        {
+            (GameObject)Instantiate(wall, Vector3.zero, Quaternion.identity),
+            (GameObject)Instantiate(wall, Vector3.zero, Quaternion.identity)
+        };
+        traps[1].Objects[0].SetActive(false);
+        traps[1].Objects[1].SetActive(false);
+
+        traps[2].Objects = new GameObject[1]
+        {
+            (GameObject)Instantiate(bullet, Vector3.zero, Quaternion.identity)
+        };
+        traps[2].Objects[0].SetActive(false);
+
+        string[] names = new string[traps.Length];
+        for(int i = 0; i < traps.Length; i++)
+        {
+            names[i] = traps[i].Name;
+        }
+
+        TrapInitEvent(names);
 
         playerLife = GameObject.Find("Player").GetComponent<DeathControl>();
     }
@@ -43,47 +70,61 @@ public class TrapControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButton(trap1) && !trap1activated)
+        for(int i = 0; i < traps.Length; i++)
         {
-            StartCoroutine(Trap1Activate());
+            if (Input.GetButton(traps[i].Button) && !traps[i].Activated)
+            {
+                StartCoroutine("Trap" + i + "Activate");
+            }
         }
-        if (Input.GetButton(trap2) && !trap2activated)
-        {
-            StartCoroutine(Trap2Activate());
-        }
+
         posX = new Vector3(transform.position.x, 1, 0);
         pos = transform.position;
     }
 
-    //Spawn block in front of player
-    IEnumerator Trap1Activate()
+    void ResetObject(GameObject g)
     {
-        trap1activated = true;
+        if(g.GetComponent<Rigidbody>() != null)
+        {
+            g.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            g.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        }
+        g.transform.rotation = Quaternion.identity;
+        g.SetActive(false);
+    }
 
-        trap1block.SetActive(true);
-        trap1block.transform.position = pos + Vector3.right * 2.5f + Vector3.up * 0.25f;
+    //Spawn block in front of player
+    IEnumerator Trap0Activate()
+    {
+        TrapStatusEvent("Active", 0, traps[0].Cooldown);
+        traps[0].Activated = true;
 
-        yield return new WaitForSeconds(trap1cooldown);
-        trap1block.SetActive(false);
-        trap1activated = false;
+        traps[0].Objects[0].SetActive(true);
+        traps[0].Objects[0].transform.position = pos + Vector3.right * 2.5f + Vector3.up * 0.25f;
+
+        TrapStatusEvent("Cooldown", 0, traps[0].Cooldown);
+        yield return new WaitForSeconds(traps[0].Cooldown);
+        TrapStatusEvent("Ready", 0, traps[0].Cooldown);
+        ResetObject(traps[0].Objects[0]);
+        traps[0].Activated = false;
     }
     //confine player
-    IEnumerator Trap2Activate()
+    IEnumerator Trap1Activate()
     {
         float netCooldownTime;
+        TrapStatusEvent("Active", 1, traps[1].Cooldown);
+        traps[1].Activated = true;
 
-        trap2activated = true;
-
-        trap2walls[0].transform.position = posX + Vector3.right * 2f + Vector3.up * -5f;
-        trap2walls[1].transform.position = posX + Vector3.left * 2f + Vector3.up * -3.5f;
-        trap2walls[0].SetActive(true);
-        trap2walls[1].SetActive(true);
+        traps[1].Objects[0].transform.position = posX + Vector3.right * 2f + Vector3.up * -5f;
+        traps[1].Objects[1].transform.position = posX + Vector3.left * 2f + Vector3.up * -3.5f;
+        traps[1].Objects[0].SetActive(true);
+        traps[1].Objects[1].SetActive(true);
 
         //Shoot up from the bottom of the screen quickly
         for(int i = 0; i < 20; i++)
         {
-            trap2walls[0].transform.position += Vector3.up * 0.25f;
-            trap2walls[1].transform.position += Vector3.up * 0.25f;
+            traps[1].Objects[0].transform.position += Vector3.up * 0.25f;
+            traps[1].Objects[1].transform.position += Vector3.up * 0.25f;
             yield return new WaitForFixedUpdate();
         }
         //stay in position for a bit
@@ -91,30 +132,52 @@ public class TrapControl : MonoBehaviour
         //slowly move in on the player
         for(int i = 0; i < 144; i++)
         {
-            trap2walls[0].transform.position += Vector3.left * 0.01f;
-            trap2walls[1].transform.position += Vector3.right * 0.01f;
+            traps[1].Objects[0].transform.position += Vector3.left * 0.01f;
+            traps[1].Objects[1].transform.position += Vector3.right * 0.01f;
             yield return new WaitForFixedUpdate();
         }
         //if the player is caught inside when the walls have finished collapsing,
         //kill the player
-        if (posX.x < trap2walls[0].transform.position.x 
-            && posX.x > trap2walls[1].transform.position.x
-            && pos.y < trap2walls[1].transform.position.y + 2.5f)
+        if (posX.x < traps[1].Objects[0].transform.position.x 
+            && posX.x > traps[1].Objects[1].transform.position.x
+            && pos.y < traps[1].Objects[1].transform.position.y + 2.5f)
         {
-            netCooldownTime = trap2cooldown - playerLife.respawnTime;
+            netCooldownTime = traps[1].Cooldown - playerLife.respawnTime;
             playerLife.Kill();
             yield return new WaitForSeconds(playerLife.respawnTime);
-            trap2walls[0].SetActive(false);
-            trap2walls[1].SetActive(false);
+            traps[1].Objects[0].SetActive(false);
+            traps[1].Objects[1].SetActive(false);
         }
         else
         {
-            netCooldownTime = trap2cooldown;
+            netCooldownTime = traps[1].Cooldown;
         }
         //start trap cooldown
+        TrapStatusEvent("Cooldown", 1, traps[1].Cooldown);
         yield return new WaitForSeconds(netCooldownTime);
-        trap2walls[0].SetActive(false);
-        trap2walls[1].SetActive(false);
-        trap2activated = false;
+        TrapStatusEvent("Ready", 1, traps[1].Cooldown);
+        traps[1].Objects[0].SetActive(false);
+        traps[1].Objects[1].SetActive(false);
+        traps[1].Activated = false;
+    }
+    //Shoot bullet from left to right
+    IEnumerator Trap2Activate()
+    {
+        TrapStatusEvent("Active", 2, traps[2].Cooldown);
+        traps[2].Activated = true;
+
+        traps[2].Objects[0].SetActive(true);
+        traps[2].Objects[0].transform.position = posX + Vector3.left * 10f + Vector3.down * 0.5f;
+
+        for (int i = 0; i < 200; i++)
+        {
+            traps[2].Objects[0].transform.position += Vector3.right * 0.2f;
+            yield return new WaitForFixedUpdate();
+        }
+        TrapStatusEvent("Cooldown", 2, traps[2].Cooldown);
+        yield return new WaitForSeconds(traps[2].Cooldown);
+        TrapStatusEvent("Ready", 2, traps[2].Cooldown);
+        ResetObject(traps[2].Objects[0]);
+        traps[2].Activated = false;
     }
 }
