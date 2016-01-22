@@ -3,7 +3,7 @@ using System.Collections;
 
 public class companionScript : MonoBehaviour {
     
-    public Transform companion;
+    public Transform player;
     public Transform enemy;
     public float speed;
     public bool moveTowardsPlayer = false;
@@ -16,13 +16,15 @@ public class companionScript : MonoBehaviour {
     GameObject[] enemies;
     Vector3 followingRange;
     Vector3 enemyRange;
+    int i = 0;
 
     void Awake()
     {
         //Use this stragery for finding GameObjects within the scene and adjust the companion to move towards the closest one. 
 
+        enemyLocationCheck();
 
-        enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        
 
         //This will register all enemies within the scene at Awake time
         //Durning runtime we'll have to add the enemies to the array 
@@ -36,9 +38,9 @@ public class companionScript : MonoBehaviour {
 
 
 
-       
 
-        
+
+       Debug.Log("Hello");
         
 
         
@@ -50,12 +52,11 @@ public class companionScript : MonoBehaviour {
     {
 
         randomMovementTimer = Random.Range(1, 3); //Random timer to adjust movement times
-        
-        if ((moveTowardsPlayer) && (moveTowardsEnemy == false))
+
+        if ((moveTowardsPlayer) && (moveTowardsEnemy == false) && (enemyFound == false))
         {
             Invoke("companionMovement", randomMovementTimer);
-
-
+           
             /*
              *
               Works without corotine when moveTowardsEnemy is called movementAround player is stopped unitl ball finds enemy position and returns back to location
@@ -72,57 +73,83 @@ public class companionScript : MonoBehaviour {
             //Replace this with corotine to enable actions
             //Once InvokeRepeating is called then it is continued to be called
             //Actions such as searching for an enemy can cause bug when timer goes off durning searching excution
-            
+
 
         }
-    }
 
-    void Update()
-    {
-
+        if (enemyFound)
+        {
+            //Debug.LogError("OMG IT WORKED EJHENRENRUER");
+            Invoke("companionMovement", .0001f);
+        }
     }
 
     void companionMovement()
     {
-        Debug.LogError("Companion movement called");
+        //Debug.LogError("Companion movement called");
         
         mt = true;
 
-        randomNumber = Random.Range(1.5f, 2.5f); //Movement distance behind player 
+        randomNumber = Random.Range(.5f, 1.0f); //Movement distance behind player 
 
-        Debug.Log(randomNumber);
+        //Debug.Log(randomNumber);
 
     }
 
     void enemyLocationCheck()
     {
+        //Calculates enemies within scene at runtime
+        //Using there x location and compares there value
+        /*
+         * *************This method will only work around the smallest x value meaning it doesn't go by closest to players x position*************
+         * 
+         * **********UPDATE : MAKE THIS WORK FOR CLOSEST TO PLAYER****************
+         * *******1/22/16 GOES BY SMALLEST X VALUE NEEDS TO WORK CORSPONDING TO PLAYER/COMPANION'S POSITION*******
+         */
+
          enemyRange = new Vector3(enemy.position.x, transform.position.y, enemy.position.z);
+         enemies = GameObject.FindGameObjectsWithTag("Fear");
+         
+         float enemyX = 0;
+         float smallest = enemies[0].transform.position.x;
+
+         Debug.Log(smallest);
 
          for (int i = 0; i < enemies.Length; i++)
          {
-             /*int small;
-             if (enemies[i] < small)
+             Vector3 enemyLocaion = new Vector3(enemies[i].transform.position.x, enemies[i].transform.position.y, enemies[i].transform.position.z);
+
+             /*if (enemies[i].transform.position.x < 0)
              {
-                 small = enemies[i];
+                 enemyX = enemies[i].transform.position.x;
+                 enemyX = enemyX * -1;
              }*/
-             /*float locationX;
-             //float highestLocationX;
-             locationX = enemies[i].transform.position.x;
+                 
+             if ((enemies[i].transform.position.x < smallest) && (enemies[i].transform.position.x > 0))
+             {
+                 smallest = enemies[i].transform.position.x;
 
-             if(locationX < 0)
-                 locationX = locationX * -1;
+                 if (enemies[i].transform.position.x < 0)
+                     enemyX = enemies[i].transform.position.x * -1;
+                 
+                 if (enemyX < smallest)
+                     smallest = enemyX;
 
-             //locationX = highestLocationX;
+             }
+             else if (enemies[i].transform.position.x < 0)
+             {
+                 enemyX = enemies[i].transform.position.x * -1;
+                 if (enemyX < smallest)
+                 {
+                     smallest = enemyX;
+                 }
+             }
 
-             float playerLocationX;
-             playerLocationX = player.transform.position.x;
-
-             float locationClosest;
-             locationClosest = (locationX - player.transform.position.x);*/
-
-
+             Debug.Log(enemies[i].transform.position);
          }
 
+         Debug.Log(smallest);
+        
     }
 
     void FixedUpdate()
@@ -144,10 +171,10 @@ public class companionScript : MonoBehaviour {
         if (mt && (moveTowardsEnemy == false))
         {
            
-            followingRange = new Vector3(companion.position.x - randomNumber, transform.position.y, companion.position.z);
+            followingRange = new Vector3(player.position.x - randomNumber, transform.position.y, player.position.z);
             float step = speed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, followingRange, step);
-            if ((transform.position.x) == (companion.position.x - randomNumber))
+            if ((transform.position.x) == (player.position.x - randomNumber))
             {
                 mt = false;
                 enemyFound = false;
@@ -159,14 +186,15 @@ public class companionScript : MonoBehaviour {
         
     }
 
-    void OnTriggerEnter(Collider col)
+    void OnTriggerEnter(Collider c)
     {
-        if (col.gameObject.name == "Enemy")
+        if ((c.gameObject.name == "Fear") || (c.CompareTag("Fear")))
         {
             Debug.Log("Collision Detected!");
             enemyFound = true;
             moveTowardsEnemy = false;
-            moveTowardsPlayer = true;
+            moveTowardsPlayer = false;
+            Main();
         }
     }
 }

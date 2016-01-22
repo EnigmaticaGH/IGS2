@@ -14,6 +14,12 @@ public class WallSensor : MonoBehaviour
     {
         if (c.CompareTag("Untagged") && jumpControl != null)
             jumpControl.SendWallSensorReading(name[0]);
+
+        if (c.gameObject.name == "Companion")
+        {
+            ;
+        }
+       
     }
     void OnTriggerExit(Collider c)
     {
