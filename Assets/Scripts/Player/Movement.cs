@@ -4,6 +4,7 @@ using System.Collections;
 public class Movement : MonoBehaviour
 {
     public int controllerNumber;
+    public bool useKeyboard;
     enum MovementState
     {
         GROUND,
@@ -15,8 +16,8 @@ public class Movement : MonoBehaviour
     }
     private delegate void StateFunction();
     private StateFunction[] SetState;
-    public delegate void StateChange(string state);
-    public static event StateChange StateChangeEvent;
+    private JumpControl jumpControl;
+    private HoverControl hoverControl;
     private MovementState state;
 
     void MapStateFunctions()
@@ -40,8 +41,6 @@ public class Movement : MonoBehaviour
 
     void Awake()
     {
-        GroundSensor.SensorReading += ReadGroundSensor;
-        JumpControl.OnJump += OnJump;
         HoverControl.OnHoverStartOrResume += OnHoverStartOrResume;
         HoverControl.OnHoverPause += OnHoverPause;
         HoverControl.OnHoverDone += OnHoverDone;
@@ -49,8 +48,6 @@ public class Movement : MonoBehaviour
 
     void OnDestroy()
     {
-        GroundSensor.SensorReading -= ReadGroundSensor;
-        JumpControl.OnJump -= OnJump;
         HoverControl.OnHoverStartOrResume += OnHoverStartOrResume;
         HoverControl.OnHoverPause -= OnHoverPause;
         HoverControl.OnHoverDone -= OnHoverDone;
@@ -59,6 +56,8 @@ public class Movement : MonoBehaviour
     void Start()
     {
         player = GetComponent<Rigidbody>();
+        jumpControl = GetComponent<JumpControl>();
+        hoverControl = GetComponent<HoverControl>();
         MapStateFunctions();
         ChangeState(MovementState.GROUND);
     }
@@ -71,25 +70,51 @@ public class Movement : MonoBehaviour
     void ChangeState(MovementState newState)
     {
         state = newState;
-        if(StateChangeEvent != null)
-            StateChangeEvent(state.ToString());
+        jumpControl.MovementState(state.ToString());
+        if (hoverControl != null)
+            hoverControl.MovementState(state.ToString());
     }
 
     void UpdateMovementGround()
     {
         float lateralVelocity = Input.GetAxis("L_XAxis_" + controllerNumber) * maxSpeed;
-        player.velocity = new Vector3(lateralVelocity, player.velocity.y, player.velocity.z);
+        int a = 0, d = 0;
+        
+        if(Input.GetKey(KeyCode.D))
+        {
+            d = 1;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            a = 1;
+        }
+
+        if (useKeyboard)
+            lateralVelocity = (d - a) * maxSpeed;
+
+        if (lateralVelocity != 0)
+            player.velocity = new Vector3(lateralVelocity, player.velocity.y, player.velocity.z);
     }
 
     void UpdateMovementAir()
     {
         Vector3 lateralForce = Vector3.right * Input.GetAxisRaw("L_XAxis_" + controllerNumber) * moveForce;
+
+        int a = 0, d = 0;
+        if (Input.GetKey(KeyCode.D))
+        {
+            d = 1;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            a = 1;
+        }
+
+        if (useKeyboard)
+            lateralForce = Vector3.right * (d - a) * moveForce;
+
         if (Mathf.Abs(player.velocity.x) < maxSpeed)
             player.AddForce(lateralForce);
-        if (Mathf.Approximately(Input.GetAxis("L_XAxis_" + controllerNumber), 0))
-        {
-            StartCoroutine(DisableMovement(AIR_STOP_TIME));
-        }
     }
 
     void Ground()
@@ -161,12 +186,12 @@ public class Movement : MonoBehaviour
         StartCoroutine(DisableMovement(time));
     }
 
-    void ReadGroundSensor(bool status)
+    public void SendGroundSensorReading(bool status)
     {
         isGrounded = status;
     }
 
-    void OnJump()
+    public void OnJump()
     {
         ChangeState(MovementState.JUMP);
     }

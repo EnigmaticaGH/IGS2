@@ -3,22 +3,22 @@ using System.Collections;
 
 public class GroundSensor : MonoBehaviour
 {
-    public delegate void SensorStatus(bool grounded);
-    public static event SensorStatus SensorReading;
+    private Movement movement;
 
     void Start()
     {
-        SensorReading(true);
+        movement = GetComponentInParent<Movement>();
+        movement.SendGroundSensorReading(true);
     }
     void OnTriggerEnter(Collider c)
     {
-        if (c.CompareTag("Untagged") && SensorReading != null)
-            SensorReading(true);
+        if (c.CompareTag("Untagged") && movement != null)
+            movement.SendGroundSensorReading(true);
     }
     void OnTriggerExit(Collider c)
     {
-        if (c.CompareTag("Untagged") && SensorReading != null)
-            SensorReading(false);
+        if (c.CompareTag("Untagged") && movement != null)
+            movement.SendGroundSensorReading(false);
     }
     bool TagsToIgnore(string tag)
     {
