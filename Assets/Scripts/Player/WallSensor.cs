@@ -3,22 +3,22 @@ using System.Collections;
 
 public class WallSensor : MonoBehaviour
 {
-    public delegate void SensorStatus(char wall);
-    public static event SensorStatus SensorReading;
+    private JumpControl jumpControl;
 
     void Start()
     {
-        SensorReading(' ');
+        jumpControl = GetComponentInParent<JumpControl>();
+        jumpControl.SendWallSensorReading(' ');
     }
     void OnTriggerEnter(Collider c)
     {
-        if (c.CompareTag("Untagged") && SensorReading != null)
-            SensorReading(name[0]);
+        if (c.CompareTag("Untagged") && jumpControl != null)
+            jumpControl.SendWallSensorReading(name[0]);
     }
     void OnTriggerExit(Collider c)
     {
-        if (c.CompareTag("Untagged") && SensorReading != null)
-            SensorReading(' ');
+        if (c.CompareTag("Untagged") && jumpControl != null)
+            jumpControl.SendWallSensorReading(' ');
     }
     bool TagsToIgnore(string tag)
     {

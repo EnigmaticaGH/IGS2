@@ -8,6 +8,7 @@ public class TrapControl : MonoBehaviour
     {
         public string Name;
         public string Button;
+        public string ControllerNumber;
         public float Cooldown;
         [HideInInspector]
         public bool Activated;
@@ -27,6 +28,17 @@ public class TrapControl : MonoBehaviour
     public GameObject bullet;
 
     private DeathControl playerLife;
+    private Rigidbody playerRB;
+
+    void Awake()
+    {
+        DeathControl.OnRespawn += ResetAllTraps;
+    }
+
+    void OnDestroy()
+    {
+        DeathControl.OnRespawn -= ResetAllTraps;
+    }
 
     // Use this for initialization
     void Start()
@@ -59,12 +71,13 @@ public class TrapControl : MonoBehaviour
         string[] names = new string[traps.Length];
         for(int i = 0; i < traps.Length; i++)
         {
-            names[i] = traps[i].Name;
+            names[i] = traps[i].Button +  " - " + traps[i].Name;
         }
 
         TrapInitEvent(names);
 
         playerLife = GameObject.Find("Player").GetComponent<DeathControl>();
+        playerRB = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -72,10 +85,23 @@ public class TrapControl : MonoBehaviour
     {
         for(int i = 0; i < traps.Length; i++)
         {
-            if (Input.GetButton(traps[i].Button) && !traps[i].Activated)
+            if (Input.GetButton(traps[i].Button + "_" + traps[i].ControllerNumber) && !traps[i].Activated)
             {
                 StartCoroutine("Trap" + i + "Activate");
             }
+        }
+
+        if(Input.GetKeyDown(KeyCode.Q) && !traps[0].Activated)
+        {
+            StartCoroutine("Trap0Activate");
+        }
+        if (Input.GetKeyDown(KeyCode.W) && !traps[1].Activated)
+        {
+            StartCoroutine("Trap1Activate");
+        }
+        if (Input.GetKeyDown(KeyCode.E) && !traps[2].Activated)
+        {
+            StartCoroutine("Trap2Activate");
         }
 
         posX = new Vector3(transform.position.x, 1, 0);
@@ -96,11 +122,19 @@ public class TrapControl : MonoBehaviour
     //Spawn block in front of player
     IEnumerator Trap0Activate()
     {
+        float playerHeight = 1;
+        float spawnHeight = 5;
+        float distance = spawnHeight - playerHeight;
+        float gravity = Mathf.Abs(Physics.gravity.y);
+        float timeToFall = Mathf.Sqrt(2 * distance / gravity);
+        float distanceTraveledByPlayer = playerRB.velocity.x * timeToFall;
+
+        Vector3 targetPos = pos + Vector3.right * distanceTraveledByPlayer;
         TrapStatusEvent("Active", 0, traps[0].Cooldown);
         traps[0].Activated = true;
 
         traps[0].Objects[0].SetActive(true);
-        traps[0].Objects[0].transform.position = pos + Vector3.right * 2.5f + Vector3.up * 0.25f;
+        traps[0].Objects[0].transform.position = targetPos + Vector3.up * spawnHeight;
 
         TrapStatusEvent("Cooldown", 0, traps[0].Cooldown);
         yield return new WaitForSeconds(traps[0].Cooldown);
@@ -111,8 +145,7 @@ public class TrapControl : MonoBehaviour
     //confine player
     IEnumerator Trap1Activate()
     {
-        float netCooldownTime;
-        TrapStatusEvent("Active", 1, traps[1].Cooldown);
+        TrapStatusEvent("Active", 1, 0);
         traps[1].Activated = true;
 
         traps[1].Objects[0].transform.position = posX + Vector3.right * 2f + Vector3.up * -5f;
@@ -140,22 +173,14 @@ public class TrapControl : MonoBehaviour
         //kill the player
         if (posX.x < traps[1].Objects[0].transform.position.x 
             && posX.x > traps[1].Objects[1].transform.position.x
-            && pos.y < traps[1].Objects[1].transform.position.y + 2.5f)
+            && pos.y < traps[1].Objects[1].transform.position.y + 2)
         {
-            netCooldownTime = traps[1].Cooldown - playerLife.respawnTime;
             playerLife.Kill();
-            yield return new WaitForSeconds(playerLife.respawnTime);
-            traps[1].Objects[0].SetActive(false);
-            traps[1].Objects[1].SetActive(false);
-        }
-        else
-        {
-            netCooldownTime = traps[1].Cooldown;
         }
         //start trap cooldown
         TrapStatusEvent("Cooldown", 1, traps[1].Cooldown);
-        yield return new WaitForSeconds(netCooldownTime);
-        TrapStatusEvent("Ready", 1, traps[1].Cooldown);
+        yield return new WaitForSeconds(traps[1].Cooldown);
+        TrapStatusEvent("Ready", 1, 0);
         traps[1].Objects[0].SetActive(false);
         traps[1].Objects[1].SetActive(false);
         traps[1].Activated = false;
@@ -171,7 +196,7 @@ public class TrapControl : MonoBehaviour
 
         for (int i = 0; i < 200; i++)
         {
-            traps[2].Objects[0].transform.position += Vector3.right * 0.2f;
+            traps[2].Objects[0].transform.position += Vector3.right * 0.14f;
             yield return new WaitForFixedUpdate();
         }
         TrapStatusEvent("Cooldown", 2, traps[2].Cooldown);
@@ -179,5 +204,16 @@ public class TrapControl : MonoBehaviour
         TrapStatusEvent("Ready", 2, traps[2].Cooldown);
         ResetObject(traps[2].Objects[0]);
         traps[2].Activated = false;
+    }
+
+    void ResetAllTraps()
+    {
+        foreach(Trap t in traps)
+        {
+            foreach(GameObject g in t.Objects)
+            {
+                g.SetActive(false);
+            }
+        }
     }
 }

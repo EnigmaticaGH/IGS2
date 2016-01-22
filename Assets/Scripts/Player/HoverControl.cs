@@ -15,23 +15,13 @@ public class HoverControl : MonoBehaviour
     private bool inAir;
     private bool isHovering;
 
-    void Awake()
-    {
-        Movement.StateChangeEvent += MovementState;
-    }
-
     void Start()
     {
         player = GetComponent<Rigidbody>();
         isHovering = false;
     }
 
-    void OnDestroy()
-    {
-        Movement.StateChangeEvent -= MovementState;
-    }
-
-    void MovementState(string state)
+    public void MovementState(string state)
     {
         canHover = state == "AIR" || state == "JUMP";
         inAir = state != "GROUND";
