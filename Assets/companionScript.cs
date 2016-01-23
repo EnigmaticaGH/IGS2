@@ -5,6 +5,7 @@ public class companionScript : MonoBehaviour {
     
     public Transform player;
     public Transform enemy;
+    public GameObject portal;
     public float speed;
     public bool moveTowardsPlayer = false;
     public bool moveTowardsEnemy = false;
@@ -16,7 +17,9 @@ public class companionScript : MonoBehaviour {
     GameObject[] enemies;
     Vector3 followingRange;
     Vector3 enemyRange;
-    int i = 0;
+    int a = 0;
+    //Object portal1;
+    
 
     void Awake()
     {
@@ -24,28 +27,17 @@ public class companionScript : MonoBehaviour {
 
         enemyLocationCheck();
 
-        
 
         //This will register all enemies within the scene at Awake time
         //Durning runtime we'll have to add the enemies to the array 
 
-       for(int i = 0; i <= enemies.Length; i++)
-       {
-           //enemies[i] = GameObject.FindGameObjectWithTag("Enemy");
+        for (int i = 0; i <= enemies.Length; i++)
+        {
+            //enemies[i] = GameObject.FindGameObjectWithTag("Enemy");
 
-          // Debug.LogError(enemies[i].transform.position);
-       }
-
-
-
-
-
-       Debug.Log("Hello");
-        
-
-        
-
-        
+            // Debug.LogError(enemies[i].transform.position);
+        }
+       Debug.Log("Hello");   
     }
 
     void Main()
@@ -56,23 +48,7 @@ public class companionScript : MonoBehaviour {
         if ((moveTowardsPlayer) && (moveTowardsEnemy == false) && (enemyFound == false))
         {
             Invoke("companionMovement", randomMovementTimer);
-           
-            /*
-             *
-              Works without corotine when moveTowardsEnemy is called movementAround player is stopped unitl ball finds enemy position and returns back to location
-             * 
-             * InvokeRepeating doesn't work instead used Invoke and set the movementTimer to random number
-             *
-             *************** Adjust speed while following player******************
-             *
-             //BUG FIXED * ******* BUG : When you press key to find enemy and while companion is on way back to player and you press key again the companion will go to enemy's position and stop*****************
-             //BUG FIXED * ****** BUG CONT': Happens when you click key mutiple times *************
-             * Adjust key for ability of companion finding an enemy set to a cooldown reduction, 1/20/16 you can click the key after the companion returns to player's location. 
-             * 
-             */
-            //Replace this with corotine to enable actions
-            //Once InvokeRepeating is called then it is continued to be called
-            //Actions such as searching for an enemy can cause bug when timer goes off durning searching excution
+          
 
 
         }
@@ -82,6 +58,9 @@ public class companionScript : MonoBehaviour {
             //Debug.LogError("OMG IT WORKED EJHENRENRUER");
             Invoke("companionMovement", .0001f);
         }
+
+
+      
     }
 
     void companionMovement()
@@ -145,11 +124,33 @@ public class companionScript : MonoBehaviour {
                  }
              }
 
-             Debug.Log(enemies[i].transform.position);
+             //Debug.Log(enemies[i].transform.position);
          }
 
-         Debug.Log(smallest);
+         //Debug.Log(smallest);
         
+    }
+
+    void Update()
+    {
+        if (Input.GetButton("X_1") || Input.GetKeyUp(KeyCode.M))
+        {
+            a++;
+            if (a == 1)
+            {
+                Instantiate(portal, new Vector3(player.transform.position.x, 0, 0), Quaternion.identity);
+                
+                Invoke("portalTimer", 3); //Non-coroutine so totally uncool but works for now ****Pretty much cool down reduction for portal usuage.***
+            }
+               
+        }
+
+      
+    }
+
+    void portalTimer()
+    {
+        a = 0;
     }
 
     void FixedUpdate()
@@ -161,6 +162,8 @@ public class companionScript : MonoBehaviour {
             moveTowardsEnemy = true;
             moveTowardsPlayer = false;
         }
+
+        
 
         if (moveTowardsEnemy)
         {
@@ -191,10 +194,30 @@ public class companionScript : MonoBehaviour {
         if ((c.gameObject.name == "Fear") || (c.CompareTag("Fear")))
         {
             Debug.Log("Collision Detected!");
-            enemyFound = true;
+            if(moveTowardsEnemy)
+                enemyFound = true;
             moveTowardsEnemy = false;
-            moveTowardsPlayer = false;
+            moveTowardsPlayer = true;
             Main();
         }
     }
 }
+
+
+
+/*
+ *
+  Works without corotine when moveTowardsEnemy is called movementAround player is stopped unitl ball finds enemy position and returns back to location
+ * 
+ * InvokeRepeating doesn't work instead used Invoke and set the movementTimer to random number
+ *
+ *************** Adjust speed while following player******************
+ *
+ //BUG FIXED * ******* BUG : When you press key to find enemy and while companion is on way back to player and you press key again the companion will go to enemy's position and stop*****************
+ //BUG FIXED * ****** BUG CONT': Happens when you click key mutiple times *************
+ * Adjust key for ability of companion finding an enemy set to a cooldown reduction, 1/20/16 you can click the key after the companion returns to player's location. 
+ * 
+ */
+//Replace this with corotine to enable actions
+//Once InvokeRepeating is called then it is continued to be called
+//Actions such as searching for an enemy can cause bug when timer goes off durning searching excution
