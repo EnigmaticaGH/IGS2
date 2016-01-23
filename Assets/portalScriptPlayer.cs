@@ -3,8 +3,19 @@ using System.Collections;
 
 public class portalScriptPlayer : MonoBehaviour {
 
+    public Rigidbody player;
+    RigidbodyConstraints orginialConstranints;
+    public bool portalTimer = false;
+
+    void Awake()
+    {
+        orginialConstranints = player.constraints;
+    }
+
 	// Use this for initialization
 	void Start () {
+
+        portalTimer = true;
 	
 	}
 	
@@ -15,24 +26,38 @@ public class portalScriptPlayer : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.tag == "Portal")
+        if ((col.tag == "Portal") && (portalTimer))
         {
+            portalTimer = false;
+
+            player.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
+
             Debug.LogError("Teleport me now!!!!!");
 
             Invoke("Teleport", .5f);
+            Invoke("TimerReset", 3f);
         }
     }
 
     void Teleport()
     {
-        /*
-         
-         ****** NEED TO ADJUST BASED ON PLAYER"S VELOCITY***********
-         
-         */
+    
+        player.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
 
         Debug.LogError("TELEPORTATION DEVICE CALLED");
-        transform.position = new Vector3(transform.position.x + 1, transform.position.y, 0);
+        transform.position = new Vector3(transform.position.x + 2, transform.position.y, 0);
+        Debug.LogError(player.velocity);
+        Invoke("playerReset", .5f);
+    }
+
+    void TimerReset()
+    {
+        portalTimer = true;
+    }
+
+    void playerReset()
+    {
+        player.constraints = orginialConstranints;
     }
 
 }
