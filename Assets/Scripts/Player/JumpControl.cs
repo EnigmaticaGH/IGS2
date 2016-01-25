@@ -43,6 +43,7 @@ public class JumpControl : MonoBehaviour
 
     public void MovementState(string state)
     {
+        Debug.Log(state);
         canNormalJump = state == "GROUND";
     }
 

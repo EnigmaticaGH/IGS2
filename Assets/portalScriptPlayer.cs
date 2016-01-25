@@ -6,6 +6,7 @@ public class portalScriptPlayer : MonoBehaviour {
     public Rigidbody player;
     RigidbodyConstraints orginialConstranints;
     public bool portalTimer = false;
+    //private bool isGrounded;
 
     void Awake()
     {
@@ -16,6 +17,7 @@ public class portalScriptPlayer : MonoBehaviour {
 	void Start () {
 
         portalTimer = true;
+        //isGrounded = false;
 	
 	}
 	
@@ -32,7 +34,7 @@ public class portalScriptPlayer : MonoBehaviour {
 
             player.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
 
-            Debug.LogError("Teleport me now!!!!!");
+            //Debug.LogError("Teleport me now!!!!!");
 
             Invoke("Teleport", .5f);
             Invoke("TimerReset", 3f);
@@ -44,9 +46,9 @@ public class portalScriptPlayer : MonoBehaviour {
     
         player.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
 
-        Debug.LogError("TELEPORTATION DEVICE CALLED");
+        //Debug.LogError("TELEPORTATION DEVICE CALLED");
         transform.position = new Vector3(transform.position.x + 2, transform.position.y, 0);
-        Debug.LogError(player.velocity);
+        //Debug.LogError(player.velocity);
         Invoke("playerReset", .5f);
     }
 
@@ -59,5 +61,5 @@ public class portalScriptPlayer : MonoBehaviour {
     {
         player.constraints = orginialConstranints;
     }
-
+    
 }

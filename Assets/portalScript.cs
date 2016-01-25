@@ -28,7 +28,7 @@ public class portalScript : MonoBehaviour {
     {
         if ((col.tag == "Player") && (portalReset))
         {
-            Debug.LogError("omg Dis The Player On Me!!!!1");
+            //Debug.LogError("omg Dis The Player On Me!!!!1");
 
             Invoke("teleport", .5f); //Teleports portal
             Invoke("portalTimer", 3);
