@@ -37,7 +37,7 @@ public class companionScript : MonoBehaviour {
 
             // Debug.LogError(enemies[i].transform.position);
         }
-       Debug.Log("Hello");   
+       //Debug.Log("Hello");   
     }
 
     void Main()
@@ -92,7 +92,7 @@ public class companionScript : MonoBehaviour {
          float enemyX = 0;
          float smallest = enemies[0].transform.position.x;
 
-         Debug.Log(smallest);
+         //Debug.Log(smallest);
 
          for (int i = 0; i < enemies.Length; i++)
          {
@@ -186,7 +186,7 @@ public class companionScript : MonoBehaviour {
                 mt = false;
                 enemyFound = false;
                 randomNumber = 0;
-                Debug.Log(step);
+                //Debug.Log(step);
                 Main();
             }
         }

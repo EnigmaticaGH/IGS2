@@ -38,6 +38,7 @@ public class Movement : MonoBehaviour
     public float maxSpeed;
     private Rigidbody player;
     private bool isGrounded;
+    private bool startedJumpCoroutine;
 
     void Awake()
     {
@@ -60,6 +61,7 @@ public class Movement : MonoBehaviour
         hoverControl = GetComponent<HoverControl>();
         MapStateFunctions();
         ChangeState(MovementState.GROUND);
+        startedJumpCoroutine = false;
     }
 
     void FixedUpdate()
@@ -139,10 +141,9 @@ public class Movement : MonoBehaviour
 
     void Jump() //The player initiated a jump
     {
-        if (isGrounded)
-        {
-            ChangeState(MovementState.GROUND);
-        }
+        //Delay ground checking until the player is off the ground initially from the jump
+        if(!startedJumpCoroutine)
+            StartCoroutine(JumpToGroundState());
 
         UpdateMovementAir();
     }
@@ -179,6 +180,18 @@ public class Movement : MonoBehaviour
         yield return new WaitForSeconds(disableTime);
         oldState = oldState.ToString() != "DISABLED" ? oldState : MovementState.AIR;
         ChangeState(oldState);
+    }
+
+    IEnumerator JumpToGroundState()
+    {
+        startedJumpCoroutine = true;
+        yield return new WaitForSeconds(0.1f);
+        while (!isGrounded)
+        {
+            yield return new WaitForFixedUpdate();            
+        }
+        startedJumpCoroutine = false;
+        ChangeState(MovementState.GROUND);
     }
 
     public void Disable(float time)

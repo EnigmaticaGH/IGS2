@@ -12,27 +12,28 @@ public class JumpControl : MonoBehaviour
 
     public float wallJumpStrength;
     private bool canWallJump;
-    private bool jumpButtonUp;
     private int direction;
     private float wallJumpForce;
 
     private Movement movement;
+
+    private bool spacePressed;
+    private bool jumpStarted;
 
     void Start()
     {
         controllerNumber = GetComponent<Movement>().controllerNumber;
         player = GetComponent<Rigidbody>();
         movement = GetComponent<Movement>();
-        jumpButtonUp = false;
+        spacePressed = false;
+        jumpStarted = false;
     }
 
     void Update()
     {
-        if (canNormalJump && (Input.GetButton("A_" + controllerNumber) || Input.GetKey(KeyCode.Space)) && !jumpButtonPressed)
-        {
-            StartCoroutine(JumpKeyDown());
-        }
-        if(canWallJump && (Input.GetButton("A_" + controllerNumber) || Input.GetKey(KeyCode.Space)) && jumpButtonUp && !canNormalJump)
+        spacePressed = movement.useKeyboard && Input.GetKey(KeyCode.Space);
+        jumpButtonPressed = canNormalJump && (Input.GetButton("A_" + controllerNumber) || spacePressed);
+        if(canWallJump && (Input.GetButton("A_" + controllerNumber) || spacePressed) && !canNormalJump)
         {
             player.velocity = new Vector3(wallJumpForce, Mathf.Abs(wallJumpForce), player.velocity.z);
             canWallJump = false;
@@ -47,7 +48,7 @@ public class JumpControl : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (jumpButtonPressed)
+        if (jumpButtonPressed && !jumpStarted)
         {
             StartCoroutine(JumpTimer());
         }
@@ -55,26 +56,17 @@ public class JumpControl : MonoBehaviour
 
     IEnumerator JumpTimer()
     {
-        jumpButtonUp = false;
+        jumpStarted = true;
         float time = maxJumpTime;
         movement.OnJump();
-        while (time > 0 && (Input.GetButton("A_" + controllerNumber) || Input.GetKey(KeyCode.Space)))
+        spacePressed = movement.useKeyboard && Input.GetKey(KeyCode.Space);
+        while (time > 0 && (Input.GetButton("A_" + controllerNumber) || spacePressed))
         {
             time -= Time.deltaTime;
             player.velocity = new Vector3(player.velocity.x, jumpStrength, player.velocity.z);
             yield return null;
         }
-        jumpButtonUp = true;
-    }
-
-    IEnumerator JumpKeyDown()
-    {
-        jumpButtonPressed = true;
-        while (canNormalJump && (Input.GetButton("A_" + controllerNumber) || Input.GetKey(KeyCode.Space)))
-        {
-            yield return null;
-        }
-        jumpButtonPressed = false;
+        jumpStarted = false;
     }
 
     public void SendWallSensorReading(char status)
