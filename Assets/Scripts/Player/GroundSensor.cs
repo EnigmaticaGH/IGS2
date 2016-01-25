@@ -12,17 +12,12 @@ public class GroundSensor : MonoBehaviour
     }
     void OnTriggerEnter(Collider c)
     {
-        if (c.CompareTag("Untagged") && movement != null)
+        if (c.CompareTag("Ground") && movement != null)
             movement.SendGroundSensorReading(true);
     }
     void OnTriggerExit(Collider c)
     {
-        if (c.CompareTag("Untagged") && movement != null)
+        if (c.CompareTag("Ground") && movement != null)
             movement.SendGroundSensorReading(false);
-    }
-    bool TagsToIgnore(string tag)
-    {
-        return tag == "Sensor"
-            || tag == "Player";
     }
 }

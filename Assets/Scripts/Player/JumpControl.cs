@@ -42,6 +42,7 @@ public class JumpControl : MonoBehaviour
 
     public void MovementState(string state)
     {
+        Debug.Log(state);
         canNormalJump = state == "GROUND";
     }
 
@@ -57,7 +58,6 @@ public class JumpControl : MonoBehaviour
     {
         jumpButtonUp = false;
         float time = maxJumpTime;
-        movement.OnJump();
         while (time > 0 && (Input.GetButton("A_" + controllerNumber) || Input.GetKey(KeyCode.Space)))
         {
             time -= Time.deltaTime;

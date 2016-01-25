@@ -10,6 +10,7 @@ public class companionScript : MonoBehaviour {
     public bool moveTowardsPlayer = false;
     public bool moveTowardsEnemy = false;
     public bool enemyFound = false;
+    public bool isGrounded = false;
     
     int randomMovementTimer;
     float randomNumber;
@@ -27,7 +28,7 @@ public class companionScript : MonoBehaviour {
 
         enemyLocationCheck();
 
-
+        
         //This will register all enemies within the scene at Awake time
         //Durning runtime we'll have to add the enemies to the array 
 
@@ -37,7 +38,12 @@ public class companionScript : MonoBehaviour {
 
             // Debug.LogError(enemies[i].transform.position);
         }
-       Debug.Log("Hello");   
+          
+    }
+
+    void Start()
+    {
+        isGrounded = false;
     }
 
     void Main()
@@ -89,10 +95,14 @@ public class companionScript : MonoBehaviour {
          enemyRange = new Vector3(enemy.position.x, transform.position.y, enemy.position.z);
          enemies = GameObject.FindGameObjectsWithTag("Fear");
          
-         float enemyX = 0;
-         float smallest = enemies[0].transform.position.x;
+         //float enemyX = 0;
+         //float smallest = enemies[0].transform.position.x;
 
-         Debug.Log(smallest);
+         //Debug.Log(smallest);
+
+        /*
+         * *********Commented out because eneimies are disabled currently************** 1/25/2016
+         */
 
          for (int i = 0; i < enemies.Length; i++)
          {
@@ -104,7 +114,7 @@ public class companionScript : MonoBehaviour {
                  enemyX = enemyX * -1;
              }*/
                  
-             if ((enemies[i].transform.position.x < smallest) && (enemies[i].transform.position.x > 0))
+             /*if ((enemies[i].transform.position.x < smallest) && (enemies[i].transform.position.x > 0))
              {
                  smallest = enemies[i].transform.position.x;
 
@@ -122,7 +132,7 @@ public class companionScript : MonoBehaviour {
                  {
                      smallest = enemyX;
                  }
-             }
+             }*/
 
              //Debug.Log(enemies[i].transform.position);
          }
@@ -137,7 +147,7 @@ public class companionScript : MonoBehaviour {
          ******Check if player is grounded, if player isn't grounded then he a portal can't be placed.
          */
 
-        if (Input.GetButton("X_1") || Input.GetKeyUp(KeyCode.M))
+        if ((Input.GetButton("X_1") || Input.GetKeyUp(KeyCode.M)) && (isGrounded))
         {
             a++;
             if (a == 1)
@@ -146,6 +156,10 @@ public class companionScript : MonoBehaviour {
                 
                 Invoke("portalTimer", 3); //Non-coroutine so totally uncool but works for now ****Pretty much cool down reduction for portal usuage.***
             }
+           //if((a > 1) && (isGrounded))
+               
+
+            Debug.LogError(a);
                
         }
 
@@ -204,6 +218,12 @@ public class companionScript : MonoBehaviour {
             moveTowardsPlayer = true;
             Main();
         }
+    }
+
+    public void MovementStateChange(string state)
+    {
+        isGrounded = state == "GROUND";
+        Debug.LogError("IS PLAYER GROUNDED:" + isGrounded);
     }
 }
 

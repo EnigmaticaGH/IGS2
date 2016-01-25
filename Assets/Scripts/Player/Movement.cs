@@ -9,7 +9,6 @@ public class Movement : MonoBehaviour
     {
         GROUND,
         AIR,
-        JUMP,
         HOVER,
         LANDING,
         DISABLED
@@ -18,6 +17,7 @@ public class Movement : MonoBehaviour
     private StateFunction[] SetState;
     private JumpControl jumpControl;
     private HoverControl hoverControl;
+    private companionScript portal;
     private MovementState state;
 
     void MapStateFunctions()
@@ -25,7 +25,6 @@ public class Movement : MonoBehaviour
         SetState = new StateFunction[] {
             Ground,
             Air,
-            Jump,
             Hover,
             Landing,
             Disabled
@@ -44,6 +43,8 @@ public class Movement : MonoBehaviour
         HoverControl.OnHoverStartOrResume += OnHoverStartOrResume;
         HoverControl.OnHoverPause += OnHoverPause;
         HoverControl.OnHoverDone += OnHoverDone;
+
+         //portal = portal.GetComponent<companionScript>();
     }
 
     void OnDestroy()
@@ -58,6 +59,7 @@ public class Movement : MonoBehaviour
         player = GetComponent<Rigidbody>();
         jumpControl = GetComponent<JumpControl>();
         hoverControl = GetComponent<HoverControl>();
+        portal = GameObject.Find("Companion").GetComponent<companionScript>();
         MapStateFunctions();
         ChangeState(MovementState.GROUND);
     }
@@ -71,8 +73,9 @@ public class Movement : MonoBehaviour
     {
         state = newState;
         jumpControl.MovementState(state.ToString());
-        if (hoverControl != null)
-            hoverControl.MovementState(state.ToString());
+        /*if (hoverControl != null)
+            hoverControl.MovementState(state.ToString());*/
+        portal.MovementStateChange(state.ToString());
     }
 
     void UpdateMovementGround()
@@ -137,16 +140,6 @@ public class Movement : MonoBehaviour
         UpdateMovementAir();
     }
 
-    void Jump() //The player initiated a jump
-    {
-        if (isGrounded)
-        {
-            ChangeState(MovementState.GROUND);
-        }
-
-        UpdateMovementAir();
-    }
-
     void Hover() //The player is currently hovering
     {
         if (isGrounded)
@@ -189,11 +182,6 @@ public class Movement : MonoBehaviour
     public void SendGroundSensorReading(bool status)
     {
         isGrounded = status;
-    }
-
-    public void OnJump()
-    {
-        ChangeState(MovementState.JUMP);
     }
 
     void OnHoverStartOrResume()
