@@ -38,6 +38,7 @@ public class companionScript : MonoBehaviour {
 
             // Debug.LogError(enemies[i].transform.position);
         }
+       //Debug.Log("Hello");   
           
     }
 
@@ -99,7 +100,6 @@ public class companionScript : MonoBehaviour {
          //float smallest = enemies[0].transform.position.x;
 
          //Debug.Log(smallest);
-
         /*
          * *********Commented out because eneimies are disabled currently************** 1/25/2016
          */
@@ -200,7 +200,7 @@ public class companionScript : MonoBehaviour {
                 mt = false;
                 enemyFound = false;
                 randomNumber = 0;
-                Debug.Log(step);
+                //Debug.Log(step);
                 Main();
             }
         }
@@ -223,7 +223,7 @@ public class companionScript : MonoBehaviour {
     public void MovementStateChange(string state)
     {
         isGrounded = state == "GROUND";
-        Debug.LogError("IS PLAYER GROUNDED:" + isGrounded);
+        //Debug.LogError("IS PLAYER GROUNDED:" + isGrounded);
     }
 }
 

@@ -9,6 +9,7 @@ public class Movement : MonoBehaviour
     {
         GROUND,
         AIR,
+        JUMP,
         HOVER,
         LANDING,
         DISABLED
@@ -25,6 +26,7 @@ public class Movement : MonoBehaviour
         SetState = new StateFunction[] {
             Ground,
             Air,
+            Jump,
             Hover,
             Landing,
             Disabled
@@ -37,6 +39,7 @@ public class Movement : MonoBehaviour
     public float maxSpeed;
     private Rigidbody player;
     private bool isGrounded;
+    private bool startedJumpCoroutine;
 
     void Awake()
     {
@@ -62,6 +65,7 @@ public class Movement : MonoBehaviour
         portal = GameObject.Find("Companion").GetComponent<companionScript>();
         MapStateFunctions();
         ChangeState(MovementState.GROUND);
+        startedJumpCoroutine = false;
     }
 
     void FixedUpdate()
@@ -140,6 +144,15 @@ public class Movement : MonoBehaviour
         UpdateMovementAir();
     }
 
+    void Jump() //The player initiated a jump
+    {
+        //Delay ground checking until the player is off the ground initially from the jump
+        if(!startedJumpCoroutine)
+            StartCoroutine(JumpToGroundState());
+
+        UpdateMovementAir();
+    }
+
     void Hover() //The player is currently hovering
     {
         if (isGrounded)
@@ -174,6 +187,18 @@ public class Movement : MonoBehaviour
         ChangeState(oldState);
     }
 
+    IEnumerator JumpToGroundState()
+    {
+        startedJumpCoroutine = true;
+        yield return new WaitForSeconds(0.1f);
+        while (!isGrounded)
+        {
+            yield return new WaitForFixedUpdate();            
+        }
+        startedJumpCoroutine = false;
+        ChangeState(MovementState.GROUND);
+    }
+
     public void Disable(float time)
     {
         StartCoroutine(DisableMovement(time));
@@ -182,6 +207,11 @@ public class Movement : MonoBehaviour
     public void SendGroundSensorReading(bool status)
     {
         isGrounded = status;
+    }
+
+    public void OnJump()
+    {
+        ChangeState(MovementState.JUMP);
     }
 
     void OnHoverStartOrResume()
