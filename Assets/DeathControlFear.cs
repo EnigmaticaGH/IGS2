@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DeathControl : MonoBehaviour
-{
+public class DeathControlFear : MonoBehaviour {
+
     public delegate void DeathEvent(float respawnTime);
     public static event DeathEvent OnDeath;
     public delegate void RespawnEvent();
@@ -12,34 +12,49 @@ public class DeathControl : MonoBehaviour
     public float respawnTime;
     private bool doneRespawning = true;
     private Vector3 startPosition;
+    //private companionScript playerShield;
     private bool playerShieldBool = false;
-    private Transform trapBlock;
-    private Transform trapBullet;
 
     void Start()
     {
         startPosition = transform.position;
         player = GetComponent<Rigidbody>();
+        // playerShield = GetComponent<companionScript>();
+        playerShieldBool = GameObject.Find("Companion").GetComponent<companionScript>().playerShield;
         Debug.LogError(playerShieldBool);
-        trapBlock = GameObject.Find("Player").GetComponent<TrapControl>().block.GetComponent<Transform>();
-        trapBullet = GameObject.Find("Player").GetComponent<TrapControl>().bullet.GetComponent<Transform>(); 
     }
 
     void Update()
     {
         if (transform.position.y < bottomOfLevel && doneRespawning)
         {
-            if(OnDeath != null)
+            if (OnDeath != null)
                 OnDeath(respawnTime);
             StartCoroutine(Respawn(respawnTime));
             doneRespawning = false;
         }
+
+
+
+
     }
 
+    void FixedUpdate()
+    {
+        /* if (GameObject.Find("Companion").GetComponent<companionScript>().playerShield)
+         {
+             Debug.LogError("Hello statment true");
+         }
+         else if (!GameObject.Find("Companion").GetComponent<companionScript>().playerShield)
+         {
+             //Debug.LogError("Hello statement false");
+         }*/
+
+    }
 
     public void Kill()
     {
-        if(doneRespawning)
+        if (doneRespawning)
         {
             if (OnDeath != null)
                 OnDeath(respawnTime);
@@ -58,34 +73,16 @@ public class DeathControl : MonoBehaviour
         player.isKinematic = false;
         transform.position = startPosition;
         doneRespawning = true;
-        if(OnRespawn != null)
+        if (OnRespawn != null)
             OnRespawn();
     }
 
     void OnTriggerEnter(Collider c)
     {
        
-        if ((c.CompareTag("Bullet")) && (!GameObject.Find("Companion").GetComponent<companionScript>().playerShield))
-        {
+        if (c.CompareTag("Bullet"))
             Kill();
-            
-        }
-        else if ((c.CompareTag("Bullet")) && (GameObject.Find("Companion").GetComponent<companionScript>().playerShield))
-        {
-            Debug.LogError(GameObject.Find("Companion").GetComponent<companionScript>().playerShield);
-            //DestroyImmediate(GameObject.Find("Player").GetComponent<TrapControl>().block, true);
-            //DestroyImmediate(GameObject.Find("Player").GetComponent<TrapControl>().bullet, true);
-            //GameObject.Find("Player").GetComponent<TrapControl>().block.transform.position = new Vector3(0, -100, 0);
-            //GameObject.Find("Player").GetComponent<TrapControl>().bullet.transform.position = new Vector3(0, -100, 0);
-            //Destroy(trapBlock);
-            //Destroy(trapBullet);
-            trapBullet.transform.position = new Vector3(0, -100, 0);
-            trapBlock.transform.position = new Vector3(0, -100, 0);
-            /*
-             * ****Doesn't work with Insitated objects************
-             */
-
-        }
-            
+        //else if ((c.CompareTag("Bullet")) && (GameObject.Find("Companion").GetComponent<companionScript>().playerShield))
+           // Debug.LogError(GameObject.Find("Companion").GetComponent<companionScript>().playerShield);
     }
 }

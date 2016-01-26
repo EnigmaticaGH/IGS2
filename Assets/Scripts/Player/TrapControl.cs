@@ -171,7 +171,14 @@ public class TrapControl : MonoBehaviour
         }
         //if the player is caught inside when the walls have finished collapsing,
         //kill the player
-        if (posX.x < traps[1].Objects[0].transform.position.x 
+        /*
+         ***********Will have to adjust this for player's shield****************
+         */
+        if ((GameObject.Find("Companion").GetComponent<companionScript>().playerShield))
+        {
+            ;
+        }
+        else if (posX.x < traps[1].Objects[0].transform.position.x 
             && posX.x > traps[1].Objects[1].transform.position.x
             && pos.y < traps[1].Objects[1].transform.position.y + 2)
         {

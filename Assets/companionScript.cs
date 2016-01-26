@@ -11,6 +11,11 @@ public class companionScript : MonoBehaviour {
     public bool moveTowardsEnemy = false;
     public bool enemyFound = false;
     public bool isGrounded = false;
+    public bool isAlive = true;
+    public bool playerShield = false;
+
+    private DeathControl playerLife;
+    
     
     int randomMovementTimer;
     float randomNumber;
@@ -18,7 +23,10 @@ public class companionScript : MonoBehaviour {
     GameObject[] enemies;
     Vector3 followingRange;
     Vector3 enemyRange;
-    int a = 0;
+    int a = 0; //Controls portal timer
+    int b = 0; //Controls shield timer
+    int portalDuration= 3; //Duration
+    int shieldTimer = 5; //Duration
     //Object portal1;
     
 
@@ -44,7 +52,14 @@ public class companionScript : MonoBehaviour {
 
     void Start()
     {
+
+        
+
+        isAlive = true;
+
         isGrounded = false;
+
+        playerLife = GameObject.Find("Player").GetComponent<DeathControl>();
     }
 
     void Main()
@@ -96,8 +111,8 @@ public class companionScript : MonoBehaviour {
          enemyRange = new Vector3(enemy.position.x, transform.position.y, enemy.position.z);
          enemies = GameObject.FindGameObjectsWithTag("Fear");
          
-         //float enemyX = 0;
-         //float smallest = enemies[0].transform.position.x;
+         float enemyX = 0;
+         float smallest = enemies[0].transform.position.x;
 
          //Debug.Log(smallest);
         /*
@@ -106,15 +121,15 @@ public class companionScript : MonoBehaviour {
 
          for (int i = 0; i < enemies.Length; i++)
          {
-             //Vector3 enemyLocaion = new Vector3(enemies[i].transform.position.x, enemies[i].transform.position.y, enemies[i].transform.position.z);
+             Vector3 enemyLocaion = new Vector3(enemies[i].transform.position.x, enemies[i].transform.position.y, enemies[i].transform.position.z);
 
-             /*if (enemies[i].transform.position.x < 0)
+             if (enemies[i].transform.position.x < 0)
              {
                  enemyX = enemies[i].transform.position.x;
                  enemyX = enemyX * -1;
-             }*/
+             }
                  
-             /*if ((enemies[i].transform.position.x < smallest) && (enemies[i].transform.position.x > 0))
+             if ((enemies[i].transform.position.x < smallest) && (enemies[i].transform.position.x > 0))
              {
                  smallest = enemies[i].transform.position.x;
 
@@ -132,7 +147,7 @@ public class companionScript : MonoBehaviour {
                  {
                      smallest = enemyX;
                  }
-             }*/
+             }
 
              //Debug.Log(enemies[i].transform.position);
          }
@@ -154,7 +169,7 @@ public class companionScript : MonoBehaviour {
             {
                 Instantiate(portal, new Vector3(player.transform.position.x, 0, 0), Quaternion.identity);
                 
-                Invoke("portalTimer", 3); //Non-coroutine so totally uncool but works for now ****Pretty much cool down reduction for portal usuage.***
+                Invoke("portalTimer", portalDuration); //Non-coroutine so totally uncool but works for now ****Pretty much cool down reduction for portal usuage.***
             }
            //if((a > 1) && (isGrounded))
                
@@ -163,7 +178,25 @@ public class companionScript : MonoBehaviour {
                
         }
 
+        if ((Input.GetButton("B_1")) || (Input.GetKeyUp(KeyCode.N)))
+        {
+            b++;
+            if (b == 1)
+            {
+                playerShield = true;
+
+                Invoke("shieldTimerFN", shieldTimer);
+            }
+        }
+
       
+    }
+
+    void shieldTimerFN()
+    {
+        b = 0;
+
+        playerShield = false;
     }
 
     void portalTimer()
@@ -181,7 +214,21 @@ public class companionScript : MonoBehaviour {
             moveTowardsPlayer = false;
         }
 
-        
+        if (playerShield)
+        {
+            //playerLife.
+            /*player.GetComponent<Collider>().enabled = false;
+            player.GetComponent<Rigidbody>().useGravity = false;
+            Debug.LogError("PlayerShield Activated" + playerShield);*/
+        }
+        else
+        {
+            /*player.GetComponent<Collider>().enabled = true;
+            player.GetComponent<Rigidbody>().useGravity = true;*/
+
+            //Debug.LogError("PlayerShield Deactivated" + playerShield);
+        }
+            
 
         if (moveTowardsEnemy)
         {
