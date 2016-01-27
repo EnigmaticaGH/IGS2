@@ -18,8 +18,8 @@ public class CameraFollow2 : MonoBehaviour
         float currentDistance = followDistance;
         float currentHeight = heightAbovePlayer;
 
-        float minX = 0, maxX = 0;
-        float minY = 0, maxY = 0;
+        float minX = float.MaxValue, maxX = 0;
+        float minY = float.MaxValue, maxY = 0;
 
         foreach (GameObject g in targets)
         {

@@ -18,6 +18,7 @@ public class Movement : MonoBehaviour
     private StateFunction[] SetState;
     private JumpControl jumpControl;
     private HoverControl hoverControl;
+    private DynamicCollider dynamicCollider;
     private companionScript portal;
     private MovementState state;
 
@@ -40,6 +41,7 @@ public class Movement : MonoBehaviour
     private Rigidbody player;
     private bool isGrounded;
     private bool startedJumpCoroutine;
+    private char wallSensorStatus;
 
     void Awake()
     {
@@ -62,6 +64,7 @@ public class Movement : MonoBehaviour
         player = GetComponent<Rigidbody>();
         jumpControl = GetComponent<JumpControl>();
         hoverControl = GetComponent<HoverControl>();
+        dynamicCollider = GetComponent<DynamicCollider>();
         portal = GameObject.Find("Companion").GetComponent<companionScript>();
         MapStateFunctions();
         ChangeState(MovementState.GROUND);
@@ -77,6 +80,7 @@ public class Movement : MonoBehaviour
     {
         state = newState;
         jumpControl.MovementState(state.ToString());
+        dynamicCollider.MovementStateChange(state.ToString());
         /*if (hoverControl != null)
             hoverControl.MovementState(state.ToString());*/
         portal.MovementStateChange(state.ToString());
