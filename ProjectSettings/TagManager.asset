@@ -12,6 +12,7 @@ TagManager:
   - Fear
   - Portal
   - Ground
+  - Win
   layers:
   - Default
   - TransparentFX
