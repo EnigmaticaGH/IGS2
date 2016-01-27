@@ -27,6 +27,7 @@ public class TrapControl : MonoBehaviour
     public GameObject wall;
     public GameObject bullet;
 
+
     private DeathControl playerLife;
     private Rigidbody playerRB;
 
@@ -106,6 +107,21 @@ public class TrapControl : MonoBehaviour
 
         posX = new Vector3(transform.position.x, 1, 0);
         pos = transform.position;
+
+        //Companion shield script to active or deactive collider of walls depending on shield bool
+        if ((GameObject.Find("Companion").GetComponent<companionScript>().playerShield == false))
+        {
+            traps[1].Objects[0].GetComponent<Collider>().enabled = true;
+            traps[1].Objects[1].GetComponent<Collider>().enabled = true;
+
+        }
+        else if ((GameObject.Find("Companion").GetComponent<companionScript>().playerShield))
+        {
+            traps[1].Objects[0].GetComponent<Collider>().enabled = false;
+            traps[1].Objects[1].GetComponent<Collider>().enabled = false;
+            //Debug.LogError("Player Sheild ON COLLIDER ARE SUPPOSED TO BE OFF ON WALLS");
+        } 
+
     }
 
     void ResetObject(GameObject g)
@@ -173,17 +189,23 @@ public class TrapControl : MonoBehaviour
         //kill the player
         /*
          ***********Will have to adjust this for player's shield****************
+         ***********HOLY CRAP FIX THIS ROMAN IT ISN'T DAT HARD************
          */
-        if ((GameObject.Find("Companion").GetComponent<companionScript>().playerShield))
+
+        if ((GameObject.Find("Companion").GetComponent<companionScript>().playerShield == false))
         {
-            ;
-        }
-        else if (posX.x < traps[1].Objects[0].transform.position.x 
+            if (posX.x < traps[1].Objects[0].transform.position.x
             && posX.x > traps[1].Objects[1].transform.position.x
             && pos.y < traps[1].Objects[1].transform.position.y + 2)
-        {
-            playerLife.Kill();
+            {
+                playerLife.Kill();
+
+            }
         }
+       
+        
+        //not working right - fixed collider for wall when player's sheild equals false
+        
         //start trap cooldown
         TrapStatusEvent("Cooldown", 1, traps[1].Cooldown);
         yield return new WaitForSeconds(traps[1].Cooldown);

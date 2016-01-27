@@ -13,16 +13,13 @@ public class DeathControl : MonoBehaviour
     private bool doneRespawning = true;
     private Vector3 startPosition;
     private bool playerShieldBool = false;
-    private Transform trapBlock;
-    private Transform trapBullet;
+
 
     void Start()
     {
         startPosition = transform.position;
         player = GetComponent<Rigidbody>();
-        Debug.LogError(playerShieldBool);
-        trapBlock = GameObject.Find("Player").GetComponent<TrapControl>().block.GetComponent<Transform>();
-        trapBullet = GameObject.Find("Player").GetComponent<TrapControl>().bullet.GetComponent<Transform>(); 
+        //Debug.LogError(playerShieldBool);
     }
 
     void Update()
@@ -68,22 +65,17 @@ public class DeathControl : MonoBehaviour
         if ((c.CompareTag("Bullet")) && (!GameObject.Find("Companion").GetComponent<companionScript>().playerShield))
         {
             Kill();
+            GetComponent<TrapControl>().block.GetComponent<Collider>().enabled = true;
+            GetComponent<TrapControl>().block.GetComponent<Collider>().isTrigger = true;
+            GetComponent<TrapControl>().bullet.GetComponent<Collider>().enabled = true;
+            GetComponent<TrapControl>().bullet.GetComponent<Collider>().isTrigger = true;
             
         }
         else if ((c.CompareTag("Bullet")) && (GameObject.Find("Companion").GetComponent<companionScript>().playerShield))
         {
-            Debug.LogError(GameObject.Find("Companion").GetComponent<companionScript>().playerShield);
-            //DestroyImmediate(GameObject.Find("Player").GetComponent<TrapControl>().block, true);
-            //DestroyImmediate(GameObject.Find("Player").GetComponent<TrapControl>().bullet, true);
-            //GameObject.Find("Player").GetComponent<TrapControl>().block.transform.position = new Vector3(0, -100, 0);
-            //GameObject.Find("Player").GetComponent<TrapControl>().bullet.transform.position = new Vector3(0, -100, 0);
-            //Destroy(trapBlock);
-            //Destroy(trapBullet);
-            trapBullet.transform.position = new Vector3(0, -100, 0);
-            trapBlock.transform.position = new Vector3(0, -100, 0);
-            /*
-             * ****Doesn't work with Insitated objects************
-             */
+
+            GetComponent<TrapControl>().block.GetComponent<Collider>().enabled = false;
+            GetComponent<TrapControl>().bullet.GetComponent<Collider>().enabled = false;
 
         }
             

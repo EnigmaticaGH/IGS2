@@ -49,7 +49,7 @@ public class portalScriptPlayer : MonoBehaviour {
         //Debug.LogError("TELEPORTATION DEVICE CALLED");
         transform.position = new Vector3(transform.position.x + 2, transform.position.y, 0);
         //Debug.LogError(player.velocity);
-        Invoke("playerReset", .5f);
+        Invoke("playerReset", .2f);
     }
 
     void TimerReset()

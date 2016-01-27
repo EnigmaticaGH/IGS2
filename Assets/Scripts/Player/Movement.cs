@@ -17,7 +17,7 @@ public class Movement : MonoBehaviour
     private delegate void StateFunction();
     private StateFunction[] SetState;
     private JumpControl jumpControl;
-    private HoverControl hoverControl;
+    //private HoverControl hoverControl;
     private companionScript portal;
     private MovementState state;
 
@@ -61,7 +61,7 @@ public class Movement : MonoBehaviour
     {
         player = GetComponent<Rigidbody>();
         jumpControl = GetComponent<JumpControl>();
-        hoverControl = GetComponent<HoverControl>();
+        //hoverControl = GetComponent<HoverControl>();
         portal = GameObject.Find("Companion").GetComponent<companionScript>();
         MapStateFunctions();
         ChangeState(MovementState.GROUND);

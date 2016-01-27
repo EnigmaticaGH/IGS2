@@ -6,6 +6,7 @@ public class companionScript : MonoBehaviour {
     public Transform player;
     public Transform enemy;
     public GameObject portal;
+    public GameObject shield;
     public float speed;
     public bool moveTowardsPlayer = false;
     public bool moveTowardsEnemy = false;
@@ -14,7 +15,7 @@ public class companionScript : MonoBehaviour {
     public bool isAlive = true;
     public bool playerShield = false;
 
-    private DeathControl playerLife;
+    //private DeathControl playerLife;
     
     
     int randomMovementTimer;
@@ -52,14 +53,13 @@ public class companionScript : MonoBehaviour {
 
     void Start()
     {
-
-        
+        shield.SetActive(false);
 
         isAlive = true;
 
         isGrounded = false;
 
-        playerLife = GameObject.Find("Player").GetComponent<DeathControl>();
+        //playerLife = GameObject.Find("Player").GetComponent<DeathControl>();
     }
 
     void Main()
@@ -174,7 +174,7 @@ public class companionScript : MonoBehaviour {
            //if((a > 1) && (isGrounded))
                
 
-            Debug.LogError(a);
+            //Debug.LogError(a);
                
         }
 
@@ -184,6 +184,10 @@ public class companionScript : MonoBehaviour {
             if (b == 1)
             {
                 playerShield = true;
+
+                //shield.transform.position = new Vector3(player.position.x, player.position.y, player.position.z);
+                //Instantiate(shield, new Vector3(player.position.x, player.position.y, 0), Quaternion.identity);
+                shield.SetActive(true);
 
                 Invoke("shieldTimerFN", shieldTimer);
             }
@@ -197,6 +201,11 @@ public class companionScript : MonoBehaviour {
         b = 0;
 
         playerShield = false;
+
+        shield.SetActive(false);
+
+        //shield.transform.position = new Vector3(0, -200, 0);
+        //Destroy(shield);
     }
 
     void portalTimer()
@@ -212,23 +221,7 @@ public class companionScript : MonoBehaviour {
         {
             moveTowardsEnemy = true;
             moveTowardsPlayer = false;
-        }
-
-        if (playerShield)
-        {
-            //playerLife.
-            /*player.GetComponent<Collider>().enabled = false;
-            player.GetComponent<Rigidbody>().useGravity = false;
-            Debug.LogError("PlayerShield Activated" + playerShield);*/
-        }
-        else
-        {
-            /*player.GetComponent<Collider>().enabled = true;
-            player.GetComponent<Rigidbody>().useGravity = true;*/
-
-            //Debug.LogError("PlayerShield Deactivated" + playerShield);
-        }
-            
+        }   
 
         if (moveTowardsEnemy)
         {
@@ -283,12 +276,5 @@ public class companionScript : MonoBehaviour {
  * InvokeRepeating doesn't work instead used Invoke and set the movementTimer to random number
  *
  *************** Adjust speed while following player******************
- *
- //BUG FIXED * ******* BUG : When you press key to find enemy and while companion is on way back to player and you press key again the companion will go to enemy's position and stop*****************
- //BUG FIXED * ****** BUG CONT': Happens when you click key mutiple times *************
- * Adjust key for ability of companion finding an enemy set to a cooldown reduction, 1/20/16 you can click the key after the companion returns to player's location. 
  * 
  */
-//Replace this with corotine to enable actions
-//Once InvokeRepeating is called then it is continued to be called
-//Actions such as searching for an enemy can cause bug when timer goes off durning searching excution

@@ -21,7 +21,7 @@ public class DeathControlFear : MonoBehaviour {
         player = GetComponent<Rigidbody>();
         // playerShield = GetComponent<companionScript>();
         playerShieldBool = GameObject.Find("Companion").GetComponent<companionScript>().playerShield;
-        Debug.LogError(playerShieldBool);
+        //Debug.LogError(playerShieldBool);
     }
 
     void Update()
