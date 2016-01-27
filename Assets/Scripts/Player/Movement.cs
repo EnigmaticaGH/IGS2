@@ -17,7 +17,7 @@ public class Movement : MonoBehaviour
     private delegate void StateFunction();
     private StateFunction[] SetState;
     private JumpControl jumpControl;
-    private HoverControl hoverControl;
+    //private HoverControl hoverControl;
     private DynamicCollider dynamicCollider;
     private companionScript portal;
     private MovementState state;
@@ -63,7 +63,7 @@ public class Movement : MonoBehaviour
     {
         player = GetComponent<Rigidbody>();
         jumpControl = GetComponent<JumpControl>();
-        hoverControl = GetComponent<HoverControl>();
+        //hoverControl = GetComponent<HoverControl>();
         dynamicCollider = GetComponent<DynamicCollider>();
         portal = GameObject.Find("Companion").GetComponent<companionScript>();
         MapStateFunctions();

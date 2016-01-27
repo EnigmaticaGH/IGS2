@@ -12,11 +12,14 @@ public class DeathControl : MonoBehaviour
     public float respawnTime;
     private bool doneRespawning = true;
     private Vector3 startPosition;
+    private bool playerShieldBool = false;
+
 
     void Start()
     {
         startPosition = transform.position;
         player = GetComponent<Rigidbody>();
+        //Debug.LogError(playerShieldBool);
     }
 
     void Update()
@@ -29,6 +32,7 @@ public class DeathControl : MonoBehaviour
             doneRespawning = false;
         }
     }
+
 
     public void Kill()
     {
@@ -57,6 +61,23 @@ public class DeathControl : MonoBehaviour
 
     void OnTriggerEnter(Collider c)
     {
-        if (c.CompareTag("Bullet")) Kill();
+       
+        if ((c.CompareTag("Bullet")) && (!GameObject.Find("Companion").GetComponent<companionScript>().playerShield))
+        {
+            Kill();
+            GetComponent<TrapControl>().block.GetComponent<Collider>().enabled = true;
+            GetComponent<TrapControl>().block.GetComponent<Collider>().isTrigger = true;
+            GetComponent<TrapControl>().bullet.GetComponent<Collider>().enabled = true;
+            GetComponent<TrapControl>().bullet.GetComponent<Collider>().isTrigger = true;
+            
+        }
+        else if ((c.CompareTag("Bullet")) && (GameObject.Find("Companion").GetComponent<companionScript>().playerShield))
+        {
+
+            GetComponent<TrapControl>().block.GetComponent<Collider>().enabled = false;
+            GetComponent<TrapControl>().bullet.GetComponent<Collider>().enabled = false;
+
+        }
+            
     }
 }
