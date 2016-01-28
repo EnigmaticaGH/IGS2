@@ -21,7 +21,7 @@ public class WinEventReceiver : MonoBehaviour
     void OnWin(string sender)
     {
         Time.timeScale = 0;
-        winText.text = "Player " + sender + " WINS";
+        winText.text = sender + " WINS";
         winCanvas.SetActive(true);
     }
 
