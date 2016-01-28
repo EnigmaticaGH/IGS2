@@ -8,6 +8,11 @@ public class portalScriptPlayer : MonoBehaviour {
     public bool portalTimer = false;
     //private bool isGrounded;
 
+    public delegate void PortalInit(string[] names, string name);
+    public static event PortalInit PortalInitEvent;
+    public delegate void PortalStatus(string sender, string status, int index, float time);
+    public static event PortalStatus PortalStatusEvent;
+
     void Awake()
     {
         orginialConstranints = player.constraints;
@@ -15,7 +20,8 @@ public class portalScriptPlayer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+        PortalInitEvent(new string[] { "Portal" }, name);
+        PortalStatusEvent(name, "Ready", 0, 0);
         portalTimer = true;
         //isGrounded = false;
 	
@@ -38,10 +44,10 @@ public class portalScriptPlayer : MonoBehaviour {
 
             portalTimer = false;
 
-            
+
 
             //Debug.LogError("Teleport me now!!!!!");
-
+            PortalStatusEvent(name, "Active", 0, 0);
             Invoke("Teleport", .5f);
             Invoke("TimerReset", 3f);
         }
@@ -56,11 +62,13 @@ public class portalScriptPlayer : MonoBehaviour {
         transform.position = new Vector3(transform.position.x + 4, transform.position.y, 0);
         //Debug.LogError(player.velocity);
         Invoke("playerReset", .2f);
+        PortalStatusEvent(name, "Cooldown", 0, 2.5f);
     }
 
     void TimerReset()
     {
         portalTimer = true;
+        PortalStatusEvent(name, "Ready", 0, 0);
     }
 
     void playerReset()

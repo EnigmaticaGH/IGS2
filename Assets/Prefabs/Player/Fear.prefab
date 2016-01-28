@@ -12,8 +12,8 @@ GameObject:
   - 114: {fileID: 11441386}
   - 114: {fileID: 11488568}
   - 114: {fileID: 11488042}
-  - 114: {fileID: 11476342}
   - 114: {fileID: 11482868}
+  - 114: {fileID: 11473160}
   m_Layer: 9
   m_Name: Fear
   m_TagString: Fear
@@ -164,7 +164,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 112538}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.48000002, y: 1, z: 0}
+  m_LocalPosition: {x: -5, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 477960}
@@ -310,6 +310,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2329fc7202eadb84c89cfbdb5106fca1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11473160
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 112538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e6157684f2000f4e978da4f9b104cab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  traps:
+  - Name: Block Smash!
+    Button: B
+    ControllerNumber: 2
+    Cooldown: 2
+    Activated: 0
+    Objects: []
+  - Name: Closing Walls!
+    Button: X
+    ControllerNumber: 2
+    Cooldown: 3
+    Activated: 0
+    Objects: []
+  - Name: Bullet Buster!
+    Button: Y
+    ControllerNumber: 2
+    Cooldown: 1
+    Activated: 0
+    Objects: []
+  block: {fileID: 137254, guid: 766e7eff97df6484db0f3fb6b051bc52, type: 2}
+  wall: {fileID: 143986, guid: a43b57eefcddb694192b7d03443acd14, type: 2}
+  bullet: {fileID: 138342, guid: 47e5e8aaf865f3746a61821c5113759b, type: 2}
+  player: {fileID: 0}
 --- !u!114 &11473656
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -321,19 +355,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1e54781c3ff42d4b857f0ec775cc286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11476342
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 112538}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75ea039d699176b498e4073ae729614a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bottomOfLevel: -5
-  respawnTime: 1
 --- !u!114 &11482868
 MonoBehaviour:
   m_ObjectHideFlags: 1

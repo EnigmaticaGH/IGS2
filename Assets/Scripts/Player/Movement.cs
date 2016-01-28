@@ -43,6 +43,9 @@ public class Movement : MonoBehaviour
     private bool startedJumpCoroutine;
     private char wallSensorStatus;
 
+    public delegate void PlayerPosition(float position, string sender);
+    public static event PlayerPosition PositionUpdateEvent;
+
     void Awake()
     {
         HoverControl.OnHoverStartOrResume += OnHoverStartOrResume;
@@ -74,6 +77,7 @@ public class Movement : MonoBehaviour
     void FixedUpdate()
     {
         SetState[(int)state]();
+        PositionUpdateEvent(transform.position.x, name);
     }
 
     void ChangeState(MovementState newState)
