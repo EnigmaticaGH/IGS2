@@ -51,23 +51,6 @@ public class AbilityTracker : MonoBehaviour
     void InitalizeTextBoxes(string[] names, string sender)
     {
         int j = 0;
-        /*GameObject senderNameText = (GameObject)Instantiate(text, new Vector3(92, 395 - (numPlayers * names.Length * 20), 0), Quaternion.identity);
-        senderNameText.GetComponent<Text>().text = sender + " Abilities";
-        senderNameText.GetComponent<Text>().color = Color.white;
-        senderNameText.transform.SetParent(transform);
-        numPlayers++;
-        int j = 0;
-        abilityTexts = new GameObject[names.Length];
-        for(j = i; j < i + names.Length; j++)
-        {
-            abilityTexts[j - i] = (GameObject)Instantiate(text, new Vector3(92, 375 - (j * 20), 0), Quaternion.identity);
-            abilityTexts[j - i].transform.SetParent(transform);
-            abilityTexts[j - i].GetComponent<Text>().text = names[j - i] + ":\tReady";
-            abilityTexts[j - i].GetComponent<Text>().color = Color.white;
-        }
-        i = j;
-        trapNames = names;
-        i++;*/
         senderIndex.Add(sender, i);
         abilities.Add((GameObject)Instantiate(text, new Vector3(92, 395 - (i * 20), 0), Quaternion.identity));
         abilities[i].transform.SetParent(transform);

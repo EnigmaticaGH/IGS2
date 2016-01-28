@@ -14,6 +14,7 @@ GameObject:
   - 114: {fileID: 11488042}
   - 114: {fileID: 11482868}
   - 114: {fileID: 11473160}
+  - 114: {fileID: 11496958}
   m_Layer: 9
   m_Name: Fear
   m_TagString: Fear
@@ -391,6 +392,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8dd4a905b6081824e9af5ae187a5f029, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11496958
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 112538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df10b252e978d5f438da193299cb253c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!136 &13631720
