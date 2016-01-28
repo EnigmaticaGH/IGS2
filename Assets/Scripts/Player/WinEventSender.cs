@@ -9,7 +9,7 @@ public class WinEventSender : MonoBehaviour
 
     void Start()
     {
-        sender = GetComponent<Movement>().controllerNumber.ToString();
+        sender = "Player" + GetComponent<Movement>().controllerNumber.ToString();
     }
 
     void OnTriggerEnter(Collider c)
