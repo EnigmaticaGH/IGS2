@@ -163,14 +163,15 @@ public class TrapControl : MonoBehaviour
     {
         TrapStatusEvent("Active", 1, 0);
         traps[1].Activated = true;
-
+        traps[1].Objects[0].transform.rotation = Quaternion.Euler(-90, 90, 0);
+        traps[1].Objects[1].transform.rotation = Quaternion.Euler(-90, 90, 0);
         traps[1].Objects[0].transform.position = posX + Vector3.right * 2f + Vector3.up * -5f;
         traps[1].Objects[1].transform.position = posX + Vector3.left * 2f + Vector3.up * -3.5f;
         traps[1].Objects[0].SetActive(true);
         traps[1].Objects[1].SetActive(true);
 
         //Shoot up from the bottom of the screen quickly
-        for(int i = 0; i < 20; i++)
+        for(int i = 0; i < 10; i++)
         {
             traps[1].Objects[0].transform.position += Vector3.up * 0.25f;
             traps[1].Objects[1].transform.position += Vector3.up * 0.25f;
@@ -192,15 +193,12 @@ public class TrapControl : MonoBehaviour
          ***********HOLY CRAP FIX THIS ROMAN IT ISN'T DAT HARD************
          */
 
-        if ((GameObject.Find("Companion").GetComponent<companionScript>().playerShield == false))
-        {
-            if (posX.x < traps[1].Objects[0].transform.position.x
+        if (posX.x < traps[1].Objects[0].transform.position.x
             && posX.x > traps[1].Objects[1].transform.position.x
             && pos.y < traps[1].Objects[1].transform.position.y + 2)
-            {
-                playerLife.Kill();
+        {
+            playerLife.Kill();
 
-            }
         }
        
         

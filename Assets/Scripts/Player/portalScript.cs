@@ -9,7 +9,7 @@ public class portalScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        portalReset = true;
+        portalReset = false;
 	
 	}
 	
@@ -18,20 +18,27 @@ public class portalScript : MonoBehaviour {
 	
 	}
 
-    void OnTriggerEnter(Collider col)
+    void OnTriggerEnter(Collider coll)
     {
-        if ((col.tag == "Player") && (portalReset))
+        if (((coll.tag == "Player") || (coll.tag == "Sensor")) && (portalReset == false))
         {
             Invoke("teleport", .5f); //Teleports portal
             Invoke("portalTimer", 3);
 
-            portalReset = false; //Just incase player goes back onto portal
+            //Debug.LogError("Collision Detected from portal to player");
+
+            portalReset = true; //Just incase player goes back onto portal
+        }
+        if (coll.tag == "Player")
+        {
+            //Debug.LogError("Collision Detected from portal to player");
+
         }
     }
 
     void teleport()
     {
-        transform.position = new Vector3(transform.position.x + 2, transform.position.y, 0);
+        transform.position = new Vector3(transform.position.x + 4, transform.position.y, 0);
 
         Portal.GetComponent<Renderer>().material.color = Color.magenta;
     }
@@ -40,6 +47,6 @@ public class portalScript : MonoBehaviour {
     {
         Destroy(Portal);
 
-        portalReset = true;
+        portalReset = false ;
     }
 }

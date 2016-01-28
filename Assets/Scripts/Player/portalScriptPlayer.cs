@@ -30,9 +30,15 @@ public class portalScriptPlayer : MonoBehaviour {
     {
         if ((col.tag == "Portal") && (portalTimer))
         {
-            portalTimer = false;
+            //Debug.LogError("Collsion Detected from player to portal");
+
+            player.velocity = Vector3.zero;
 
             player.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
+
+            portalTimer = false;
+
+            
 
             //Debug.LogError("Teleport me now!!!!!");
 
@@ -47,7 +53,7 @@ public class portalScriptPlayer : MonoBehaviour {
         player.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
 
         //Debug.LogError("TELEPORTATION DEVICE CALLED");
-        transform.position = new Vector3(transform.position.x + 2, transform.position.y, 0);
+        transform.position = new Vector3(transform.position.x + 4, transform.position.y, 0);
         //Debug.LogError(player.velocity);
         Invoke("playerReset", .2f);
     }

@@ -13,7 +13,10 @@ public class companionScript : MonoBehaviour {
     public bool enemyFound = false;
     public bool isGrounded = false;
     public bool isAlive = true;
+    public bool portalActive = false;
     public bool playerShield = false;
+    private int portalDuration = 3; //Duration //OTHER PROGRAMS REQUIRE 3 SECOND MINIMAL VALUE SO KEEP AT 3
+    public int shieldDuration = 3; //Duration
 
     //private DeathControl playerLife;
     
@@ -26,8 +29,8 @@ public class companionScript : MonoBehaviour {
     Vector3 enemyRange;
     int a = 0; //Controls portal timer
     int b = 0; //Controls shield timer
-    int portalDuration= 3; //Duration
-    int shieldTimer = 5; //Duration
+    
+    //int shieldTimer = 5; //Duration
     //Object portal1;
     
 
@@ -168,6 +171,8 @@ public class companionScript : MonoBehaviour {
             if (a == 1)
             {
                 Instantiate(portal, new Vector3(player.transform.position.x, 0, 0), Quaternion.identity);
+
+                portalActive = true;
                 
                 Invoke("portalTimer", portalDuration); //Non-coroutine so totally uncool but works for now ****Pretty much cool down reduction for portal usuage.***
             }
@@ -189,7 +194,7 @@ public class companionScript : MonoBehaviour {
                 //Instantiate(shield, new Vector3(player.position.x, player.position.y, 0), Quaternion.identity);
                 shield.SetActive(true);
 
-                Invoke("shieldTimerFN", shieldTimer);
+                Invoke("shieldTimerFN", shieldDuration);
             }
         }
 
@@ -211,6 +216,7 @@ public class companionScript : MonoBehaviour {
     void portalTimer()
     {
         a = 0;
+        portalActive = false;
     }
 
     void FixedUpdate()

@@ -28,6 +28,7 @@ public class AbilityTracker : MonoBehaviour
             abilityTexts[i] = (GameObject)Instantiate(text, new Vector3(92, 375 - (i * 20), 0), Quaternion.identity);
             abilityTexts[i].transform.SetParent(transform);
             abilityTexts[i].GetComponent<Text>().text = names[i] + ":\tReady";
+            abilityTexts[i].GetComponent<Text>().color = Color.white;
         }
         trapNames = names;
     }
