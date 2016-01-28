@@ -7,6 +7,8 @@ public class DeathControl : MonoBehaviour
     public static event DeathEvent OnDeath;
     public delegate void RespawnEvent();
     public static event RespawnEvent OnRespawn;
+    public delegate void LivesCounter(int lives);
+    public static event LivesCounter OnHurt;
     private Rigidbody player;
     public float bottomOfLevel; //The y position of the bottom of the level
     public float respawnTime;
@@ -14,12 +16,18 @@ public class DeathControl : MonoBehaviour
     private Vector3 startPosition;
     private bool playerShieldBool = false;
 
+    public int numberOfLives;
+    private int lives;
+    private bool invincible;
 
     void Start()
     {
         startPosition = transform.position;
         player = GetComponent<Rigidbody>();
         //Debug.LogError(playerShieldBool);
+        lives = numberOfLives;
+        OnHurt(lives);
+        invincible = false;
     }
 
     void Update()
@@ -33,6 +41,11 @@ public class DeathControl : MonoBehaviour
         }
     }
 
+    public void Hurt(int damage)
+    {
+        OnHurt(--lives);
+        if (lives <= 0) Kill();
+    }
 
     public void Kill()
     {
@@ -62,22 +75,32 @@ public class DeathControl : MonoBehaviour
     void OnTriggerEnter(Collider c)
     {
        
-        if ((c.CompareTag("Bullet")) && (!GameObject.Find("Companion").GetComponent<companionScript>().playerShield))
+        if ((c.CompareTag("Bullet")) && (!GameObject.Find("Companion").GetComponent<companionScript>().playerShield) && !invincible)
         {
-            Kill();
-            GetComponent<TrapControl>().block.GetComponent<Collider>().enabled = true;
-            GetComponent<TrapControl>().block.GetComponent<Collider>().isTrigger = true;
-            GetComponent<TrapControl>().bullet.GetComponent<Collider>().enabled = true;
-            GetComponent<TrapControl>().bullet.GetComponent<Collider>().isTrigger = true;
+            Hurt(1);
+            StartCoroutine(InvincibilityFrame(1));
+            //GetComponent<TrapControl>().block.GetComponent<Collider>().enabled = true;
+            //GetComponent<TrapControl>().block.GetComponent<Collider>().isTrigger = true;
+            //GetComponent<TrapControl>().bullet.GetComponent<Collider>().enabled = true;
+            //GetComponent<TrapControl>().bullet.GetComponent<Collider>().isTrigger = true;
             
         }
         else if ((c.CompareTag("Bullet")) && (GameObject.Find("Companion").GetComponent<companionScript>().playerShield))
         {
 
-            GetComponent<TrapControl>().block.GetComponent<Collider>().enabled = false;
-            GetComponent<TrapControl>().bullet.GetComponent<Collider>().enabled = false;
+            //GetComponent<TrapControl>().block.GetComponent<Collider>().enabled = false;
+            //GetComponent<TrapControl>().bullet.GetComponent<Collider>().enabled = false;
 
         }
             
+    }
+
+    IEnumerator InvincibilityFrame(float t)
+    {
+        invincible = true;
+
+        yield return new WaitForSeconds(t);
+
+        invincible = false;
     }
 }

@@ -16,9 +16,9 @@ public class TrapControl : MonoBehaviour
         public GameObject[] Objects;
     }
     public Trap[] traps;
-    public delegate void TrapInit(string[] names);
+    public delegate void TrapInit(string[] names, string name);
     public static event TrapInit TrapInitEvent;
-    public delegate void TrapStatus(string status, int index, float time);
+    public delegate void TrapStatus(string sender, string status, int index, float time);
     public static event TrapStatus TrapStatusEvent;
 
     private Vector3 posX;
@@ -27,7 +27,7 @@ public class TrapControl : MonoBehaviour
     public GameObject wall;
     public GameObject bullet;
 
-
+    public GameObject player;
     private DeathControl playerLife;
     private Rigidbody playerRB;
 
@@ -75,10 +75,10 @@ public class TrapControl : MonoBehaviour
             names[i] = traps[i].Button +  " - " + traps[i].Name;
         }
 
-        TrapInitEvent(names);
+        TrapInitEvent(names, name);
 
-        playerLife = GameObject.Find("Player").GetComponent<DeathControl>();
-        playerRB = GetComponent<Rigidbody>();
+        playerLife = player.GetComponent<DeathControl>();
+        playerRB = player.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -105,8 +105,8 @@ public class TrapControl : MonoBehaviour
             StartCoroutine("Trap2Activate");
         }
 
-        posX = new Vector3(transform.position.x, 1, 0);
-        pos = transform.position;
+        posX = new Vector3(player.transform.position.x, 1, 0);
+        pos = player.transform.position;
 
         //Companion shield script to active or deactive collider of walls depending on shield bool
         if ((GameObject.Find("Companion").GetComponent<companionScript>().playerShield == false))
@@ -146,22 +146,22 @@ public class TrapControl : MonoBehaviour
         float distanceTraveledByPlayer = playerRB.velocity.x * timeToFall;
 
         Vector3 targetPos = pos + Vector3.right * distanceTraveledByPlayer;
-        TrapStatusEvent("Active", 0, traps[0].Cooldown);
+        TrapStatusEvent(name, "Active", 0, traps[0].Cooldown);
         traps[0].Activated = true;
 
         traps[0].Objects[0].SetActive(true);
         traps[0].Objects[0].transform.position = targetPos + Vector3.up * spawnHeight;
 
-        TrapStatusEvent("Cooldown", 0, traps[0].Cooldown);
+        TrapStatusEvent(name, "Cooldown", 0, traps[0].Cooldown);
         yield return new WaitForSeconds(traps[0].Cooldown);
-        TrapStatusEvent("Ready", 0, traps[0].Cooldown);
+        TrapStatusEvent(name, "Ready", 0, traps[0].Cooldown);
         ResetObject(traps[0].Objects[0]);
         traps[0].Activated = false;
     }
     //confine player
     IEnumerator Trap1Activate()
     {
-        TrapStatusEvent("Active", 1, 0);
+        TrapStatusEvent(name,"Active", 1, 0);
         traps[1].Activated = true;
         traps[1].Objects[0].transform.rotation = Quaternion.Euler(-90, 90, 0);
         traps[1].Objects[1].transform.rotation = Quaternion.Euler(-90, 90, 0);
@@ -194,20 +194,18 @@ public class TrapControl : MonoBehaviour
          */
 
         if (posX.x < traps[1].Objects[0].transform.position.x
-            && posX.x > traps[1].Objects[1].transform.position.x
-            && pos.y < traps[1].Objects[1].transform.position.y + 2)
+            && posX.x > traps[1].Objects[1].transform.position.x)
         {
-            playerLife.Kill();
-
+            playerLife.Hurt(1);
         }
        
         
         //not working right - fixed collider for wall when player's sheild equals false
         
         //start trap cooldown
-        TrapStatusEvent("Cooldown", 1, traps[1].Cooldown);
+        TrapStatusEvent(name, "Cooldown", 1, traps[1].Cooldown);
         yield return new WaitForSeconds(traps[1].Cooldown);
-        TrapStatusEvent("Ready", 1, 0);
+        TrapStatusEvent(name, "Ready", 1, 0);
         traps[1].Objects[0].SetActive(false);
         traps[1].Objects[1].SetActive(false);
         traps[1].Activated = false;
@@ -215,7 +213,7 @@ public class TrapControl : MonoBehaviour
     //Shoot bullet from left to right
     IEnumerator Trap2Activate()
     {
-        TrapStatusEvent("Active", 2, traps[2].Cooldown);
+        TrapStatusEvent(name, "Active", 2, traps[2].Cooldown);
         traps[2].Activated = true;
 
         traps[2].Objects[0].SetActive(true);
@@ -226,9 +224,9 @@ public class TrapControl : MonoBehaviour
             traps[2].Objects[0].transform.position += Vector3.right * 0.14f;
             yield return new WaitForFixedUpdate();
         }
-        TrapStatusEvent("Cooldown", 2, traps[2].Cooldown);
+        TrapStatusEvent(name, "Cooldown", 2, traps[2].Cooldown);
         yield return new WaitForSeconds(traps[2].Cooldown);
-        TrapStatusEvent("Ready", 2, traps[2].Cooldown);
+        TrapStatusEvent(name, "Ready", 2, traps[2].Cooldown);
         ResetObject(traps[2].Objects[0]);
         traps[2].Activated = false;
     }

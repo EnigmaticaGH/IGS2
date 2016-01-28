@@ -29,7 +29,6 @@ GameObject:
   - 114: {fileID: 11411714}
   - 114: {fileID: 11441350}
   - 114: {fileID: 11423816}
-  - 114: {fileID: 11479324}
   - 114: {fileID: 11472078}
   - 114: {fileID: 11474328}
   - 114: {fileID: 11450756}
@@ -344,6 +343,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bottomOfLevel: -5
   respawnTime: 1
+  numberOfLives: 3
 --- !u!114 &11439166
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -406,39 +406,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frictionCollider: {fileID: 125808}
   nonFrictionCollider: {fileID: 162940}
---- !u!114 &11479324
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 123962}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e6157684f2000f4e978da4f9b104cab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  traps:
-  - Name: Block Smash!
-    Button: B
-    ControllerNumber: 2
-    Cooldown: 2
-    Activated: 0
-    Objects: []
-  - Name: Closing Walls!
-    Button: X
-    ControllerNumber: 2
-    Cooldown: 3
-    Activated: 0
-    Objects: []
-  - Name: Bullet Buster!
-    Button: Y
-    ControllerNumber: 2
-    Cooldown: 1
-    Activated: 0
-    Objects: []
-  block: {fileID: 137254, guid: 766e7eff97df6484db0f3fb6b051bc52, type: 2}
-  wall: {fileID: 190424, guid: 4bc17fdffe3939e47911e1f00e0b42f2, type: 2}
-  bullet: {fileID: 138342, guid: 47e5e8aaf865f3746a61821c5113759b, type: 2}
 --- !u!114 &11492144
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -523,7 +490,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 2100000, guid: 272ba847f100d4251bb8260575189042, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0

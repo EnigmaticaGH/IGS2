@@ -1,48 +1,95 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class AbilityTracker : MonoBehaviour
 {
     public GameObject text;
-    private GameObject[] abilityTexts;
-    string[] trapNames;
+    public GameObject winArea;
+    private List<GameObject> abilities;
+    private List<string> trapNames;
+    private Dictionary<string, int> senderIndex;
+    private GameObject distanceText;
+    private GameObject livesText;
+    private float winAreaPosition;
+    static int i = 0;
 
     void Awake()
     {
         TrapControl.TrapInitEvent += InitalizeTextBoxes;
-        TrapControl.TrapStatusEvent += UpdateUI;
+        TrapControl.TrapStatusEvent += UpdateAbilities;
+        portalScriptPlayer.PortalInitEvent += InitalizeTextBoxes;
+        portalScriptPlayer.PortalStatusEvent += UpdateAbilities;
+        DeathControl.OnHurt += UpdateLives;
+        Movement.PositionUpdateEvent += UpdatePlayerPosition;
+        winAreaPosition = winArea.transform.position.x;
+
+        distanceText = (GameObject)Instantiate(text, new Vector3(92, 20, 0), Quaternion.identity);
+        distanceText.transform.SetParent(transform);
+        distanceText.GetComponent<Text>().text = "Distance: ";
+        distanceText.GetComponent<Text>().color = Color.white;
+
+        livesText = (GameObject)Instantiate(text, new Vector3(92, 40, 0), Quaternion.identity);
+        livesText.transform.SetParent(transform);
+        livesText.GetComponent<Text>().text = "Lives: ";
+        livesText.GetComponent<Text>().color = Color.white;
+
+        abilities = new List<GameObject>();
+        trapNames = new List<string>();
+        senderIndex = new Dictionary<string, int>();
     }
 
     void OnDestroy()
     {
         TrapControl.TrapInitEvent -= InitalizeTextBoxes;
-        TrapControl.TrapStatusEvent -= UpdateUI;
+        TrapControl.TrapStatusEvent -= UpdateAbilities;
+        Movement.PositionUpdateEvent -= UpdatePlayerPosition;
+        DeathControl.OnHurt -= UpdateLives;
     }
 
-    void InitalizeTextBoxes(string[] names)
+    void InitalizeTextBoxes(string[] names, string sender)
     {
-        abilityTexts = new GameObject[names.Length];
-        for(int i = 0; i < names.Length; i++)
+        int j = 0;
+        senderIndex.Add(sender, i);
+        abilities.Add((GameObject)Instantiate(text, new Vector3(92, 395 - (i * 20), 0), Quaternion.identity));
+        abilities[i].transform.SetParent(transform);
+        abilities[i].GetComponent<Text>().color = Color.white;
+        abilities[i++].GetComponent<Text>().text = sender + " Abilities";
+        trapNames.Add(sender);
+        foreach (string s in names)
         {
-            abilityTexts[i] = (GameObject)Instantiate(text, new Vector3(92, 375 - (i * 20), 0), Quaternion.identity);
-            abilityTexts[i].transform.SetParent(transform);
-            abilityTexts[i].GetComponent<Text>().text = names[i] + ":\tReady";
-            abilityTexts[i].GetComponent<Text>().color = Color.white;
+            trapNames.Add(s);
+            abilities.Add((GameObject)Instantiate(text, new Vector3(92, 395 - (i * 20), 0), Quaternion.identity));
+            abilities[i].transform.SetParent(transform);
+            abilities[i].GetComponent<Text>().color = new Color(0.8f, 0.8f, 0.8f);
+            abilities[i++].GetComponent<Text>().text = names[j++] + ":\tReady";
         }
-        trapNames = names;
+    }
+
+    void UpdatePlayerPosition(float position, string sender)
+    {
+        if (sender != "Player") return;
+        float percentComplete = Mathf.Ceil((position / winAreaPosition) * 100);
+        distanceText.GetComponent<Text>().text = "Distance: " + percentComplete.ToString("0") + "%";
+    }
+
+    void UpdateLives(int lives)
+    {
+        livesText.GetComponent<Text>().text = "Lives: " + lives;
     }
     
-    void UpdateUI(string status, int index, float time)
+    void UpdateAbilities(string sender, string status, int index, float time)
     {
+        int i = senderIndex[sender] + index + 1;
         if(status == "Cooldown")
         {
-            abilityTexts[index].GetComponent<Text>().text = trapNames[index] + ":\t";
-            StartCoroutine(CDTime(abilityTexts[index].GetComponent<Text>(), time));
+            abilities[i].GetComponent<Text>().text = trapNames[i] + ":\t";
+            StartCoroutine(CDTime(abilities[i].GetComponent<Text>(), time));
         }
         else
         {
-            abilityTexts[index].GetComponent<Text>().text = trapNames[index] + ":\t" + status;
+            abilities[i].GetComponent<Text>().text = trapNames[i] + ":\t" + status;
         }
     }
 
