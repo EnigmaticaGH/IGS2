@@ -901,7 +901,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 11476068, guid: d86c7de9946d7bd4fbd7765b02664739, type: 2}
       propertyPath: targets.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 401454, guid: d86c7de9946d7bd4fbd7765b02664739, type: 2}
       propertyPath: m_LocalPosition.x
