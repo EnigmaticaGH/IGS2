@@ -15,8 +15,10 @@ public class companionScript : MonoBehaviour {
     public bool isAlive = true;
     public bool portalActive = false;
     public bool playerShield = false;
+    public bool companionStun = false;
     private int portalDuration = 3; //Duration //OTHER PROGRAMS REQUIRE 3 SECOND MINIMAL VALUE SO KEEP AT 3
     public int shieldDuration = 3; //Duration
+    public int stunTimer = 3;
 
     //private DeathControl playerLife;
     
@@ -29,6 +31,7 @@ public class companionScript : MonoBehaviour {
     Vector3 enemyRange;
     int a = 0; //Controls portal timer
     int b = 0; //Controls shield timer
+    int c = 0; //Controls stun timer
     
     //int shieldTimer = 5; //Duration
     //Object portal1;
@@ -72,7 +75,8 @@ public class companionScript : MonoBehaviour {
 
         if ((moveTowardsPlayer) && (moveTowardsEnemy == false) && (enemyFound == false))
         {
-            Invoke("companionMovement", randomMovementTimer);
+            //Invoke("companionMovement", randomMovementTimer); //Used for random movement around player
+            Invoke("companionMovement", .000001f);
           
 
 
@@ -81,7 +85,8 @@ public class companionScript : MonoBehaviour {
         if (enemyFound)
         {
             //Debug.LogError("OMG IT WORKED EJHENRENRUER");
-            Invoke("companionMovement", .0001f);
+            Invoke("companionMovement", .0000001f);
+            enemyFound = false;
         }
 
 
@@ -198,6 +203,20 @@ public class companionScript : MonoBehaviour {
             }
         }
 
+        if ((Input.GetButton("Y_1") || Input.GetKeyUp(KeyCode.Alpha1)) && (companionStun == false))
+        {
+            c++;
+            if(c == 1)
+            {
+                moveTowardsEnemy = true;
+                moveTowardsPlayer = false;
+                companionStun = true;
+
+                Invoke("cancelStun", stunTimer);
+            }
+            
+        } 
+
       
     }
 
@@ -219,15 +238,16 @@ public class companionScript : MonoBehaviour {
         portalActive = false;
     }
 
+    void cancelStun()
+    {
+        c = 0;
+
+        companionStun = false;
+    }
+
     void FixedUpdate()
     {
-        
-
-        if ((Input.GetButton("Y_1") || Input.GetKey(KeyCode.Alpha1)) && enemyFound == false)
-        {
-            moveTowardsEnemy = true;
-            moveTowardsPlayer = false;
-        }   
+          
 
         if (moveTowardsEnemy)
         {
@@ -255,9 +275,9 @@ public class companionScript : MonoBehaviour {
 
     void OnTriggerEnter(Collider c)
     {
-        if ((c.gameObject.name == "Fear") || (c.CompareTag("Fear")))
+        if ((c.gameObject.name == "Fear") || (c.CompareTag("Enemy")))
         {
-            Debug.Log("Collision Detected!");
+            //Debug.Log("Collision Detected!");
             if(moveTowardsEnemy)
                 enemyFound = true;
             moveTowardsEnemy = false;
