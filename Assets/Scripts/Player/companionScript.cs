@@ -20,9 +20,14 @@ public class companionScript : MonoBehaviour {
     public int shieldDuration = 3; //Duration
     public int stunTimer = 3;
 
+    public delegate void AbilityInit(string[] names, string name);
+    public static event AbilityInit AbilityInitEvent;
+    public delegate void AbilityStatus(string sender, string status, int index, float time);
+    public static event AbilityStatus AbilityStatusEvent;
+
     //private DeathControl playerLife;
-    
-    
+
+
     int randomMovementTimer;
     float randomNumber;
     bool mt = false;
@@ -64,6 +69,8 @@ public class companionScript : MonoBehaviour {
         isAlive = true;
 
         isGrounded = false;
+
+        AbilityInitEvent("Shield Stun".Split(' '), name);
 
         //playerLife = GameObject.Find("Player").GetComponent<DeathControl>();
     }
@@ -175,6 +182,7 @@ public class companionScript : MonoBehaviour {
             a++;
             if (a == 1)
             {
+                
                 Instantiate(portal, new Vector3(player.transform.position.x, 0, 0), Quaternion.identity);
 
                 portalActive = true;
@@ -193,6 +201,7 @@ public class companionScript : MonoBehaviour {
             b++;
             if (b == 1)
             {
+                AbilityStatusEvent(name, "Active", 0, 0);
                 playerShield = true;
 
                 //shield.transform.position = new Vector3(player.position.x, player.position.y, player.position.z);
@@ -208,6 +217,7 @@ public class companionScript : MonoBehaviour {
             c++;
             if(c == 1)
             {
+                AbilityStatusEvent(name, "Active", 1, 0);
                 moveTowardsEnemy = true;
                 moveTowardsPlayer = false;
                 companionStun = true;
@@ -222,12 +232,14 @@ public class companionScript : MonoBehaviour {
 
     void shieldTimerFN()
     {
+        AbilityStatusEvent(name, "Cooldown", 0, 0);
         b = 0;
 
         playerShield = false;
 
         shield.SetActive(false);
 
+        AbilityStatusEvent(name, "Ready", 0, 0);
         //shield.transform.position = new Vector3(0, -200, 0);
         //Destroy(shield);
     }
@@ -240,9 +252,11 @@ public class companionScript : MonoBehaviour {
 
     void cancelStun()
     {
+        AbilityStatusEvent(name, "Cooldown", 1, 0);
         c = 0;
 
         companionStun = false;
+        AbilityStatusEvent(name, "Ready", 1, 0);
     }
 
     void FixedUpdate()

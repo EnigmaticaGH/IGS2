@@ -19,6 +19,8 @@ public class AbilityTracker : MonoBehaviour
     {
         TrapControl.TrapInitEvent += InitalizeTextBoxes;
         TrapControl.TrapStatusEvent += UpdateAbilities;
+        companionScript.AbilityInitEvent += InitalizeTextBoxes;
+        companionScript.AbilityStatusEvent += UpdateAbilities;
         portalScriptPlayer.PortalInitEvent += InitalizeTextBoxes;
         portalScriptPlayer.PortalStatusEvent += UpdateAbilities;
         DeathControl.OnHurt += UpdateLives;
@@ -44,6 +46,10 @@ public class AbilityTracker : MonoBehaviour
     {
         TrapControl.TrapInitEvent -= InitalizeTextBoxes;
         TrapControl.TrapStatusEvent -= UpdateAbilities;
+        companionScript.AbilityInitEvent -= InitalizeTextBoxes;
+        companionScript.AbilityStatusEvent -= UpdateAbilities;
+        portalScriptPlayer.PortalInitEvent -= InitalizeTextBoxes;
+        portalScriptPlayer.PortalStatusEvent -= UpdateAbilities;
         Movement.PositionUpdateEvent -= UpdatePlayerPosition;
         DeathControl.OnHurt -= UpdateLives;
     }
