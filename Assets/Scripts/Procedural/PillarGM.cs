@@ -18,7 +18,7 @@ public class PillarGM : MonoBehaviour {
 
         for (int z = 0; z <= 100; z = z + 5)
         {
-            Instantiate(Gate, new Vector3(Gate.transform.position.x + z, Gate.transform.position.y, Gate.transform.position.z), Quaternion.Euler(270, 40, 0));
+            Instantiate(Gate, new Vector3(Gate.transform.position.x + z, Gate.transform.position.y, Gate.transform.position.z), Quaternion.Euler(270, 90, 0));
         }
 
         for (int i = 0; i <= 100; i++)
