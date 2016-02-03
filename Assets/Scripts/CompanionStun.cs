@@ -50,7 +50,7 @@ public class CompanionStun : MonoBehaviour {
         }
         else if (col.CompareTag("Companion") && (GameObject.FindWithTag("Companion").GetComponent<companionScript>().moveTowardsPlayer))
         {
-            Debug.LogError("Collision detected but ignored");
+            //Debug.LogError("Collision detected but ignored");
             //This should never be called 
             //Unless the enemy collides with the companion without the ability for stun being activated
         }

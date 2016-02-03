@@ -78,13 +78,13 @@ public class companionScript : MonoBehaviour {
     void Main()
     {
 
-        randomMovementTimer = Random.Range(1, 3); //Random timer to adjust movement times
 
         if ((moveTowardsPlayer) && (moveTowardsEnemy == false) && (enemyFound == false))
         {
             //Invoke("companionMovement", randomMovementTimer); //Used for random movement around player
-            Invoke("companionMovement", .000001f);
-          
+            //Invoke("companionMovement", .000001f);
+
+            StartCoroutine("companionMove");
 
 
         }
@@ -100,6 +100,23 @@ public class companionScript : MonoBehaviour {
       
     }
 
+    IEnumerator companionMove()
+    {
+        randomMovementTimer = Random.Range(2, 5); //Random timer to adjust movement times
+
+        //Debug.Log("CoRoutine started");
+
+        yield return new WaitForSeconds(randomMovementTimer);
+
+        companionMovement();
+
+        //Debug.Log("CoRoutine waitied:" + randomMovementTimer + " before completing movement!");
+
+        //This worked well
+        //Need to adjust companion's movement while player is moving
+
+    }
+
     void companionMovement()
     {
         //Debug.LogError("Companion movement called");
@@ -109,6 +126,8 @@ public class companionScript : MonoBehaviour {
         randomNumber = Random.Range(.5f, 1.0f); //Movement distance behind player 
 
         //Debug.Log(randomNumber);
+
+        //Debug.Log("Movement Called!!!!");
 
     }
 
@@ -183,7 +202,7 @@ public class companionScript : MonoBehaviour {
             if (a == 1)
             {
                 
-                Instantiate(portal, new Vector3(player.transform.position.x, 0, 0), Quaternion.identity);
+                Instantiate(portal, new Vector3(player.transform.position.x, player.transform.position.y - .5f, 0), Quaternion.identity);
 
                 portalActive = true;
                 
@@ -275,13 +294,13 @@ public class companionScript : MonoBehaviour {
             followingRange = new Vector3(player.position.x - randomNumber, transform.position.y, player.position.z);
             float step = speed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, followingRange, step);
-            if ((transform.position.x) == (player.position.x - randomNumber))
+            if ((transform.position) == (followingRange))
             {
                 mt = false;
                 enemyFound = false;
                 randomNumber = 0;
-                //Debug.Log(step);
-                Main();
+                StartCoroutine("companionMove");
+                Debug.Log("Companion's position reached targeted distance");
             }
         }
         

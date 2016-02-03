@@ -59,7 +59,7 @@ public class portalScriptPlayer : MonoBehaviour {
         player.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
 
         //Debug.LogError("TELEPORTATION DEVICE CALLED");
-        transform.position = new Vector3(transform.position.x + 4, transform.position.y, 0);
+        transform.position = new Vector3(transform.position.x + 4, 1, 0);
         //Debug.LogError(player.velocity);
         Invoke("playerReset", .2f);
         PortalStatusEvent(name, "Cooldown", 0, 2.5f);
