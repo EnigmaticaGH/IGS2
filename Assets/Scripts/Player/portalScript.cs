@@ -38,7 +38,7 @@ public class portalScript : MonoBehaviour {
 
     void teleport()
     {
-        transform.position = new Vector3(transform.position.x + 4, transform.position.y, 0);
+        transform.position = new Vector3(transform.position.x + 4, 0, 0);
 
         Portal.GetComponent<Renderer>().material.color = Color.magenta;
     }

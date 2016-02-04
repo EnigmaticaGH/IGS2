@@ -27,10 +27,13 @@ public class TrapControl : MonoBehaviour
     public GameObject block;
     public GameObject wall;
     public GameObject bullet;
+    public GameObject[] parkour;
+    private GameObject temp;
 
     public GameObject player;
     private DeathControl playerLife;
     private Rigidbody playerRB;
+    
 
     private ControllerNumber controller;
 
@@ -52,6 +55,8 @@ public class TrapControl : MonoBehaviour
         {
             traps[i].Activated = false;
         }
+
+        
 
         traps[0].Objects = new GameObject[1]
         {
@@ -109,6 +114,10 @@ public class TrapControl : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && !traps[2].Activated)
         {
             StartCoroutine("Trap2Activate");
+        }
+        if (Input.GetKeyDown(KeyCode.R) && !traps[3].Activated)
+        {
+            StartCoroutine("Trap3Activate");
         }
 
         posX = new Vector3(player.transform.position.x, 1, 0);
@@ -235,6 +244,65 @@ public class TrapControl : MonoBehaviour
         TrapStatusEvent(name, "Ready", 2, traps[2].Cooldown);
         ResetObject(traps[2].Objects[0]);
         traps[2].Activated = false;
+    }
+
+    IEnumerator Trap3Activate()
+    {
+        TrapStatusEvent(name, "Active", 3, traps[3].Cooldown);
+        traps[3].Activated = true;
+
+        int randomNumber = Random.Range(0, 9);
+        Debug.Log("Trap 3 activated" + randomNumber);
+        int randomParkourLayout = Random.Range(0, parkour.Length);
+
+       
+
+        if (randomNumber == 0)
+        {
+            temp = Instantiate(parkour[0], new Vector3(player.transform.position.x + 10, parkour[randomParkourLayout].transform.position.y, player.transform.position.z), Quaternion.identity) as GameObject;
+        }
+        else if (randomNumber == 1)
+        {
+            temp = Instantiate(parkour[0], new Vector3(player.transform.position.x + 10, parkour[randomParkourLayout].transform.position.y, player.transform.position.z), Quaternion.identity) as GameObject;
+        }
+        else if (randomNumber == 2)
+        {
+            temp = Instantiate(parkour[0], new Vector3(player.transform.position.x + 10, parkour[randomParkourLayout].transform.position.y, player.transform.position.z), Quaternion.identity) as GameObject;
+        }
+        else if (randomNumber == 3)
+        {
+            temp = Instantiate(parkour[1], new Vector3(player.transform.position.x + 10, parkour[randomParkourLayout].transform.position.y, player.transform.position.z), Quaternion.identity) as GameObject;
+        }
+        else if (randomNumber == 4)
+        {
+            temp = Instantiate(parkour[1], new Vector3(player.transform.position.x + 10, parkour[randomParkourLayout].transform.position.y, player.transform.position.z), Quaternion.identity) as GameObject;
+        }
+        else if (randomNumber == 5)
+        {
+            temp = Instantiate(parkour[1], new Vector3(player.transform.position.x + 10, parkour[randomParkourLayout].transform.position.y, player.transform.position.z), Quaternion.identity) as GameObject;
+        }
+        else if (randomNumber == 6)
+        {
+            temp = Instantiate(parkour[2], new Vector3(player.transform.position.x + 10, parkour[randomParkourLayout].transform.position.y, player.transform.position.z), Quaternion.identity) as GameObject;
+        }
+        else if (randomNumber == 7)
+        {
+            temp = Instantiate(parkour[2], new Vector3(player.transform.position.x + 10, parkour[randomParkourLayout].transform.position.y, player.transform.position.z), Quaternion.identity) as GameObject;
+        }
+        else if (randomNumber == 8)
+        {
+            temp = Instantiate(parkour[3], new Vector3(player.transform.position.x + 10, parkour[randomParkourLayout].transform.position.y, player.transform.position.z), Quaternion.identity) as GameObject;
+        }
+        else if (randomNumber == 9)
+        {
+            temp = Instantiate(parkour[3], new Vector3(player.transform.position.x + 10, parkour[randomParkourLayout].transform.position.y, player.transform.position.z), Quaternion.identity) as GameObject;
+        }
+
+        TrapStatusEvent(name, "Cooldown", 3, traps[3].Cooldown);
+        yield return new WaitForSeconds(traps[3].Cooldown);
+        TrapStatusEvent(name, "Ready", 3, traps[3].Cooldown);
+        traps[3].Activated = false;
+        Destroy(temp);
     }
 
     void ResetAllTraps()
