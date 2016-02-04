@@ -32,6 +32,8 @@ GameObject:
   - 114: {fileID: 11472078}
   - 114: {fileID: 11474328}
   - 114: {fileID: 11450756}
+  - 114: {fileID: 11419180}
+  - 114: {fileID: 11477430}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -304,10 +306,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6d5bff54e52f7647834dac5b5ebf7ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controllerNumber: 1
   useKeyboard: 0
   moveForce: 20
-  maxSpeed: 5
+  maxSpeed: 6
 --- !u!114 &11419168
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -319,6 +320,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bd0c442e39d16a4b9c7fc3a9bb57a48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11419180
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 123962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba704d390d708954d883273e0618448d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controllerNumber: 1
 --- !u!114 &11420338
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -406,6 +419,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frictionCollider: {fileID: 125808}
   nonFrictionCollider: {fileID: 162940}
+--- !u!114 &11477430
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 123962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 076c17457191a9341a9e8b36b86d8a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fears:
+  - {fileID: 0}
 --- !u!114 &11492144
 MonoBehaviour:
   m_ObjectHideFlags: 1

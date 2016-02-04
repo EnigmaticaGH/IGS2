@@ -4,6 +4,7 @@ using System.Collections;
 public class JumpControl : MonoBehaviour
 {
     private int controllerNumber;
+    private ControllerNumber controller;
     private bool canNormalJump;
     private bool jumpButtonPressed;
     public float jumpStrength;
@@ -25,10 +26,11 @@ public class JumpControl : MonoBehaviour
     
     void Start()
     {
-        controllerNumber = GetComponent<Movement>().controllerNumber;
+        controller = GetComponent<ControllerNumber>();
+        controllerNumber = controller.controllerNumber;
         player = GetComponent<Rigidbody>();
         movement = GetComponent<Movement>();
-        jumpButton = "A_" + controllerNumber;
+        jumpButton = "A";
         spacePressed = false;
         jumpStarted = false;
         jumpKeyUp = true;
@@ -37,7 +39,7 @@ public class JumpControl : MonoBehaviour
     void Update()
     {
         spacePressed = movement.useKeyboard && Input.GetKey(KeyCode.Space);
-        jumpButtonPressed = (Input.GetButton(jumpButton) || spacePressed);
+        jumpButtonPressed = (Input.GetButton(jumpButton + "_" + controllerNumber) || spacePressed);
         if (canWallJump && jumpButtonPressed && jumpKeyUp && !canNormalJump)
         {
             player.velocity = new Vector3(wallJumpForce, Mathf.Abs(wallJumpForce), player.velocity.z);
@@ -54,6 +56,7 @@ public class JumpControl : MonoBehaviour
 
     void FixedUpdate()
     {
+        controllerNumber = controller.controllerNumber;
         if (jumpButtonPressed && canNormalJump && !jumpStarted)
         {
             StartCoroutine(JumpTimer());
@@ -67,14 +70,14 @@ public class JumpControl : MonoBehaviour
         float time = maxJumpTime;
         movement.OnJump();
         spacePressed = movement.useKeyboard && Input.GetKey(KeyCode.Space);
-        while (time > 0 && (Input.GetButton(jumpButton) || spacePressed))
+        while (time > 0 && (Input.GetButton(jumpButton + "_" + controllerNumber) || spacePressed))
         {
             time -= Time.deltaTime;
             player.velocity = new Vector3(player.velocity.x, jumpStrength, player.velocity.z);
             yield return null;
         }
         jumpStarted = false;
-        while((Input.GetButton(jumpButton) || spacePressed))
+        while((Input.GetButton(jumpButton + "_" + controllerNumber) || spacePressed))
         {
             yield return null;
         }

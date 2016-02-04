@@ -25,6 +25,9 @@ public class companionScript : MonoBehaviour {
     public delegate void AbilityStatus(string sender, string status, int index, float time);
     public static event AbilityStatus AbilityStatusEvent;
 
+    private ControllerNumber controller;
+    private int controllerNumber;
+
     //private DeathControl playerLife;
 
 
@@ -71,6 +74,8 @@ public class companionScript : MonoBehaviour {
         isGrounded = false;
 
         AbilityInitEvent("Shield Stun".Split(' '), name);
+        controller = player.gameObject.GetComponent<ControllerNumber>();
+        controllerNumber = controller.controllerNumber;
 
         //playerLife = GameObject.Find("Player").GetComponent<DeathControl>();
     }
@@ -195,8 +200,8 @@ public class companionScript : MonoBehaviour {
         /*
          ******Check if player is grounded, if player isn't grounded then he a portal can't be placed.
          */
-
-        if ((Input.GetButton("X_1") || Input.GetKeyUp(KeyCode.M)) && (isGrounded))
+        controllerNumber = controller.controllerNumber;
+        if ((Input.GetButton("X_" + controllerNumber) || Input.GetKeyUp(KeyCode.M)) && (isGrounded))
         {
             a++;
             if (a == 1)
@@ -215,7 +220,7 @@ public class companionScript : MonoBehaviour {
                
         }
 
-        if ((Input.GetButton("B_1")) || (Input.GetKeyUp(KeyCode.N)))
+        if ((Input.GetButton("B_" + controllerNumber)) || (Input.GetKeyUp(KeyCode.N)))
         {
             b++;
             if (b == 1)
@@ -231,7 +236,7 @@ public class companionScript : MonoBehaviour {
             }
         }
 
-        if ((Input.GetButton("Y_1") || Input.GetKeyUp(KeyCode.Alpha1)) && (companionStun == false))
+        if ((Input.GetButton("Y_" + controllerNumber) || Input.GetKeyUp(KeyCode.Alpha1)) && (companionStun == false))
         {
             c++;
             if(c == 1)

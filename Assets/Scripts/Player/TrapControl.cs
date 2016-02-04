@@ -8,6 +8,7 @@ public class TrapControl : MonoBehaviour
     {
         public string Name;
         public string Button;
+        [HideInInspector]
         public string ControllerNumber;
         public float Cooldown;
         [HideInInspector]
@@ -34,6 +35,8 @@ public class TrapControl : MonoBehaviour
     private Rigidbody playerRB;
     
 
+    private ControllerNumber controller;
+
     void Awake()
     {
         DeathControl.OnRespawn += ResetAllTraps;
@@ -47,6 +50,7 @@ public class TrapControl : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        controller = GetComponent<ControllerNumber>();
         for (int i = 0; i < traps.Length; i++)
         {
             traps[i].Activated = false;
@@ -77,6 +81,7 @@ public class TrapControl : MonoBehaviour
         string[] names = new string[traps.Length];
         for(int i = 0; i < traps.Length; i++)
         {
+            traps[i].ControllerNumber = controller.controllerNumber.ToString();
             names[i] = traps[i].Button +  " - " + traps[i].Name;
         }
 
@@ -91,6 +96,7 @@ public class TrapControl : MonoBehaviour
     {
         for(int i = 0; i < traps.Length; i++)
         {
+            traps[i].ControllerNumber = controller.controllerNumber.ToString();
             if (Input.GetButton(traps[i].Button + "_" + traps[i].ControllerNumber) && !traps[i].Activated)
             {
                 StartCoroutine("Trap" + i + "Activate");

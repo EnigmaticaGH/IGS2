@@ -3,7 +3,8 @@ using System.Collections;
 
 public class Movement : MonoBehaviour
 {
-    public int controllerNumber;
+    private ControllerNumber controller;
+    private int controllerNumber;
     public bool useKeyboard;
     enum MovementState
     {
@@ -43,6 +44,8 @@ public class Movement : MonoBehaviour
     private bool startedJumpCoroutine;
     private char wallSensorStatus;
 
+    public PlayerAnim playerAnimator;
+
     public delegate void PlayerPosition(float position, string sender);
     public static event PlayerPosition PositionUpdateEvent;
 
@@ -72,12 +75,15 @@ public class Movement : MonoBehaviour
         MapStateFunctions();
         ChangeState(MovementState.GROUND);
         startedJumpCoroutine = false;
+        controller = GetComponent<ControllerNumber>();
+        controllerNumber = controller.controllerNumber;
     }
 
     void FixedUpdate()
     {
         SetState[(int)state]();
         PositionUpdateEvent(transform.position.x, name);
+        controllerNumber = controller.controllerNumber;
     }
 
     void ChangeState(MovementState newState)
@@ -88,6 +94,9 @@ public class Movement : MonoBehaviour
         /*if (hoverControl != null)
             hoverControl.MovementState(state.ToString());*/
         portal.MovementStateChange(state.ToString());
+        if (playerAnimator != null)
+            playerAnimator.MovementStateChange(state.ToString());
+        
     }
 
     void UpdateMovementGround()
