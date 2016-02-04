@@ -3922,6 +3922,10 @@ Prefab:
       propertyPath: fears.Array.data[0]
       value: 
       objectReference: {fileID: 1827673975}
+    - target: {fileID: 11411714, guid: 9c02b4f2487c47642825f3ceafc9e2a2, type: 2}
+      propertyPath: playerAnimator
+      value: 
+      objectReference: {fileID: 1316194671}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9c02b4f2487c47642825f3ceafc9e2a2, type: 2}
   m_IsPrefabParent: 0
@@ -3938,7 +3942,7 @@ Animator:
   m_GameObject: {fileID: 1316194666}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 945463ce51ac4dd468cb2fcb27235bc6, type: 2}
+  m_Controller: {fileID: 9100000, guid: bbd7319b276e96541845634304d29a2e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3946,6 +3950,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &1316194671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1316194666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eda5215fe12a80448b2600881a923c11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1323497703
 Prefab:
   m_ObjectHideFlags: 0
