@@ -25,6 +25,8 @@ public class PlayerAnim : MonoBehaviour
         anim.SetBool("Grounded", state == "GROUND");
         if (anim.GetBool("Moving") && anim.GetBool("Grounded"))
             anim.speed = Mathf.Abs(body.velocity.x / move.maxSpeed);
+        else
+            anim.speed = 1;
     }
 
     public void MovementStateChange(string moveState)
