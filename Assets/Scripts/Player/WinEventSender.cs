@@ -17,15 +17,13 @@ public class WinEventSender : MonoBehaviour
         DeathControl.OnDeath -= FearsWin;
     }
 
-    void Start()
-    {
-        sender = name + " " + GetComponent<Movement>().controllerNumber.ToString();
-    }
-
     void OnTriggerEnter(Collider c)
     {
         if (c.CompareTag("Win"))
+        {
+            sender = name + " " + GetComponent<ControllerNumber>().controllerNumber.ToString();
             WinEvent(sender);
+        }
     }
 
     void FearsWin(float respawnTime)

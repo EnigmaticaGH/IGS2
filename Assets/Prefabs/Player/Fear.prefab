@@ -15,6 +15,8 @@ GameObject:
   - 114: {fileID: 11482868}
   - 114: {fileID: 11473160}
   - 114: {fileID: 11496958}
+  - 114: {fileID: 11413380}
+  - 114: {fileID: 11463236}
   m_Layer: 9
   m_Name: Fear
   m_TagString: Fear
@@ -67,11 +69,11 @@ GameObject:
   - 136: {fileID: 13631720}
   m_Layer: 9
   m_Name: NoFriction
-  m_TagString: Untagged
+  m_TagString: Friction
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &163078
 GameObject:
   m_ObjectHideFlags: 0
@@ -83,7 +85,7 @@ GameObject:
   - 136: {fileID: 13652608}
   m_Layer: 9
   m_Name: Friction
-  m_TagString: Untagged
+  m_TagString: Friction
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -274,6 +276,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bd0c442e39d16a4b9c7fc3a9bb57a48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11413380
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 112538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc0d08ad9c27dda4cac4b80604c86597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  companionHit: 0
+  stunVisual: {fileID: 174180, guid: e5d8f87eb1e7cad4e842a12e25ff6864, type: 2}
 --- !u!114 &11437776
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -296,7 +311,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6d5bff54e52f7647834dac5b5ebf7ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controllerNumber: 2
   useKeyboard: 0
   moveForce: 20
   maxSpeed: 5
@@ -311,6 +325,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2329fc7202eadb84c89cfbdb5106fca1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11463236
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 112538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba704d390d708954d883273e0618448d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controllerNumber: 2
 --- !u!114 &11473160
 MonoBehaviour:
   m_ObjectHideFlags: 1

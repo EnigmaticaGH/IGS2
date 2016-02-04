@@ -13,7 +13,7 @@ public class FlipSprite : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!Mathf.Approximately(player.velocity.x, 0))
+        if (Mathf.Abs(player.velocity.x) > 0.05f)
             transform.localScale = new Vector3(1 * Mathf.Sign(player.velocity.x), 1, 1);
     }
 }
