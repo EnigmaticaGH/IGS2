@@ -3,8 +3,8 @@ using System.Collections;
 
 public class trap3FloatingIsland : MonoBehaviour {
 
-    public float rightMax = 2;
-    public float leftMax = 2;
+    public int rightMax = 2;
+    public int leftMax = 2;
     public float speed = .5F;
     public float waitTime = .5F;
     float startingLocationX;
@@ -12,9 +12,11 @@ public class trap3FloatingIsland : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        rightMax = transform.position.x + rightMax;
-        leftMax = transform.position.x - leftMax;
+        rightMax = (int)transform.position.x + rightMax;
+        leftMax = (int)transform.position.x - leftMax;
         StartCoroutine("movementController");
+        Debug.Log(leftMax);
+        Debug.Log(rightMax);
 	
 	}
 	
@@ -31,7 +33,7 @@ public class trap3FloatingIsland : MonoBehaviour {
 
         while (transform.position.x < rightMax)
         {
-            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x + rightMax, transform.position.y, transform.position.z), step);
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x + rightMax, transform.position.y, transform.position.z), step);
 
             yield return null;
         }
@@ -43,7 +45,7 @@ public class trap3FloatingIsland : MonoBehaviour {
         while (transform.position.x > leftMax)
         {
 
-            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x - leftMax, transform.position.y, transform.position.z), step * 2);
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(leftMax, transform.position.y, transform.position.z), step);
 
             yield return null;
 

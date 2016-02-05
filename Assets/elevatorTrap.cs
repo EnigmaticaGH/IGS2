@@ -28,7 +28,7 @@ public class elevatorTrap : MonoBehaviour {
 
         while (transform.position.y < elevatorHeight)
         {
-            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, transform.position.y + elevatorHeight, transform.position.z), step);
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, transform.position.y + elevatorHeight, transform.position.z), step);
 
             yield return null;
         }
