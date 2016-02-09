@@ -33,7 +33,7 @@ public class elevatorTrap : MonoBehaviour {
             yield return null;
         }
 
-        Debug.Log("CoRoutine reached target location");
+        //Debug.Log("CoRoutine reached target location");
 
         yield return new WaitForSeconds(elevatorWaitTime);
 

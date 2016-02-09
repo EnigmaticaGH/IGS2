@@ -160,7 +160,7 @@ public class companionScript : MonoBehaviour {
 
          for (int i = 0; i < enemies.Length; i++)
          {
-             Vector3 enemyLocaion = new Vector3(enemies[i].transform.position.x, enemies[i].transform.position.y, enemies[i].transform.position.z);
+             //Vector3 enemyLocaion = new Vector3(enemies[i].transform.position.x, enemies[i].transform.position.y, enemies[i].transform.position.z);
 
              if (enemies[i].transform.position.x < 0)
              {
@@ -305,7 +305,7 @@ public class companionScript : MonoBehaviour {
                 enemyFound = false;
                 randomNumber = 0;
                 StartCoroutine("companionMove");
-                Debug.Log("Companion's position reached targeted distance");
+                //Debug.Log("Companion's position reached targeted distance");
             }
         }
         

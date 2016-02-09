@@ -9,7 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 423926}
   - 65: {fileID: 6522956}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: EndOfLevel
   m_TagString: Win
   m_Icon: {fileID: 0}
@@ -25,7 +25,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 407460}
   - 108: {fileID: 10890334}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - 4: {fileID: 403954}
   - 33: {fileID: 3345326}
   - 23: {fileID: 2332142}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: EndingCourtYard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,9 +55,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 163814}
-  m_LocalRotation: {x: -.694812238, y: -.131286129, z: -.131286144, w: .694812119}
-  m_LocalPosition: {x: 0, y: .237599999, z: -.160999998}
-  m_LocalScale: {x: .5, y: .5, z: .100000009}
+  m_LocalRotation: {x: -0.69481224, y: -0.13128613, z: -0.13128614, w: 0.6948121}
+  m_LocalPosition: {x: 0, y: 0.2376, z: -0.161}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.10000001}
   m_Children:
   - {fileID: 407460}
   m_Father: {fileID: 423926}
@@ -68,8 +68,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 130350}
-  m_LocalRotation: {x: .694812238, y: .131286129, z: .131286144, w: .694812119}
-  m_LocalPosition: {x: -0, y: 0, z: -1.05999994}
+  m_LocalRotation: {x: 0.69481224, y: 0.13128613, z: 0.13128614, w: 0.6948121}
+  m_LocalPosition: {x: -0, y: 0, z: -1.06}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 403954}
@@ -81,7 +81,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 129600}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 75, y: 0, z: 0}
+  m_LocalPosition: {x: 58.092613, y: -0.3, z: -0.24}
   m_LocalScale: {x: 2, y: 10, z: 2}
   m_Children:
   - {fileID: 403954}
@@ -106,8 +106,10 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_AutoUVMaxDistance: .5
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
@@ -129,7 +131,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: .100000001, y: 1, z: 1}
+  m_Size: {x: 0.1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!108 &10890334
 Light:
@@ -140,17 +142,18 @@ Light:
   m_Enabled: 1
   serializedVersion: 6
   m_Type: 2
-  m_Color: {r: .862069011, g: 1, b: 0, a: 1}
-  m_Intensity: 1
-  m_Range: 10
+  m_Color: {r: 0.862069, g: 1, b: 0, a: 1}
+  m_Intensity: 5.21
+  m_Range: 2.3
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
     m_Resolution: -1
     m_Strength: 1
-    m_Bias: .0500000007
-    m_NormalBias: .400000006
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}

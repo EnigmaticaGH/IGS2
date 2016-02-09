@@ -605,7 +605,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rightMax: 2
   leftMax: 2
-  speed: 2
+  speed: 4
   waitTime: 0.5
 --- !u!1001 &100100000
 Prefab:
