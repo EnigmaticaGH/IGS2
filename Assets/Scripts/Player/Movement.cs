@@ -102,22 +102,21 @@ public class Movement : MonoBehaviour
     void UpdateMovementGround()
     {
         float lateralVelocity = Input.GetAxis("L_XAxis_" + controllerNumber) * maxSpeed;
-        int a = 0, d = 0;
-        
-        if(Input.GetKey(KeyCode.D))
+
+        if (Input.GetKey(KeyCode.D))
         {
-            d = 1;
+            lateralVelocity = maxSpeed;
         }
-        if (Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(KeyCode.A))
         {
-            a = 1;
+            lateralVelocity = -maxSpeed;
+        }
+        else
+        {
+            lateralVelocity = 0;
         }
 
-        if (useKeyboard)
-            lateralVelocity = (d - a) * maxSpeed;
-
-        if (lateralVelocity != 0)
-            player.velocity = new Vector3(lateralVelocity, player.velocity.y, player.velocity.z);
+        player.velocity = new Vector3(lateralVelocity, player.velocity.y, player.velocity.z);
     }
 
     void UpdateMovementAir()
