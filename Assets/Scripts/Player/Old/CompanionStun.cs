@@ -5,7 +5,7 @@ public class CompanionStun : MonoBehaviour {
 
     public bool companionHit = false;
     public GameObject stunVisual;
-    GameObject temp;
+    //GameObject temp;
     Rigidbody rb;
     RigidbodyConstraints rbOrginial;
     int collisionControl = 0;

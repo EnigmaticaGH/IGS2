@@ -4,7 +4,7 @@ using System.Collections;
 public class CameraFollow2 : MonoBehaviour
 {
     public bool followVertically; //Should the camera move along the Y axis with the player?
-    public GameObject[] targets; //Used if AutoFind is disabled
+    public GameObject[] targets;
     public float followDistance;
     public float heightAbovePlayer;
 
@@ -23,15 +23,18 @@ public class CameraFollow2 : MonoBehaviour
 
         foreach (GameObject g in targets)
         {
-            if (g.transform.position.x < minX)
-                minX = g.transform.position.x;
-            if (g.transform.position.x > maxX)
-                maxX = g.transform.position.x;
+            if (g != null)
+            {
+                if (g.transform.position.x < minX)
+                    minX = g.transform.position.x;
+                if (g.transform.position.x > maxX)
+                    maxX = g.transform.position.x;
 
-            if (g.transform.position.y < minY)
-                minY = g.transform.position.y;
-            if (g.transform.position.y > maxY)
-                maxY = g.transform.position.y;
+                if (g.transform.position.y < minY)
+                    minY = g.transform.position.y;
+                if (g.transform.position.y > maxY)
+                    maxY = g.transform.position.y;
+            }
         }
         float distance = maxX - minX;
         float midpointX = (minX + maxX) / 2f;

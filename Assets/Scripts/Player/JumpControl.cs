@@ -22,7 +22,6 @@ public class JumpControl : MonoBehaviour
 
     private bool spacePressed;
     private string jumpButton;
-    private string playerstate;
     
     void Start()
     {
@@ -51,7 +50,6 @@ public class JumpControl : MonoBehaviour
     public void MovementState(string state)
     {
         canNormalJump = state == "GROUND";
-        playerstate = state;
     }
 
     void FixedUpdate()
