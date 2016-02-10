@@ -82,9 +82,8 @@ public class Movement : MonoBehaviour
     void UpdateMovementGround()
     {
         float lateralVelocity = Input.GetAxis("L_XAxis_" + controllerNumber) * maxSpeed;
-        int a = 0, d = 0;
-        
-        if(Input.GetKey(KeyCode.D))
+
+        if (Input.GetKey(KeyCode.D))
         {
             d = 1;
         }
@@ -100,7 +99,6 @@ public class Movement : MonoBehaviour
 
         if (useKeyboard)
             lateralVelocity = (d - a) * maxSpeed;
-
         player.velocity = new Vector3(lateralVelocity, player.velocity.y, player.velocity.z);
     }
 
