@@ -6,14 +6,13 @@ TagManager:
   tags:
   - Sensor
   - Bullet
-  - Trap
-  - Companion
   - Enemy
   - Fear
   - Portal
   - Ground
   - Win
   - Friction
+  - Block
   layers:
   - Default
   - TransparentFX

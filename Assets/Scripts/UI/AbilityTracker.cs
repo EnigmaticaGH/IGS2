@@ -23,8 +23,7 @@ public class AbilityTracker : MonoBehaviour
         companionScript.AbilityStatusEvent += UpdateAbilities;
         portalScriptPlayer.PortalInitEvent += InitalizeTextBoxes;
         portalScriptPlayer.PortalStatusEvent += UpdateAbilities;
-        DeathControl.OnHurt += UpdateLives;
-        Movement.PositionUpdateEvent += UpdatePlayerPosition;
+        //DeathControl.OnHurt += UpdateLives;
         winAreaPosition = winArea.transform.position.x;
 
         distanceText = (GameObject)Instantiate(text, new Vector3(92, 20, 0), Quaternion.identity);
@@ -50,8 +49,7 @@ public class AbilityTracker : MonoBehaviour
         companionScript.AbilityStatusEvent -= UpdateAbilities;
         portalScriptPlayer.PortalInitEvent -= InitalizeTextBoxes;
         portalScriptPlayer.PortalStatusEvent -= UpdateAbilities;
-        Movement.PositionUpdateEvent -= UpdatePlayerPosition;
-        DeathControl.OnHurt -= UpdateLives;
+        //DeathControl.OnHurt -= UpdateLives;
     }
 
     void InitalizeTextBoxes(string[] names, string sender)

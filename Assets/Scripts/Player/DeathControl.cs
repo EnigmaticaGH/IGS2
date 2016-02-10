@@ -3,19 +3,21 @@ using System.Collections;
 
 public class DeathControl : MonoBehaviour
 {
+    public delegate void OutOfLivesEvent(string sender);
+    public static event OutOfLivesEvent OutOfLives;
     public delegate void DeathEvent(float respawnTime);
     public static event DeathEvent OnDeath;
     public delegate void RespawnEvent();
     public static event RespawnEvent OnRespawn;
-    public delegate void LivesCounter(int lives);
-    public static event LivesCounter OnHurt;
     private Rigidbody player;
     public float bottomOfLevel; //The y position of the bottom of the level
     public float respawnTime;
     private bool doneRespawning = true;
     private Vector3 startPosition;
-    private bool playerShieldBool = false;
 
+    public float invincibilityTime;
+    public int maxHealth;
+    private int health;
     public int numberOfLives;
     private int lives;
     private bool invincible;
@@ -24,9 +26,8 @@ public class DeathControl : MonoBehaviour
     {
         startPosition = transform.position;
         player = GetComponent<Rigidbody>();
-        //Debug.LogError(playerShieldBool);
         lives = numberOfLives;
-        OnHurt(lives);
+        health = maxHealth;
         invincible = false;
     }
 
@@ -43,13 +44,22 @@ public class DeathControl : MonoBehaviour
 
     public void Hurt(int damage)
     {
-        OnHurt(--lives);
-        if (lives <= 0) Kill();
+        if (!invincible)
+        {
+            health -= damage;
+            Debug.Log("Player hurt for " + damage + " damage. Health: " + health);
+            if (health <= 0) Kill();
+            StartCoroutine(InvincibilityFrame(invincibilityTime));
+        }
     }
 
-    public void Kill()
+    void Kill()
     {
-        if(doneRespawning)
+        health = maxHealth;
+        if (--lives < 0)
+            RemoveFromGame();
+        Debug.Log("Player killed. Lives: " + lives);
+        if (doneRespawning)
         {
             if (OnDeath != null)
                 OnDeath(respawnTime);
@@ -72,27 +82,11 @@ public class DeathControl : MonoBehaviour
             OnRespawn();
     }
 
-    void OnTriggerEnter(Collider c)
+    void RemoveFromGame()
     {
-       
-        if ((c.CompareTag("Bullet")) && (!GameObject.Find("Companion").GetComponent<companionScript>().playerShield) && !invincible)
-        {
-            Hurt(1);
-            StartCoroutine(InvincibilityFrame(1));
-            //GetComponent<TrapControl>().block.GetComponent<Collider>().enabled = true;
-            //GetComponent<TrapControl>().block.GetComponent<Collider>().isTrigger = true;
-            //GetComponent<TrapControl>().bullet.GetComponent<Collider>().enabled = true;
-            //GetComponent<TrapControl>().bullet.GetComponent<Collider>().isTrigger = true;
-            
-        }
-        else if ((c.CompareTag("Bullet")) && (GameObject.Find("Companion").GetComponent<companionScript>().playerShield))
-        {
-
-            //GetComponent<TrapControl>().block.GetComponent<Collider>().enabled = false;
-            //GetComponent<TrapControl>().bullet.GetComponent<Collider>().enabled = false;
-
-        }
-            
+        Debug.Log(name + " KOed!");
+        if(OutOfLives != null)
+            OutOfLives(name);
     }
 
     IEnumerator InvincibilityFrame(float t)

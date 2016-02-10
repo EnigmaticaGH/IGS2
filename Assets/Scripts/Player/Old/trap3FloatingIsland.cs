@@ -7,7 +7,7 @@ public class trap3FloatingIsland : MonoBehaviour {
     public int leftMax = 2;
     public float speed = .5F;
     public float waitTime = .5F;
-    float startingLocationX;
+    //float startingLocationX;
 
 	// Use this for initialization
 	void Start () {
@@ -28,7 +28,7 @@ public class trap3FloatingIsland : MonoBehaviour {
     IEnumerator movementController()
     {
         float step = speed * Time.deltaTime;
-        startingLocationX = transform.position.x;
+        //startingLocationX = transform.position.x;
         //transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, transform.position.y + elevatorHeight, transform.position.z), step);
 
         while (transform.position.x < rightMax)

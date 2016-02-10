@@ -4,12 +4,10 @@ using System.Collections;
 public class WallSensor : MonoBehaviour
 {
     private JumpControl jumpControl;
-    private Movement movement;
 
     void Start()
     {
         jumpControl = GetComponentInParent<JumpControl>();
-        movement = GetComponentInParent<Movement>();
         jumpControl.SendWallSensorReading(' ');
     }
     void OnTriggerEnter(Collider c)
@@ -18,12 +16,6 @@ public class WallSensor : MonoBehaviour
         {
             jumpControl.SendWallSensorReading(name[0]);
         }
-
-        if (c.gameObject.name == "Companion")
-        {
-            ;
-        }
-       
     }
     void OnTriggerExit(Collider c)
     {
@@ -34,6 +26,6 @@ public class WallSensor : MonoBehaviour
     }
     bool CheckTags(Collider c)
     {
-        return c.CompareTag("Untagged") || c.CompareTag("Ground") || c.CompareTag("Trap");
+        return c.CompareTag("Untagged") || c.CompareTag("Ground");
     }
 }

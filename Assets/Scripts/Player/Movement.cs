@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Movement : MonoBehaviour
 {
+    #region Variables
+
     private ControllerNumber controller;
     private int controllerNumber;
     public bool useKeyboard;
@@ -20,7 +22,6 @@ public class Movement : MonoBehaviour
     private JumpControl jumpControl;
     //private HoverControl hoverControl;
     private DynamicCollider dynamicCollider;
-    private companionScript portal;
     private MovementState state;
 
     void MapStateFunctions()
@@ -42,28 +43,10 @@ public class Movement : MonoBehaviour
     private Rigidbody player;
     private bool isGrounded;
     private bool startedJumpCoroutine;
-    private char wallSensorStatus;
 
     public PlayerAnim playerAnimator;
 
-    public delegate void PlayerPosition(float position, string sender);
-    public static event PlayerPosition PositionUpdateEvent;
-
-    void Awake()
-    {
-        HoverControl.OnHoverStartOrResume += OnHoverStartOrResume;
-        HoverControl.OnHoverPause += OnHoverPause;
-        HoverControl.OnHoverDone += OnHoverDone;
-
-         //portal = portal.GetComponent<companionScript>();
-    }
-
-    void OnDestroy()
-    {
-        HoverControl.OnHoverStartOrResume += OnHoverStartOrResume;
-        HoverControl.OnHoverPause -= OnHoverPause;
-        HoverControl.OnHoverDone -= OnHoverDone;
-    }
+    #endregion
 
     void Start()
     {
@@ -71,7 +54,6 @@ public class Movement : MonoBehaviour
         jumpControl = GetComponent<JumpControl>();
         //hoverControl = GetComponent<HoverControl>();
         dynamicCollider = GetComponent<DynamicCollider>();
-        portal = GameObject.Find("Companion").GetComponent<companionScript>();
         MapStateFunctions();
         ChangeState(MovementState.GROUND);
         startedJumpCoroutine = false;
@@ -82,7 +64,6 @@ public class Movement : MonoBehaviour
     void FixedUpdate()
     {
         SetState[(int)state]();
-        PositionUpdateEvent(transform.position.x, name);
         controllerNumber = controller.controllerNumber;
     }
 
@@ -91,13 +72,12 @@ public class Movement : MonoBehaviour
         state = newState;
         jumpControl.MovementState(state.ToString());
         dynamicCollider.MovementStateChange(state.ToString());
-        /*if (hoverControl != null)
-            hoverControl.MovementState(state.ToString());*/
-        portal.MovementStateChange(state.ToString());
         if (playerAnimator != null)
             playerAnimator.MovementStateChange(state.ToString());
         
     }
+
+    #region General Movement
 
     void UpdateMovementGround()
     {
@@ -112,12 +92,16 @@ public class Movement : MonoBehaviour
         {
             a = 1;
         }
+        if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+        {
+            a = 0;
+            d = 0;
+        }
 
         if (useKeyboard)
             lateralVelocity = (d - a) * maxSpeed;
 
-        if (lateralVelocity != 0)
-            player.velocity = new Vector3(lateralVelocity, player.velocity.y, player.velocity.z);
+        player.velocity = new Vector3(lateralVelocity, player.velocity.y, player.velocity.z);
     }
 
     void UpdateMovementAir()
@@ -140,6 +124,10 @@ public class Movement : MonoBehaviour
         if (Mathf.Abs(player.velocity.x) < maxSpeed)
             player.AddForce(lateralForce);
     }
+
+    #endregion
+
+    #region State Machine
 
     void Ground()
     {
@@ -195,6 +183,8 @@ public class Movement : MonoBehaviour
         //The player is unable to move
     }
 
+    #endregion
+
     IEnumerator DisableMovement(float disableTime)
     {
         MovementState oldState = state;
@@ -229,20 +219,5 @@ public class Movement : MonoBehaviour
     public void OnJump()
     {
         ChangeState(MovementState.JUMP);
-    }
-
-    void OnHoverStartOrResume()
-    {
-        ChangeState(MovementState.HOVER);
-    }
-
-    void OnHoverPause()
-    {
-        ChangeState(MovementState.AIR);
-    }
-
-    void OnHoverDone()
-    {
-        ChangeState(MovementState.LANDING);
     }
 }

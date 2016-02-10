@@ -9,13 +9,13 @@ public class WinEventReceiver : MonoBehaviour
 
     void Awake()
     {
-        WinEventSender.WinEvent += OnWin;
+        PlayerTracker.WinEvent += OnWin;
         winCanvas.SetActive(false);
     }
 
     void OnDestroy()
     {
-        WinEventSender.WinEvent -= OnWin;
+        PlayerTracker.WinEvent -= OnWin;
     }
 
     void OnWin(string sender)
