@@ -21,6 +21,7 @@ public class DeathControl : MonoBehaviour
     public int numberOfLives;
     private int lives;
     private bool invincible;
+    private bool outOfLives;
 
     void Start()
     {
@@ -29,6 +30,7 @@ public class DeathControl : MonoBehaviour
         lives = numberOfLives;
         health = maxHealth;
         invincible = false;
+        outOfLives = false;
     }
 
     void Update()
@@ -44,7 +46,7 @@ public class DeathControl : MonoBehaviour
 
     public void Hurt(int damage)
     {
-        if (!invincible)
+        if (!invincible && !outOfLives)
         {
             health -= damage;
             Debug.Log("Player hurt for " + damage + " damage. Health: " + health);
@@ -59,7 +61,7 @@ public class DeathControl : MonoBehaviour
         if (--lives < 0)
             RemoveFromGame();
         Debug.Log("Player killed. Lives: " + lives);
-        if (doneRespawning)
+        if (doneRespawning && !outOfLives)
         {
             if (OnDeath != null)
                 OnDeath(respawnTime);
@@ -84,6 +86,7 @@ public class DeathControl : MonoBehaviour
 
     void RemoveFromGame()
     {
+        outOfLives = true;
         Debug.Log(name + " KOed!");
         if(OutOfLives != null)
             OutOfLives(name);
