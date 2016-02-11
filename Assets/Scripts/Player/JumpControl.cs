@@ -22,6 +22,7 @@ public class JumpControl : MonoBehaviour
 
     private bool spacePressed;
     private string jumpButton;
+    private bool canDoubleJump;
     
     void Start()
     {
@@ -33,6 +34,7 @@ public class JumpControl : MonoBehaviour
         spacePressed = false;
         jumpStarted = false;
         jumpKeyUp = true;
+        canDoubleJump = false;
     }
 
     void Update()
@@ -44,6 +46,11 @@ public class JumpControl : MonoBehaviour
             player.velocity = new Vector3(wallJumpForce, Mathf.Abs(wallJumpForce), player.velocity.z);
             canWallJump = false;
             movement.Disable(0.5f);
+        }
+        if (canDoubleJump && jumpButtonPressed && jumpKeyUp && !canNormalJump && !jumpStarted)
+        {
+            StartCoroutine(JumpTimer());
+            canDoubleJump = false;
         }
     }
 
@@ -65,6 +72,7 @@ public class JumpControl : MonoBehaviour
     {
         jumpStarted = true;
         jumpKeyUp = false;
+        canDoubleJump = true;
         float time = maxJumpTime;
         movement.OnJump();
         spacePressed = movement.useKeyboard && Input.GetKey(KeyCode.Space);

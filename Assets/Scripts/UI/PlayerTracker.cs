@@ -26,7 +26,6 @@ public class PlayerTracker : MonoBehaviour {
         }
         players = tempPlayers.ToArray();
         numberOfPlayers = players.Length;
-        Debug.Log("There are " + numberOfPlayers + " players.");
     }
 
     void OnDestroy()
@@ -58,5 +57,6 @@ public class PlayerTracker : MonoBehaviour {
         g.GetComponent<Rigidbody>().isKinematic = true;
         g.GetComponentInChildren<SpriteRenderer>().enabled = false;
         g.GetComponent<DynamicCollider>().Disable();
+        g.transform.position = Vector3.up * 2;
     }
 }
