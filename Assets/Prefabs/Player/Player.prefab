@@ -11,7 +11,7 @@ GameObject:
   - 136: {fileID: 13671142}
   m_Layer: 8
   m_Name: Friction
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49,7 +49,7 @@ GameObject:
   - 136: {fileID: 13659246}
   m_Layer: 8
   m_Name: NoFriction
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -66,7 +66,7 @@ GameObject:
   - 114: {fileID: 11490618}
   m_Layer: 8
   m_Name: RWallSensor
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -83,7 +83,7 @@ GameObject:
   - 114: {fileID: 11419068}
   m_Layer: 8
   m_Name: LWallSensor
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -119,7 +119,7 @@ GameObject:
   - 65: {fileID: 6544552}
   m_Layer: 8
   m_Name: GroundSensor
-  m_TagString: Sensor
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -333,8 +333,8 @@ MonoBehaviour:
   bottomOfLevel: -5
   respawnTime: 1
   invincibilityTime: 1
-  maxHealth: 3
-  numberOfLives: 3
+  maxHealth: 1
+  numberOfLives: 0
 --- !u!114 &11423480
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -393,7 +393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba704d390d708954d883273e0618448d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controllerNumber: 1
+  controllerNumber: 2
 --- !u!114 &11473754
 MonoBehaviour:
   m_ObjectHideFlags: 1
