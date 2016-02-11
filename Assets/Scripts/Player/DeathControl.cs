@@ -37,10 +37,7 @@ public class DeathControl : MonoBehaviour
     {
         if (transform.position.y < bottomOfLevel && doneRespawning)
         {
-            if(OnDeath != null)
-                OnDeath(respawnTime);
-            StartCoroutine(Respawn(respawnTime));
-            doneRespawning = false;
+            Kill();
         }
     }
 
