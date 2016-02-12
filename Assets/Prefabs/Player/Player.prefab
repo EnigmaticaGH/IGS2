@@ -31,6 +31,7 @@ GameObject:
   - 114: {fileID: 11473754}
   - 114: {fileID: 11462776}
   - 114: {fileID: 11438388}
+  - 75: {fileID: 7536330}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -116,7 +117,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 470322}
   - 114: {fileID: 11447844}
-  - 65: {fileID: 6544552}
   m_Layer: 8
   m_Name: GroundSensor
   m_TagString: Player
@@ -191,7 +191,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 132552}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 470322}
@@ -221,7 +221,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 132552}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: .25
   m_Drag: .25
   m_AngularDrag: .0500000007
   m_UseGravity: 1
@@ -229,18 +229,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 120
   m_CollisionDetection: 2
---- !u!65 &6544552
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 189008}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: .600000024, y: .200000003, z: .600000024}
-  m_Center: {x: 0, y: -.5, z: 0}
 --- !u!65 &6558436
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -265,6 +253,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: .0500000007, y: .5, z: .5}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!75 &7536330
+ConstantForce:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 132552}
+  m_Enabled: 1
+  m_Force: {x: 5, y: 0, z: 0}
+  m_RelativeForce: {x: 0, y: 0, z: 0}
+  m_Torque: {x: 0, y: 0, z: 0}
+  m_RelativeTorque: {x: 0, y: 0, z: 0}
 --- !u!95 &9511294
 Animator:
   serializedVersion: 3
@@ -293,7 +292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6d5bff54e52f7647834dac5b5ebf7ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useKeyboard: 1
+  useKeyboard: 0
   moveForce: 20
   maxSpeed: 6
   playerAnimator: {fileID: 11436650}
@@ -346,8 +345,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 643d1c5ebe28ddf4fa0ab4eed39a0c33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpStrength: 5
-  maxJumpTime: .150000006
+  jumpStrength: 7
+  maxJumpTime: .25
   wallJumpStrength: 5
 --- !u!114 &11436650
 MonoBehaviour:
@@ -371,6 +370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e9d1223e3121974092328a81fb71d95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  windTunnelPrefab: {fileID: 0}
 --- !u!114 &11447844
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -393,7 +393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba704d390d708954d883273e0618448d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controllerNumber: 2
+  controllerNumber: 1
 --- !u!114 &11473754
 MonoBehaviour:
   m_ObjectHideFlags: 1

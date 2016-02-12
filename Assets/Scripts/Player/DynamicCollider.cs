@@ -6,6 +6,7 @@ public class DynamicCollider : MonoBehaviour
     public GameObject frictionCollider;
     public GameObject nonFrictionCollider;
     private bool disabled = false;
+    private bool forcingMode = false;
 
     public void MovementStateChange(string state)
     {
@@ -19,6 +20,19 @@ public class DynamicCollider : MonoBehaviour
             frictionCollider.SetActive(false);
             nonFrictionCollider.SetActive(true);
         }
+    }
+
+    public void ForceUseFrictionless(float time)
+    {
+        forcingMode = true;
+        frictionCollider.SetActive(false);
+        nonFrictionCollider.SetActive(true);
+        Invoke("TurnOffForceMode", time);
+    }
+
+    void TurnOffForceMode()
+    {
+        forcingMode = false;
     }
 
     public void Disable()
