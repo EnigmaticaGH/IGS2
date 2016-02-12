@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class WinEventReceiver : MonoBehaviour
 {
@@ -27,6 +28,7 @@ public class WinEventReceiver : MonoBehaviour
 
     public void Button1_Click()
     {
-        Application.LoadLevel(0);
+        //Application.LoadLevel(0);
+        SceneManager.LoadScene(0);
     }
 }
