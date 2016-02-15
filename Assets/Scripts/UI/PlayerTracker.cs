@@ -5,7 +5,7 @@ using System.Linq;
 public class PlayerTracker : MonoBehaviour {
     private int numberOfPlayers;
     private List<GameObject> tempPlayers;
-    private GameObject[] players;
+    public static GameObject[] players;
     public delegate void Win(string sender);
     public static event Win WinEvent;
 

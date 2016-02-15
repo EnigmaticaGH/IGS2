@@ -37,8 +37,8 @@ public class Ability
 
     public Status AbilityStatus
     {
-        get { return abilityStatus; }
-        set { abilityStatus = AbilityStatus; }
+        get;
+        set;
     }
 
     public string Button

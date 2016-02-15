@@ -43,7 +43,8 @@ public class Movement : MonoBehaviour
     private Rigidbody player;
     private bool isGrounded;
     private bool startedJumpCoroutine;
-
+    private bool useForce;
+    private float forceTime;
     public PlayerAnim playerAnimator;
 
     #endregion
@@ -59,6 +60,8 @@ public class Movement : MonoBehaviour
         startedJumpCoroutine = false;
         controller = GetComponent<ControllerNumber>();
         controllerNumber = controller.controllerNumber;
+        useForce = false;
+        forceTime = 0;
     }
 
     void FixedUpdate()
@@ -82,6 +85,7 @@ public class Movement : MonoBehaviour
     void UpdateMovementGround()
     {
         float lateralVelocity = Input.GetAxis("L_XAxis_" + controllerNumber) * maxSpeed;
+        Vector3 lateralForce = Vector3.right * Input.GetAxisRaw("L_XAxis_" + controllerNumber) * moveForce;
         int a = 0, d = 0;
         if (Input.GetKey(KeyCode.D))
         {
@@ -99,7 +103,11 @@ public class Movement : MonoBehaviour
 
         if (useKeyboard)
             lateralVelocity = (d - a) * maxSpeed;
-        player.velocity = new Vector3(lateralVelocity, player.velocity.y, player.velocity.z);
+
+        if (!useForce)
+            player.velocity = new Vector3(lateralVelocity, player.velocity.y, player.velocity.z);
+        else if (Mathf.Abs(player.velocity.x) < maxSpeed)
+            player.AddForce(lateralForce);
     }
 
     void UpdateMovementAir()
@@ -192,6 +200,17 @@ public class Movement : MonoBehaviour
         ChangeState(oldState);
     }
 
+    IEnumerator ChangeToForce()
+    {
+        useForce = true;
+        while(forceTime >= 0)
+        {
+            forceTime -= Time.deltaTime;
+            yield return null;
+        }
+        useForce = false;
+    }
+
     IEnumerator JumpToGroundState()
     {
         startedJumpCoroutine = true;
@@ -207,6 +226,17 @@ public class Movement : MonoBehaviour
     public void Disable(float time)
     {
         StartCoroutine(DisableMovement(time));
+    }
+
+    public void UseForceInstead(float time)
+    {
+        if (!useForce)
+        {
+            forceTime = time;
+            StartCoroutine(ChangeToForce());
+        }
+        else
+            forceTime += time;
     }
 
     public void SendGroundSensorReading(bool status)

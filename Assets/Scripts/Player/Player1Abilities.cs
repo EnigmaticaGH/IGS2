@@ -3,102 +3,129 @@ using System.Collections;
 
 public class Player1Abilities : MonoBehaviour
 {
+    public GameObject windTunnelPrefab;
     private int controllerNumber;
-    public Object weapon;
-    public float basicAttackCoolDown = .5f;
-    public bool abilityA = false;
-    private GameObject[] blocks;
-    private Vector3 pos;
-    int c = 0;
-    GroundSensor sensor1; 
-
+    private Rigidbody player;
+    private Movement movement;
+    private const float ABILITY_B_FORCE = 600;
     //Assign new abilities here
-    Ability[] abilities = new Ability[]
-    {
-        new Ability("Block Smash", "A", 5)
-    };
+    Ability[] abilities;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Awake()
     {
-        sensor1 = GameObject.Find("Player 1").GetComponentInChildren<GroundSensor>(); //FINALLY OMG this took forever smh XD
+        player = GetComponent<Rigidbody>();
+        movement = GetComponent<Movement>();
         controllerNumber = GetComponent<ControllerNumber>().controllerNumber;
-        //Get a list of all blocks in the scene
-        blocks = GameObject.FindGameObjectsWithTag("Block");
-        foreach(Ability ability in abilities)
+        GetComponent<ConstantForce>().enabled = false;
+        abilities = new Ability[]
+        {
+            new Ability("Block Smash", "B", 0.5f),
+            new Ability("Wind Tunnel", "X", 5,
+                new GameObject[1]
+                {
+                    (GameObject)Instantiate(windTunnelPrefab, Vector3.up * 20, Quaternion.identity)
+                })
+        };
+        foreach (Ability ability in abilities)
         {
             //Initially set all abilities to READY
             ability.AbilityStatus = Ability.Status.READY;
+            //Deactivate all objects associated with ability
+            if (ability.Objects != null)
+                foreach(GameObject g in ability.Objects)
+                {
+                    g.SetActive(false);
+                }
         }
-        pos = blocks[0].transform.position;
-        //c = sensor.CubeLength; //Used for control of ability A so it only affects three blocks during peroid
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
-        if(Input.GetKeyDown(KeyCode.T) && abilities[0].AbilityStatus == Ability.Status.READY)
-        {
-            //Only for testing
-            StartCoroutine("Ability_" + abilities[0].Button + "_Activate", abilities[0]);
-        }
         foreach (Ability ability in abilities)
         {
             //Check for input on abilities
-            if (Input.GetButton(ability.Button + "_" + controllerNumber) && ability.AbilityStatus == Ability.Status.READY)
+            if (Input.GetButtonDown(ability.Button + "_" + controllerNumber) && ability.AbilityStatus == Ability.Status.READY)
             {
                 StartCoroutine("Ability_" + ability.Button + "_Activate", ability);
             }
         }
-        
-    }
-    void FixedUpdate()
-    {
-        
     }
 
-    void OnColliderEnter(Collider col)
-    {
-        /*foreach (ContactPoint contact in col.contacts) {
-            Debug.DrawRay(contact.point, contact.normal, Color.green);
-        }*/
-        if (col.tag == "Block")
-        {
-            Debug.Log(blocks);
-            Debug.Log("Contact");
-        }
-    }
-
-    
-
-    IEnumerator Ability_A_Activate(Ability ability)
+    IEnumerator Ability_B_Activate(Ability ability)
     {
         ability.AbilityStatus = Ability.Status.ACTIVE;
         // Ability code here
-        //Debug.DrawRay(transform.position, blocks[0].transform.position);
-        //blocks[0].GetComponent<Rigidbody>().useGravity = true; //Make object fall
-        //blocks[0].GetComponent<Rigidbody>().isKinematic = false; //Allow it to be moved by gravity
-        abilityA = true;
-        
+        if (Input.GetAxis("L_YAxis_" + controllerNumber) < -0.5f)
+        {
+            //shoot up
+            player.AddForce(Vector3.up * ABILITY_B_FORCE);
+            movement.Disable(0.5f);
+        }
+        else if (Input.GetAxis("L_YAxis_" + controllerNumber) > 0.5f)
+        {
+            //shoot down
+            player.AddForce(Vector3.down * ABILITY_B_FORCE);
+            movement.Disable(0.5f);
+        }
+        else if (Input.GetAxis("L_XAxis_" + controllerNumber) > 0.5f)
+        {
+            //shoot right
+            player.useGravity = false;
+            player.MovePosition(transform.position + Vector3.up * 0.1f);
+            player.AddForce(Vector3.right * ABILITY_B_FORCE);
+            movement.Disable(0.5f);
+        }
+        else if (Input.GetAxis("L_XAxis_" + controllerNumber) < -0.5f)
+        {
+            //shoot left
+            player.useGravity = false;
+            player.MovePosition(transform.position + Vector3.up * 0.1f);
+            player.AddForce(Vector3.left * ABILITY_B_FORCE);
+            movement.Disable(0.5f);
+        }
         // -----------------
+        yield return new WaitForSeconds(0.5f);
+        player.useGravity = true;
         ability.AbilityStatus = Ability.Status.COOLDOWN;
         yield return new WaitForSeconds(ability.CooldownTime);
-        if (sensor1.GetComponent<GroundSensor>().CubeLength > 2)
-        {
-            sensor1.GetComponent<GroundSensor>().CubeLength = 1;
-        }
-        
-        abilityA = false;
         ability.AbilityStatus = Ability.Status.READY;
-        blocks[0].transform.position = pos;
     }
 
-    IEnumerator BasicAttack()
+    IEnumerator Ability_X_Activate(Ability ability)
     {
-        //weapon.gameObject.activeSelf(true);
-        Object cloneAttack;
-        cloneAttack = Instantiate(weapon, new Vector2(transform.position.x + .5f, transform.position.y + .02f), Quaternion.identity);
-        yield return new WaitForSeconds(basicAttackCoolDown);
-        Destroy(cloneAttack);
+        ability.AbilityStatus = Ability.Status.ACTIVE;
+        float axis = Input.GetAxis("L_XAxis_" + controllerNumber);
+        int direction = axis >= 0 ? 1 : -1;
+        float activeTimer = 4;
+        ability.Objects[0].SetActive(true);
+        ability.Objects[0].transform.position = Vector3.up * (transform.position.y + 2) + Vector3.right * direction * 20;
+        while((activeTimer -= Time.deltaTime) > 0)
+        {
+            foreach(GameObject player in PlayerTracker.players)
+            {
+                player.GetComponent<ConstantForce>().force = Vector3.left * direction * 2;
+                if (player.transform.position.y > ability.Objects[0].transform.position.y - 3
+                 && player.transform.position.y < ability.Objects[0].transform.position.y + 3)
+                {
+                    player.GetComponent<ConstantForce>().enabled = true;
+                    player.GetComponent<Movement>().UseForceInstead(Time.deltaTime);
+                }
+                else
+                {
+                    player.GetComponent<ConstantForce>().enabled = false;
+                }
+            }
+            yield return new WaitForFixedUpdate();
+        }
+        foreach (GameObject player in PlayerTracker.players)
+        {
+            player.GetComponent<ConstantForce>().enabled = false;
+        }
+        ability.Objects[0].SetActive(false);
+        ability.AbilityStatus = Ability.Status.COOLDOWN;
+        yield return new WaitForSeconds(ability.CooldownTime);
+        ability.AbilityStatus = Ability.Status.READY;
     }
 }
