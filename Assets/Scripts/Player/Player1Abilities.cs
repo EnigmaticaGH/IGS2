@@ -9,7 +9,7 @@ public class Player1Abilities : MonoBehaviour
     private Movement movement;
     private const float ABILITY_B_FORCE = 600;
     //Assign new abilities here
-    Ability[] abilities;
+    private Ability[] abilities;
 
     // Use this for initialization
     void Awake()
@@ -37,6 +37,8 @@ public class Player1Abilities : MonoBehaviour
                 {
                     g.SetActive(false);
                 }
+            //Add abilities to a registry of abilities
+            AbilityRegistry.RegisterAbility(name, ability);
         }
     }
 
@@ -53,15 +55,21 @@ public class Player1Abilities : MonoBehaviour
         }
     }
 
+    void SetVelocityToZero()
+    {
+        player.velocity = Vector3.zero;
+    }
+
     IEnumerator Ability_B_Activate(Ability ability)
     {
         ability.AbilityStatus = Ability.Status.ACTIVE;
         // Ability code here
-        if (Input.GetAxis("L_YAxis_" + controllerNumber) < -0.5f)
+        if (Input.GetAxis("L_YAxis_" + controllerNumber) < -0.5f && movement.State == Movement.MovementState.GROUND)
         {
             //shoot up
             player.AddForce(Vector3.up * ABILITY_B_FORCE);
             movement.Disable(0.5f);
+            Invoke("SetVelocityToZero", 0.5f);
         }
         else if (Input.GetAxis("L_YAxis_" + controllerNumber) > 0.5f)
         {

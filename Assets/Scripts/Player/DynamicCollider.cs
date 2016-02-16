@@ -10,12 +10,12 @@ public class DynamicCollider : MonoBehaviour
 
     public void MovementStateChange(string state)
     {
-        if(state == "GROUND" && !disabled)
+        if(state == "GROUND" && !disabled && !forcingMode)
         {
             frictionCollider.SetActive(true);
             nonFrictionCollider.SetActive(false);
         }
-        else if (!disabled)
+        else if (!disabled && !forcingMode)
         {
             frictionCollider.SetActive(false);
             nonFrictionCollider.SetActive(true);

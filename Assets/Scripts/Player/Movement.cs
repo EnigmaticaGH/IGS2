@@ -8,7 +8,7 @@ public class Movement : MonoBehaviour
     private ControllerNumber controller;
     private int controllerNumber;
     public bool useKeyboard;
-    enum MovementState
+    public enum MovementState
     {
         GROUND,
         AIR,
@@ -247,5 +247,10 @@ public class Movement : MonoBehaviour
     public void OnJump()
     {
         ChangeState(MovementState.JUMP);
+    }
+
+    public MovementState State
+    {
+        get { return state; }
     }
 }

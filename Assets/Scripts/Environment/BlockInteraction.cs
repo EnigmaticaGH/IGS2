@@ -57,11 +57,12 @@ public class BlockInteraction : MonoBehaviour {
 
         if (c.collider.CompareTag("Player") && c.relativeVelocity.magnitude > 15f)
         {
+            if (AbilityRegistry.AbilityStatus(c.gameObject.name, "Block Smash") != Ability.Status.ACTIVE) return;
             foreach(ContactPoint p in c.contacts)
             {
                 if (p.point.y < transform.position.y - 0.45f
-                    && p.point.x < transform.position.x + 0.4f 
-                    && p.point.x > transform.position.x - 0.4f 
+                    //&& p.point.x < transform.position.x + 0.4f 
+                    //&& p.point.x > transform.position.x - 0.4f 
                     && c.relativeVelocity.y > 10)
                 {
                     body.useGravity = true;
@@ -71,8 +72,8 @@ public class BlockInteraction : MonoBehaviour {
                     body.AddForce(Vector2.up * 1000f);
                 }
                 if (p.point.y > transform.position.y + 0.45f 
-                    && p.point.x < transform.position.x + 0.4f 
-                    && p.point.x > transform.position.x - 0.4f 
+                    //&& p.point.x < transform.position.x + 0.4f 
+                    //&& p.point.x > transform.position.x - 0.4f 
                     && c.relativeVelocity.y < -10)
                 {
                     body.useGravity = true;
@@ -82,8 +83,8 @@ public class BlockInteraction : MonoBehaviour {
                     body.AddForce(Vector2.down * 1000f);
                 }
                 if (p.point.x > transform.position.x + 0.25f 
-                    && p.point.y < transform.position.y + 0.4f
-                    && p.point.y > transform.position.y - 0.4f 
+                    //&& p.point.y < transform.position.y + 0.4f
+                    //&& p.point.y > transform.position.y - 0.4f 
                     && c.relativeVelocity.x < -10)
                 {
                     body.useGravity = true;
@@ -94,8 +95,8 @@ public class BlockInteraction : MonoBehaviour {
                     body.AddForce(Vector2.left * 1000f);
                 }
                 if (p.point.x < transform.position.x - 0.25f 
-                    && p.point.y < transform.position.y + 0.4f
-                    && p.point.y > transform.position.y - 0.4f
+                    //&& p.point.y < transform.position.y + 0.4f
+                    //&& p.point.y > transform.position.y - 0.4f
                     && c.relativeVelocity.x > 10)
                 {
                     body.useGravity = true;
