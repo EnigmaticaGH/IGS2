@@ -64,7 +64,7 @@ public class Player1Abilities : MonoBehaviour
     {
         ability.AbilityStatus = Ability.Status.ACTIVE;
         // Ability code here
-        if (Input.GetAxis("L_YAxis_" + controllerNumber) < -0.5f && movement.State == Movement.MovementState.GROUND)
+        if (Input.GetAxis("L_YAxis_" + controllerNumber) < -0.5f)
         {
             //shoot up
             player.AddForce(Vector3.up * ABILITY_B_FORCE);
