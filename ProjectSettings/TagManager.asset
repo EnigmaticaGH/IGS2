@@ -13,6 +13,9 @@ TagManager:
   - Win
   - Friction
   - Block
+  - Button
+  - Cursor
+  - Start
   layers:
   - Default
   - TransparentFX
@@ -29,7 +32,7 @@ TagManager:
   - Ground
   - Portal
   - Trap
-  - 
+  - Cursor
   - 
   - 
   - 
@@ -49,4 +52,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Cursor
+    uniqueID: 1506844807
     locked: 0

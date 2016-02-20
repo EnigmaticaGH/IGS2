@@ -131,7 +131,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 138298}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .449999988, y: 0, z: 0}
+  m_LocalPosition: {x: 0.45, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 486520}
@@ -191,8 +191,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 132552}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 4.78, y: 1.83, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_Children:
   - {fileID: 470322}
   - {fileID: 490076}
@@ -209,7 +209,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 161520}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.449999988, y: 0, z: 0}
+  m_LocalPosition: {x: -0.45, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 486520}
@@ -221,9 +221,9 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 132552}
   serializedVersion: 2
-  m_Mass: .25
-  m_Drag: .25
-  m_AngularDrag: .0500000007
+  m_Mass: 0.25
+  m_Drag: 0.25
+  m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
@@ -239,7 +239,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: .0500000007, y: .5, z: .5}
+  m_Size: {x: 0.05, y: 0.5, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &6583938
 BoxCollider:
@@ -251,7 +251,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: .0500000007, y: .5, z: .5}
+  m_Size: {x: 0.05, y: 0.5, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!75 &7536330
 ConstantForce:
@@ -346,7 +346,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpStrength: 7
-  maxJumpTime: .25
+  maxJumpTime: 0.25
   wallJumpStrength: 5
 --- !u!114 &11436650
 MonoBehaviour:
@@ -370,7 +370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e9d1223e3121974092328a81fb71d95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  windTunnelPrefab: {fileID: 0}
+  windTunnelPrefab: {fileID: 197128, guid: 1d519c7801148c946948af4d56823bd7, type: 2}
 --- !u!114 &11447844
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -393,7 +393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba704d390d708954d883273e0618448d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controllerNumber: 1
+  controllerNumber: 2
 --- !u!114 &11473754
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -427,8 +427,8 @@ CapsuleCollider:
   m_Material: {fileID: 13400000, guid: 645d6d605d6dd4e4f9008cf2c8531d82, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: .449999988
-  m_Height: 1.20000005
+  m_Radius: 0.45
+  m_Height: 1.2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &13671142
@@ -440,8 +440,8 @@ CapsuleCollider:
   m_Material: {fileID: 13400000, guid: ec58f41d1ea26bf4bba8e86d82292a6d, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: .449999988
-  m_Height: 1.20000005
+  m_Radius: 0.45
+  m_Height: 1.2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!212 &21217938
@@ -462,14 +462,18 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_AutoUVMaxDistance: .5
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a42a16d64b212504aae33aa761918e8f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -41,7 +41,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 6
-  m_GIWorkflowMode: 1
+  m_GIWorkflowMode: 0
   m_LightmapsMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -1720,6 +1720,14 @@ Prefab:
       propertyPath: windTunnelPrefab
       value: 
       objectReference: {fileID: 197128, guid: 1d519c7801148c946948af4d56823bd7, type: 2}
+    - target: {fileID: 486520, guid: a3d73cf3a6894b84abc17aa5ed04048d, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 486520, guid: a3d73cf3a6894b84abc17aa5ed04048d, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a3d73cf3a6894b84abc17aa5ed04048d, type: 2}
   m_IsPrefabParent: 0
@@ -6947,11 +6955,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 486520, guid: a3d73cf3a6894b84abc17aa5ed04048d, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 4.78000021
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 486520, guid: a3d73cf3a6894b84abc17aa5ed04048d, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1.83000004
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 486520, guid: a3d73cf3a6894b84abc17aa5ed04048d, type: 2}
       propertyPath: m_LocalPosition.z
@@ -6981,14 +6989,6 @@ Prefab:
       propertyPath: m_Name
       value: The AFKer
       objectReference: {fileID: 0}
-    - target: {fileID: 11462776, guid: a3d73cf3a6894b84abc17aa5ed04048d, type: 2}
-      propertyPath: controllerNumber
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 11438388, guid: a3d73cf3a6894b84abc17aa5ed04048d, type: 2}
-      propertyPath: windTunnelPrefab
-      value: 
-      objectReference: {fileID: 197128, guid: 1d519c7801148c946948af4d56823bd7, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a3d73cf3a6894b84abc17aa5ed04048d, type: 2}
   m_IsPrefabParent: 0
