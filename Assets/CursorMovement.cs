@@ -1,13 +1,20 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class CursorMovement : MonoBehaviour {
+
+    public delegate void ClickAction();
+    public static event ClickAction OnClickedLeft;
+    public static event ClickAction OnClickedRight;
 
     public Rigidbody rb;
     private float CursorSpeed = 5;
     public int ControllerNumber;
     public Button btn;
+    public bool LeftButton = false;
+    public bool RightButton = false;
     int i = 0;
 
 	// Use this for initialization
@@ -84,9 +91,48 @@ public class CursorMovement : MonoBehaviour {
             {
                 i++; //Make i one so you can't constantly press A 
                 Debug.Log("Player clicked A " + col.tag);
+
+                SceneManager.LoadScene(2);
+
                 Invoke("CooldownA", .5f);
             }
         }
+
+        if (col.name == "Left Button")
+        {
+            //Debug.Log("Left Button Detected");
+            LeftButton = true;
+            
+            if (Input.GetButton("A_" + ControllerNumber) && (i == 0))
+            {
+                i++; //Make i one so you can't constantly press A 
+                Debug.Log("Player clicked A ");
+
+                OnClickedLeft();
+
+                Invoke("CooldownA", .5f);
+            }
+        }
+        else
+            LeftButton = false;
+
+        if (col.name == "Right Button")
+        {
+            //Debug.Log("Right Button Detected");
+            RightButton = true;
+           
+            if (Input.GetButton("A_" + ControllerNumber) && (i == 0))
+            {
+                i++; //Make i one so you can't constantly press A 
+                Debug.Log("Player clicked A ");
+
+                OnClickedRight();
+
+                Invoke("CooldownA", .5f);
+            }
+        }
+        else
+            RightButton = false;
     }
 
     void CooldownA()

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 public class CharacterMenuController : MonoBehaviour {
 
     public string[] ActiveControllers;
@@ -15,6 +16,8 @@ public class CharacterMenuController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+
+
         //ActiveControllers[Input.GetJoystickNames().Length];
         ControllerNumber = 0;
 
@@ -27,7 +30,9 @@ public class CharacterMenuController : MonoBehaviour {
                 ControllerNumber++;
                 Debug.Log("Controller " + ControllerNumber);                
             }
-            
+
+            ActiveControllers = Input.GetJoystickNames();
+          
         }
 
         for (int k = 0; k < Buttons.Length; k++)
