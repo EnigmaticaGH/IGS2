@@ -191,8 +191,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 132552}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.78, y: 1.83, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 470322}
   - {fileID: 490076}
@@ -333,7 +333,7 @@ MonoBehaviour:
   respawnTime: 1
   invincibilityTime: 1
   maxHealth: 1
-  numberOfLives: 10
+  numberOfLives: 6
 --- !u!114 &11423480
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -345,11 +345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 643d1c5ebe28ddf4fa0ab4eed39a0c33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD:Assets/Prefabs/Player/Player.prefab
-  jumpStrength: 7
-=======
-  jumpStrength: 4
->>>>>>> e73b66bc2abef29526f77e935ce10a1260518b4f:Assets/Prefabs/Player/Player 1.prefab
+  jumpStrength: 5
   maxJumpTime: 0.25
   wallJumpStrength: 5
 --- !u!114 &11436650
@@ -397,7 +393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba704d390d708954d883273e0618448d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controllerNumber: 2
+  controllerNumber: 1
 --- !u!114 &11473754
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -484,7 +480,15 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: jumpStrength
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: numberOfLives
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 132552}

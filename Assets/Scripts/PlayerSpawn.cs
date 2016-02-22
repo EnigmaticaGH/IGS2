@@ -12,6 +12,7 @@ public class PlayerSpawn : MonoBehaviour
     {
         GameObject p1 = (GameObject)Instantiate(player1, player1Spawn, Quaternion.identity);
         GameObject p2 = (GameObject)Instantiate(player2, player2Spawn, Quaternion.identity);
+        PlayerTracker.AddPlayers();
     }
 
     // Update is called once per frame

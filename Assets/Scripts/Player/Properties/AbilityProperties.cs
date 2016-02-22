@@ -60,18 +60,20 @@ public class Ability
 
 public static class AbilityRegistry
 {
-    private static Dictionary<string, Dictionary<string, Ability>> abilityRegistry
-        = new Dictionary<string, Dictionary<string, Ability>>();
+    private static Dictionary<string, Dictionary<string, Ability>> abilityRegistry = new Dictionary<string, Dictionary<string, Ability>>();
 
     public static void RegisterAbility(string playerName, Ability ability)
     {
         if (!abilityRegistry.ContainsKey(playerName))
         {
+            Debug.Log("Creating ability registry entry for " + playerName);
             abilityRegistry.Add(playerName, new Dictionary<string, Ability>());
+            Debug.Log("Adding ability " + ability.Name + " for " + playerName);
             abilityRegistry[playerName].Add(ability.Name, ability);
         }
         else if (!abilityRegistry[playerName].ContainsKey(ability.Name))
         {
+            Debug.Log("Adding ability " + ability.Name + " for " + playerName);
             abilityRegistry[playerName].Add(ability.Name, ability);
         }
         else

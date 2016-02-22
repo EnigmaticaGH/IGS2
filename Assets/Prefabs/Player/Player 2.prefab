@@ -319,7 +319,7 @@ MonoBehaviour:
   respawnTime: 1
   invincibilityTime: 1
   maxHealth: 1
-  numberOfLives: 10
+  numberOfLives: 6
 --- !u!114 &11451700
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -382,7 +382,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 643d1c5ebe28ddf4fa0ab4eed39a0c33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpStrength: 4
+  jumpStrength: 5
   maxJumpTime: 0.25
   wallJumpStrength: 5
 --- !u!114 &11486680
@@ -484,6 +484,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: controllerNumber
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: jumpStrength
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: numberOfLives
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

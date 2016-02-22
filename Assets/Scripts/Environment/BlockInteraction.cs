@@ -5,24 +5,17 @@ public class BlockInteraction : MonoBehaviour {
     private Rigidbody body;
     private Rigidbody r;
     private bool freezing;
-    private float startY;
 
     void Start()
     {
         body = GetComponent<Rigidbody>();
         freezing = false;
-        startY = transform.position.y;
     }
 
     void FixedUpdate()
     {
         if (transform.position.y < -100)
             Destroy(gameObject);
-        /*if (transform.position.y < 0 && body.isKinematic == false && startY > 0.5f)
-        {
-            body.isKinematic = true;
-            startY = transform.position.y;
-        }*/
     }
 
 	void OnCollisionEnter(Collision c)
@@ -62,8 +55,9 @@ public class BlockInteraction : MonoBehaviour {
             c.gameObject.GetComponent<DeathControl>().Hurt(1);
         }*/
 
-        if (c.collider.CompareTag("Player") && AbilityRegistry.AbilityStatus(c.gameObject.name, "Block Smash") == Ability.Status.ACTIVE && c.relativeVelocity.magnitude > 10)
+        if (c.collider.CompareTag("Player") && c.relativeVelocity.magnitude > 15f)
         {
+            if (AbilityRegistry.AbilityStatus(c.gameObject.name, "Block Smash") != Ability.Status.ACTIVE) return;
             foreach(ContactPoint p in c.contacts)
             {
                 if (p.point.y < transform.position.y - 0.45f
