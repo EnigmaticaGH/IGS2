@@ -20,7 +20,6 @@ public class JumpControl : MonoBehaviour
 
     private Movement movement;
 
-    private bool spacePressed;
     private string jumpButton;
     private bool canDoubleJump;
     
@@ -31,7 +30,6 @@ public class JumpControl : MonoBehaviour
         player = GetComponent<Rigidbody>();
         movement = GetComponent<Movement>();
         jumpButton = "A";
-        spacePressed = false;
         jumpStarted = false;
         jumpKeyUp = true;
         canDoubleJump = false;
@@ -39,8 +37,7 @@ public class JumpControl : MonoBehaviour
 
     void Update()
     {
-        spacePressed = movement.useKeyboard && Input.GetKey(KeyCode.Space);
-        jumpButtonPressed = (Input.GetButton(jumpButton + "_" + controllerNumber) || spacePressed);
+        jumpButtonPressed = Input.GetButton(jumpButton + "_" + controllerNumber);
         if (canWallJump && jumpButtonPressed && jumpKeyUp && !canNormalJump)
         {
             player.velocity = new Vector3(wallJumpForce, Mathf.Abs(wallJumpForce), player.velocity.z);
@@ -61,7 +58,6 @@ public class JumpControl : MonoBehaviour
 
     void FixedUpdate()
     {
-        controllerNumber = controller.controllerNumber;
         if (jumpButtonPressed && canNormalJump && !jumpStarted)
         {
             StartCoroutine(JumpTimer());
@@ -75,15 +71,15 @@ public class JumpControl : MonoBehaviour
         canDoubleJump = true;
         float time = maxJumpTime;
         movement.OnJump();
-        spacePressed = movement.useKeyboard && Input.GetKey(KeyCode.Space);
-        while (time > 0 && (Input.GetButton(jumpButton + "_" + controllerNumber) || spacePressed))
+        while (time > 0 && Input.GetButton(jumpButton + "_" + controllerNumber))
         {
             time -= Time.deltaTime;
-            player.velocity = new Vector3(player.velocity.x, jumpStrength, player.velocity.z);
+            //player.velocity = new Vector3(player.velocity.x, jumpStrength, player.velocity.z);
+            player.velocity = Vector3.up * jumpStrength;
             yield return null;
         }
         jumpStarted = false;
-        while((Input.GetButton(jumpButton + "_" + controllerNumber) || spacePressed))
+        while(Input.GetButton(jumpButton + "_" + controllerNumber))
         {
             yield return null;
         }
@@ -93,7 +89,8 @@ public class JumpControl : MonoBehaviour
     public void SendWallSensorReading(char status)
     {
         direction = status == 'L' ? 1 : -1;
-        canWallJump = status != ' ';
+        //canWallJump = status != ' ';
+        canWallJump = false;
         wallJumpForce = canWallJump ? direction * wallJumpStrength : 0;
     }
 }

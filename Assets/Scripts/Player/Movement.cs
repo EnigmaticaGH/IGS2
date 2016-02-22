@@ -67,7 +67,6 @@ public class Movement : MonoBehaviour
     void FixedUpdate()
     {
         SetState[(int)state]();
-        controllerNumber = controller.controllerNumber;
     }
 
     void ChangeState(MovementState newState)
@@ -82,55 +81,16 @@ public class Movement : MonoBehaviour
 
     #region General Movement
 
-    void UpdateMovementGround()
+    void UpdateMovement()
     {
         float lateralVelocity = Input.GetAxis("L_XAxis_" + controllerNumber) * maxSpeed;
         Vector3 lateralForce = Vector3.right * Input.GetAxisRaw("L_XAxis_" + controllerNumber) * moveForce;
-        int a = 0, d = 0;
-        if (Input.GetKey(KeyCode.D))
-        {
-            d = 1;
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            a = 1;
-        }
-        if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
-        {
-            a = 0;
-            d = 0;
-        }
-
-        if (useKeyboard)
-            lateralVelocity = (d - a) * maxSpeed;
 
         if (!useForce)
             player.velocity = new Vector3(lateralVelocity, player.velocity.y, player.velocity.z);
         else if (Mathf.Abs(player.velocity.x) < maxSpeed)
             player.AddForce(lateralForce);
     }
-
-    void UpdateMovementAir()
-    {
-        Vector3 lateralForce = Vector3.right * Input.GetAxisRaw("L_XAxis_" + controllerNumber) * moveForce;
-
-        int a = 0, d = 0;
-        if (Input.GetKey(KeyCode.D))
-        {
-            d = 1;
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            a = 1;
-        }
-
-        if (useKeyboard)
-            lateralForce = Vector3.right * (d - a) * moveForce;
-
-        if (Mathf.Abs(player.velocity.x) < maxSpeed)
-            player.AddForce(lateralForce);
-    }
-
     #endregion
 
     #region State Machine
@@ -142,7 +102,7 @@ public class Movement : MonoBehaviour
             ChangeState(MovementState.AIR);
         }
 
-        UpdateMovementGround();
+        UpdateMovement();
     }
 
     void Air()
@@ -152,7 +112,7 @@ public class Movement : MonoBehaviour
             ChangeState(MovementState.GROUND);
         }
 
-        UpdateMovementAir();
+        UpdateMovement();
     }
 
     void Jump() //The player initiated a jump
@@ -160,8 +120,7 @@ public class Movement : MonoBehaviour
         //Delay ground checking until the player is off the ground initially from the jump
         if(!startedJumpCoroutine)
             StartCoroutine(JumpToGroundState());
-
-        UpdateMovementAir();
+        UpdateMovement();
     }
 
     void Hover() //The player is currently hovering
@@ -171,7 +130,7 @@ public class Movement : MonoBehaviour
             ChangeState(MovementState.GROUND);
         }
 
-        UpdateMovementAir();
+        UpdateMovement();
     }
 
     void Landing() //The player is landing from a hover (but still in the air)
@@ -181,7 +140,7 @@ public class Movement : MonoBehaviour
             ChangeState(MovementState.GROUND);
         }
 
-        UpdateMovementAir();
+        UpdateMovement();
     }
 
     void Disabled()

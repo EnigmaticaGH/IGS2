@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class PlayerTracker : MonoBehaviour {
-    private int numberOfPlayers;
-    private List<GameObject> tempPlayers;
+    private static int numberOfPlayers;
+    private static List<GameObject> tempPlayers;
     public static GameObject[] players;
     public delegate void Win(string sender);
     public static event Win WinEvent;
@@ -14,7 +14,7 @@ public class PlayerTracker : MonoBehaviour {
         DeathControl.OutOfLives += KO;
     }
 
-    void Start()
+    public static void AddPlayers()
     {
         tempPlayers = new List<GameObject>();
         foreach(GameObject g in GameObject.FindGameObjectsWithTag("Player"))
@@ -26,11 +26,13 @@ public class PlayerTracker : MonoBehaviour {
         }
         players = tempPlayers.ToArray();
         numberOfPlayers = players.Length;
+        SmashCamera.InitalizePlayers(players);
     }
 
     void OnDestroy()
     {
         DeathControl.OutOfLives -= KO;
+        AbilityRegistry.Reset();
     }
 
     void KO(string whoDied)

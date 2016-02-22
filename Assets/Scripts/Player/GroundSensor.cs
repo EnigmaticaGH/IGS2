@@ -15,25 +15,16 @@ public class GroundSensor : MonoBehaviour
     void FixedUpdate()
     {
         hitsGround = 0;
-        Ray ray = new Ray(transform.position + Vector3.left * 0.5f + Vector3.down, Vector3.right);
+        Ray ray = new Ray(transform.position + Vector3.right + Vector3.down, Vector3.left);
 
-        Debug.DrawLine(transform.position + Vector3.left * 0.5f + Vector3.down
-            , transform.position + Vector3.left * 0.5f + Vector3.down + Vector3.right
-            , Color.blue);
+        Debug.DrawLine(ray.origin, ray.origin + ray.direction * 1.25f, Color.blue);
 
-        RaycastHit[] hits = Physics.RaycastAll(ray, 1);
-        if (hits != null)
+        RaycastHit[] hits = Physics.RaycastAll(ray, 1.25f);
+        foreach(RaycastHit hit in hits)
         {
-            foreach(RaycastHit hit in hits)
-            {
-                hitsGround += hit.collider.CompareTag("Block") ? 1 : 0;
-            }
-            grounded = hitsGround > 0;
+            hitsGround += hit.collider.CompareTag("Block") ? 1 : 0;
         }
-        else
-        {
-            grounded = false;
-        }
+        grounded = hitsGround > 0;
         movement.SendGroundSensorReading(grounded);
     }
 }

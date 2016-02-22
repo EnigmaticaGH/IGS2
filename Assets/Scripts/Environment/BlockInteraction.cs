@@ -4,12 +4,18 @@ using System.Collections;
 public class BlockInteraction : MonoBehaviour {
     private Rigidbody body;
     private Rigidbody r;
-    private bool freezing;
+    private Vector3 start;
+    private float time;
+    private Material blockMaterial;
+    private Color blockColor;
 
     void Start()
     {
+        blockMaterial = GetComponent<MeshRenderer>().material;
+        blockColor = blockMaterial.color;
         body = GetComponent<Rigidbody>();
-        freezing = false;
+        start = transform.position;
+        time = 0;
     }
 
     void FixedUpdate()
@@ -20,102 +26,108 @@ public class BlockInteraction : MonoBehaviour {
 
 	void OnCollisionEnter(Collision c)
     {
-        if (c.collider.CompareTag("Player") && body.velocity.sqrMagnitude > 49f)
+        if (c.collider.CompareTag("Player")
+            && c.relativeVelocity.sqrMagnitude > 44
+            && AbilityRegistry.AbilityStatus(c.gameObject.name, "BlockSmash") != Ability.Status.ACTIVE)
         {
             r = c.gameObject.GetComponent<Rigidbody>();
             Movement m = c.gameObject.GetComponent<Movement>();
-            //c.gameObject.GetComponent<DeathControl>().Hurt(1);
-            if (c.transform.position.y > transform.position.y && body.velocity.y > 4f)
+            Vector3 playerPosition = c.gameObject.transform.position;
+            if (playerPosition.y > transform.position.y && c.relativeVelocity.y < -4f)
             {
+                //Block hit from bottom
                 r.AddForce(Vector3.up * 5 * body.velocity.sqrMagnitude);
             }
-            if (c.transform.position.x > transform.position.x && body.velocity.x > 4f)
+            if (playerPosition.y < transform.position.y && c.relativeVelocity.y > 4f)
             {
-                r.MovePosition(r.transform.position + Vector3.up * 0.1f);
-                r.useGravity = false;
-                r.AddForce(Vector3.right * body.velocity.sqrMagnitude);
-                m.UseForceInstead(0.5f);
-                Invoke("SetGravity", 0.5f);
+                //Block hit from top (crush)
+                Squish(m, body.velocity.sqrMagnitude);
             }
-            if (c.transform.position.x < transform.position.x && body.velocity.x < -4f)
+            if (playerPosition.x > transform.position.x && c.relativeVelocity.x < -4f)
             {
-                r.MovePosition(r.transform.position + Vector3.up * 0.1f);
-                r.useGravity = false;
-                r.AddForce(Vector3.left * body.velocity.sqrMagnitude);
-                m.UseForceInstead(0.5f);
-                Invoke("SetGravity", 0.5f);
+                //Block hit from left side
+                PushPlayer(true, m, body.velocity.sqrMagnitude);
             }
-
+            if (playerPosition.x < transform.position.x && c.relativeVelocity.x > 4f)
+            {
+                //Block hit from right side
+                PushPlayer(false, m, body.velocity.sqrMagnitude);
+            }
         }
 
-        /*if (c.collider.CompareTag("Player") && body.velocity.y < -7f)
+        if (c.collider.CompareTag("Player")
+            && AbilityRegistry.AbilityStatus(c.gameObject.name, "BlockSmash") == Ability.Status.ACTIVE
+            && c.relativeVelocity.magnitude > 10)
         {
-            Debug.Log(c.relativeVelocity.y);
-            //if (c.relativeVelocity.y)
-            c.gameObject.GetComponent<DeathControl>().Hurt(1);
-        }*/
-
-        if (c.collider.CompareTag("Player") && c.relativeVelocity.magnitude > 15f)
-        {
-            if (AbilityRegistry.AbilityStatus(c.gameObject.name, "Block Smash") != Ability.Status.ACTIVE) return;
             foreach(ContactPoint p in c.contacts)
             {
-                if (p.point.y < transform.position.y - 0.45f
-                    //&& p.point.x < transform.position.x + 0.4f 
-                    //&& p.point.x > transform.position.x - 0.4f 
-                    && c.relativeVelocity.y > 10)
+                if (p.point.y < transform.position.y - 0.45f && c.relativeVelocity.y > 10)
                 {
-                    body.useGravity = true;
-                    body.isKinematic = false;
                     Debug.Log("Upsmash");
                     //player hits from under with high Y speed
-                    body.AddForce(Vector2.up * 1000f);
+                    Launch(Vector2.up * 1000f, false);
                 }
-                if (p.point.y > transform.position.y + 0.45f 
-                    //&& p.point.x < transform.position.x + 0.4f 
-                    //&& p.point.x > transform.position.x - 0.4f 
-                    && c.relativeVelocity.y < -10)
+                if (p.point.y > transform.position.y + 0.45f && c.relativeVelocity.y < -10)
                 {
-                    body.useGravity = true;
-                    body.isKinematic = false;
                     Debug.Log("Downsmash");
                     //player hits from on top with high Y speed
-                    body.AddForce(Vector2.down * 1000f);
+                    Launch(Vector2.down * 1000f, false);
                 }
-                if (p.point.x > transform.position.x + 0.25f 
-                    //&& p.point.y < transform.position.y + 0.4f
-                    //&& p.point.y > transform.position.y - 0.4f 
-                    && c.relativeVelocity.x < -10)
+                if (p.point.x > transform.position.x + 0.25f && c.relativeVelocity.x < -10)
                 {
-                    body.useGravity = true;
-                    body.isKinematic = false;
                     Debug.Log("Leftsmash");
                     //player hits from the right
-                    body.MovePosition(transform.position + Vector3.up * 0.2f);
-                    body.AddForce(Vector2.left * 1000f);
+                    Launch(Vector2.left * 1000f, true);
                 }
-                if (p.point.x < transform.position.x - 0.25f 
-                    //&& p.point.y < transform.position.y + 0.4f
-                    //&& p.point.y > transform.position.y - 0.4f
-                    && c.relativeVelocity.x > 10)
+                if (p.point.x < transform.position.x - 0.25f && c.relativeVelocity.x > 10)
                 {
-                    body.useGravity = true;
-                    body.isKinematic = false;
                     Debug.Log("Rightsmash");
                     //player hits from left
-                    body.MovePosition(transform.position + Vector3.up * 0.2f);
-                    body.AddForce(Vector2.right * 1000f);
+                    Launch(Vector2.right * 1000f, true);
                 }
             }
+        }
+
+        if (c.collider.CompareTag("Player")
+            && AbilityRegistry.AbilityStatus(c.gameObject.name, "BlockDrop") == Ability.Status.ACTIVE)
+        {
+            StartCoroutine(Shatter(0.3f));
         }
     }
 
-    void OnTriggerEnter(Collider c)
+    void Launch(Vector3 force, bool isSidewaysLaunch)
     {
-        if (c.CompareTag("Block") || c.CompareTag("Ground") && !freezing)
+        body.useGravity = true;
+        body.isKinematic = false;
+        blockMaterial.color = new Color(1, blockColor.g, blockColor.b);
+        if (isSidewaysLaunch)
+            body.MovePosition(transform.position + Vector3.up * 0.2f);
+        body.AddForce(force);
+        time += 5;
+        StartCoroutine(Reset());
+    }
+
+    void PushPlayer(bool right, Movement m, float power)
+    {
+        int direction = right ? 1 : -1;
+        r.MovePosition(r.transform.position + Vector3.up * 0.1f);
+        r.useGravity = false;
+        r.AddForce(Vector3.right * direction * power);
+        m.UseForceInstead(0.5f);
+        Invoke("SetGravity", 0.5f);
+    }
+
+    void Squish(Movement m, float power)
+    {
+        if (m.State == Movement.MovementState.GROUND)
         {
-            freezing = true;
-            Invoke("FreezeBlock", 1);
+            //squish the player
+            Debug.Log("Squish!");
+            m.gameObject.GetComponent<DeathControl>().Hurt(1);
+        }
+        else
+        {
+            r.AddForce(Vector3.down * 5 * power);
         }
     }
 
@@ -124,13 +136,38 @@ public class BlockInteraction : MonoBehaviour {
         r.useGravity = true;
     }
 
-    void FreezeBlock()
+    IEnumerator Reset()
     {
-        if (Physics.Raycast(transform.position, Vector3.down, 0.6f))
+        while ((time -= Time.deltaTime) >= 0)
         {
-            body.useGravity = false;
-            body.isKinematic = true;
+            yield return new WaitForFixedUpdate();
         }
-        freezing = false;
+        blockMaterial.color = blockColor;
+        transform.position = start;
+        transform.rotation = Quaternion.identity;
+        body.useGravity = false;
+        body.isKinematic = true;
+    }
+
+    IEnumerator Shatter(float t)
+    {
+        float red = blockColor.r;
+        float grn = blockColor.g;
+        float blu = blockColor.b;
+        float maxt = t;
+        while((t -= Time.deltaTime) > 0)
+        {
+            float normalizedTime = t / maxt;
+
+            blockMaterial.color = new Color(
+                Mathf.Lerp(red, 1, (1 - normalizedTime)),
+                Mathf.Lerp(grn, 0, (1 - normalizedTime)),
+                Mathf.Lerp(blu, 0, (1 - normalizedTime)));
+            yield return new WaitForFixedUpdate();
+        }
+        body.useGravity = true;
+        body.isKinematic = false;
+        time += 5;
+        StartCoroutine(Reset());
     }
 }

@@ -17,9 +17,12 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown(pauseButton))
+        for(int i = 1; i <= 4; i++)
         {
-            paused = TogglePause(!paused);
+            if (Input.GetButtonDown(pauseButton + "_" + i))
+            {
+                paused = TogglePause(!paused);
+            }
         }
     }
 

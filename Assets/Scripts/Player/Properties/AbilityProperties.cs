@@ -4,9 +4,12 @@ using System.Collections.Generic;
 public class Ability
 {
     string name;
-    string button;
+    string button = "";
+    string[] axis;
+    float axisThreshold;
     GameObject[] objects;
     float cooldownTime;
+    float activeTime;
     public enum Status
     {
         READY,
@@ -16,18 +19,39 @@ public class Ability
     };
     Status abilityStatus;
 
-    public Ability(string abilityName, string buttonName, float abilityCooldownTime)
+    public Ability(string abilityName, string buttonName, float abilityCooldownTime, float abilityActiveTime)
     {
         name = abilityName;
         button = buttonName;
         cooldownTime = abilityCooldownTime;
+        activeTime = abilityActiveTime;
     }
 
-    public Ability(string abilityName, string buttonName, float abilityCooldownTime, GameObject[] abilityObjects)
+    public Ability(string abilityName, string buttonName, float abilityCooldownTime, float abilityActiveTime, GameObject[] abilityObjects)
     {
         name = abilityName;
         button = buttonName;
         cooldownTime = abilityCooldownTime;
+        activeTime = abilityActiveTime;
+        objects = abilityObjects;
+    }
+
+    public Ability(string abilityName, float abilityCooldownTime, float abilityActiveTime, float abilityAxisThreshold, string[] axisNames)
+    {
+        name = abilityName;
+        axis = axisNames;
+        axisThreshold = abilityAxisThreshold;
+        cooldownTime = abilityCooldownTime;
+        activeTime = abilityActiveTime;
+    }
+
+    public Ability(string abilityName, float abilityCooldownTime, float abilityActiveTime, float abilityAxisThreshold, string[] axisNames, GameObject[] abilityObjects)
+    {
+        name = abilityName;
+        axis = axisNames;
+        axisThreshold = abilityAxisThreshold;
+        cooldownTime = abilityCooldownTime;
+        activeTime = abilityActiveTime;
         objects = abilityObjects;
     }
 
@@ -47,9 +71,24 @@ public class Ability
         get { return button; }
     }
 
+    public float AxisThreshold
+    {
+        get { return axisThreshold; }
+    }
+
+    public string[] Axis
+    {
+        get { return axis; }
+    }
+
     public float CooldownTime
     {
         get { return cooldownTime; }
+    }
+
+    public float ActiveTime
+    {
+        get { return activeTime; }
     }
 
     public string Name
@@ -60,20 +99,18 @@ public class Ability
 
 public static class AbilityRegistry
 {
-    private static Dictionary<string, Dictionary<string, Ability>> abilityRegistry = new Dictionary<string, Dictionary<string, Ability>>();
+    private static Dictionary<string, Dictionary<string, Ability>> abilityRegistry
+        = new Dictionary<string, Dictionary<string, Ability>>();
 
     public static void RegisterAbility(string playerName, Ability ability)
     {
         if (!abilityRegistry.ContainsKey(playerName))
         {
-            Debug.Log("Creating ability registry entry for " + playerName);
             abilityRegistry.Add(playerName, new Dictionary<string, Ability>());
-            Debug.Log("Adding ability " + ability.Name + " for " + playerName);
             abilityRegistry[playerName].Add(ability.Name, ability);
         }
         else if (!abilityRegistry[playerName].ContainsKey(ability.Name))
         {
-            Debug.Log("Adding ability " + ability.Name + " for " + playerName);
             abilityRegistry[playerName].Add(ability.Name, ability);
         }
         else
@@ -101,5 +138,10 @@ public static class AbilityRegistry
             Debug.LogError("Error: " + playerName + " does not have any abilities.");
             return Ability.Status.NULL;
         }
+    }
+
+    public static void Reset()
+    {
+        abilityRegistry.Clear();
     }
 }
