@@ -19,7 +19,7 @@ public class WinEventReceiver : MonoBehaviour
         PlayerTracker.WinEvent -= OnWin;
     }
 
-    void OnWin(string sender)
+    public void OnWin(string sender)
     {
         Time.timeScale = 0;
         winText.text = sender + " WINS";

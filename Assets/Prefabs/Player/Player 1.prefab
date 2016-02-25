@@ -333,7 +333,7 @@ MonoBehaviour:
   respawnTime: 1
   invincibilityTime: 1
   maxHealth: 1
-  numberOfLives: 6
+  numberOfLives: 10
 --- !u!114 &11423480
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -489,6 +489,15 @@ Prefab:
       propertyPath: numberOfLives
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a42a16d64b212504aae33aa761918e8f,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 132552}
