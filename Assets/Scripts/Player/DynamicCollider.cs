@@ -8,9 +8,20 @@ public class DynamicCollider : MonoBehaviour
     private bool disabled = false;
     private bool forcingMode = false;
 
-    public void MovementStateChange(string state)
+    void Awake()
     {
-        if(state == "GROUND" && !disabled && !forcingMode)
+        Movement.MovementStateEvent += MovementStateChange;
+    }
+
+    void OnDestroy()
+    {
+        Movement.MovementStateEvent -= MovementStateChange;
+    }
+
+    public void MovementStateChange(Movement.MovementState state, string n)
+    {
+        if (name != n) return;
+        if (state == Movement.MovementState.GROUND && !disabled && !forcingMode)
         {
             frictionCollider.SetActive(true);
             nonFrictionCollider.SetActive(false);

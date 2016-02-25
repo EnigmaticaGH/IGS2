@@ -276,8 +276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb53e07c49a06d045a28073c0e23c478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player1: {fileID: 132552, guid: a3d73cf3a6894b84abc17aa5ed04048d, type: 2}
-  player2: {fileID: 174768, guid: 9c9caf78eccbf3140ac415e9d2ca5a14, type: 2}
+  player: {fileID: 100634, guid: 6f0543e3ea911e04eb49a2331f250921, type: 2}
   player1Spawn: {x: 0, y: 2, z: 0}
   player2Spawn: {x: 2, y: 2, z: 0}
 --- !u!114 &40459762
@@ -291,7 +290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 652c318ef8e877c488178f6f52ead7df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  motionDamping: 10
+  motionDamping: 5
   levelBounds: {x: 22, y: 32}
 --- !u!1001 &58943523
 Prefab:
@@ -2936,6 +2935,21 @@ Transform:
   - {fileID: 468870158}
   m_Father: {fileID: 0}
   m_RootOrder: 3
+--- !u!1 &1535494018 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 110800, guid: 4822fc92af6b93a4f954b91e939c5689, type: 2}
+  m_PrefabInternal: {fileID: 1675337147}
+--- !u!114 &1535494019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1535494018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1359c4e20e80cb24cb3e7cf63f872ba5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1546582832
 Prefab:
   m_ObjectHideFlags: 0
@@ -3372,7 +3386,8 @@ Prefab:
       propertyPath: pauseButton
       value: Start
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 11411288, guid: 4822fc92af6b93a4f954b91e939c5689, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 4822fc92af6b93a4f954b91e939c5689, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &1697484924
