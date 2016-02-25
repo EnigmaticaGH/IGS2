@@ -21,6 +21,11 @@ public class PlayerTracker : MonoBehaviour {
         bottomOfLevel = -5;
     }
 
+    void Start()
+    {
+        AddPlayers();
+    }
+
     public static void AddPlayers()
     {
         tempPlayers = new List<GameObject>();

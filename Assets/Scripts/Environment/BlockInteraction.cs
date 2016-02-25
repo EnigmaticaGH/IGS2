@@ -8,6 +8,7 @@ public class BlockInteraction : MonoBehaviour {
     private float time;
     private Material blockMaterial;
     private Color blockColor;
+    private bool isGrabbedBySomeoneElse;
 
     void Start()
     {
@@ -16,6 +17,7 @@ public class BlockInteraction : MonoBehaviour {
         body = GetComponent<Rigidbody>();
         start = transform.position;
         time = 0;
+        isGrabbedBySomeoneElse = false;
     }
 
 	void OnCollisionEnter(Collision c)
@@ -185,5 +187,11 @@ public class BlockInteraction : MonoBehaviour {
         body.isKinematic = false;
         time += 5;
         StartCoroutine(Reset());
+    }
+
+    public bool IsGrabbedBySomeoneElse
+    {
+        get;
+        set;
     }
 }

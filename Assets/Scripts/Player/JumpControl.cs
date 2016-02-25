@@ -47,6 +47,7 @@ public class JumpControl : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(name + ": " + controller.controllerNumber);
         jumpButtonPressed = Input.GetAxisRaw(jumpAxis[0] + "_" + controller.controllerNumber) == 1;
         if (jumpButtonPressed)
         {
@@ -75,7 +76,6 @@ public class JumpControl : MonoBehaviour
 
     void Jump()
     {
-        Debug.Log(jump + " | " + doubleJump);
         if (canJump && !jump)
         {
             player.velocity = Vector3.up * jumpStrength;
