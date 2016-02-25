@@ -19,7 +19,7 @@ public class DeathControl : MonoBehaviour
     public int maxHealth;
     private int health;
     public int numberOfLives;
-    private int lives;
+    [SerializeField]private static int lives;
     private bool invincible;
     private bool outOfLives;
 
@@ -96,5 +96,10 @@ public class DeathControl : MonoBehaviour
         yield return new WaitForSeconds(t);
 
         invincible = false;
+    }
+
+    public int getLives()
+    {
+        return lives;
     }
 }

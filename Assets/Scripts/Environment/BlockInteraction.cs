@@ -1,7 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class BlockInteraction : MonoBehaviour {
+
+
+    public Scene lowGravity;
+
     private Rigidbody body;
     private Rigidbody r;
     private Vector3 start;
@@ -9,13 +14,25 @@ public class BlockInteraction : MonoBehaviour {
     private Material blockMaterial;
     private Color blockColor;
 
+
+
+
     void Start()
     {
+        //lowGravity = SceneManager.LoadScene(6);
+        lowGravity = SceneManager.GetActiveScene();
         blockMaterial = GetComponent<MeshRenderer>().material;
         blockColor = blockMaterial.color;
         body = GetComponent<Rigidbody>();
         start = transform.position;
         time = 0;
+
+        if (lowGravity.name == "Level 4 - No Gravity!")
+        {
+            Debug.Log("Low Gravity loaded");
+            body.isKinematic = false;
+        }
+        
     }
 
     void FixedUpdate()
@@ -170,4 +187,6 @@ public class BlockInteraction : MonoBehaviour {
         time += 5;
         StartCoroutine(Reset());
     }
+
+
 }
