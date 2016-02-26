@@ -24,9 +24,11 @@ public class CursorMovement : MonoBehaviour {
     public delegate void PlayerReady();
     public static event PlayerReady P1ReadyEvent;
     public static event PlayerReady P2ReadyEvent;
-    int p1Count, p2Count;
+    int p1Count, p2Count, p3Count, p4Count;
     bool p1Ready = false;
     bool p2Ready = false;
+    bool p3Ready = false;
+    bool p4Ready = false;
     //public static event PlayerReady Player3;
     //public static event PlayerReady Player4;
 
@@ -49,12 +51,15 @@ public class CursorMovement : MonoBehaviour {
     public bool RightButton = false;
     int i = 0;
     int c = 0;
+    int NAC = 0; //NAC - Number of Active Controllers
 
 	// Use this for initialization
 	void Start () 
     {
 
         rb = GetComponent<Rigidbody>();
+        NAC = CharacterMenuController.ControllerNumber;
+        Debug.Log(NAC);
 	
 	}
 	
@@ -107,12 +112,14 @@ public class CursorMovement : MonoBehaviour {
 
     void OnTriggerStay(Collider col)
     {
+
+        //Character Selection Menu
         if (col.name == "Button_p1")
         {
             if (Input.GetButton("A_1") && (i == 0))
             {
                 p1_Next();
-                Debug.Log("Player Character Selection Pressed A");
+                //Debug.Log("Player Character Selection Pressed A");
             }
         }
         if (col.name == "Button_p2")
@@ -151,16 +158,17 @@ public class CursorMovement : MonoBehaviour {
 
         if (col.name == "ReadyButton p1")
         {
-            Debug.Log("Hello My Name Is Darth");
             if (Input.GetButton("A_1") && (i == 0))
             {
                 p1Count++;
                 p1Ready = true;
-                /*if (p1Count > 1)
+
+                //Button Toggle
+                if (p1Count > 1)
                 {
                     p1Count = 0;
                     p1Ready = false;
-                }*/
+                }
 
                 Debug.Log(p1Ready);
 
@@ -180,15 +188,68 @@ public class CursorMovement : MonoBehaviour {
             {
                 p2Count++;
                 p2Ready = true;
-                /*if (p2Count > 1)
+
+                //Button Toggle
+                if (p2Count > 1)
                 {
                     p2Count = 0;
                     p2Ready = false;
-                }*/
+                }
                 Debug.Log(p2Ready);
                 Debug.Log("Player 2 clicked ready");
                 P2ReadyEvent();
                 c++;
+
+                Invoke("CooldownA", .5f);
+            }
+
+        }
+
+        if (col.name == "ReadyButton p3")
+        {
+            if (Input.GetButton("A_3") && (i == 0))
+            {
+                p3Count++;
+                p3Ready = true;
+
+                //Button Toggle
+                if (p3Count > 1)
+                {
+                    p3Count = 0;
+                    p3Ready = false;
+                }
+
+                Debug.Log(p3Ready);
+
+
+                Debug.Log("Player 1 clicked ready");
+                P1ReadyEvent();
+                i++;
+
+                Invoke("CooldownA", .5f);
+            }
+
+        }
+        if (col.name == "ReadyButton p4")
+        {
+            if (Input.GetButton("A_4") && (i == 0))
+            {
+                p4Count++;
+                p4Ready = true;
+
+                //Button Toggle
+                if (p4Count > 1)
+                {
+                    p4Count = 0;
+                    p4Ready = false;
+                }
+
+                Debug.Log(p4Ready);
+
+
+                Debug.Log("Player 1 clicked ready");
+                P1ReadyEvent();
+                i++;
 
                 Invoke("CooldownA", .5f);
             }
@@ -208,19 +269,23 @@ public class CursorMovement : MonoBehaviour {
                 /*
                  * Used for player readiness if controller number is 1 then if player 1 is ready go to next scene and so on 
                  */
-                /*if (CharacterMenuController.ControllerNumber > 0 && CharacterMenuController.ControllerNumber < 2) 
+
+                if (p1Ready && (NAC == 1))
+                    SceneManager.LoadScene(2);
+                if((p1Ready && p2Ready) && NAC == 2)
+                    SceneManager.LoadScene(2);
+                if ((p1Ready && p2Ready) && p3Ready)
                 {
-                    if (p1Ready)
+                    if(NAC == 3)
                         SceneManager.LoadScene(2);
                 }
-                
-                if (CharacterMenuController.ControllerNumber > 1 && CharacterMenuController.ControllerNumber < 3)
-                {
-                    if (p1Ready && p2Ready)
-                        SceneManager.LoadScene(2);
-                }*/
 
-                SceneManager.LoadScene(2);
+                if ((p1Ready && p2Ready) && (p2Ready && p4Ready))
+                    SceneManager.LoadScene(2);
+                    
+
+
+                //SceneManager.LoadScene(2);
                     
 
                 Invoke("CooldownA", .5f);

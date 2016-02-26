@@ -19,8 +19,8 @@ public class CharacterMenuController : MonoBehaviour {
 
     public static int p1Pos = 0;
     public static int p2Pos = 0;
-    int p3Pos = 0;
-    int p4Pos = 0;
+    public static int p3Pos = 0;
+    public static int p4Pos = 0;
 
 
     int i = 0;
@@ -44,6 +44,32 @@ public class CharacterMenuController : MonoBehaviour {
 
     }
 
+    void Awake()
+    {
+        //ActiveControllers[Input.GetJoystickNames().Length]
+        ControllerNumber = 0;
+
+        for (int j = 0; j < Input.GetJoystickNames().Length; j++)
+        {
+
+            Debug.LogError(Input.GetJoystickNames()[j]);
+            if (Input.GetJoystickNames()[j].Contains("Xbox"))
+            {
+                ControllerNumber++;
+                Debug.Log("Controller " + ControllerNumber);
+            }
+
+            if (Input.GetJoystickNames()[j].Contains("XBOX"))
+            {
+                ControllerNumber++;
+                Debug.Log("Controller " + ControllerNumber);
+            }
+
+            ActiveControllers = Input.GetJoystickNames();
+
+        }
+    }
+
 	// Use this for initialization
 	void Start () {
 
@@ -58,28 +84,7 @@ public class CharacterMenuController : MonoBehaviour {
         }
 
 
-            //ActiveControllers[Input.GetJoystickNames().Length]
-            ControllerNumber = 0;
 
-        for (int j = 0; j < Input.GetJoystickNames().Length; j++)
-        {
-
-            Debug.LogError(Input.GetJoystickNames()[j]);
-            if (Input.GetJoystickNames()[j].Contains("Xbox"))
-            {
-                ControllerNumber++;
-                Debug.Log("Controller " + ControllerNumber);                
-            }
-
-            if (Input.GetJoystickNames()[j].Contains("XBOX"))
-            {
-                ControllerNumber++;
-                Debug.Log("Controller " + ControllerNumber);
-            }
-
-            ActiveControllers = Input.GetJoystickNames();
-          
-        }
 
         for (int k = 0; k < NextButtons.Length; k++)
         {
