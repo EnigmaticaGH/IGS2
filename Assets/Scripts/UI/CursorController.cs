@@ -4,30 +4,17 @@ using System.Collections;
 public class CursorController : MonoBehaviour {
 
     public GameObject[] Cursors;
-    [SerializeField]private int ControllerNumber;
+    private int ControllerNumber;
     public static int ControllerAmount = 0;
 	// Use this for initialization
+
+    void Awake()
+    {
+        
+    }
 	void Start () {
 
-        for (int j = 0; j < Input.GetJoystickNames().Length; j++)
-        {
-
-            Debug.LogError(Input.GetJoystickNames()[j]);
-            if (Input.GetJoystickNames()[j].Contains("360"))
-            {
-                ControllerNumber++;
-                ControllerAmount++;
-                Debug.Log("Controller " + ControllerNumber);
-            }
-            if (Input.GetJoystickNames()[j].Contains("XBOX"))
-            {
-                ControllerNumber++;
-                Debug.Log("Controller " + ControllerNumber);
-            }
-            //ActiveControllers = Input.GetJoystickNames();
-
-        }
-
+        ControllerNumber = CharacterMenuController.ControllerNumber;
         //ControllerAmount = ControllerNumber;
 
         for(int i = 0; i <= 3; i++)

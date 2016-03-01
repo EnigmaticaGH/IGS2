@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Player1Abilities : MonoBehaviour
 {
-    public GameObject windTunnelPrefab;
+    //public GameObject windTunnelPrefab;
     private int controllerNumber;
     private Rigidbody player;
     private Movement movement;

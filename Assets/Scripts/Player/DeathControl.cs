@@ -19,7 +19,7 @@ public class DeathControl : MonoBehaviour
     public int maxHealth;
     private int health;
     public int numberOfLives;
-    [SerializeField]private static int lives;
+    public int lives;
     private bool invincible;
     private bool outOfLives;
 
