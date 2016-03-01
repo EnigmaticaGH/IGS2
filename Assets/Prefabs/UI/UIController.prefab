@@ -65,7 +65,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ea8e0bfeac563c42b9e0eb07e1a2d01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseButton: Start_1
+  pauseButton: Start
   pauseScreen: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:

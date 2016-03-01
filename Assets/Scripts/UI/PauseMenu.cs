@@ -26,10 +26,15 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
-    bool TogglePause(bool isPaused)
+    public bool TogglePause(bool isPaused)
     {
-        Time.timeScale = isPaused ? 0 : 1;
+        //Time.timeScale = isPaused ? 0 : 1; //Had to comment this holy crap it was hard to figure out why the time scale wasnt working while paused lolol
         pauseScreen.enabled = isPaused;
         return isPaused;
+    }
+
+    public bool Paused()
+    {
+        return paused;
     }
 }

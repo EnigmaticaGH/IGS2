@@ -16,6 +16,12 @@ TagManager:
   - Button
   - Cursor
   - Start
+  - Player1
+  - Player2
+  - Player3
+  - Player4
+  - Trap
+  - CursorController
   layers:
   - Default
   - TransparentFX
@@ -33,7 +39,7 @@ TagManager:
   - Portal
   - Trap
   - Cursor
-  - 
+  - Light
   - 
   - 
   - 
