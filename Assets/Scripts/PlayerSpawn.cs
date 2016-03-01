@@ -27,11 +27,11 @@ public class PlayerSpawn : MonoBehaviour
     public GameObject[] Characters;
 
 
+
     int PlayersAmt = 0;
     // Use this for initialization
-    void Start()
+    void Awake()
     {
-
         int p1Pos = 0;
         int p2Pos = 0;
         int p3Pos = 0;

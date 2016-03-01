@@ -24,6 +24,9 @@ public class CursorMovement : MonoBehaviour {
     public delegate void PlayerReady();
     public static event PlayerReady P1ReadyEvent;
     public static event PlayerReady P2ReadyEvent;
+    public static event PlayerReady P3ReadyEvent;
+    public static event PlayerReady P4ReadyEvent;
+
     int p1Count, p2Count, p3Count, p4Count;
     bool p1Ready = false;
     bool p2Ready = false;
@@ -34,9 +37,17 @@ public class CursorMovement : MonoBehaviour {
 
     public delegate void CharacterSelection();
     public static event CharacterSelection p1_Next;
+    public static event CharacterSelection p1_Hover;
+    public static event CharacterSelection p1_HoverExit;
     public static event CharacterSelection p2_Next;
+    public static event CharacterSelection p2_Hover;
+    public static event CharacterSelection p2_HoverExit;
     public static event CharacterSelection p3_Next;
+    public static event CharacterSelection p3_Hover;
+    public static event CharacterSelection p3_HoverExit;
     public static event CharacterSelection p4_Next;
+    public static event CharacterSelection p4_Hover;
+    public static event CharacterSelection p4_HoverExit;
 
     bool loadScene1 = false;
     bool loadScene2 = false;
@@ -105,8 +116,31 @@ public class CursorMovement : MonoBehaviour {
     {
         if (col.tag == "Button")
         {
+            //hi
+        }
+    }
+
+    void OnTriggerExit(Collider col)
+    {
+        if (col.name == "Button_p1")
+        {
             //Debug.LogError("Button Collision Detected");
-            
+            p1_HoverExit();
+        }
+        if (col.name == "Button_p2")
+        {
+            //Debug.LogError("Button Collision Detected");
+            p2_HoverExit();
+        }
+        if (col.name == "Button_p3")
+        {
+            //Debug.LogError("Button Collision Detected");
+            p3_HoverExit();
+        }
+        if (col.name == "Button_p4")
+        {
+            //Debug.LogError("Button Collision Detected");
+            p4_HoverExit();
         }
     }
 
@@ -116,6 +150,7 @@ public class CursorMovement : MonoBehaviour {
         //Character Selection Menu
         if (col.name == "Button_p1")
         {
+            p1_Hover();
             if (Input.GetButton("A_1") && (i == 0))
             {
                 p1_Next();
@@ -124,6 +159,7 @@ public class CursorMovement : MonoBehaviour {
         }
         if (col.name == "Button_p2")
         {
+            p2_Hover();
             if (Input.GetButton("A_2") && (i == 0))
             {
                 p2_Next();
@@ -132,6 +168,7 @@ public class CursorMovement : MonoBehaviour {
 
         if (col.name == "Button_p3")
         {
+            p3_Hover();
             if (Input.GetButton("A_3") && (i == 0))
             {
                 p3_Next();
@@ -139,6 +176,7 @@ public class CursorMovement : MonoBehaviour {
         }
         if (col.name == "Button_p4")
         {
+            p4_Hover();
             if (Input.GetButton("A_4") && (i == 0))
             {
                 p4_Next();
@@ -223,7 +261,7 @@ public class CursorMovement : MonoBehaviour {
 
 
                 Debug.Log("Player 1 clicked ready");
-                P1ReadyEvent();
+                P3ReadyEvent();
                 i++;
 
                 Invoke("CooldownA", .5f);
@@ -248,7 +286,7 @@ public class CursorMovement : MonoBehaviour {
 
 
                 Debug.Log("Player 1 clicked ready");
-                P1ReadyEvent();
+                P4ReadyEvent();
                 i++;
 
                 Invoke("CooldownA", .5f);

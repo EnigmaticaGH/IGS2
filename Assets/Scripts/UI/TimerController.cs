@@ -9,15 +9,21 @@ public class TimerController : MonoBehaviour {
 
     LevelSetupController TimerAmt;
     WinEventReceiver Win;
+    PauseMenu Paused;
 
     float time;
 
     float seconds, minutes;
 
     bool unlimited = false;
+    bool pause = false;
 
 	// Use this for initialization
 	void Start () {
+
+        Paused = GameObject.Find("UIController").GetComponent<PauseMenu>();
+
+        //pause = GetComponent<PauseMenu>().TogglePause(!pause);
 
         Win = GetComponent<WinEventReceiver>();
 
@@ -39,27 +45,40 @@ public class TimerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        pause = Paused.Paused();
+
         //minutes = (int)(Time.timeSinceLevelLoad / 60f);
         //seconds = (int)(Time.timeSinceLevelLoad % 60f);
-        if(seconds <= 0 && minutes >= 1 && unlimited == false)
-        {
-            seconds = 59;
-            minutes = minutes - 1;
-        }
-            
-        seconds -= Time.deltaTime;
 
-        //timer.text = minutes.ToString("00") + ":" + seconds.ToString("00");
-        if (time == 100)
+        if (pause)
         {
-            timer.text = "~:~~";
-        }else
-            timer.text = minutes.ToString() + ":" + seconds.ToString("00");
-
-        if (minutes == 0 && seconds == 0)
-        {
-            Win.OnWin("Hello");
+            //Debug.LogError("Please Work");
+            ;
         }
+        else
+        {
+            if (seconds <= 0 && minutes >= 1 && unlimited == false)
+            {
+                seconds = 59;
+                minutes = minutes - 1;
+            }
+
+            seconds -= Time.deltaTime;
+
+            //timer.text = minutes.ToString("00") + ":" + seconds.ToString("00");
+            if (time == 100)
+            {
+                timer.text = "~:~~";
+            }
+            else
+                timer.text = minutes.ToString() + ":" + seconds.ToString("00");
+
+            if (minutes == 0 && seconds == 0)
+            {
+                Win.OnWin("Hello");
+            }
+        }
+
 	
 	}
 }
