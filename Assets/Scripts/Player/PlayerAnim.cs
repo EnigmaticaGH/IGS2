@@ -6,13 +6,25 @@ public class PlayerAnim : MonoBehaviour
     private Animator anim;
     private Rigidbody body;
     private Movement move;
-    private string state;
+    private JumpControl jump;
+    private Movement.MovementState state;
+
+    void Awake()
+    {
+        Movement.MovementStateEvent += MovementStateChange;
+    }
+
+    void OnDestroy()
+    {
+        Movement.MovementStateEvent -= MovementStateChange;
+    }
 
     void Start()
     {
         anim = GetComponent<Animator>();
         body = GetComponentInParent<Rigidbody>();
         move = GetComponentInParent<Movement>();
+        jump = GetComponentInParent<JumpControl>();
     }
 
     // Update is called once per frame
@@ -20,17 +32,17 @@ public class PlayerAnim : MonoBehaviour
     {
         anim.SetFloat("VerticalSpeed", body.velocity.y);
         anim.SetBool("Moving", Mathf.Abs(body.velocity.x) > 0.05f);
-        anim.SetBool("Jumping", state == "JUMP");
-        anim.SetBool("Falling", state == "AIR");
-        anim.SetBool("Grounded", state == "GROUND");
+        anim.SetBool("Jumping", jump.isJumping());
+        anim.SetBool("Grounded", state == Movement.MovementState.GROUND);
         if (anim.GetBool("Moving") && anim.GetBool("Grounded"))
             anim.speed = Mathf.Abs(body.velocity.x / move.maxSpeed);
         else
             anim.speed = 1;
     }
 
-    public void MovementStateChange(string moveState)
+    public void MovementStateChange(Movement.MovementState moveState, string n)
     {
+        if (transform.parent.name != n) return;
         state = moveState;
     }
 }

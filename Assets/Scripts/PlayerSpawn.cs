@@ -139,6 +139,7 @@ public class PlayerSpawn : MonoBehaviour
         //GameObject p1 = (GameObject)Instantiate(player1, player1Spawn, Quaternion.identity); //Need to effect this for menu system
         //GameObject p2 = (GameObject)Instantiate(player2, player2Spawn, Quaternion.identity);
         PlayerTracker.AddPlayers();
+        //
     }
     
 

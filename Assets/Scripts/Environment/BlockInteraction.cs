@@ -13,9 +13,7 @@ public class BlockInteraction : MonoBehaviour {
     private float time;
     private Material blockMaterial;
     private Color blockColor;
-
-
-
+    private bool isGrabbedBySomeoneElse;
 
     void Start()
     {
@@ -26,6 +24,7 @@ public class BlockInteraction : MonoBehaviour {
         body = GetComponent<Rigidbody>();
         start = transform.position;
         time = 0;
+        isGrabbedBySomeoneElse = false;
 
         if (lowGravity.name == "Level 4 - No Gravity!")
         {
@@ -50,22 +49,22 @@ public class BlockInteraction : MonoBehaviour {
             r = c.gameObject.GetComponent<Rigidbody>();
             Movement m = c.gameObject.GetComponent<Movement>();
             Vector3 playerPosition = c.gameObject.transform.position;
-            if (playerPosition.y > transform.position.y && c.relativeVelocity.y < -4f)
+            if (playerPosition.y > transform.position.y && c.relativeVelocity.y < -6f)
             {
                 //Block hit from bottom
                 r.AddForce(Vector3.up * 5 * body.velocity.sqrMagnitude);
             }
-            if (playerPosition.y < transform.position.y && c.relativeVelocity.y > 4f)
+            if (playerPosition.y < transform.position.y && c.relativeVelocity.y > 6f)
             {
                 //Block hit from top (crush)
                 Squish(m, body.velocity.sqrMagnitude);
             }
-            if (playerPosition.x > transform.position.x && c.relativeVelocity.x < -4f)
+            if (playerPosition.x > transform.position.x && c.relativeVelocity.x < -6f)
             {
                 //Block hit from left side
                 PushPlayer(true, m, body.velocity.sqrMagnitude);
             }
-            if (playerPosition.x < transform.position.x && c.relativeVelocity.x > 4f)
+            if (playerPosition.x < transform.position.x && c.relativeVelocity.x > 6f)
             {
                 //Block hit from right side
                 PushPlayer(false, m, body.velocity.sqrMagnitude);
@@ -131,6 +130,7 @@ public class BlockInteraction : MonoBehaviour {
         r.useGravity = false;
         r.AddForce(Vector3.right * direction * power);
         m.UseForceInstead(0.5f);
+        time += 5;
         Invoke("SetGravity", 0.5f);
     }
 
@@ -151,6 +151,27 @@ public class BlockInteraction : MonoBehaviour {
     void SetGravity()
     {
         r.useGravity = true;
+    }
+
+    public void Throw(Vector3 force, float respawnTime, Color color)
+    {
+        body.isKinematic = false;
+        body.useGravity = true;
+        blockMaterial.color = color;
+        body.AddForce(force);
+        time += respawnTime;
+        Debug.Log(time);
+        StartCoroutine(Reset());
+    }
+
+    public void SetColor(Color c)
+    {
+        blockMaterial.color = c;
+    }
+
+    public void StopReset()
+    {
+        StopCoroutine(Reset());
     }
 
     IEnumerator Reset()
@@ -188,5 +209,9 @@ public class BlockInteraction : MonoBehaviour {
         StartCoroutine(Reset());
     }
 
-
+    public bool IsGrabbedBySomeoneElse
+    {
+        get;
+        set;
+    }
 }

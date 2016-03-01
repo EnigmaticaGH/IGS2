@@ -9,9 +9,21 @@ public class PlayerTracker : MonoBehaviour {
     public delegate void Win(string sender);
     public static event Win WinEvent;
 
+    public static float levelBoundsX;
+    public static float levelBoundY;
+    public static float bottomOfLevel;
+
     void Awake()
     {
         DeathControl.OutOfLives += KO;
+        levelBoundsX = 25;
+        levelBoundY = 25;
+        bottomOfLevel = -5;
+    }
+
+    void Start()
+    {
+        AddPlayers();
     }
 
     public static void AddPlayers()
@@ -44,7 +56,7 @@ public class PlayerTracker : MonoBehaviour {
             foreach(GameObject g in players)
             {
                 if (g.GetComponentInChildren<SpriteRenderer>().enabled)
-                    WinEvent(g.name);
+                    WinEvent(g.name.Substring(0, g.name.Length - 7));
             }
         }
         else if (numberOfPlayers <= 0)

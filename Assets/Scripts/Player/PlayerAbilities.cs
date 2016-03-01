@@ -1,23 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Player1Abilities : MonoBehaviour
+public class PlayerAbilities : MonoBehaviour
 {
-    //public GameObject windTunnelPrefab;
-    private int controllerNumber;
+    private ControllerNumber controller;
     private Rigidbody player;
     private Movement movement;
     private const float ABILITY_B_FORCE = 600;
     //Assign new abilities here
     private Ability[] abilities;
+    private bool usedAirDash;
 
     // Use this for initialization
     void Awake()
     {
         player = GetComponent<Rigidbody>();
         movement = GetComponent<Movement>();
-        controllerNumber = GetComponent<ControllerNumber>().controllerNumber;
-        GetComponent<ConstantForce>().enabled = false;
+        controller = GetComponent<ControllerNumber>();
         abilities = new Ability[]
         {
             new Ability("BlockSmash", 0.5f, 0.125f, 0.5f, 
@@ -41,15 +40,18 @@ public class Player1Abilities : MonoBehaviour
             //Add abilities to a registry of abilities
             AbilityRegistry.RegisterAbility(name, ability);
         }
+        usedAirDash = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (movement.State == Movement.MovementState.GROUND)
+            usedAirDash = false;
         foreach (Ability ability in abilities)
         {
             //Check for input on abilities
-            if (ability.Button != "" && Input.GetButtonDown(ability.Button + "_" + controllerNumber) && ability.AbilityStatus == Ability.Status.READY)
+            if (ability.Button != "" && Input.GetButtonDown(ability.Button + "_" + controller.controllerNumber) && ability.AbilityStatus == Ability.Status.READY)
             {
                 StartCoroutine("Ability_" + ability.Name + "_Activate", ability);
             }
@@ -57,7 +59,7 @@ public class Player1Abilities : MonoBehaviour
             {
                 foreach(string axisName in ability.Axis)
                 {
-                    if(Mathf.Abs(Input.GetAxis(axisName + "_" + controllerNumber)) > ability.AxisThreshold && ability.AbilityStatus == Ability.Status.READY)
+                    if(Mathf.Abs(Input.GetAxis(axisName + "_" + controller.controllerNumber)) > ability.AxisThreshold && ability.AbilityStatus == Ability.Status.READY)
                     {
                         StartCoroutine("Ability_" + ability.Name + "_Activate", ability);
                     }
@@ -79,22 +81,31 @@ public class Player1Abilities : MonoBehaviour
         string axisY = ability.Axis[1];
         float threshold = ability.AxisThreshold;
         ability.AbilityStatus = Ability.Status.ACTIVE;
+        if (movement.State != Movement.MovementState.GROUND && !usedAirDash)
+        {
+            usedAirDash = true;
+        }
+        else if (movement.State != Movement.MovementState.GROUND && usedAirDash)
+        {
+            ability.AbilityStatus = Ability.Status.READY;
+            yield break;
+        }
         // Ability code here
-        if (Input.GetAxis(axisY + "_" + controllerNumber) < -threshold)
+        if (Input.GetAxis(axisY + "_" + controller.controllerNumber) < -threshold)
         {
             //shoot up
             player.AddForce(Vector3.up * ABILITY_B_FORCE);
             movement.Disable(ability.ActiveTime);
             Invoke("ZeroVelocity", ability.ActiveTime);
         }
-        else if (Input.GetAxis(axisY + "_" + controllerNumber) > threshold)
+        else if (Input.GetAxis(axisY + "_" + controller.controllerNumber) > threshold)
         {
             //shoot down
             player.AddForce(Vector3.down * ABILITY_B_FORCE);
             movement.Disable(ability.ActiveTime);
             Invoke("ZeroVelocity", ability.ActiveTime);
         }
-        else if (Input.GetAxis(axisX + "_" + controllerNumber) > threshold)
+        else if (Input.GetAxis(axisX + "_" + controller.controllerNumber) > threshold)
         {
             //shoot right
             player.useGravity = false;
@@ -103,7 +114,7 @@ public class Player1Abilities : MonoBehaviour
             movement.Disable(ability.ActiveTime);
             Invoke("ZeroVelocity", ability.ActiveTime);
         }
-        else if (Input.GetAxis(axisX + "_" + controllerNumber) < -threshold)
+        else if (Input.GetAxis(axisX + "_" + controller.controllerNumber) < -threshold)
         {
             //shoot left
             player.useGravity = false;
@@ -118,8 +129,8 @@ public class Player1Abilities : MonoBehaviour
         ability.AbilityStatus = Ability.Status.COOLDOWN;
         yield return new WaitForSeconds(ability.CooldownTime);
 
-        while (Mathf.Abs(Input.GetAxis(axisX + "_" + controllerNumber)) > threshold
-            || Mathf.Abs(Input.GetAxis(axisY + "_" + controllerNumber)) > threshold)
+        while (Mathf.Abs(Input.GetAxis(axisX + "_" + controller.controllerNumber)) > threshold
+            || Mathf.Abs(Input.GetAxis(axisY + "_" + controller.controllerNumber)) > threshold)
         {
             yield return new WaitForFixedUpdate();
         }

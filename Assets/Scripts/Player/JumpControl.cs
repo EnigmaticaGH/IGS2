@@ -3,94 +3,94 @@ using System.Collections;
 
 public class JumpControl : MonoBehaviour
 {
-    private int controllerNumber;
     private ControllerNumber controller;
-    private bool canNormalJump;
-    private bool jumpButtonPressed;
-    public float jumpStrength;
-    public float maxJumpTime;
     private Rigidbody player;
-    private bool jumpStarted;
+    public float jumpStrength;
+    private bool jumpButtonPressed;
+    private bool jumpAxisInUse;
+    private bool canJump;
+    private bool jump;
+    private bool doubleJump;
+    private string[] jumpAxis;
 
-    public float wallJumpStrength;
-    private bool canWallJump;
-    private int direction;
-    private float wallJumpForce;
-    private bool jumpKeyUp;
+    void Awake()
+    {
+        DeathControl.OnRespawn += Reset;
+        Movement.MovementStateEvent += MovementStateChange;
+    }
 
-    private Movement movement;
+    void OnDestroy()
+    {
+        DeathControl.OnRespawn -= Reset;
+        Movement.MovementStateEvent -= MovementStateChange;
+    }
 
-    private string jumpButton;
-    private bool canDoubleJump;
-    
     void Start()
     {
         controller = GetComponent<ControllerNumber>();
-        controllerNumber = controller.controllerNumber;
         player = GetComponent<Rigidbody>();
-        movement = GetComponent<Movement>();
-        jumpButton = "A";
-        jumpStarted = false;
-        jumpKeyUp = true;
-        canDoubleJump = false;
+        jumpAxis = new string[]
+            {
+                "TriggersL",
+                "L_YAxis",
+                "A"
+            };
+        jumpAxisInUse = false;
+        doubleJump = false;
+        jump = false;
+    }
+
+    void Reset()
+    {
+        jump = false;
+        doubleJump = false;
     }
 
     void Update()
     {
-        jumpButtonPressed = Input.GetButton(jumpButton + "_" + controllerNumber);
-        if (canWallJump && jumpButtonPressed && jumpKeyUp && !canNormalJump)
+        //Debug.Log(name + ": " + controller.controllerNumber);
+        jumpButtonPressed = Input.GetAxisRaw(jumpAxis[0] + "_" + controller.controllerNumber) == 1;
+        if (jumpButtonPressed)
         {
-            player.velocity = new Vector3(wallJumpForce, Mathf.Abs(wallJumpForce), player.velocity.z);
-            canWallJump = false;
-            movement.Disable(0.5f);
+            if (!jumpAxisInUse)
+            {
+                Jump();
+                jumpAxisInUse = true;
+            }
         }
-        if (canDoubleJump && jumpButtonPressed && jumpKeyUp && !canNormalJump && !jumpStarted)
+        if (!jumpButtonPressed)
         {
-            StartCoroutine(JumpTimer());
-            canDoubleJump = false;
-        }
-    }
-
-    public void MovementState(string state)
-    {
-        canNormalJump = state == "GROUND";
-    }
-
-    void FixedUpdate()
-    {
-        if (jumpButtonPressed && canNormalJump && !jumpStarted)
-        {
-            StartCoroutine(JumpTimer());
+            jumpAxisInUse = false;
         }
     }
 
-    IEnumerator JumpTimer()
+    public void MovementStateChange(Movement.MovementState state, string n)
     {
-        jumpStarted = true;
-        jumpKeyUp = false;
-        canDoubleJump = true;
-        float time = maxJumpTime;
-        movement.OnJump();
-        while (time > 0 && Input.GetButton(jumpButton + "_" + controllerNumber))
+        if (name != n) return;
+        canJump = state == Movement.MovementState.GROUND;
+        if (canJump)
         {
-            time -= Time.deltaTime;
-            //player.velocity = new Vector3(player.velocity.x, jumpStrength, player.velocity.z);
+            jump = false;
+            doubleJump = false;
+        }
+    }
+
+    void Jump()
+    {
+        if (canJump && !jump)
+        {
             player.velocity = Vector3.up * jumpStrength;
-            yield return null;
+            jump = true;
         }
-        jumpStarted = false;
-        while(Input.GetButton(jumpButton + "_" + controllerNumber))
+        else if (!doubleJump)
         {
-            yield return null;
+            player.velocity = Vector3.up * jumpStrength;
+            doubleJump = true;
         }
-        jumpKeyUp = true;
     }
 
-    public void SendWallSensorReading(char status)
+    public bool isJumping()
     {
-        direction = status == 'L' ? 1 : -1;
-        //canWallJump = status != ' ';
-        canWallJump = false;
-        wallJumpForce = canWallJump ? direction * wallJumpStrength : 0;
+        return jump || doubleJump;
     }
 }

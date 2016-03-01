@@ -10,7 +10,6 @@ public class DeathControl : MonoBehaviour
     public delegate void RespawnEvent();
     public static event RespawnEvent OnRespawn;
     private Rigidbody player;
-    public float bottomOfLevel; //The y position of the bottom of the level
     public float respawnTime;
     private bool doneRespawning = true;
     private Vector3 startPosition;
@@ -35,7 +34,9 @@ public class DeathControl : MonoBehaviour
 
     void Update()
     {
-        if (transform.position.y < bottomOfLevel && doneRespawning)
+        bool outOfBounds = transform.position.y < PlayerTracker.bottomOfLevel || transform.position.y > PlayerTracker.levelBoundY
+            || transform.position.x < -PlayerTracker.levelBoundsX || transform.position.x > PlayerTracker.levelBoundsX;
+        if (outOfBounds && doneRespawning)
         {
             Kill();
         }
