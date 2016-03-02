@@ -65,6 +65,7 @@ public class Movement : MonoBehaviour
     void UpdateMovement()
     {
         float lateralVelocity = Input.GetAxis("L_XAxis_" + controller.controllerNumber) * maxSpeed;
+        if (Mathf.Abs(lateralVelocity) / maxSpeed < 0.3f) lateralVelocity = 0;
         Vector3 lateralForce = Vector3.right * Input.GetAxisRaw("L_XAxis_" + controller.controllerNumber) * moveForce;
 
         if (!useForce)

@@ -83,7 +83,7 @@ GameObject:
   - 114: {fileID: 11451700}
   - 114: {fileID: 11479582}
   - 114: {fileID: 11400810}
-  - 75: {fileID: 7592264}
+  - 114: {fileID: 11443448}
   m_Layer: 8
   m_Name: Player 2
   m_TagString: Player
@@ -253,17 +253,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.05, y: 0.5, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!75 &7592264
-ConstantForce:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 174768}
-  m_Enabled: 1
-  m_Force: {x: 5, y: 0, z: 0}
-  m_RelativeForce: {x: 0, y: 0, z: 0}
-  m_Torque: {x: 0, y: 0, z: 0}
-  m_RelativeTorque: {x: 0, y: 0, z: 0}
 --- !u!95 &9548592
 Animator:
   serializedVersion: 3
@@ -292,7 +281,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e9d1223e3121974092328a81fb71d95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  windTunnelPrefab: {fileID: 197128, guid: 1d519c7801148c946948af4d56823bd7, type: 2}
 --- !u!114 &11404648
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -315,12 +303,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f699204e7bd82945acbedd06600ea82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bottomOfLevel: -5
   respawnTime: 1
   invincibilityTime: 1
   maxHealth: 1
-  numberOfLives: 3
+  numberOfLives: 10
   lives: 0
+--- !u!114 &11443448
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 174768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b526bec93e9f4f4c8e648b19332505f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockThrowForce: 2000
 --- !u!114 &11451700
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -345,10 +344,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6d5bff54e52f7647834dac5b5ebf7ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useKeyboard: 0
   moveForce: 20
   maxSpeed: 6
-  playerAnimator: {fileID: 11404648}
 --- !u!114 &11477880
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -384,8 +381,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpStrength: 5
-  maxJumpTime: 0.25
-  wallJumpStrength: 5
 --- !u!114 &11486680
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -503,6 +498,10 @@ Prefab:
       value: 
       objectReference: {fileID: 21300000, guid: 17518ef71fc7971479d424f8a14c6e46,
         type: 3}
+    - target: {fileID: 0}
+      propertyPath: blockThrowForce
+      value: 2000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 174768}
