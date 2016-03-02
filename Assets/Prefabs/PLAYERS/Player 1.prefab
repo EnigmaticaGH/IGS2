@@ -273,7 +273,7 @@ Animator:
   m_GameObject: {fileID: 178964}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bbd7319b276e96541845634304d29a2e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -292,10 +292,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6d5bff54e52f7647834dac5b5ebf7ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useKeyboard: 0
   moveForce: 20
   maxSpeed: 6
-  playerAnimator: {fileID: 11436650}
 --- !u!114 &11411426
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -329,7 +327,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f699204e7bd82945acbedd06600ea82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bottomOfLevel: -5
   respawnTime: 1
   invincibilityTime: 1
   maxHealth: 1
@@ -347,8 +344,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpStrength: 5
-  maxJumpTime: 0.25
-  wallJumpStrength: 5
 --- !u!114 &11436650
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -371,7 +366,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e9d1223e3121974092328a81fb71d95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  windTunnelPrefab: {fileID: 197128, guid: 1d519c7801148c946948af4d56823bd7, type: 2}
 --- !u!114 &11447844
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -499,6 +493,10 @@ Prefab:
       value: 
       objectReference: {fileID: 21300000, guid: a42a16d64b212504aae33aa761918e8f,
         type: 3}
+    - target: {fileID: 0}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: bbd7319b276e96541845634304d29a2e, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 132552}

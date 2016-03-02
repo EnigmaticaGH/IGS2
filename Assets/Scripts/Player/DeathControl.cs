@@ -76,6 +76,7 @@ public class DeathControl : MonoBehaviour
         yield return new WaitForSeconds(respawnTime);
         GetComponentInChildren<SpriteRenderer>().enabled = true;
         player.isKinematic = false;
+        player.useGravity = true;
         transform.position = startPosition;
         doneRespawning = true;
         if(OnRespawn != null)
