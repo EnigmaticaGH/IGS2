@@ -12,7 +12,6 @@ GameObject:
   - 65: {fileID: 6570174}
   - 23: {fileID: 2397602}
   - 54: {fileID: 5436006}
-  - 65: {fileID: 6551912}
   - 114: {fileID: 11459558}
   m_Layer: 0
   m_Name: Blue Cube
@@ -27,9 +26,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 193464}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 4, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.5000001, y: -0.5, z: -0.5, w: 0.49999994}
+  m_LocalPosition: {x: -1.61, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -43,7 +42,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: df7ec8cf9d0e89549b10ce391bb3818b, type: 2}
+  - {fileID: 2100000, guid: 0daa4f1de1c69df4b9bc49ee94061e30, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -65,7 +64,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 193464}
-  m_Mesh: {fileID: 4300000, guid: ec183fb646c87c14a8eca4bebb58fef6, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 53af842b21421c147a9e4237e06496f2, type: 3}
 --- !u!54 &5436006
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -81,18 +80,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 8
   m_CollisionDetection: 0
---- !u!65 &6551912
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 193464}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.7, y: 0.95, z: 0.7}
-  m_Center: {x: 0, y: -0.1, z: 0}
 --- !u!65 &6570174
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -103,8 +90,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.9, y: 0.95, z: 0.9}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.42, y: 0.2509978, z: 0.5019955}
+  m_Center: {x: -0.000000007480315, y: -0.12549882, z: -0.000000037223174}
 --- !u!114 &11459558
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -159,11 +146,27 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 4300000, guid: ec183fb646c87c14a8eca4bebb58fef6, type: 3}
+      objectReference: {fileID: 4300000, guid: 53af842b21421c147a9e4237e06496f2, type: 3}
     - target: {fileID: 0}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: df7ec8cf9d0e89549b10ce391bb3818b, type: 2}
+      objectReference: {fileID: 2100000, guid: b0055ae37836749488a615b326cde493, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_LocalRotation.y
+      value: 0.24344575
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalRotation.w
+      value: 0.9699145
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 193464}

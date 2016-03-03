@@ -65,7 +65,7 @@ public class PlayerLives : MonoBehaviour {
 
 
         player1Lives.text = "Player 1 Lives: " + player1.GetComponent<DeathControl>().getLives();
-        Debug.Log(player1.GetComponent<DeathControl>().getLives());
+        //Debug.Log(player1.GetComponent<DeathControl>().getLives());
         if(CharacterMenuController.ControllerNumber > 1)
             player2Lives.text = "Player 2 Lives: " + player2.GetComponent<DeathControl>().getLives();
         if (CharacterMenuController.ControllerNumber > 2)

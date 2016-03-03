@@ -100,7 +100,7 @@ GameObject:
   - 114: {fileID: 11448054}
   - 114: {fileID: 11454060}
   - 114: {fileID: 11453770}
-  - 75: {fileID: 7594054}
+  - 114: {fileID: 11463668}
   m_Layer: 8
   m_Name: NerdBoy_Player
   m_TagString: Player
@@ -253,17 +253,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.05, y: 0.5, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!75 &7594054
-ConstantForce:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 193262}
-  m_Enabled: 1
-  m_Force: {x: 10, y: 0, z: 0}
-  m_RelativeForce: {x: 0, y: 0, z: 0}
-  m_Torque: {x: 0, y: 0, z: 0}
-  m_RelativeTorque: {x: 0, y: 0, z: 0}
 --- !u!95 &9520982
 Animator:
   serializedVersion: 3
@@ -315,8 +304,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpStrength: 5
-  maxJumpTime: 0.25
-  wallJumpStrength: 5
 --- !u!114 &11447196
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -364,6 +351,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controllerNumber: 1
+--- !u!114 &11463668
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 193262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b526bec93e9f4f4c8e648b19332505f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockThrowForce: 1000
 --- !u!114 &11475364
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -386,10 +385,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6d5bff54e52f7647834dac5b5ebf7ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useKeyboard: 0
+  velocityMin: 0
   moveForce: 20
   maxSpeed: 6
-  playerAnimator: {fileID: 11447196}
 --- !u!114 &11492328
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -412,7 +410,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f699204e7bd82945acbedd06600ea82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bottomOfLevel: -5
   respawnTime: 1
   invincibilityTime: 1
   maxHealth: 1
@@ -496,6 +493,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: wallJumpStrength
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: blockThrowForce
+      value: 1000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

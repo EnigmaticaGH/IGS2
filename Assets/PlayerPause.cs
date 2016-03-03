@@ -9,7 +9,7 @@ public class PlayerPause : MonoBehaviour {
     /// ****Handles spawning Pause prefab**** 
     /// ****Button control on pause menu******Not easy GetAxis was different to use but finally got it
 
-    public Object PauseCanvas;
+    public GameObject PauseCanvas;
     public Button[] PauseButtons;
 
     int ControllerNumber = 0;
@@ -26,6 +26,8 @@ public class PlayerPause : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+
+        //PauseCanvas.SetActive(false);
 
         //DevField = DevField.Addcmponent<GameObject>;
         for (int i = 0; i < PauseButtons.Length; i++)
@@ -72,29 +74,21 @@ public class PlayerPause : MonoBehaviour {
             }
         }*/
 
-        //******Need to fix start bool************* 
-
-        if (Input.GetButton("Start_" + 1) && (count == 0))
+        if (Input.GetButtonDown("Start_1") && (count == 0))
         {
             count++;
             start1 = true;
             Debug.Log(start1);
 
 
-            if (count > 1)
+            if (count >= 1)
             {
-                StartCoroutine("resetCount");
-                start1 = false;
-                Debug.LogError("Count");
-                Object temp;
-                temp = Instantiate(PauseCanvas, transform.position, Quaternion.identity);
                 Debug.Log(start1);
-
-                Destroy(temp);
-                //Invoke("resetCount", .25f);
-
+                StartCoroutine("resetCount");
+                //PauseCanvas.SetActive(true);
+               // Object temp;
+                //temp = Instantiate(PauseCanvas, transform.position, Quaternion.identity);
             }
-            //float velocity = Input.GetAxis("DPad_XAxis_1") * speed;
           
         }
         if (start1)
@@ -132,6 +126,15 @@ public class PlayerPause : MonoBehaviour {
                     StartCoroutine("resetThisButton");
                 }
             }
+            if (Input.GetButtonDown("Start_1"))
+            {
+                if (count == 1)
+                    ;
+                else
+                    start1 = false;
+                Debug.Log("Ypppp");
+                //start1 = false;
+            }
         }
 
 	
@@ -143,7 +146,6 @@ public class PlayerPause : MonoBehaviour {
         yield return new WaitForSeconds(.25f);
         count = 0;
         Debug.Log("Reset Count");
-        start1 = false;
     }
 
     IEnumerator resetThisButton()

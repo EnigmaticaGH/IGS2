@@ -17,7 +17,7 @@ public class DevScript : MonoBehaviour {
 	
 	}
 
-    public void OnPointClick()
+    public void OnPointerClick()
     {
         DevField.SetActive(true);
     }

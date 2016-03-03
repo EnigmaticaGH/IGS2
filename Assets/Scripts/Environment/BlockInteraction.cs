@@ -37,7 +37,7 @@ public class BlockInteraction : MonoBehaviour {
     void FixedUpdate()
     {
         if (transform.position.y < -100)
-            Destroy(gameObject);
+            Debug.Log("Reset me");//Destroy(gameObject);
     }
 
 	void OnCollisionEnter(Collision c)
@@ -182,7 +182,8 @@ public class BlockInteraction : MonoBehaviour {
         }
         blockMaterial.color = blockColor;
         transform.position = start;
-        transform.rotation = Quaternion.identity;
+        transform.localScale = new Vector3(2, 2, 2);
+        transform.rotation = Quaternion.Euler(0,270,270);
         body.useGravity = false;
         body.isKinematic = true;
     }
