@@ -9,7 +9,7 @@ public class PlayerPause : MonoBehaviour {
     /// ****Handles spawning Pause prefab**** 
     /// ****Button control on pause menu******Not easy GetAxis was different to use but finally got it
 
-    public GameObject PauseCanvas;
+    public Object PauseCanvas;
     public Button[] PauseButtons;
 
     int ControllerNumber = 0;
@@ -23,11 +23,10 @@ public class PlayerPause : MonoBehaviour {
         ControllerNumber = CharacterMenuController.ControllerNumber;
         //start1 = GetComponent<PauseMenu>().TogglePause(false);
     }
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
 
-
-        //PauseCanvas.SetActive(false);
 
         //DevField = DevField.Addcmponent<GameObject>;
         for (int i = 0; i < PauseButtons.Length; i++)
@@ -38,11 +37,12 @@ public class PlayerPause : MonoBehaviour {
             PauseButtons[0].GetComponent<Button>().colors = temp;
 
         }
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
 
         /*if (Input.GetButton("Start_" + ControllerNumber ))
         {
@@ -74,22 +74,30 @@ public class PlayerPause : MonoBehaviour {
             }
         }*/
 
-        if (Input.GetButtonDown("Start_1") && (count == 0))
+        //******Need to fix start bool************* 
+
+        if (Input.GetButton("Start_" + 1) && (count == 0))
         {
             count++;
             start1 = true;
             Debug.Log(start1);
 
 
-            if (count >= 1)
+            if (count > 1)
             {
-                Debug.Log(start1);
                 StartCoroutine("resetCount");
-                //PauseCanvas.SetActive(true);
-               // Object temp;
-                //temp = Instantiate(PauseCanvas, transform.position, Quaternion.identity);
+                start1 = false;
+                Debug.LogError("Count");
+                Object temp;
+                temp = Instantiate(PauseCanvas, transform.position, Quaternion.identity);
+                Debug.Log(start1);
+
+                Destroy(temp);
+                //Invoke("resetCount", .25f);
+
             }
-          
+            //float velocity = Input.GetAxis("DPad_XAxis_1") * speed;
+
         }
         if (start1)
         {
@@ -126,19 +134,10 @@ public class PlayerPause : MonoBehaviour {
                     StartCoroutine("resetThisButton");
                 }
             }
-            if (Input.GetButtonDown("Start_1"))
-            {
-                if (count == 1)
-                    ;
-                else
-                    start1 = false;
-                Debug.Log("Ypppp");
-                //start1 = false;
-            }
         }
 
-	
-	}
+
+    }
 
 
     IEnumerator resetCount()
@@ -146,6 +145,7 @@ public class PlayerPause : MonoBehaviour {
         yield return new WaitForSeconds(.25f);
         count = 0;
         Debug.Log("Reset Count");
+        start1 = false;
     }
 
     IEnumerator resetThisButton()
