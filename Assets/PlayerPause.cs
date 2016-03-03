@@ -131,7 +131,10 @@ public class PlayerPause : MonoBehaviour {
                 }
                 if (Input.GetAxis("DPad_YAxis_1") == 1)
                 {
-                    StartCoroutine("resetThisButton");
+                    Debug.Log("I wish i worked");
+                    StartCoroutine("resetThisButton1");
+                    StartCoroutine("work");
+
                 }
             }
         }
@@ -148,11 +151,10 @@ public class PlayerPause : MonoBehaviour {
         start1 = false;
     }
 
-    IEnumerator resetThisButton()
+    IEnumerator resetThisButton1()
     {
 
-        yield return new WaitForSeconds(.1f); //Button Cooldown
-        //Debug.Log("Hi");
+        Debug.Log("Hi");
         ColorBlock temp;
         temp = PauseButtons[0].GetComponent<Button>().colors;
         temp.normalColor = Color.yellow;
@@ -160,7 +162,22 @@ public class PlayerPause : MonoBehaviour {
         temp.normalColor = Color.white;
         PauseButtons[1].GetComponent<Button>().colors = temp;
         menuCount = 0;
+        yield return null; //Button Cooldown
+
 
     }
+    IEnumerator work()
+    {
 
+        Debug.Log("Hi");
+        ColorBlock temp;
+        temp = PauseButtons[0].GetComponent<Button>().colors;
+        temp.normalColor = Color.yellow;
+        PauseButtons[0].GetComponent<Button>().colors = temp;
+        temp.normalColor = Color.white;
+        PauseButtons[1].GetComponent<Button>().colors = temp;
+        menuCount = 0;
+        yield return null; //Button Cooldown
+
+    }
 }
