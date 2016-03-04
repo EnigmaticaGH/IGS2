@@ -73,13 +73,15 @@ public class DeathControl : MonoBehaviour
         player.velocity = Vector3.zero;
         player.isKinematic = true;
         GetComponentInChildren<SpriteRenderer>().enabled = false;
+        GetComponent<DynamicCollider>().Disable();
         yield return new WaitForSeconds(respawnTime);
         GetComponentInChildren<SpriteRenderer>().enabled = true;
         player.isKinematic = false;
         player.useGravity = true;
         transform.position = startPosition;
         doneRespawning = true;
-        if(OnRespawn != null)
+        GetComponent<DynamicCollider>().Enable();
+        if (OnRespawn != null)
             OnRespawn();
     }
 

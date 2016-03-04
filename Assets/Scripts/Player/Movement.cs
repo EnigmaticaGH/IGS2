@@ -77,7 +77,7 @@ public class Movement : MonoBehaviour
     void IncreaseGravity()
     {
         if (player.velocity.y < 0)
-            player.AddForce(Physics.gravity);
+            player.AddForce(Physics.gravity / 2);
     }
 
     #endregion

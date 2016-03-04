@@ -39,7 +39,7 @@ public class TimerController : MonoBehaviour {
         }
         minutes = time;
         seconds = 0;
-        Debug.Log(time);
+        //Debug.Log(time);
 	}
 	
 	// Update is called once per frame

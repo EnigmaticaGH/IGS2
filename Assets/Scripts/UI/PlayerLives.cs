@@ -26,7 +26,7 @@ public class PlayerLives : MonoBehaviour {
         for (int j = 0; j < Input.GetJoystickNames().Length; j++)
         {
 
-            Debug.LogError(Input.GetJoystickNames()[j]);
+            Debug.Log(Input.GetJoystickNames()[j]);
             if (Input.GetJoystickNames()[j].Contains("Xbox"))
             {
                 ControllerNumber++;
@@ -44,7 +44,7 @@ public class PlayerLives : MonoBehaviour {
         }
 
         player1Lives.gameObject.SetActive(true);
-        Debug.Log(player1.GetComponent<DeathControl>().lives);
+        //Debug.Log(player1.GetComponent<DeathControl>().lives);
         if (CharacterMenuController.ControllerNumber > 1)
             player2Lives.gameObject.SetActive(true);
         if (CharacterMenuController.ControllerNumber > 2)
@@ -56,7 +56,7 @@ public class PlayerLives : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        Debug.Log(player1.GetComponent<DeathControl>().getLives());
+        //Debug.Log(player1.GetComponent<DeathControl>().getLives());
 
 	}
 	
@@ -65,7 +65,7 @@ public class PlayerLives : MonoBehaviour {
 
 
         player1Lives.text = "Player 1 Lives: " + player1.GetComponent<DeathControl>().getLives();
-        Debug.Log(player1.GetComponent<DeathControl>().getLives());
+        //Debug.Log(player1.GetComponent<DeathControl>().getLives());
         if(CharacterMenuController.ControllerNumber > 1)
             player2Lives.text = "Player 2 Lives: " + player2.GetComponent<DeathControl>().getLives();
         if (CharacterMenuController.ControllerNumber > 2)

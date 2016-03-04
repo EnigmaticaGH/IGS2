@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class GrabBlock : MonoBehaviour
 {
+    public GameObject grenadePrefab;
     private ControllerNumber controller;
     private bool blockGrabPressed;
     private bool axisInUse;
@@ -10,8 +11,12 @@ public class GrabBlock : MonoBehaviour
     public float blockThrowForce;
     private bool foundBlock;
     private bool carryingBlock;
+    private bool carryingExplosive;
     private Transform originalParent;
     private Transform sprite;
+    private Queue<GameObject> originalBlocks;
+    private Queue<GameObject> grenadeBlocks;
+    private const float BASE_VERTICAL_FORCE = 250;
 
     // Use this for initialization
     void Start()
@@ -27,6 +32,9 @@ public class GrabBlock : MonoBehaviour
         block = null;
         axisInUse = false;
         carryingBlock = false;
+        carryingExplosive = false;
+        originalBlocks = new Queue<GameObject>();
+        grenadeBlocks = new Queue<GameObject>();
     }
 
     void CheckForBlock()
@@ -51,7 +59,8 @@ public class GrabBlock : MonoBehaviour
         RaycastHit[] hits = Physics.RaycastAll(ray, 2);
         foreach (RaycastHit hit in hits)
         {
-            if (hit.collider.CompareTag("Block"))
+            Collider collider = hit.collider;
+            if (collider.CompareTag("Block") && collider.gameObject.GetComponent<GrenadeControl>() == null) //cannot grab explosive blocks. Not that you'd want to, anyways.
             {
                 Debug.Log("Found " + hit.collider.name);
                 block = hit.collider.gameObject;
@@ -74,18 +83,33 @@ public class GrabBlock : MonoBehaviour
                     CheckForBlock();
                     if (foundBlock && !block.GetComponent<BlockInteraction>().IsGrabbedBySomeoneElse)
                     {
-                        CarryBlock();
+                        if (AbilityRegistry.AbilityStatus(name, "GrenadeBlock") == Ability.Status.ACTIVE)
+                        {
+                            carryingExplosive = true;
+                            CarryExplosiveBlock();
+                        }
+                        else
+                        {
+                            CarryBlock();
+                        }
                         carryingBlock = true;
                     }
                     else
                     {
                         carryingBlock = false;
+                        carryingExplosive = false;
                     }
                 }
-                else if (carryingBlock)
+                else if (carryingBlock && !carryingExplosive)
                 {
                     ThrowBlock();
                     carryingBlock = false;
+                }
+                else if (carryingBlock && carryingExplosive)
+                {
+                    carryingExplosive = false;
+                    carryingBlock = false;
+                    ThrowExplosiveBlock();
                 }
                 axisInUse = true;
             }
@@ -104,24 +128,70 @@ public class GrabBlock : MonoBehaviour
     void CarryBlock()
     {
         foundBlock = false;
-        block.GetComponent<BlockInteraction>().IsGrabbedBySomeoneElse = true;
-        block.GetComponent<BlockInteraction>().StopReset();
+        BlockInteraction blockScript = block.GetComponent<BlockInteraction>();
+        blockScript.IsGrabbedBySomeoneElse = true;
+        //blockScript.StopReset();
         block.GetComponent<Collider>().enabled = false;
-        block.GetComponent<BlockInteraction>().SetColor(new Color(0.6f, 0.63f, 0.75f));
+        blockScript.SetColor(new Color(0.6f, 0.63f, 0.75f));
+        var em = blockScript.GrabParticleSystem.emission;
+        blockScript.GrabParticleSystem.startColor = new Color(0.6f, 0.63f, 0.75f);
+        em.enabled = true;
         block.GetComponent<Rigidbody>().isKinematic = false;
+        block.transform.parent = transform;
+    }
+
+    void CarryExplosiveBlock()
+    {
+        //block.GetComponent<BlockInteraction>().StopReset();
+        foundBlock = false;
+        block.SetActive(false);
+        originalBlocks.Enqueue(block);
+        block = (GameObject)Instantiate(grenadePrefab, Vector3.up * 100, Quaternion.identity);
+        Debug.Log(originalBlocks.Peek().name);
+        grenadeBlocks.Enqueue(block);
+        block.SetActive(true);
+        block.transform.rotation = Quaternion.identity;
+        block.GetComponent<Rigidbody>().isKinematic = true;
+        block.GetComponent<Rigidbody>().useGravity = false;
+        block.GetComponent<Collider>().enabled = false;
         block.transform.parent = transform;
     }
 
     void ThrowBlock()
     {
-        const float BASE_VERTICAL_FORCE = 250;
-        block.GetComponent<BlockInteraction>().IsGrabbedBySomeoneElse = false;
+        BlockInteraction blockScript = block.GetComponent<BlockInteraction>();
+        blockScript.IsGrabbedBySomeoneElse = false;
         block.GetComponent<Collider>().enabled = true;
         block.transform.parent = originalParent;
         block.transform.localScale = Vector3.one;
         float verticalForce = Mathf.Clamp(GetComponentInParent<Rigidbody>().velocity.y * 200, -BASE_VERTICAL_FORCE, blockThrowForce);
         Vector3 force = Vector3.right * blockThrowForce * sprite.localScale.x + Vector3.up * (BASE_VERTICAL_FORCE + verticalForce);
-        block.GetComponent<BlockInteraction>().Throw(force, 10, new Color(0.4f, 1, 0.6f));
+        blockScript.Throw(force, 10, new Color(0.4f, 1, 0.6f));
+        var em = blockScript.GrabParticleSystem.emission;
+        blockScript.GrabParticleSystem.startColor = new Color(0.4f, 1, 0.6f);
         foundBlock = false;
+    }
+
+    void ThrowExplosiveBlock()
+    {
+        GrenadeControl grenadeScript = block.GetComponent<GrenadeControl>();
+        block.GetComponent<Collider>().enabled = true;
+        block.transform.parent = null;
+        float verticalForce = Mathf.Clamp(GetComponentInParent<Rigidbody>().velocity.y * 200, -BASE_VERTICAL_FORCE, blockThrowForce);
+        Vector3 force = Vector3.right * blockThrowForce * sprite.localScale.x + Vector3.up * (BASE_VERTICAL_FORCE + verticalForce);
+        block.GetComponent<Rigidbody>().isKinematic = false;
+        block.GetComponent<Rigidbody>().useGravity = true;
+        block.GetComponent<Rigidbody>().AddForce(force);
+        grenadeScript.Exploded = false;
+        Invoke("ResetGrenade", 5);
+        foundBlock = false;
+    }
+
+    void ResetGrenade()
+    {
+        grenadeBlocks.Peek().GetComponent<GrenadeControl>().Explode();
+        Destroy(grenadeBlocks.Dequeue());
+        originalBlocks.Peek().SetActive(true);
+        originalBlocks.Dequeue().GetComponent<BlockInteraction>().ResetImmediately();
     }
 }

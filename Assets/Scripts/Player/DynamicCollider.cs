@@ -52,4 +52,9 @@ public class DynamicCollider : MonoBehaviour
         frictionCollider.SetActive(false);
         nonFrictionCollider.SetActive(false);
     }
+
+    public void Enable()
+    {
+        disabled = false;
+    }
 }
