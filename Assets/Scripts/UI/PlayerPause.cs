@@ -133,8 +133,6 @@ public class PlayerPause : MonoBehaviour {
                 {
                     Debug.Log("I wish i worked");
                     StartCoroutine("resetThisButton1");
-                    StartCoroutine("work");
-
                 }
             }
         }
@@ -166,18 +164,5 @@ public class PlayerPause : MonoBehaviour {
 
 
     }
-    IEnumerator work()
-    {
 
-        Debug.Log("Hi");
-        ColorBlock temp;
-        temp = PauseButtons[0].GetComponent<Button>().colors;
-        temp.normalColor = Color.yellow;
-        PauseButtons[0].GetComponent<Button>().colors = temp;
-        temp.normalColor = Color.white;
-        PauseButtons[1].GetComponent<Button>().colors = temp;
-        menuCount = 0;
-        yield return null; //Button Cooldown
-
-    }
 }
