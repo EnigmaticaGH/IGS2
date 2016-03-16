@@ -86,9 +86,11 @@ public class Movement : MonoBehaviour
 
     void Ground()
     {
+        //Debug.Log("Grounded");
         if (!isGrounded)
         {
             ChangeState(MovementState.AIR);
+            Debug.Log("In Air");
         }
     }
 

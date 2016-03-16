@@ -29,7 +29,7 @@ public class GameModeController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        TimeAmount.gameObject.SetActive(false);
+
         
         GameModeText = GameModeText.GetComponent<Text>();
         GameModeText.text = GameModes[0];
@@ -64,24 +64,23 @@ public class GameModeController : MonoBehaviour {
 	
 	}
 
-    void TextController(int j) 
+     public void TextController(int j) 
     {
         switch (j)
         {
             case 0:
                 GameModeText.text = GameModes[j]; //Stock 10 deaths 
-                TimeAmount.gameObject.SetActive(false);
+                TimeAmount.gameObject.SetActive(true);
                 StockTen();
-                Debug.Log("Hello");
                 break;
             case 1:
                 GameModeText.text = GameModes[j]; //Stock 5 deaths
-                TimeAmount.gameObject.SetActive(false);
+                TimeAmount.gameObject.SetActive(true);
                 StockFive();
                 break;
             case 2:
                 GameModeText.text = GameModes[j]; //Stock 3 deaths
-                TimeAmount.gameObject.SetActive(false);
+                TimeAmount.gameObject.SetActive(true);
                 StockThree();
                 break;
             case 3:
@@ -97,7 +96,7 @@ public class GameModeController : MonoBehaviour {
         }
     }
 
-    void TimeController(int b) 
+    public void TimeController(int b) 
     {
         switch (b)
         {
