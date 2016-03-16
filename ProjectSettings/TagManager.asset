@@ -22,6 +22,8 @@ TagManager:
   - Player4
   - Trap
   - CursorController
+  - PowerupSpawn
+  - Powerup
   layers:
   - Default
   - TransparentFX
@@ -61,4 +63,7 @@ TagManager:
     locked: 0
   - name: Cursor
     uniqueID: 1506844807
+    locked: 0
+  - name: Particles
+    uniqueID: 1001068915
     locked: 0

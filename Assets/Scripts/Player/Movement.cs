@@ -27,7 +27,6 @@ public class Movement : MonoBehaviour
     public delegate void MovementStateChange(MovementState state, string sender);
     public static event MovementStateChange MovementStateEvent;
 
-    public float velocityMin;
     public float moveForce;
     public float maxSpeed;
     private Rigidbody player;
@@ -73,14 +72,12 @@ public class Movement : MonoBehaviour
             player.velocity = new Vector3(lateralVelocity, player.velocity.y, player.velocity.z);
         else if (Mathf.Abs(player.velocity.x) < maxSpeed)
             player.AddForce(lateralForce);
-
-        //player.velocity = new Vector3(player.velocity.x, Mathf.Clamp(-15, Mathf.infinity, player.velocity.z));
     }
 
     void IncreaseGravity()
     {
-        if (player.velocity.y < 0 && player.velocity.y > velocityMin)
-            player.AddForce(Physics.gravity);
+        if (player.velocity.y < 0)
+            player.AddForce(Physics.gravity / 2);
     }
 
     #endregion

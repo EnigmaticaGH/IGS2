@@ -6,38 +6,51 @@ public class BlockInteraction : MonoBehaviour {
 
 
     public Scene lowGravity;
-
+    private Quaternion startRotation;
     private Rigidbody body;
     private Rigidbody r;
-    private Vector3 start;
+    private Vector3 startPosition;
     private float time;
     private Material blockMaterial;
     private Color blockColor;
+    private ParticleSystem grabSystem;
+    private ParticleSystem.EmissionModule grabSystemEmission;
     private bool isGrabbedBySomeoneElse;
+    private IEnumerator reset;
+    private Transform originalParent;
+    private bool isShattering;
 
     void Start()
     {
         //lowGravity = SceneManager.LoadScene(6);
         lowGravity = SceneManager.GetActiveScene();
+        grabSystem = GetComponent<ParticleSystem>();
         blockMaterial = GetComponent<MeshRenderer>().material;
         blockColor = blockMaterial.color;
         body = GetComponent<Rigidbody>();
-        start = transform.position;
+        startPosition = transform.position;
         time = 0;
         isGrabbedBySomeoneElse = false;
+        grabSystemEmission = grabSystem.emission;
+        grabSystemEmission.enabled = false;
+        reset = Reset();
+        startRotation = transform.rotation;
+        originalParent = transform.parent;
+        isShattering = false;
 
         if (lowGravity.name == "Level 4 - No Gravity!")
         {
             Debug.Log("Low Gravity loaded");
             body.isKinematic = false;
-        }
-        
+        }   
     }
 
     void FixedUpdate()
     {
-        if (transform.position.y < -100)
-            Debug.Log("Reset me");//Destroy(gameObject);
+        if (transform.position.y < -50)
+        {
+            ResetImmediately();
+        }
     }
 
 	void OnCollisionEnter(Collision c)
@@ -77,13 +90,14 @@ public class BlockInteraction : MonoBehaviour {
         {
             foreach(ContactPoint p in c.contacts)
             {
-                if (p.point.y < transform.position.y - 0.45f && c.relativeVelocity.y > 10)
+                Debug.Log(p.point + " | " + transform.position);
+                if (p.point.y < transform.position.y - 0.35f && c.relativeVelocity.y > 10)
                 {
                     Debug.Log("Upsmash");
                     //player hits from under with high Y speed
                     Launch(Vector2.up * 1000f, false);
                 }
-                if (p.point.y > transform.position.y + 0.45f && c.relativeVelocity.y < -10)
+                if (p.point.y > transform.position.y + 0.35f && c.relativeVelocity.y < -10)
                 {
                     Debug.Log("Downsmash");
                     //player hits from on top with high Y speed
@@ -104,10 +118,10 @@ public class BlockInteraction : MonoBehaviour {
             }
         }
 
-        if (c.collider.CompareTag("Player")
+        if (c.collider.CompareTag("Player") && !isShattering
             && AbilityRegistry.AbilityStatus(c.gameObject.name, "BlockDrop") == Ability.Status.ACTIVE)
         {
-            StartCoroutine(Shatter(0.3f));
+            StartCoroutine(Shatter(0.5f));
         }
     }
 
@@ -120,7 +134,7 @@ public class BlockInteraction : MonoBehaviour {
             body.MovePosition(transform.position + Vector3.up * 0.2f);
         body.AddForce(force);
         time += 5;
-        StartCoroutine(Reset());
+        StartCoroutine(reset);
     }
 
     void PushPlayer(bool right, Movement m, float power)
@@ -159,9 +173,19 @@ public class BlockInteraction : MonoBehaviour {
         body.useGravity = true;
         blockMaterial.color = color;
         body.AddForce(force);
-        time += respawnTime;
+        time = respawnTime;
         Debug.Log(time);
-        StartCoroutine(Reset());
+        StartCoroutine(reset);
+    }
+
+    public void Explode(Vector3 force)
+    {
+        body.isKinematic = false;
+        body.AddForce(force);
+        body.useGravity = true;
+        time += 5;
+        Debug.Log(name + " exploded");
+        StartCoroutine(reset);
     }
 
     public void SetColor(Color c)
@@ -169,32 +193,40 @@ public class BlockInteraction : MonoBehaviour {
         blockMaterial.color = c;
     }
 
-    public void StopReset()
+    public void Respawn(float t)
     {
-        StopCoroutine(Reset());
+        if ((time += t) <= t)
+        {
+            StartCoroutine(reset);
+        }
     }
 
     IEnumerator Reset()
     {
-        while ((time -= Time.deltaTime) >= 0)
+        while (time >= 0)
         {
             yield return new WaitForFixedUpdate();
+            if (transform.parent == originalParent)
+                time -= Time.deltaTime;
         }
+        grabSystemEmission.enabled = false;
         blockMaterial.color = blockColor;
-        transform.position = start;
-        //transform.localScale = new Vector3(2, 2, 2);
-        transform.rotation = Quaternion.Euler(0,270,270);
+        transform.position = startPosition;
+        transform.rotation = startRotation;
         body.useGravity = false;
         body.isKinematic = true;
+        isShattering = false;
     }
 
     IEnumerator Shatter(float t)
     {
+        isShattering = true;
         float red = blockColor.r;
         float grn = blockColor.g;
         float blu = blockColor.b;
         float maxt = t;
-        while((t -= Time.deltaTime) > 0)
+        grabSystemEmission.enabled = true;
+        while ((t -= Time.deltaTime) > 0)
         {
             float normalizedTime = t / maxt;
 
@@ -203,16 +235,39 @@ public class BlockInteraction : MonoBehaviour {
                 Mathf.Lerp(grn, 0, (1 - normalizedTime)),
                 Mathf.Lerp(blu, 0, (1 - normalizedTime)));
             yield return new WaitForFixedUpdate();
+            grabSystem.startColor = blockMaterial.color;
         }
         body.useGravity = true;
         body.isKinematic = false;
         time += 5;
-        StartCoroutine(Reset());
+        StartCoroutine(reset);
+    }
+
+    public void ResetImmediately()
+    {
+        body.useGravity = false;
+        body.isKinematic = true;
+        grabSystemEmission.enabled = false;
+        blockMaterial.color = blockColor;
+        transform.rotation = startRotation;
+        transform.position = startPosition;
+        isShattering = false;
     }
 
     public bool IsGrabbedBySomeoneElse
     {
         get;
         set;
+    }
+
+    public Quaternion StartRotation
+    {
+        get { return startRotation; }
+        set { startRotation = StartRotation; }
+    }
+
+    public ParticleSystem GrabParticleSystem
+    {
+        get { return grabSystem; }
     }
 }

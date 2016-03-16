@@ -41,10 +41,10 @@ public class PlayerSpawn : MonoBehaviour
         p3Pos = CharacterMenuController.p3Pos; //Use this for spawning selected characters
         p4Pos = CharacterMenuController.p4Pos; //Use this for spawning selected characters
 
-        Debug.Log(p1Pos);
+        //Debug.Log(p1Pos);
         //PlayersAmt = CursorController.ControllerAmount; //Gets 2 because Cursor Controller is used in multiple scenes
         PlayersAmt = CharacterMenuController.ControllerNumber; //USed character menu controller since it's only called once
-        Debug.Log(PlayersAmt);
+        //Debug.Log(PlayersAmt);
 
         if (PlayersAmt == 1)
         {
