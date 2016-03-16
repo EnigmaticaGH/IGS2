@@ -342,6 +342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b526bec93e9f4f4c8e648b19332505f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grenadePrefab: {fileID: 120964, guid: 2a62a430d9bb06345a3515eef72540ca, type: 2}
   blockThrowForce: 2000
 --- !u!114 &11411426
 MonoBehaviour:

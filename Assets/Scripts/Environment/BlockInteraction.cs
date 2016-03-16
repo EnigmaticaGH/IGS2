@@ -247,8 +247,11 @@ public class BlockInteraction : MonoBehaviour {
     {
         body.useGravity = false;
         body.isKinematic = true;
+        grabSystemEmission.enabled = false;
+        blockMaterial.color = blockColor;
         transform.rotation = startRotation;
         transform.position = startPosition;
+        isShattering = false;
     }
 
     public bool IsGrabbedBySomeoneElse
