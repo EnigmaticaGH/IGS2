@@ -23,8 +23,9 @@ public class PlayerPause : MonoBehaviour {
         ControllerNumber = CharacterMenuController.ControllerNumber;
         //start1 = GetComponent<PauseMenu>().TogglePause(false);
     }
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
 
 
         //DevField = DevField.Addcmponent<GameObject>;
@@ -36,11 +37,12 @@ public class PlayerPause : MonoBehaviour {
             PauseButtons[0].GetComponent<Button>().colors = temp;
 
         }
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
 
         /*if (Input.GetButton("Start_" + ControllerNumber ))
         {
@@ -95,7 +97,7 @@ public class PlayerPause : MonoBehaviour {
 
             }
             //float velocity = Input.GetAxis("DPad_XAxis_1") * speed;
-          
+
         }
         if (start1)
         {
@@ -129,13 +131,16 @@ public class PlayerPause : MonoBehaviour {
                 }
                 if (Input.GetAxis("DPad_YAxis_1") == 1)
                 {
-                    StartCoroutine("resetThisButton");
+                    Debug.Log("I wish i worked");
+                    StartCoroutine("resetThisButton1");
+                    StartCoroutine("work");
+
                 }
             }
         }
 
-	
-	}
+
+    }
 
 
     IEnumerator resetCount()
@@ -146,11 +151,10 @@ public class PlayerPause : MonoBehaviour {
         start1 = false;
     }
 
-    IEnumerator resetThisButton()
+    IEnumerator resetThisButton1()
     {
 
-        yield return new WaitForSeconds(.1f); //Button Cooldown
-        //Debug.Log("Hi");
+        Debug.Log("Hi");
         ColorBlock temp;
         temp = PauseButtons[0].GetComponent<Button>().colors;
         temp.normalColor = Color.yellow;
@@ -158,7 +162,22 @@ public class PlayerPause : MonoBehaviour {
         temp.normalColor = Color.white;
         PauseButtons[1].GetComponent<Button>().colors = temp;
         menuCount = 0;
+        yield return null; //Button Cooldown
+
 
     }
+    IEnumerator work()
+    {
 
+        Debug.Log("Hi");
+        ColorBlock temp;
+        temp = PauseButtons[0].GetComponent<Button>().colors;
+        temp.normalColor = Color.yellow;
+        PauseButtons[0].GetComponent<Button>().colors = temp;
+        temp.normalColor = Color.white;
+        PauseButtons[1].GetComponent<Button>().colors = temp;
+        menuCount = 0;
+        yield return null; //Button Cooldown
+
+    }
 }

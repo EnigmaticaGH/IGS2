@@ -308,7 +308,10 @@ public class CursorMovement : MonoBehaviour {
                  * Used for player readiness if controller number is 1 then if player 1 is ready go to next scene and so on 
                  */
 
-                if (p1Ready && (NAC == 1))
+                SceneManager.LoadScene(2);
+
+                //Fuck the ready system
+                /*if (p1Ready && (NAC == 1))
                     SceneManager.LoadScene(2);
                 if((p1Ready && p2Ready) && NAC == 2)
                     SceneManager.LoadScene(2);
@@ -319,7 +322,7 @@ public class CursorMovement : MonoBehaviour {
                 }
 
                 if ((p1Ready && p2Ready) && (p2Ready && p4Ready))
-                    SceneManager.LoadScene(2);
+                    SceneManager.LoadScene(2);*/
                     
 
 
