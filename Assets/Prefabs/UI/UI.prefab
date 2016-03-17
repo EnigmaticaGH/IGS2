@@ -10,7 +10,7 @@ GameObject:
   - 224: {fileID: 22445390}
   - 222: {fileID: 22237162}
   - 114: {fileID: 11459560}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +27,7 @@ GameObject:
   - 224: {fileID: 22418580}
   - 222: {fileID: 22209296}
   - 114: {fileID: 11469048}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - 224: {fileID: 22428528}
   - 222: {fileID: 22298082}
   - 114: {fileID: 11444824}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,8 +59,26 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 419542}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: UI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &106206
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 470258}
+  - 114: {fileID: 11477678}
+  - 114: {fileID: 11468476}
+  - 114: {fileID: 11430160}
+  m_Layer: 0
+  m_Name: EventSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +94,7 @@ GameObject:
   - 224: {fileID: 22411210}
   - 222: {fileID: 22221222}
   - 114: {fileID: 11475758}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Menu_Button_Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +112,7 @@ GameObject:
   - 223: {fileID: 22392058}
   - 114: {fileID: 11415484}
   - 114: {fileID: 11496382}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: WinCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,7 +129,7 @@ GameObject:
   - 224: {fileID: 22432226}
   - 222: {fileID: 22204606}
   - 114: {fileID: 11463952}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Menu_Button_Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,7 +146,7 @@ GameObject:
   - 224: {fileID: 22468094}
   - 222: {fileID: 22284632}
   - 114: {fileID: 11410034}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Player 1 Lives
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +163,7 @@ GameObject:
   - 224: {fileID: 22444038}
   - 222: {fileID: 22261396}
   - 114: {fileID: 11451804}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Player 3 Lives
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,7 +181,7 @@ GameObject:
   - 222: {fileID: 22297112}
   - 114: {fileID: 11496498}
   - 114: {fileID: 11400704}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,7 +199,7 @@ GameObject:
   - 222: {fileID: 22210958}
   - 114: {fileID: 11445866}
   - 114: {fileID: 11443436}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Dev Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,7 +217,7 @@ GameObject:
   - 114: {fileID: 11478176}
   - 114: {fileID: 11414092}
   - 114: {fileID: 11480758}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: UIController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -217,7 +235,7 @@ GameObject:
   - 222: {fileID: 22247520}
   - 114: {fileID: 11418792}
   - 114: {fileID: 11473600}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CharacterMenu_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -234,7 +252,7 @@ GameObject:
   - 224: {fileID: 22444690}
   - 222: {fileID: 22295754}
   - 114: {fileID: 11453178}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -253,7 +271,7 @@ GameObject:
   - 114: {fileID: 11471410}
   - 114: {fileID: 11471786}
   - 114: {fileID: 11413250}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: InputField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -270,7 +288,7 @@ GameObject:
   - 224: {fileID: 22454956}
   - 222: {fileID: 22255112}
   - 114: {fileID: 11498774}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Menu_Button_Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -288,7 +306,7 @@ GameObject:
   - 223: {fileID: 22337788}
   - 114: {fileID: 11407490}
   - 114: {fileID: 11477710}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Timer/Deaths Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -306,7 +324,7 @@ GameObject:
   - 222: {fileID: 22241086}
   - 114: {fileID: 11475100}
   - 114: {fileID: 11424058}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Timer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -323,7 +341,7 @@ GameObject:
   - 224: {fileID: 22495776}
   - 222: {fileID: 22276024}
   - 114: {fileID: 11487894}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -340,7 +358,7 @@ GameObject:
   - 224: {fileID: 22410700}
   - 114: {fileID: 11491138}
   - 222: {fileID: 22230054}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Dev Opitions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -358,7 +376,7 @@ GameObject:
   - 222: {fileID: 22264610}
   - 114: {fileID: 11413736}
   - 114: {fileID: 11437408}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PauseMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -375,7 +393,7 @@ GameObject:
   - 224: {fileID: 22414430}
   - 222: {fileID: 22236850}
   - 114: {fileID: 11427702}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Player 2 Lives
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -411,7 +429,7 @@ GameObject:
   - 222: {fileID: 22287106}
   - 114: {fileID: 11458562}
   - 114: {fileID: 11449928}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Menu_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -428,7 +446,7 @@ GameObject:
   - 224: {fileID: 22411228}
   - 222: {fileID: 22276648}
   - 114: {fileID: 11446836}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Placeholder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -446,7 +464,7 @@ GameObject:
   - 222: {fileID: 22292708}
   - 114: {fileID: 11495486}
   - 114: {fileID: 11499908}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Player Lives
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -463,7 +481,7 @@ GameObject:
   - 224: {fileID: 22411890}
   - 222: {fileID: 22244508}
   - 114: {fileID: 11491288}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: 'Player 4 Lives '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -484,6 +502,7 @@ Transform:
   - {fileID: 22493006}
   - {fileID: 454168}
   - {fileID: 22430852}
+  - {fileID: 470258}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &454168
@@ -498,6 +517,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 419542}
   m_RootOrder: 2
+--- !u!4 &470258
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 106206}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 419542}
+  m_RootOrder: 4
 --- !u!114 &11400704
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -537,7 +568,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 11414092}
         m_MethodName: Button1_Click
         m_Mode: 1
         m_Arguments:
@@ -750,6 +781,18 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 'Player 2 Lives: '
+--- !u!114 &11430160
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 106206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1997211142, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ForceModuleActive: 0
 --- !u!114 &11437408
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -806,7 +849,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11491138}
-        m_MethodName: OnPointClick
+        m_MethodName: OnPointerClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -954,7 +997,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 2
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -962,7 +1005,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.95131844, b: 0.29411763, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -1142,6 +1185,24 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: Menu
+--- !u!114 &11468476
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 106206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1077351063, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalAxis: L_XAxis_1
+  m_VerticalAxis: L_YAxis_1
+  m_SubmitButton: Start_1
+  m_CancelButton: Back_1
+  m_InputActionsPerSecond: 10
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 1
 --- !u!114 &11469048
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1277,7 +1338,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 2
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -1285,7 +1346,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.9318459, g: 1, b: 0.29411763, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -1372,6 +1433,20 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: Character Menu
+--- !u!114 &11477678
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 106206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -619905303, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 5
 --- !u!114 &11477710
 MonoBehaviour:
   m_ObjectHideFlags: 1
