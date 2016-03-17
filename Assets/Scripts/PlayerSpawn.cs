@@ -26,8 +26,6 @@ public class PlayerSpawn : MonoBehaviour
      */
     public GameObject[] Characters;
 
-
-
     int PlayersAmt = 0;
     // Use this for initialization
     void Awake()
@@ -44,71 +42,73 @@ public class PlayerSpawn : MonoBehaviour
         //Debug.Log(p1Pos);
         //PlayersAmt = CursorController.ControllerAmount; //Gets 2 because Cursor Controller is used in multiple scenes
         PlayersAmt = CharacterMenuController.ControllerNumber; //USed character menu controller since it's only called once
-        //Debug.Log(PlayersAmt);
 
-        if (PlayersAmt == 1)
-        {
-            //Used for creating players 
-            //p1 spawn character[] gameobject and p1 selection from main menu
-            //Spawn at location of spawn point in each scene
-            //After I spawn object I need to make sure the controller numbers are connected correctly 
-            GameObject p1;
-            p1 = (GameObject)Instantiate(Characters[p1Pos], new Vector3(player1Spawn.transform.position.x, player1Spawn.transform.position.y, player1Spawn.transform.position.z), Quaternion.identity); //Need to effect this for menu system
-            Debug.Log(player1Spawn.transform.position);
-            Characters[p1Pos].GetComponent<ControllerNumber>().controllerNumber = 1; //Make sure controller is connected to correct player
-            Debug.Log("Spawn p1");
-        }
-        else if (PlayersAmt == 2)
-        {
-            GameObject p1;
-            p1 = (GameObject)Instantiate(Characters[p1Pos], new Vector3(player1Spawn.transform.position.x, player1Spawn.transform.position.y, player1Spawn.transform.position.z), Quaternion.identity); //Need to effect this for menu system
-            Characters[p1Pos].GetComponent<ControllerNumber>().controllerNumber = 1;
-            Debug.Log("Spawn p1");
+            //Debug.Log(PlayersAmt);
 
-            GameObject p2;
-            p2 = (GameObject)Instantiate(Characters[p2Pos], new Vector3(player2Spawn.transform.position.x, player2Spawn.transform.position.y, player2Spawn.transform.position.z), Quaternion.identity); //Need to effect this for menu system
-            Characters[p1Pos].GetComponent<ControllerNumber>().controllerNumber = 2;
-            Debug.Log("Spawn p2");
-        }
-        else if (PlayersAmt == 3) 
-        {
-            GameObject p1;
-            p1 = (GameObject)Instantiate(Characters[p1Pos], new Vector3(player1Spawn.transform.position.x, player1Spawn.transform.position.y, player1Spawn.transform.position.z), Quaternion.identity); //Need to effect this for menu system
-            Characters[p1Pos].GetComponent<ControllerNumber>().controllerNumber = 1;
-            Debug.Log("Spawn p1");
+            if (PlayersAmt == 1)
+            {
+                //Used for creating players 
+                //p1 spawn character[] gameobject and p1 selection from main menu
+                //Spawn at location of spawn point in each scene
+                //After I spawn object I need to make sure the controller numbers are connected correctly 
+                GameObject p1;
+                p1 = (GameObject)Instantiate(Characters[p1Pos], new Vector3(player1Spawn.transform.position.x, player1Spawn.transform.position.y, player1Spawn.transform.position.z), Quaternion.identity); //Need to effect this for menu system
+                Debug.Log(player1Spawn.transform.position);
+                p1.GetComponent<ControllerNumber>().controllerNumber = 1; //Make sure controller is connected to correct player
+                Debug.Log("Spawn p1 with controller " + p1.GetComponent<ControllerNumber>().controllerNumber);
+            }
+            else if (PlayersAmt == 2)
+            {
+                GameObject p1;
+                p1 = (GameObject)Instantiate(Characters[p1Pos], new Vector3(player1Spawn.transform.position.x, player1Spawn.transform.position.y, player1Spawn.transform.position.z), Quaternion.identity); //Need to effect this for menu system
+                p1.GetComponent<ControllerNumber>().controllerNumber = 1;
+                Debug.Log("Spawn p1");
 
-            GameObject p2;
-            p2 = (GameObject)Instantiate(Characters[p2Pos], new Vector3(player2Spawn.transform.position.x, player2Spawn.transform.position.y, player2Spawn.transform.position.z), Quaternion.identity); //Need to effect this for menu system
-            Characters[p1Pos].GetComponent<ControllerNumber>().controllerNumber = 2;
-            Debug.Log("Spawn p2");
+                GameObject p2;
+                Characters[p2Pos].GetComponent<ControllerNumber>().controllerNumber = 2;
+                p2 = (GameObject)Instantiate(Characters[p2Pos], new Vector3(player2Spawn.transform.position.x, player2Spawn.transform.position.y, player2Spawn.transform.position.z), Quaternion.identity); //Need to effect this for menu system
+                p2.GetComponent<ControllerNumber>().controllerNumber = 2;
+                Debug.Log("Spawn p2");
+            }
+            else if (PlayersAmt == 3)
+            {
+                GameObject p1;
+                p1 = (GameObject)Instantiate(Characters[p1Pos], new Vector3(player1Spawn.transform.position.x, player1Spawn.transform.position.y, player1Spawn.transform.position.z), Quaternion.identity); //Need to effect this for menu system
+                Characters[p1Pos].GetComponent<ControllerNumber>().controllerNumber = 1;
+                Debug.Log("Spawn p1");
 
-            GameObject p3;
-            p3 = (GameObject)Instantiate(Characters[p3Pos], new Vector3(player3Spawn.transform.position.x, player3Spawn.transform.position.y, player3Spawn.transform.position.z), Quaternion.identity); //Need to effect this for menu system
-            Characters[p3Pos].GetComponent<ControllerNumber>().controllerNumber = 3;
-            Debug.Log("Spawn p2");
-        }
-        else if (PlayersAmt == 4)
-        {
-            GameObject p1;
-            p1 = (GameObject)Instantiate(Characters[p1Pos], new Vector3(player1Spawn.transform.position.x, player1Spawn.transform.position.y, player1Spawn.transform.position.z), Quaternion.identity); //Need to effect this for menu system
-            Characters[p1Pos].GetComponent<ControllerNumber>().controllerNumber = 1;
-            Debug.Log("Spawn p1");
+                GameObject p2;
+                p2 = (GameObject)Instantiate(Characters[p2Pos], new Vector3(player2Spawn.transform.position.x, player2Spawn.transform.position.y, player2Spawn.transform.position.z), Quaternion.identity); //Need to effect this for menu system
+                Characters[p2Pos].GetComponent<ControllerNumber>().controllerNumber = 2;
+                Debug.Log("Spawn p2");
 
-            GameObject p2;
-            p2 = (GameObject)Instantiate(Characters[p2Pos], new Vector3(player2Spawn.transform.position.x, player2Spawn.transform.position.y, player2Spawn.transform.position.z), Quaternion.identity); //Need to effect this for menu system
-            Characters[p1Pos].GetComponent<ControllerNumber>().controllerNumber = 2;
-            Debug.Log("Spawn p2");
+                GameObject p3;
+                p3 = (GameObject)Instantiate(Characters[p3Pos], new Vector3(player3Spawn.transform.position.x, player3Spawn.transform.position.y, player3Spawn.transform.position.z), Quaternion.identity); //Need to effect this for menu system
+                Characters[p3Pos].GetComponent<ControllerNumber>().controllerNumber = 3;
+                Debug.Log("Spawn p3");
+            }
+            else if (PlayersAmt == 4)
+            {
+                GameObject p1;
+                p1 = (GameObject)Instantiate(Characters[p1Pos], new Vector3(player1Spawn.transform.position.x, player1Spawn.transform.position.y, player1Spawn.transform.position.z), Quaternion.identity); //Need to effect this for menu system
+                Characters[p1Pos].GetComponent<ControllerNumber>().controllerNumber = 1;
+                Debug.Log("Spawn p1");
 
-            GameObject p3;
-            p3 = (GameObject)Instantiate(Characters[p3Pos], new Vector3(player3Spawn.transform.position.x, player3Spawn.transform.position.y, player3Spawn.transform.position.z), Quaternion.identity); //Need to effect this for menu system
-            Characters[p3Pos].GetComponent<ControllerNumber>().controllerNumber = 3;
-            Debug.Log("Spawn p2");
+                GameObject p2;
+                p2 = (GameObject)Instantiate(Characters[p2Pos], new Vector3(player2Spawn.transform.position.x, player2Spawn.transform.position.y, player2Spawn.transform.position.z), Quaternion.identity); //Need to effect this for menu system
+                Characters[p1Pos].GetComponent<ControllerNumber>().controllerNumber = 2;
+                Debug.Log("Spawn p2");
 
-            GameObject p4;
-            p4 = (GameObject)Instantiate(Characters[p3Pos], new Vector3(player4Spawn.transform.position.x, player4Spawn.transform.position.y, player4Spawn.transform.position.z), Quaternion.identity); //Need to effect this for menu system
-            Characters[p3Pos].GetComponent<ControllerNumber>().controllerNumber = 4;
-            Debug.Log("Spawn p2");
-        }
+                GameObject p3;
+                p3 = (GameObject)Instantiate(Characters[p3Pos], new Vector3(player3Spawn.transform.position.x, player3Spawn.transform.position.y, player3Spawn.transform.position.z), Quaternion.identity); //Need to effect this for menu system
+                Characters[p3Pos].GetComponent<ControllerNumber>().controllerNumber = 3;
+                Debug.Log("Spawn p3");
+
+                GameObject p4;
+                p4 = (GameObject)Instantiate(Characters[p4Pos], new Vector3(player4Spawn.transform.position.x, player4Spawn.transform.position.y, player4Spawn.transform.position.z), Quaternion.identity); //Need to effect this for menu system
+                Characters[p4Pos].GetComponent<ControllerNumber>().controllerNumber = 4;
+                Debug.Log("Spawn p4");
+            }
 
         /*for (int i = 0; i < PlayersAmt; i++) 
         {

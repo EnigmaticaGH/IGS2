@@ -76,7 +76,7 @@ public class Movement : MonoBehaviour
 
     void IncreaseGravity()
     {
-        if (player.velocity.y < 0)
+        if (player.velocity.y < 0 && (player.velocity.y < maxSpeed)) //Double gravity sucks when you fall off a high platform you need a limit for the speed dudeB
             player.AddForce(Physics.gravity / 2);
     }
 

@@ -87,6 +87,7 @@ public class PlayerAbilities : MonoBehaviour
             if (ability.Button != "" && Input.GetButtonDown(ability.Button + "_" + controller.controllerNumber) && ability.AbilityStatus == Ability.Status.READY)
             {
                 StartCoroutine("Ability_" + ability.Name + "_Activate", ability);
+                Debug.Log(ability.Button + "_" + controller.controllerNumber);
             }
             else if (ability.Axis != null)
             {
@@ -95,6 +96,7 @@ public class PlayerAbilities : MonoBehaviour
                     if(Mathf.Abs(Input.GetAxis(axisName + "_" + controller.controllerNumber)) > ability.AxisThreshold && ability.AbilityStatus == Ability.Status.READY)
                     {
                         StartCoroutine("Ability_" + ability.Name + "_Activate", ability);
+                        Debug.Log(name + axisName + "_" + controller.controllerNumber);
                     }
                 }
             }

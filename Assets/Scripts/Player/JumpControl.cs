@@ -33,7 +33,7 @@ public class JumpControl : MonoBehaviour
             {
                 "TriggersL",
                 "L_YAxis",
-                "A"
+                "LB"
             };
         jumpAxisInUse = false;
         doubleJump = false;
@@ -49,8 +49,7 @@ public class JumpControl : MonoBehaviour
     void Update()
     {
         //Debug.Log(name + ": " + controller.controllerNumber);
-        jumpButtonPressed = Input.GetAxisRaw(jumpAxis[0] + "_" + controller.controllerNumber) == 1
-         || Input.GetAxisRaw(jumpAxis[2] + "_" + controller.controllerNumber) == 1;
+        jumpButtonPressed = Input.GetAxisRaw(jumpAxis[2] + "_" + controller.controllerNumber) == 1;
         if (jumpButtonPressed)
         {
             if (!jumpAxisInUse)

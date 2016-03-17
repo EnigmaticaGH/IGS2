@@ -17,7 +17,7 @@ public class CharacterMenuController : MonoBehaviour {
     public GameObject[] NextButtons;
     public Sprite[] NextButtonsHover;
     public Sprite[] NextButtonClick; //Pointless
-    public Text[] NextText;
+    //public Text[] NextText;
     public Image[] PlayerReady;
     public Image[] ogArrowUP;
     public Image[] ogArrowDOWN;
@@ -43,6 +43,8 @@ public class CharacterMenuController : MonoBehaviour {
 
     public bool p1Ready;
     public bool p2Ready;
+    public bool p3Ready;
+    public bool p4Ready;
 
     void OnEnable()
     {
@@ -100,8 +102,9 @@ public class CharacterMenuController : MonoBehaviour {
                 }
 
                 ActiveControllers = Input.GetJoystickNames();
-
             }
+            Debug.Log(ControllerNumber);
+
     }
 
 	// Use this for initialization
@@ -139,35 +142,6 @@ public class CharacterMenuController : MonoBehaviour {
         {
             original[i] = NextButtons[i].GetComponent<Button>().image.overrideSprite;
         }
-        //Switch next button colors
-        /*ColorBlock temp;
-        temp = NextButtons[0].GetComponent<Button>().colors;
-        temp.normalColor = Color.red;
-        NextButtons[0].GetComponent<Button>().colors = temp;
-        NextText[0].color = Color.green;
-
-        temp = NextButtons[1].GetComponent<Button>().colors;
-        temp.normalColor = Color.blue;
-        NextButtons[1].GetComponent<Button>().colors = temp;
-        NextText[1].color = Color.yellow;
-
-        temp = NextButtons[2].GetComponent<Button>().colors;
-        temp.normalColor = Color.yellow;
-        NextButtons[2].GetComponent<Button>().colors = temp;
-        NextText[2].color = Color.magenta;
-
-        temp = NextButtons[3].GetComponent<Button>().colors;
-        temp.normalColor = Color.green;
-        NextButtons[3].GetComponent<Button>().colors = temp;
-        NextText[3].color = Color.red;*/
-
-       /* for (int f = 0; f < 4; f++)
-        {
-            CharacterPictures[0].SetActive(true);
-            //Instantiate(CharacterPictures[0], new Vector3(pictureLocations[f].transform.position.x, pictureLocations[f].transform.position.y, pictureLocations[f].transform.position.z + 8), Quaternion.identity);
-        }*/
-	
-
 	}
 
     void Update()
@@ -204,15 +178,13 @@ public class CharacterMenuController : MonoBehaviour {
                 Invoke("AReset", .5f);
                 Debug.Log("i == 2" + z + "Player 1 Ready = false" + p1Ready);
             }
-                
-
         }
 
         if (p2Ready == false)
         {
             if (Input.GetAxis("L_YAxis_2") == 1 && (r == 0))
             {
-                j++;
+                r++;
                 LeftStickDownP2();
                 ogArrowDOWN[1].sprite = activeArrowDOWN;
                 Invoke("StickReset", .5f);
@@ -220,7 +192,7 @@ public class CharacterMenuController : MonoBehaviour {
 
             if (Input.GetAxis("L_YAxis_2") == -1 && (r == 0))
             {
-                j++;
+                r++;
                 LeftStickUpP2();
                 ogArrowUP[1].sprite = activeArrowUP;
                 Invoke("StickReset", .5f);
@@ -230,17 +202,87 @@ public class CharacterMenuController : MonoBehaviour {
         if (Input.GetButtonDown("A_2") && (z <= 2))
         {
             z++;
-            p1Ready = true;
+            p2Ready = true;
             PlayerReady[1].enabled = true;
             Debug.Log("i == 1" + z + "Player 2 Ready = true" + p2Ready);
             if (z == 2)
             {
-                p1Ready = false;
+                p2Ready = false;
                 PlayerReady[1].enabled = false;
                 Invoke("AReset", .5f);
                 Debug.Log("i == 2" + z + "Player 2 Ready = false" + p2Ready);
             }
         }
+
+        if (p3Ready == false)
+        {
+            if (Input.GetAxis("L_YAxis_3") == 1 && (r == 0))
+            {
+                r++;
+                LeftStickDownP3();
+                ogArrowDOWN[2].sprite = activeArrowDOWN;
+                Invoke("StickReset", .5f);
+            }
+
+            if (Input.GetAxis("L_YAxis_3") == -1 && (r == 0))
+            {
+                r++;
+                LeftStickUpP3();
+                ogArrowUP[2].sprite = activeArrowUP;
+                Invoke("StickReset", .5f);
+            }
+        }
+
+        if (Input.GetButtonDown("A_3") && (z <= 2))
+        {
+            z++;
+            p2Ready = true;
+            PlayerReady[2].enabled = true;
+            Debug.Log("i == 1" + z + "Player 2 Ready = true" + p3Ready);
+            if (z == 2)
+            {
+                p2Ready = false;
+                PlayerReady[2].enabled = false;
+                Invoke("AReset", .5f);
+                Debug.Log("i == 2" + z + "Player 2 Ready = false" + p3Ready);
+            }
+        }
+
+        if (p4Ready == false)
+        {
+            if (Input.GetAxis("L_YAxis_4") == 1 && (r == 0))
+            {
+                r++;
+                LeftStickDownP4();
+                ogArrowDOWN[3].sprite = activeArrowDOWN;
+                Invoke("StickReset", .5f);
+            }
+
+            if (Input.GetAxis("L_YAxis_4") == -1 && (r == 0))
+            {
+                r++;
+                LeftStickUpP4();
+                ogArrowUP[3].sprite = activeArrowUP;
+                Invoke("StickReset", .5f);
+            }
+        }
+
+        if (Input.GetButtonDown("A_4") && (z <= 2))
+        {
+            z++;
+            p4Ready = true;
+            PlayerReady[3].enabled = true;
+            Debug.Log("i == 1" + z + "Player 4 Ready = true" + p4Ready);
+            if (z == 2)
+            {
+                p4Ready = false;
+                PlayerReady[3].enabled = false;
+                Invoke("AReset", .5f);
+                Debug.Log("i == 2" + z + "Player 4 Ready = false" + p4Ready);
+            }
+        }
+
+
 
         if (ControllerNumber == 1)
         {
@@ -252,13 +294,29 @@ public class CharacterMenuController : MonoBehaviour {
                 }
             }
         }
+
+        if (p1Ready)
+        {
+            if (Input.GetButtonDown("Start_1"))
+            {
+                SceneManager.LoadScene(2);
+            }
+        }
+        
     }
 
     void StickReset()
     {
         ogArrowUP[0].sprite = ogSpriteUp;
         ogArrowDOWN[0].sprite = ogSpriteDown;
+        ogArrowUP[1].sprite = ogSpriteUp;
+        ogArrowDOWN[1].sprite = ogSpriteDown;
+        ogArrowUP[2].sprite = ogSpriteUp;
+        ogArrowDOWN[2].sprite = ogSpriteDown;
+        ogArrowUP[3].sprite = ogSpriteUp;
+        ogArrowDOWN[3].sprite = ogSpriteDown;
         j = 0;
+        r = 0;
     }
 
     void AReset()
@@ -320,7 +378,7 @@ public class CharacterMenuController : MonoBehaviour {
         p2Pos = p2Pos + 1;
         if (p2Pos > 3)
             p2Pos = 0;
-        CharacterPictures[1].sprite = Characters[p1Pos].GetComponentInChildren<SpriteRenderer>().sprite;
+        CharacterPictures[1].sprite = Characters[p2Pos].GetComponentInChildren<SpriteRenderer>().sprite;
 
         switch (p2Pos)
         {
@@ -346,7 +404,7 @@ public class CharacterMenuController : MonoBehaviour {
         p2Pos = p2Pos - 1;
         if (p2Pos < 0)
             p2Pos = 3;
-        CharacterPictures[1].sprite = Characters[p1Pos].GetComponentInChildren<SpriteRenderer>().sprite;
+        CharacterPictures[1].sprite = Characters[p2Pos].GetComponentInChildren<SpriteRenderer>().sprite;
         switch (p2Pos)
         {
             case (0):
@@ -365,6 +423,108 @@ public class CharacterMenuController : MonoBehaviour {
                 break;
         }
 
+    }
+
+    void LeftStickUpP3()
+    {
+        p3Pos = p3Pos + 1;
+        if (p3Pos > 3)
+            p3Pos = 0;
+        CharacterPictures[2].sprite = Characters[p3Pos].GetComponentInChildren<SpriteRenderer>().sprite;
+
+        switch (p3Pos)
+        {
+            case (0):
+                CharacterNames[2].text = Names[p3Pos];
+                break;
+            case (1):
+                CharacterNames[2].text = Names[p3Pos];
+                break;
+            case (2):
+                CharacterNames[2].text = Names[p3Pos];
+                break;
+            case (3):
+                CharacterNames[2].text = Names[p3Pos];
+                break;
+            default:
+                break;
+        }
+
+    }
+    void LeftStickDownP3()
+    {
+        p3Pos = p3Pos - 1;
+        if (p3Pos < 0)
+            p3Pos = 3;
+        CharacterPictures[2].sprite = Characters[p3Pos].GetComponentInChildren<SpriteRenderer>().sprite;
+        switch (p3Pos)
+        {
+            case (0):
+                CharacterNames[2].text = Names[p2Pos];
+                break;
+            case (1):
+                CharacterNames[2].text = Names[p2Pos];
+                break;
+            case (2):
+                CharacterNames[2].text = Names[p2Pos];
+                break;
+            case (3):
+                CharacterNames[2].text = Names[p2Pos];
+                break;
+            default:
+                break;
+        }
+    }
+
+    void LeftStickUpP4()
+    {
+        p4Pos = p4Pos + 1;
+        if (p4Pos > 3)
+            p4Pos = 0;
+        CharacterPictures[3].sprite = Characters[p4Pos].GetComponentInChildren<SpriteRenderer>().sprite;
+
+        switch (p4Pos)
+        {
+            case (0):
+                CharacterNames[3].text = Names[p4Pos];
+                break;
+            case (1):
+                CharacterNames[3].text = Names[p4Pos];
+                break;
+            case (2):
+                CharacterNames[3].text = Names[p4Pos];
+                break;
+            case (3):
+                CharacterNames[3].text = Names[p4Pos];
+                break;
+            default:
+                break;
+        }
+
+    }
+    void LeftStickDownP4()
+    {
+        p4Pos = p4Pos - 1;
+        if (p4Pos < 0)
+            p4Pos = 3;
+        CharacterPictures[3].sprite = Characters[p4Pos].GetComponentInChildren<SpriteRenderer>().sprite;
+        switch (p4Pos)
+        {
+            case (0):
+                CharacterNames[3].text = Names[p4Pos];
+                break;
+            case (1):
+                CharacterNames[3].text = Names[p4Pos];
+                break;
+            case (2):
+                CharacterNames[3].text = Names[p4Pos];
+                break;
+            case (3):
+                CharacterNames[3].text = Names[p4Pos];
+                break;
+            default:
+                break;
+        }
     }
 
     public void ButtonClickP3()

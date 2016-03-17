@@ -117,6 +117,7 @@ GameObject:
   - 114: {fileID: 11450148}
   - 114: {fileID: 11427594}
   - 114: {fileID: 11449338}
+  - 96: {fileID: 9624746}
   m_Layer: 8
   m_Name: Player 3
   m_TagString: Player
@@ -252,6 +253,53 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!96 &9624746
+TrailRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 159070}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 2100000, guid: 3de989e715436f34181207c288f49a88, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_Time: 0.15
+  m_StartWidth: 1.5
+  m_EndWidth: 0.75
+  m_Colors:
+    m_Color[0]:
+      serializedVersion: 2
+      rgba: 4288917602
+    m_Color[1]:
+      serializedVersion: 2
+      rgba: 4288917602
+    m_Color[2]:
+      serializedVersion: 2
+      rgba: 4288917602
+    m_Color[3]:
+      serializedVersion: 2
+      rgba: 2342760546
+    m_Color[4]:
+      serializedVersion: 2
+      rgba: 10727522
+  m_MinVertexDistance: 0.1
+  m_Autodestruct: 0
 --- !u!114 &11407012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -323,6 +371,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e9d1223e3121974092328a81fb71d95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grenadeThrowForce: 2000
+  grenadePrefab: {fileID: 120964, guid: 2a62a430d9bb06345a3515eef72540ca, type: 2}
 --- !u!114 &11438158
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -356,6 +406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b526bec93e9f4f4c8e648b19332505f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grenadePrefab: {fileID: 120964, guid: 2a62a430d9bb06345a3515eef72540ca, type: 2}
   blockThrowForce: 2000
 --- !u!114 &11450148
 MonoBehaviour:
@@ -494,6 +545,14 @@ Prefab:
       propertyPath: jumpStrength
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: grenadeThrowForce
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: grenadePrefab
+      value: 
+      objectReference: {fileID: 120964, guid: 2a62a430d9bb06345a3515eef72540ca, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 159070}

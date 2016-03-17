@@ -41,7 +41,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 6
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_LightmapsMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -66,7 +66,8 @@ LightmapSettings:
     m_FinalGather: 0
     m_FinalGatherRayCount: 1024
     m_ReflectionCompression: 2
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000001, guid: 8bdf6aff29857a74cb86a6bee983068f,
+    type: 2}
   m_RuntimeCPUUsage: 25
 --- !u!196 &4
 NavMeshSettings:
@@ -4168,11 +4169,6 @@ MonoBehaviour:
   - {fileID: 21300010, guid: 462e2ce58f243bf4f99a32cca810905f, type: 3}
   - {fileID: 21300016, guid: 462e2ce58f243bf4f99a32cca810905f, type: 3}
   - {fileID: 21300022, guid: 462e2ce58f243bf4f99a32cca810905f, type: 3}
-  NextText:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   PlayerReady:
   - {fileID: 1399043308}
   - {fileID: 1100206022}
@@ -4180,8 +4176,14 @@ MonoBehaviour:
   - {fileID: 567738793}
   ogArrowUP:
   - {fileID: 605963274}
+  - {fileID: 67917182}
+  - {fileID: 1429716524}
+  - {fileID: 917294153}
   ogArrowDOWN:
   - {fileID: 437680260}
+  - {fileID: 1022816235}
+  - {fileID: 1423492527}
+  - {fileID: 80148369}
   activeArrowUP: {fileID: 21300006, guid: d0982c47bacce61458f3ba234edf36a3, type: 3}
   activeArrowDOWN: {fileID: 21300004, guid: d0982c47bacce61458f3ba234edf36a3, type: 3}
   Characters:
@@ -4194,6 +4196,8 @@ MonoBehaviour:
   - {fileID: 174768, guid: 9c9caf78eccbf3140ac415e9d2ca5a14, type: 2}
   p1Ready: 0
   p2Ready: 0
+  p3Ready: 0
+  p4Ready: 0
 --- !u!114 &1258856430
 MonoBehaviour:
   m_ObjectHideFlags: 0
