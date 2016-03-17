@@ -141,11 +141,11 @@ public class BlockInteraction : MonoBehaviour {
     {
         int direction = right ? 1 : -1;
         r.MovePosition(r.transform.position + Vector3.up * 0.1f);
-        r.useGravity = false;
-        r.AddForce(Vector3.right * direction * power);
+        //r.useGravity = false;
+        r.AddForce(Vector3.right * direction * power + Vector3.up * 20);
         m.UseForceInstead(0.5f);
         time += 5;
-        Invoke("SetGravity", 0.5f);
+        //Invoke("SetGravity", 0.5f);
     }
 
     void Squish(Movement m, float power)
@@ -164,7 +164,7 @@ public class BlockInteraction : MonoBehaviour {
 
     void SetGravity()
     {
-        r.useGravity = true;
+        //r.useGravity = true;
     }
 
     public void Throw(Vector3 force, float respawnTime, Color color)
