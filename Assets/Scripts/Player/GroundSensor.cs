@@ -19,7 +19,7 @@ public class GroundSensor : MonoBehaviour
 
         Debug.DrawLine(ray.origin, ray.origin + ray.direction * 1.25f, Color.blue);
 
-        RaycastHit[] hits = Physics.RaycastAll(ray, 1.25f);
+        RaycastHit[] hits = Physics.RaycastAll(ray, 1.3f);
         foreach(RaycastHit hit in hits)
         {
             hitsGround += hit.collider.CompareTag("Block") ? 1 : 0;
