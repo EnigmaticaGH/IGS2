@@ -3909,7 +3909,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: 5751dc52e5c0fbc4597539c30d311ec7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5751dc52e5c0fbc4597539c30d311ec7, type: 3}
       propertyPath: m_LocalPosition.y
@@ -90598,7 +90598,7 @@ Prefab:
       objectReference: {fileID: 399627593}
     - target: {fileID: 11444654, guid: d86c7de9946d7bd4fbd7765b02664739, type: 2}
       propertyPath: levelBounds.x
-      value: 10
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d86c7de9946d7bd4fbd7765b02664739, type: 2}

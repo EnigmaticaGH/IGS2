@@ -23,11 +23,12 @@ public class GrabBlock : MonoBehaviour
     {
         foreach(Transform t in transform)
         {
-            if (t.name == "Sprite")
+            if (t.name.Contains("Sprite"))
             {
                 sprite = t;
             }
         }
+        Debug.Log(name);
         controller = GetComponent<ControllerNumber>();
         block = null;
         axisInUse = false;
