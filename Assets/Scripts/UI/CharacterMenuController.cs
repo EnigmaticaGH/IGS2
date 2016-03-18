@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class CharacterMenuController : MonoBehaviour {
 
+    public Image[] ReadyStamp;
     public string[] ActiveControllers;
     public static int ControllerNumber;
     public Image[] CharacterPictures;
@@ -14,11 +15,9 @@ public class CharacterMenuController : MonoBehaviour {
     //GameObject[] InvCharacters;
     public GameObject[] pictureLocations;
     public GameObject[] playerCursors;
-    public GameObject[] NextButtons;
-    public Sprite[] NextButtonsHover;
-    public Sprite[] NextButtonClick; //Pointless
     //public Text[] NextText;
     public Image[] PlayerReady;
+    public Image[] PlayerDC;
     public Image[] ogArrowUP;
     public Image[] ogArrowDOWN;
     public Sprite activeArrowUP; 
@@ -120,10 +119,10 @@ public class CharacterMenuController : MonoBehaviour {
             CharacterPictures[i].sprite = Characters[0].GetComponentInChildren<SpriteRenderer>().sprite; //Awesome this works 
         }
 
-        for (int k = 0; k < NextButtons.Length; k++)
+        /*for (int k = 0; k < NextButtons.Length; k++)
         {
             NextButtons[k].SetActive(false);
-        }
+        }*/
 
         for (int i = 0; i < playerCursors.Length; i++)
         {
@@ -131,17 +130,30 @@ public class CharacterMenuController : MonoBehaviour {
 
         }
 
-        for (int g = 0; g < ControllerNumber; g++)
+        for (int i = 0; i < ReadyStamp.Length; i++)
         {
-            playerCursors[g].SetActive(true);
-            NextButtons[g].SetActive(true);
-            PlayerReady[g].enabled = false;
+            ReadyStamp[i].gameObject.SetActive(false);
         }
 
-        for (int i = 0; i < NextButtons.Length; i++)
+        for (int i = 0; i < PlayerDC.Length; i++)
+        {
+            PlayerDC[i].enabled = true;
+            PlayerReady[i].enabled = false;
+        }
+
+            for (int g = 0; g < ControllerNumber; g++)
+            {
+                playerCursors[g].SetActive(true);
+                //NextButtons[g].SetActive(true);
+                PlayerReady[g].enabled = false;
+                PlayerDC[g].enabled = false;
+            }
+
+
+        /*for (int i = 0; i < NextButtons.Length; i++)
         {
             original[i] = NextButtons[i].GetComponent<Button>().image.overrideSprite;
-        }
+        }*/
 	}
 
     void Update()
@@ -169,11 +181,13 @@ public class CharacterMenuController : MonoBehaviour {
         {
             z++;
             p1Ready = true;
+            ReadyStamp[0].gameObject.SetActive(true);
             PlayerReady[0].enabled = true;
             Debug.Log("i == 1" + z + "Player 1 Ready = true" + p1Ready);
             if (z == 2) 
             {
                 p1Ready = false;
+                ReadyStamp[0].gameObject.SetActive(false);
                 PlayerReady[0].enabled = false;
                 Invoke("AReset", .5f);
                 Debug.Log("i == 2" + z + "Player 1 Ready = false" + p1Ready);
@@ -238,13 +252,13 @@ public class CharacterMenuController : MonoBehaviour {
             z++;
             p2Ready = true;
             PlayerReady[2].enabled = true;
-            Debug.Log("i == 1" + z + "Player 2 Ready = true" + p3Ready);
+            Debug.Log("i == 1" + z + "Player 3 Ready = true" + p3Ready);
             if (z == 2)
             {
                 p2Ready = false;
                 PlayerReady[2].enabled = false;
                 Invoke("AReset", .5f);
-                Debug.Log("i == 2" + z + "Player 2 Ready = false" + p3Ready);
+                Debug.Log("i == 2" + z + "Player 3 Ready = false" + p3Ready);
             }
         }
 
@@ -534,7 +548,7 @@ public class CharacterMenuController : MonoBehaviour {
             p3Pos = 0;
         CharacterPictures[0].sprite = Characters[p1Pos].GetComponentInChildren<SpriteRenderer>().sprite;
         PlayerPrefabs[0].GetComponentInChildren<SpriteRenderer>().sprite = Characters[p1Pos].GetComponentInChildren<SpriteRenderer>().sprite;
-        NextButtons[2].GetComponent<Button>().image.overrideSprite = NextButtonClick[2];
+        //NextButtons[2].GetComponent<Button>().image.overrideSprite = NextButtonClick[2];
         switch (p3Pos)
         {
             case (0):
@@ -561,7 +575,7 @@ public class CharacterMenuController : MonoBehaviour {
             p4Pos = 0;
         CharacterPictures[0].sprite = Characters[p1Pos].GetComponentInChildren<SpriteRenderer>().sprite;
         PlayerPrefabs[0].GetComponentInChildren<SpriteRenderer>().sprite = Characters[p1Pos].GetComponentInChildren<SpriteRenderer>().sprite;
-        NextButtons[3].GetComponent<Button>().image.overrideSprite = NextButtonClick[3];
+        //NextButtons[3].GetComponent<Button>().image.overrideSprite = NextButtonClick[3];
 
         switch (p4Pos)
         {
@@ -584,38 +598,38 @@ public class CharacterMenuController : MonoBehaviour {
 
     void ButtonHoverP1()
     {
-        NextButtons[0].GetComponent<Button>().image.overrideSprite = NextButtonsHover[0];
+        //NextButtons[0].GetComponent<Button>().image.overrideSprite = NextButtonsHover[0];
     }
     void ButtonHoverP2()
     {
-        NextButtons[1].GetComponent<Button>().image.overrideSprite = NextButtonsHover[1];
+        //NextButtons[1].GetComponent<Button>().image.overrideSprite = NextButtonsHover[1];
 
     }
     void ButtonHoverP3()
     {
-        NextButtons[2].GetComponent<Button>().image.overrideSprite = NextButtonsHover[2];
+        //NextButtons[2].GetComponent<Button>().image.overrideSprite = NextButtonsHover[2];
 
     }
     void ButtonHoverP4()
     {
-        NextButtons[3].GetComponent<Button>().image.overrideSprite = NextButtonsHover[3];
+        //NextButtons[3].GetComponent<Button>().image.overrideSprite = NextButtonsHover[3];
 
     }
 
     void ButtonHoverExitP1()
     {
-        NextButtons[0].GetComponent<Button>().image.overrideSprite = original[0];
+        //NextButtons[0].GetComponent<Button>().image.overrideSprite = original[0];
     }
     void ButtonHoverExitP2()
     {
-        NextButtons[1].GetComponent<Button>().image.overrideSprite = original[1];
+        //NextButtons[1].GetComponent<Button>().image.overrideSprite = original[1];
     }
     void ButtonHoverExitP3()
     {
-        NextButtons[2].GetComponent<Button>().image.overrideSprite = original[2];
+        //NextButtons[2].GetComponent<Button>().image.overrideSprite = original[2];
     }
     void ButtonHoverExitP4()
     {
-        NextButtons[3].GetComponent<Button>().image.overrideSprite = original[3];
+        //NextButtons[3].GetComponent<Button>().image.overrideSprite = original[3];
     }
 }

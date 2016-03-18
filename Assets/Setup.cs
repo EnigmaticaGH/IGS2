@@ -5,7 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class Setup : MonoBehaviour
 {
-
+    public Text StartText;
+    public Image Highlight;
+    public Image HighlightMode;
     public bool SelectedLevel = false;
     public bool SelectedGameMode = false;
     public Text LevelText;
@@ -28,6 +30,9 @@ public class Setup : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        Highlight.gameObject.SetActive(false);
+
+        HighlightMode.gameObject.SetActive(false);
 
         LevelText = LevelText.GetComponent<Text>();
 
@@ -37,6 +42,8 @@ public class Setup : MonoBehaviour
 
         LevelHighlight.gameObject.SetActive(false);
 
+        StartText.gameObject.SetActive(false);
+
     }
 
     // Update is called once per frame
@@ -45,8 +52,11 @@ public class Setup : MonoBehaviour
 
         if (!SelectedGameMode)
         {
+            StartText.gameObject.SetActive(false);
+            HighlightMode.gameObject.SetActive(false);
             if (!SelectedLevel)
             {
+                Highlight.gameObject.SetActive(true);
                 if (Input.GetAxis("L_XAxis_1") == 1 && (i == 0))
                 {
                     i++;
@@ -74,10 +84,14 @@ public class Setup : MonoBehaviour
                     Invoke("ResetDatI", 1);
                     Invoke("ResetDatColor", .2f);
                 }
+
             }
 
             if (SelectedLevel)
             {
+                HighlightMode.gameObject.SetActive(true);
+                Highlight.gameObject.SetActive(false);
+                //StartText.gameObject.SetActive(true);
                 if (Input.GetAxis("L_XAxis_1") == 1 && (cd == 0))
                 {
                     cd++;
@@ -126,14 +140,13 @@ public class Setup : MonoBehaviour
                     Invoke("ResetDatCD", .2f);
                 }
 
-                if (Input.GetButtonDown("Start_1"))
-                {
-                    SceneManager.LoadScene(placeHolder + 3); //+ 2 for main menu and character selection and setup
-                }
-
             }
         }
 
+        if (Input.GetButtonDown("Start_1"))
+        {
+            SceneManager.LoadScene(placeHolder + 3); //+ 2 for main menu and character selection and setup
+        }
 
 
         if (Input.GetButtonUp("A_1") && (selected <= 2))
@@ -141,11 +154,11 @@ public class Setup : MonoBehaviour
             selected++;
             SelectedLevel = true;
             //LevelImage.color = Color.red;
-            LevelHighlight.gameObject.SetActive(true);
+            //LevelHighlight.gameObject.SetActive(true);
             if (selected == 2)
             {
                 SelectedLevel = false;
-                Invoke("ResetDatColor", .2f);
+                Invoke("ResetDatColor", .01f);
                 Invoke("ResetDatSelected", .2f);
             }
         }
