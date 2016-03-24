@@ -90,7 +90,7 @@ public class BlockInteraction : MonoBehaviour {
         {
             foreach(ContactPoint p in c.contacts)
             {
-                Debug.Log(p.point + " | " + transform.position);
+                //Debug.Log(p.point + " | " + transform.position);
                 if (p.point.y < transform.position.y - 0.35f && c.relativeVelocity.y > 10)
                 {
                     Debug.Log("Upsmash");

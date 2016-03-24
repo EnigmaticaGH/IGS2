@@ -841,6 +841,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1: {fileID: 132552, guid: a3d73cf3a6894b84abc17aa5ed04048d, type: 2}
   player2: {fileID: 174768, guid: 9c9caf78eccbf3140ac415e9d2ca5a14, type: 2}
+  players:
+  - {fileID: 132552, guid: a3d73cf3a6894b84abc17aa5ed04048d, type: 2}
+  - {fileID: 139846, guid: 330a61732099da0468066524fe725cd0, type: 2}
+  - {fileID: 141014, guid: a2140c3ea44042142b9e53b1da9264cc, type: 2}
+  - {fileID: 193262, guid: 8753f508fe3226c4cb3f9747e5eef22a, type: 2}
+  - {fileID: 138384, guid: d6adb3e7e1d4a3e40bca3d4cf8b55f58, type: 2}
 --- !u!4 &321631640
 Transform:
   m_ObjectHideFlags: 0

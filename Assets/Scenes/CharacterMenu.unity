@@ -4553,8 +4553,9 @@ MonoBehaviour:
   Names:
   - Ash
   - Annie
-  - Dustin
+  - Wayne
   - Ned
+  - Disco
   pictureLocations:
   - {fileID: 1706445653}
   - {fileID: 1200133739}
@@ -4592,6 +4593,7 @@ MonoBehaviour:
   - {fileID: 171462, guid: 92f41803a0b63164fb3f7f21b593ac60, type: 2}
   - {fileID: 161882, guid: 010a49a6be87b1c439f7fa083c90ee2f, type: 2}
   - {fileID: 199390, guid: 6b21f7ab3a9d354468bff55eb6171dfe, type: 2}
+  - {fileID: 162624, guid: 08ee482d0b511b54a80cc277ab847a07, type: 2}
   PlayerPrefabs:
   - {fileID: 132552, guid: a3d73cf3a6894b84abc17aa5ed04048d, type: 2}
   - {fileID: 174768, guid: 9c9caf78eccbf3140ac415e9d2ca5a14, type: 2}

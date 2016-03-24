@@ -26,8 +26,28 @@ public class PlayerSpawn : MonoBehaviour
      */
     public GameObject[] Characters;
 
+    private int[] playerLives;
+    GameModeController Gm;
+
     int PlayersAmt = 0;
     // Use this for initialization
+
+    void OnEnable()
+    {
+        GameModeController.StockTen += stockTen;
+        GameModeController.StockFive += stockFive;
+        GameModeController.StockThree += stockThree;
+        GameModeController.Timed += timed;
+    }
+
+    void OnDisable()
+    {
+        GameModeController.StockTen -= stockTen;
+        GameModeController.StockFive -= stockFive;
+        GameModeController.StockThree -= stockThree;
+        GameModeController.Timed -= timed;
+    }
+
     void Awake()
     {
         int p1Pos = 0;
@@ -42,6 +62,7 @@ public class PlayerSpawn : MonoBehaviour
         string p2n = Characters[p2Pos].name;
         string p3n = Characters[p3Pos].name;
         string p4n = Characters[p4Pos].name;
+
 
         //Debug.Log(p1Pos);
         //PlayersAmt = CursorController.ControllerAmount; //Gets 2 because Cursor Controller is used in multiple scenes
@@ -58,7 +79,7 @@ public class PlayerSpawn : MonoBehaviour
             GameObject p1;
             Characters[p1Pos].name = "Player 1";
             p1 = (GameObject)Instantiate(Characters[p1Pos], new Vector3(player1Spawn.transform.position.x, player1Spawn.transform.position.y, player1Spawn.transform.position.z), Quaternion.identity); //Need to effect this for menu system
-            Debug.Log(player1Spawn.transform.position);
+            //Debug.Log(player1Spawn.transform.position);
             p1.GetComponent<ControllerNumber>().controllerNumber = 1; //Make sure controller is connected to correct player
         }
         if (PlayersAmt >= 2)
@@ -90,36 +111,25 @@ public class PlayerSpawn : MonoBehaviour
         Characters[p3Pos].name = p3n;
         Characters[p4Pos].name = p4n;
 
-        /*for (int i = 0; i < PlayersAmt; i++) 
-        {
-            if (i == 0) 
-            {
-                GameObject p1;
-                p1 = (GameObject)Instantiate(Characters[p1Pos], player1Spawn, Quaternion.identity); //Need to effect this for menu system
-                Characters[p1Pos].GetComponent<ControllerNumber>().controllerNumber = 1;
-                Debug.Log("Spawn p1");
-            }
-            if (i == 1)
-            {
-                GameObject p2;
-                p2 = (GameObject)Instantiate(Characters[p2Pos], player2Spawn, Quaternion.identity); //Need to effect this for menu system
-                Characters[p1Pos].GetComponent<ControllerNumber>().controllerNumber = 2;
-                Debug.Log("Spawn p2");
-            }*/
-
-        /*if (i == 3)
-        {
-            GameObject p1;
-            p1 = (GameObject)Instantiate(player1, player1Spawn, Quaternion.identity); //Need to effect this for menu system
-            Debug.Log("Spawn p1");
-        }*/
-
-
-
-        //GameObject p1 = (GameObject)Instantiate(player1, player1Spawn, Quaternion.identity); //Need to effect this for menu system
-        //GameObject p2 = (GameObject)Instantiate(player2, player2Spawn, Quaternion.identity);
         PlayerTracker.AddPlayers();
         //
+    }
+
+    void stockTen()
+    {
+
+    }
+    void stockFive()
+    {
+
+    }
+    void stockThree()
+    {
+
+    }
+    void timed()
+    {
+
     }
     
 

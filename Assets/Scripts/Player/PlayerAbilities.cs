@@ -37,7 +37,7 @@ public class PlayerAbilities : MonoBehaviour
         particleSystems = new Dictionary<string, GameObject>();
         foreach(GameObject ps in Resources.LoadAll<GameObject>("Particles"))
         {
-            Debug.Log(ps.name);
+            //Debug.Log(ps.name);
             particleSystems.Add(ps.name, (GameObject)Instantiate(ps, transform.position, Quaternion.identity));
         }
         foreach(KeyValuePair<string, GameObject> ps in particleSystems)

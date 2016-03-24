@@ -5,6 +5,8 @@ public class LevelSetupController : MonoBehaviour {
 
     public GameObject player1;
     public GameObject player2;
+
+    public GameObject[] players;
     
     [SerializeField]
     public static float TimerAmount = 5f; //Made this five because first time in Timer[] elements 
@@ -42,27 +44,34 @@ public class LevelSetupController : MonoBehaviour {
 
     void StockTen() 
     {
-        player1.GetComponent<DeathControl>().numberOfLives = 10;
-        player2.GetComponent<DeathControl>().numberOfLives = 10;
+        for (int i = 0; i < players.Length; i++)
+        {
+            players[i].GetComponent<DeathControl>().numberOfLives = 10;
+        }
     }
 
     void StockFive() 
     {
-
-        player1.GetComponent<DeathControl>().numberOfLives = 5;
-        player2.GetComponent<DeathControl>().numberOfLives = 5;
+        for (int i = 0; i < players.Length; i++)
+        {
+            players[i].GetComponent<DeathControl>().numberOfLives = 5;
+        }
     }
 
     void StockThree() 
     {
-        player1.GetComponent<DeathControl>().numberOfLives = 3;
-        player2.GetComponent<DeathControl>().numberOfLives = 3;
+        for (int i = 0; i < players.Length; i++)
+        {
+            players[i].GetComponent<DeathControl>().numberOfLives = 3;
+        }
     }
 
     void Timed()
     {
-        player1.GetComponent<DeathControl>().numberOfLives = 10000;  //Lives are unlimited in timed *** KEEP track of deaths of each player*****
-        player2.GetComponent<DeathControl>().numberOfLives = 10000; //Lives are unlimited in timed *** KEEP track of deaths of each player*****
+        for (int i = 0; i < players.Length; i++)
+        {
+            players[i].GetComponent<DeathControl>().numberOfLives = 1;
+        }
     }
 
     void Timer5() 

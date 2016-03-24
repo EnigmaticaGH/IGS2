@@ -75,7 +75,7 @@ public class GrabBlock : MonoBehaviour
     void Update()
     {
         //blockGrabPressed = Input.GetAxisRaw("TriggersR_" + controller.controllerNumber) == 1;
-        blockGrabPressed = Input.GetAxisRaw("RB_" + controller.controllerNumber) == 1;
+        blockGrabPressed = Input.GetAxisRaw("TriggersR_" + controller.controllerNumber) == 1 || Input.GetAxisRaw("RB_" + controller.controllerNumber) == 1;
         if (blockGrabPressed)
         {
             if (!axisInUse)

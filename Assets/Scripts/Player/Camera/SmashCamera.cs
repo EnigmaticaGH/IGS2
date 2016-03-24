@@ -20,7 +20,7 @@ public class SmashCamera : MonoBehaviour {
 
     void Update()
     {
-        if (players != null)
+        if (players != null && IntroController.Intro == false)
         {
             UpdateCamera();
         }

@@ -22,8 +22,20 @@ public class DeathControl : MonoBehaviour
     private bool invincible;
     private bool outOfLives;
 
+    PlayerLives Lives;
+    int controllerNumber;
+    private ControllerNumber num;
+
+    SpawnZonesController Zones;
+    
+
     void Start()
     {
+        Zones = GameObject.Find("SpawnZones").GetComponent<SpawnZonesController>();
+        Lives = GameObject.Find("UI").GetComponentInChildren<PlayerLives>();
+        num = GetComponent<ControllerNumber>();
+        controllerNumber = num.GetComponent<ControllerNumber>().controllerNumber;
+        //Debug.Log(controllerNumber);
         startPosition = transform.position;
         player = GetComponent<Rigidbody>();
         lives = numberOfLives;
@@ -53,11 +65,14 @@ public class DeathControl : MonoBehaviour
         }
     }
 
-    void Kill()
+    public void Kill()
     {
+        
         health = maxHealth;
         if (--lives < 0)
             RemoveFromGame();
+        else
+            Lives.death(controllerNumber, lives);
         Debug.Log("Player killed. Lives: " + lives);
         if (doneRespawning && !outOfLives)
         {
@@ -66,6 +81,12 @@ public class DeathControl : MonoBehaviour
             StartCoroutine(Respawn(respawnTime));
             doneRespawning = false;
         }
+    }
+
+    public void Spawn()
+    {
+        transform.position = new Vector3(Zones.GetSafeSpawnX(), Zones.GetSafeSpawnY(), 0);
+        //Debug.LogError("Spawn " + transform.gameObject.name + " " + transform.position);
     }
 
     IEnumerator Respawn(float respawnTime)
@@ -78,7 +99,7 @@ public class DeathControl : MonoBehaviour
         GetComponentInChildren<SpriteRenderer>().enabled = true;
         player.isKinematic = false;
         player.useGravity = true;
-        transform.position = startPosition;
+        Spawn(); //New spawn system
         doneRespawning = true;
         GetComponent<DynamicCollider>().Enable();
         if (OnRespawn != null)
@@ -106,4 +127,10 @@ public class DeathControl : MonoBehaviour
     {
         return lives;
     }
+
+    public int getNumberOfLives()
+    {
+        return numberOfLives;
+    }
+
 }

@@ -14,7 +14,7 @@ public class GameSetupController : MonoBehaviour {
         for (int j = 0; j < Input.GetJoystickNames().Length; j++)
         {
 
-            Debug.LogError(Input.GetJoystickNames()[j]);
+            //Debug.LogError(Input.GetJoystickNames()[j]);
             if (Input.GetJoystickNames()[j].Contains("Xbox"))
             {
                 ControllerNumber++;

@@ -87,7 +87,7 @@ public class CharacterMenuController : MonoBehaviour {
             for (int j = 0; j < Input.GetJoystickNames().Length; j++)
             {
 
-                Debug.LogError(Input.GetJoystickNames()[j]);
+                //Debug.LogError(Input.GetJoystickNames()[j]);
                 if (Input.GetJoystickNames()[j].Contains("Xbox"))
                 {
                     ControllerNumber++;
@@ -102,7 +102,7 @@ public class CharacterMenuController : MonoBehaviour {
 
                 ActiveControllers = Input.GetJoystickNames();
             }
-            Debug.Log(ControllerNumber);
+            //Debug.Log(ControllerNumber);
 
     }
 
@@ -183,14 +183,14 @@ public class CharacterMenuController : MonoBehaviour {
             p1Ready = true;
             ReadyStamp[0].gameObject.SetActive(true);
             PlayerReady[0].enabled = true;
-            Debug.Log("i == 1" + z + "Player 1 Ready = true" + p1Ready);
+            //Debug.Log("i == 1" + z + "Player 1 Ready = true" + p1Ready);
             if (z == 2) 
             {
                 p1Ready = false;
                 ReadyStamp[0].gameObject.SetActive(false);
                 PlayerReady[0].enabled = false;
                 Invoke("AReset", .5f);
-                Debug.Log("i == 2" + z + "Player 1 Ready = false" + p1Ready);
+                //Debug.Log("i == 2" + z + "Player 1 Ready = false" + p1Ready);
             }
         }
 
@@ -218,13 +218,15 @@ public class CharacterMenuController : MonoBehaviour {
             z++;
             p2Ready = true;
             PlayerReady[1].enabled = true;
-            Debug.Log("i == 1" + z + "Player 2 Ready = true" + p2Ready);
+            ReadyStamp[1].gameObject.SetActive(true);
+            //Debug.Log("i == 1" + z + "Player 2 Ready = true" + p2Ready);
             if (z == 2)
             {
                 p2Ready = false;
                 PlayerReady[1].enabled = false;
+                ReadyStamp[1].gameObject.SetActive(false);
                 Invoke("AReset", .5f);
-                Debug.Log("i == 2" + z + "Player 2 Ready = false" + p2Ready);
+                //Debug.Log("i == 2" + z + "Player 2 Ready = false" + p2Ready);
             }
         }
 
@@ -252,11 +254,13 @@ public class CharacterMenuController : MonoBehaviour {
             z++;
             p2Ready = true;
             PlayerReady[2].enabled = true;
+            ReadyStamp[2].gameObject.SetActive(true);
             Debug.Log("i == 1" + z + "Player 3 Ready = true" + p3Ready);
             if (z == 2)
             {
                 p2Ready = false;
                 PlayerReady[2].enabled = false;
+                ReadyStamp[2].gameObject.SetActive(false);
                 Invoke("AReset", .5f);
                 Debug.Log("i == 2" + z + "Player 3 Ready = false" + p3Ready);
             }
@@ -286,11 +290,13 @@ public class CharacterMenuController : MonoBehaviour {
             z++;
             p4Ready = true;
             PlayerReady[3].enabled = true;
+            ReadyStamp[3].gameObject.SetActive(true);
             Debug.Log("i == 1" + z + "Player 4 Ready = true" + p4Ready);
             if (z == 2)
             {
                 p4Ready = false;
                 PlayerReady[3].enabled = false;
+                ReadyStamp[3].gameObject.SetActive(false);
                 Invoke("AReset", .5f);
                 Debug.Log("i == 2" + z + "Player 4 Ready = false" + p4Ready);
             }
@@ -342,203 +348,82 @@ public class CharacterMenuController : MonoBehaviour {
     {
         p1Pos = p1Pos - 1;
         if (p1Pos < 0)
-            p1Pos = 3;
+            p1Pos = Characters.Length - 1;
         CharacterPictures[0].sprite = Characters[p1Pos].GetComponentInChildren<SpriteRenderer>().sprite;
-        switch (p1Pos)
-        {
-            case (0):
-                CharacterNames[0].text = Names[p1Pos];
-                break;
-            case (1):
-                CharacterNames[0].text = Names[p1Pos];
-                break;
-            case (2):
-                CharacterNames[0].text = Names[p1Pos];
-                break;
-            case (3):
-                CharacterNames[0].text = Names[p1Pos];
-                break;
-            default:
-                break;
-        }
+
+        CharacterNames[0].text = Names[p1Pos];
+        
     }
 
     void LeftStickUpP1()
     {
         p1Pos = p1Pos + 1;
-        if (p1Pos > 3)
+        if (p1Pos > Characters.Length - 1)
             p1Pos = 0;
         CharacterPictures[0].sprite = Characters[p1Pos].GetComponentInChildren<SpriteRenderer>().sprite;
-        switch (p1Pos)
-        {
-            case (0):
-                CharacterNames[0].text = Names[p1Pos];
-                break;
-            case (1):
-                CharacterNames[0].text = Names[p1Pos];
-                break;
-            case (2):
-                CharacterNames[0].text = Names[p1Pos];
-                break;
-            case(3):
-                CharacterNames[0].text = Names[p1Pos];
-                break;
-            default:
-                break;
-        }
+
+        CharacterNames[0].text = Names[p1Pos];
+
     }
     void LeftStickUpP2()
     {
         p2Pos = p2Pos + 1;
-        if (p2Pos > 3)
+        if (p2Pos > Characters.Length - 1)
             p2Pos = 0;
         CharacterPictures[1].sprite = Characters[p2Pos].GetComponentInChildren<SpriteRenderer>().sprite;
 
-        switch (p2Pos)
-        {
-            case (0):
-                CharacterNames[1].text = Names[p2Pos];
-                break;
-            case (1):
-                CharacterNames[1].text = Names[p2Pos];
-                break;
-            case (2):
-                CharacterNames[1].text = Names[p2Pos];
-                break;
-            case (3):
-                CharacterNames[1].text = Names[p2Pos];
-                break;
-            default:
-                break;
-        }
+        CharacterNames[1].text = Names[p2Pos];
+
 
     }
     void LeftStickDownP2()
     {
         p2Pos = p2Pos - 1;
         if (p2Pos < 0)
-            p2Pos = 3;
+            p2Pos = Characters.Length - 1;
         CharacterPictures[1].sprite = Characters[p2Pos].GetComponentInChildren<SpriteRenderer>().sprite;
-        switch (p2Pos)
-        {
-            case (0):
-                CharacterNames[1].text = Names[p2Pos];
-                break;
-            case (1):
-                CharacterNames[1].text = Names[p2Pos];
-                break;
-            case (2):
-                CharacterNames[1].text = Names[p2Pos];
-                break;
-            case (3):
-                CharacterNames[1].text = Names[p2Pos];
-                break;
-            default:
-                break;
-        }
+
+        CharacterNames[1].text = Names[p2Pos];
+
 
     }
 
     void LeftStickUpP3()
     {
         p3Pos = p3Pos + 1;
-        if (p3Pos > 3)
+        if (p3Pos > Characters.Length - 1)
             p3Pos = 0;
         CharacterPictures[2].sprite = Characters[p3Pos].GetComponentInChildren<SpriteRenderer>().sprite;
 
-        switch (p3Pos)
-        {
-            case (0):
-                CharacterNames[2].text = Names[p3Pos];
-                break;
-            case (1):
-                CharacterNames[2].text = Names[p3Pos];
-                break;
-            case (2):
-                CharacterNames[2].text = Names[p3Pos];
-                break;
-            case (3):
-                CharacterNames[2].text = Names[p3Pos];
-                break;
-            default:
-                break;
-        }
+        CharacterNames[2].text = Names[p3Pos];
 
     }
     void LeftStickDownP3()
     {
         p3Pos = p3Pos - 1;
         if (p3Pos < 0)
-            p3Pos = 3;
+            p3Pos = Characters.Length - 1;
         CharacterPictures[2].sprite = Characters[p3Pos].GetComponentInChildren<SpriteRenderer>().sprite;
-        switch (p3Pos)
-        {
-            case (0):
-                CharacterNames[2].text = Names[p2Pos];
-                break;
-            case (1):
-                CharacterNames[2].text = Names[p2Pos];
-                break;
-            case (2):
-                CharacterNames[2].text = Names[p2Pos];
-                break;
-            case (3):
-                CharacterNames[2].text = Names[p2Pos];
-                break;
-            default:
-                break;
-        }
+        CharacterNames[2].text = Names[p3Pos];
     }
 
     void LeftStickUpP4()
     {
         p4Pos = p4Pos + 1;
-        if (p4Pos > 3)
+        if (p4Pos > Characters.Length - 1)
             p4Pos = 0;
         CharacterPictures[3].sprite = Characters[p4Pos].GetComponentInChildren<SpriteRenderer>().sprite;
 
-        switch (p4Pos)
-        {
-            case (0):
-                CharacterNames[3].text = Names[p4Pos];
-                break;
-            case (1):
-                CharacterNames[3].text = Names[p4Pos];
-                break;
-            case (2):
-                CharacterNames[3].text = Names[p4Pos];
-                break;
-            case (3):
-                CharacterNames[3].text = Names[p4Pos];
-                break;
-            default:
-                break;
-        }
+        CharacterNames[3].text = Names[p4Pos];
 
     }
     void LeftStickDownP4()
     {
         p4Pos = p4Pos - 1;
         if (p4Pos < 0)
-            p4Pos = 3;
+            p4Pos = Characters.Length - 1;
         CharacterPictures[3].sprite = Characters[p4Pos].GetComponentInChildren<SpriteRenderer>().sprite;
-        switch (p4Pos)
-        {
-            case (0):
-                CharacterNames[3].text = Names[p4Pos];
-                break;
-            case (1):
-                CharacterNames[3].text = Names[p4Pos];
-                break;
-            case (2):
-                CharacterNames[3].text = Names[p4Pos];
-                break;
-            case (3):
-                CharacterNames[3].text = Names[p4Pos];
-                break;
-            default:
-                break;
-        }
+        CharacterNames[3].text = Names[p4Pos];
     }
 
     public void ButtonClickP3()

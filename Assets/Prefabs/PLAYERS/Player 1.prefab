@@ -64,7 +64,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 406010}
-  - 65: {fileID: 6583938}
   - 114: {fileID: 11490618}
   m_Layer: 8
   m_Name: RWallSensor
@@ -81,7 +80,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 490076}
-  - 65: {fileID: 6558436}
   - 114: {fileID: 11419068}
   m_Layer: 8
   m_Name: LWallSensor
@@ -230,30 +228,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 120
   m_CollisionDetection: 2
---- !u!65 &6558436
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 161520}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.05, y: 0.5, z: 0.5}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &6583938
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 138298}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.05, y: 0.5, z: 0.5}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &9511294
 Animator:
   serializedVersion: 3

@@ -9,7 +9,7 @@ public class PlayerPause : MonoBehaviour {
     /// ****Handles spawning Pause prefab**** 
     /// ****Button control on pause menu******Not easy GetAxis was different to use but finally got it
 
-    public Object PauseCanvas;
+    public Canvas PauseCanvas;
     public Button[] PauseButtons;
 
     int ControllerNumber = 0;
@@ -18,8 +18,11 @@ public class PlayerPause : MonoBehaviour {
 
     int menuCount;
 
+    PauseMenu Pause;
+
     void Awake()
     {
+        PauseCanvas.enabled = false;
         ControllerNumber = CharacterMenuController.ControllerNumber;
         //start1 = GetComponent<PauseMenu>().TogglePause(false);
     }
@@ -27,7 +30,8 @@ public class PlayerPause : MonoBehaviour {
     void Start()
     {
 
-
+        Pause = GameObject.Find("UIController").GetComponent<PauseMenu>();
+        
         //DevField = DevField.Addcmponent<GameObject>;
         for (int i = 0; i < PauseButtons.Length; i++)
         {
@@ -44,35 +48,6 @@ public class PlayerPause : MonoBehaviour {
     void Update()
     {
 
-        /*if (Input.GetButton("Start_" + ControllerNumber ))
-        {
-            start = true;
-            count++;
-            Object temp;
-            temp = Instantiate(PauseCanvas, transform.position, Quaternion.identity);
-            if(count > 1)
-            {
-                count = 0;
-                start = false;
-                Destroy(temp);
-            }
-
-            if (Input.GetButton("DPad_XAxis_" + ControllerNumber))
-            {
-                menuCount++;
-
-                ColorBlock temp1;
-                temp1 = PauseButtons[0].GetComponent<Button>().colors;
-                temp1.normalColor = Color.white;
-                PauseButtons[0].GetComponent<Button>().colors = temp1;
-                temp1.normalColor = Color.yellow;
-                PauseButtons[1].GetComponent<Button>().colors = temp1;
-
-                if (menuCount > 1)
-                    Invoke("resetButton", .5f); 
-
-            }
-        }*/
 
         //******Need to fix start bool************* 
 
@@ -81,12 +56,13 @@ public class PlayerPause : MonoBehaviour {
             count++;
             start1 = true;
             Debug.Log(start1);
-
+            PauseCanvas.enabled = start1;
 
             if (count > 1)
             {
                 StartCoroutine("resetCount");
                 start1 = false;
+                PauseCanvas.enabled = start1;
                 Debug.LogError("Count");
                 Object temp;
                 temp = Instantiate(PauseCanvas, transform.position, Quaternion.identity);
@@ -136,6 +112,8 @@ public class PlayerPause : MonoBehaviour {
                 }
             }
         }
+        else
+            ;
 
 
     }

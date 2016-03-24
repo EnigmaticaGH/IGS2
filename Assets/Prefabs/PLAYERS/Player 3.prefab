@@ -124,7 +124,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &408180
 Transform:
   m_ObjectHideFlags: 1
@@ -553,6 +553,10 @@ Prefab:
       propertyPath: grenadePrefab
       value: 
       objectReference: {fileID: 120964, guid: 2a62a430d9bb06345a3515eef72540ca, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 159070}
