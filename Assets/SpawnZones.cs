@@ -88,7 +88,7 @@ public class SpawnZones : MonoBehaviour {
             if (col.name.Contains("STARTCUBE_" + Zone))
             {
                 NewCount--;
-                Debug.Log(col.name);
+                //Debug.Log(col.name);
                 NewObjects();
             }
 
@@ -129,7 +129,7 @@ public class SpawnZones : MonoBehaviour {
         StartCount = i;
         start = true;
         NewCount = StartCount;
-        Debug.Log(StartCount +" " +transform.gameObject.name);
+        //Debug.Log(StartCount +" " +transform.gameObject.name);
     }
 
     void NewObjects()

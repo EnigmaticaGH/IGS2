@@ -65,9 +65,9 @@ public class BlockInteraction : MonoBehaviour {
             if (playerPosition.y > transform.position.y && c.relativeVelocity.y < -6f)
             {
                 //Block hit from bottom
-                r.AddForce(Vector3.up * 5 * body.velocity.sqrMagnitude);
+                r.AddForce(Vector3.up * 5 * Mathf.Pow(body.velocity.y, 2));
             }
-            if (playerPosition.y < transform.position.y && c.relativeVelocity.y > 6f)
+            if (playerPosition.y < transform.position.y && c.relativeVelocity.y > 12f)
             {
                 //Block hit from top (crush)
                 Squish(m, body.velocity.sqrMagnitude);
@@ -129,11 +129,12 @@ public class BlockInteraction : MonoBehaviour {
     {
         body.useGravity = true;
         body.isKinematic = false;
-        blockMaterial.color = new Color(1, blockColor.g, blockColor.b);
+        //blockMaterial.color = new Color(1, blockColor.g, blockColor.b);
         if (isSidewaysLaunch)
             body.MovePosition(transform.position + Vector3.up * 0.2f);
         body.AddForce(force);
         time += 5;
+        reset = Reset();
         StartCoroutine(reset);
     }
 
@@ -153,7 +154,6 @@ public class BlockInteraction : MonoBehaviour {
         if (m.State == Movement.MovementState.GROUND)
         {
             //squish the player
-            Debug.Log("Squish!");
             m.gameObject.GetComponent<DeathControl>().Hurt(1);
         }
         else
@@ -171,10 +171,10 @@ public class BlockInteraction : MonoBehaviour {
     {
         body.isKinematic = false;
         body.useGravity = true;
-        blockMaterial.color = color;
+        //blockMaterial.color = color;
         body.AddForce(force);
         time = respawnTime;
-        Debug.Log(time);
+        reset = Reset();
         StartCoroutine(reset);
     }
 
@@ -184,19 +184,20 @@ public class BlockInteraction : MonoBehaviour {
         body.AddForce(force);
         body.useGravity = true;
         time += 5;
-        Debug.Log(name + " exploded");
+        reset = Reset();
         StartCoroutine(reset);
     }
 
     public void SetColor(Color c)
     {
-        blockMaterial.color = c;
+        //blockMaterial.color = c;
     }
 
     public void Respawn(float t)
     {
         if ((time += t) <= t)
         {
+            reset = Reset();
             StartCoroutine(reset);
         }
     }
@@ -209,6 +210,7 @@ public class BlockInteraction : MonoBehaviour {
             if (transform.parent == originalParent)
                 time -= Time.deltaTime;
         }
+        time = 0;
         grabSystemEmission.enabled = false;
         blockMaterial.color = blockColor;
         transform.position = startPosition;
@@ -216,6 +218,7 @@ public class BlockInteraction : MonoBehaviour {
         body.useGravity = false;
         body.isKinematic = true;
         isShattering = false;
+        StopCoroutine(reset);
     }
 
     IEnumerator Shatter(float t)
@@ -225,7 +228,7 @@ public class BlockInteraction : MonoBehaviour {
         float grn = blockColor.g;
         float blu = blockColor.b;
         float maxt = t;
-        grabSystemEmission.enabled = true;
+        //grabSystemEmission.enabled = true;
         while ((t -= Time.deltaTime) > 0)
         {
             float normalizedTime = t / maxt;
@@ -235,11 +238,13 @@ public class BlockInteraction : MonoBehaviour {
                 Mathf.Lerp(grn, 0, (1 - normalizedTime)),
                 Mathf.Lerp(blu, 0, (1 - normalizedTime)));
             yield return new WaitForFixedUpdate();
-            grabSystem.startColor = blockMaterial.color;
+            //grabSystem.startColor = blockMaterial.color;
         }
+        blockMaterial.color = blockColor;
         body.useGravity = true;
         body.isKinematic = false;
         time += 5;
+        reset = Reset();
         StartCoroutine(reset);
     }
 
