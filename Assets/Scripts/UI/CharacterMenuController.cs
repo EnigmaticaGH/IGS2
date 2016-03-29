@@ -36,6 +36,17 @@ public class CharacterMenuController : MonoBehaviour {
     public static int p4Pos = 0;
 
     private Sprite[] original = new Sprite[4];
+
+    int stickResetP1 = 0;
+    int AResetP1 = 0;
+    int stickResetP2 = 0;
+    int AResetP2 = 0;
+    int stickResetP3 = 0;
+    int AResetP3 = 0;
+    int stickResetP4 = 0;
+    int AResetP4 = 0;
+
+
     int z = 0;
     int j = 0;
     int r = 0;
@@ -160,26 +171,26 @@ public class CharacterMenuController : MonoBehaviour {
     {
         if (p1Ready == false)
         {
-            if (Input.GetAxis("L_YAxis_1") == 1 && (j == 0))
+            if ((Input.GetAxisRaw("L_YAxis_1") == 1 || Input.GetAxisRaw("DPad_YAxis_1") == 1) && (j == stickResetP1))
             {
-                j++;
+                stickResetP1++;
                 LeftStickDownP1();
                 ogArrowDOWN[0].sprite = activeArrowDOWN;
                 Invoke("StickReset", .5f);
             }
 
-            if (Input.GetAxis("L_YAxis_1") == -1 && (j == 0))
+            if ((Input.GetAxisRaw("L_YAxis_1") == -1 || Input.GetAxisRaw("DPad_YAxis_1") == -1) && (j == stickResetP1))
             {
-                j++;
+                stickResetP1++;
                 LeftStickUpP1();
                 ogArrowUP[0].sprite = activeArrowUP;
                 Invoke("StickReset", .5f);
             }
         }
 
-        if (Input.GetButtonDown("A_1") && (z <= 2))
+        if (Input.GetButtonDown("A_1") && (z <= AResetP1))
         {
-            z++;
+            AResetP1++;
             p1Ready = true;
             ReadyStamp[0].gameObject.SetActive(true);
             PlayerReady[0].enabled = true;
@@ -196,62 +207,60 @@ public class CharacterMenuController : MonoBehaviour {
 
         if (p2Ready == false)
         {
-            if (Input.GetAxis("L_YAxis_2") == 1 && (r == 0))
+            if ((Input.GetAxisRaw("L_YAxis_2") == 1 || Input.GetAxisRaw("DPad_YAxis_2") == 1) && (r == stickResetP2))
             {
-                r++;
+                stickResetP2++;
                 LeftStickDownP2();
                 ogArrowDOWN[1].sprite = activeArrowDOWN;
                 Invoke("StickReset", .5f);
             }
 
-            if (Input.GetAxis("L_YAxis_2") == -1 && (r == 0))
+            if ((Input.GetAxisRaw("L_YAxis_2") == -1 || Input.GetAxisRaw("DPad_YAxis_2") == -1) && (r == stickResetP2))
             {
-                r++;
+                stickResetP2++;
                 LeftStickUpP2();
                 ogArrowUP[1].sprite = activeArrowUP;
                 Invoke("StickReset", .5f);
             }
         }
 
-        if (Input.GetButtonDown("A_2") && (z <= 2))
+        if (Input.GetButtonDown("A_2") && (z <= AResetP2))
         {
-            z++;
+            AResetP2++;
             p2Ready = true;
             PlayerReady[1].enabled = true;
             ReadyStamp[1].gameObject.SetActive(true);
-            //Debug.Log("i == 1" + z + "Player 2 Ready = true" + p2Ready);
             if (z == 2)
             {
                 p2Ready = false;
                 PlayerReady[1].enabled = false;
                 ReadyStamp[1].gameObject.SetActive(false);
                 Invoke("AReset", .5f);
-                //Debug.Log("i == 2" + z + "Player 2 Ready = false" + p2Ready);
             }
         }
 
         if (p3Ready == false)
         {
-            if (Input.GetAxis("L_YAxis_3") == 1 && (r == 0))
+            if ((Input.GetAxisRaw("L_YAxis_3") == 1 || Input.GetAxisRaw("DPad_YAxis_3") == 1) && (r == stickResetP3))
             {
-                r++;
+                stickResetP3++;
                 LeftStickDownP3();
                 ogArrowDOWN[2].sprite = activeArrowDOWN;
                 Invoke("StickReset", .5f);
             }
 
-            if (Input.GetAxis("L_YAxis_3") == -1 && (r == 0))
+            if ((Input.GetAxisRaw("L_YAxis_3") == -1 || Input.GetAxisRaw("DPad_YAxis_3") == -1) && (r == stickResetP3))
             {
-                r++;
+                stickResetP3++;
                 LeftStickUpP3();
                 ogArrowUP[2].sprite = activeArrowUP;
                 Invoke("StickReset", .5f);
             }
         }
 
-        if (Input.GetButtonDown("A_3") && (z <= 2))
+        if (Input.GetButtonDown("A_3") && (AResetP3 <= 2))
         {
-            z++;
+            AResetP3++;
             p2Ready = true;
             PlayerReady[2].enabled = true;
             ReadyStamp[2].gameObject.SetActive(true);
@@ -261,33 +270,31 @@ public class CharacterMenuController : MonoBehaviour {
                 p2Ready = false;
                 PlayerReady[2].enabled = false;
                 ReadyStamp[2].gameObject.SetActive(false);
-                Invoke("AReset", .5f);
-                Debug.Log("i == 2" + z + "Player 3 Ready = false" + p3Ready);
-            }
+                Invoke("AReset", .5f);            }
         }
 
         if (p4Ready == false)
         {
-            if (Input.GetAxis("L_YAxis_4") == 1 && (r == 0))
+            if ((Input.GetAxisRaw("L_YAxis_4") == 1 || Input.GetAxisRaw("DPad_YAxis_4") == 1) && (stickResetP4 == 0))
             {
-                r++;
+                stickResetP4++;
                 LeftStickDownP4();
                 ogArrowDOWN[3].sprite = activeArrowDOWN;
                 Invoke("StickReset", .5f);
             }
 
-            if (Input.GetAxis("L_YAxis_4") == -1 && (r == 0))
+            if ((Input.GetAxisRaw("L_YAxis_4") == -1 || Input.GetAxisRaw("DPad_YAxis_4") == -1) && (stickResetP4 == 0))
             {
-                r++;
+                stickResetP4++;
                 LeftStickUpP4();
                 ogArrowUP[3].sprite = activeArrowUP;
                 Invoke("StickReset", .5f);
             }
         }
 
-        if (Input.GetButtonDown("A_4") && (z <= 2))
+        if (Input.GetButtonDown("A_4") && (AResetP4 <= 2))
         {
-            z++;
+            AResetP4++;
             p4Ready = true;
             PlayerReady[3].enabled = true;
             ReadyStamp[3].gameObject.SetActive(true);
@@ -298,7 +305,6 @@ public class CharacterMenuController : MonoBehaviour {
                 PlayerReady[3].enabled = false;
                 ReadyStamp[3].gameObject.SetActive(false);
                 Invoke("AReset", .5f);
-                Debug.Log("i == 2" + z + "Player 4 Ready = false" + p4Ready);
             }
         }
 
@@ -335,13 +341,21 @@ public class CharacterMenuController : MonoBehaviour {
         ogArrowDOWN[2].sprite = ogSpriteDown;
         ogArrowUP[3].sprite = ogSpriteUp;
         ogArrowDOWN[3].sprite = ogSpriteDown;
-        j = 0;
-        r = 0;
+
+        stickResetP1 = 0;
+        stickResetP2 = 0;
+        stickResetP3 = 0;
+        stickResetP4 = 0;
+
+
     }
 
     void AReset()
     {
-        z = 0;
+        AResetP1 = 0;
+        AResetP2 = 0;
+        AResetP3 = 0;
+        AResetP4 = 0;
     }
 
     void LeftStickDownP1() 

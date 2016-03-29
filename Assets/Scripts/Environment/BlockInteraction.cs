@@ -26,7 +26,7 @@ public class BlockInteraction : MonoBehaviour {
         lowGravity = SceneManager.GetActiveScene();
         grabSystem = GetComponent<ParticleSystem>();
         blockMaterial = GetComponent<MeshRenderer>().material;
-        blockColor = blockMaterial.color;
+        //blockColor = blockMaterial.color;
         body = GetComponent<Rigidbody>();
         startPosition = transform.position;
         time = 0;

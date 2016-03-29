@@ -99,15 +99,6 @@ public class PlayerLives : MonoBehaviour
             spawnHeads[ControllerNumber] = false;
         }
 
-
-
-        /*for (int i = 0; i < 4; i++)
-        {
-            //GameObject[] activePlayers = GameObject.FindGameObjectsWithTag("Player");
-            //numberOfLives = activePlayers[i].GetComponent<DeathControl>().getNumberOfLives();
-            Debug.Log(numberOfLives);
-        }*/
-
         Invoke("Players", .1f);
 
     }
@@ -159,7 +150,7 @@ public class PlayerLives : MonoBehaviour
             lifes = Lives[ControllerNumber - 1]; //If controllerNumber == 1  then that is equals lives[0]
             if (lifes == 10)
                 Lives[ControllerNumber - 1] = 9;
-            Debug.Log(lifes);
+            //Debug.Log(lifes);
             if (lifes < 0)
             {
                 ;

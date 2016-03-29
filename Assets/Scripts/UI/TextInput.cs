@@ -4,12 +4,13 @@ using System.Collections;
 
 public class TextInput : MonoBehaviour {
 
-    public GameObject player;
+    public GameObject[] player;
+    public Light Sun;
 
     InputField input;
     InputField.SubmitEvent se;
-    DeathControl Lives;
-    int godMode = 0;
+
+    int GodMode = 99999;
 
 	// Use this for initialization
 	void Start () {
@@ -30,19 +31,26 @@ public class TextInput : MonoBehaviour {
     private void SumbitInput(string arg0)
     {
         Debug.Log(arg0);
-        if (arg0.ToString().Contains("God mode"))
+        if (arg0.ToString().ToLower().Contains("god mode"))
         {
             Debug.Log(arg0);
-            player.GetComponent<DeathControl>().lives = 9999999;
-            //Lives.lives = 99999999;
-            /*
-            for (int i = 0; i < arg0.Length; i++)
+            for (int i = 0; i < player.Length; i++)
             {
-                if (arg0[i].ToString() == "1")
-                {
-                    Debug.Log("1 found");
-                }
-            }*/
+                player[i].GetComponent<DeathControl>().GodMode(GodMode);
+            }
         }
+
+        if (arg0.ToString().ToLower().Contains("night"))
+        {
+            Debug.Log("night");
+            Sun.color = Color.black;
+        }
+
+        if (arg0.ToString().ToLower().Contains("day"))
+        {
+            Debug.Log("night");
+            Sun.color = Color.white;
+        }
+
     }
 }

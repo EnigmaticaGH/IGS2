@@ -12,9 +12,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameSetup.unity
   - enabled: 1
-    path: Assets/Scenes/Level 1 - Procedural.unity
+    path: Assets/Scenes/Level 1 - Cloudy.unity
   - enabled: 1
-    path: Assets/Scenes/Level 2 - Playground.unity
+    path: Assets/Scenes/Level 2 - Western.unity
   - enabled: 1
     path: Assets/Scenes/Level 3 - Rocket Ship.unity
   - enabled: 1

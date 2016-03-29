@@ -5,7 +5,10 @@ using UnityEngine.UI;
 public class perlinNoiseArrows : MonoBehaviour {
 
     public Image arrow;
+    float width;
+    float height;
 
+    RectTransform arrowWH;
 
     public float value = 2;
     Vector3 offset;
@@ -13,6 +16,11 @@ public class perlinNoiseArrows : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+        arrowWH = (RectTransform)arrow.transform;
+
+        width = arrowWH.rect.width;
+        height = arrowWH.rect.height;
 
         offset = new Vector3(
 Random.Range(-1, 10),
@@ -29,7 +37,7 @@ Random.Range(2, 5));
         float sampleZ = Mathf.PerlinNoise(Time.time, offset.z);
         //sampleX = Mathf.Clamp(0, .3f);
 
-        arrow.GetComponent<RectTransform>().sizeDelta = new Vector2((sampleX * (value * 2)) + 215, (sampleY * (value / 2)) + 100);
+        arrow.GetComponent<RectTransform>().sizeDelta = new Vector2((sampleX * (value * 2)) + width, (sampleY * (value / 2)) + height);
 
 	
 	}

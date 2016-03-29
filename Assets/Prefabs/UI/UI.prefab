@@ -828,7 +828,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51b7a92c1580574e925da56da7b5e84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player:
+  - {fileID: 132552, guid: a3d73cf3a6894b84abc17aa5ed04048d, type: 2}
+  - {fileID: 139846, guid: 330a61732099da0468066524fe725cd0, type: 2}
+  - {fileID: 141014, guid: a2140c3ea44042142b9e53b1da9264cc, type: 2}
+  - {fileID: 193262, guid: 8753f508fe3226c4cb3f9747e5eef22a, type: 2}
+  - {fileID: 138384, guid: d6adb3e7e1d4a3e40bca3d4cf8b55f58, type: 2}
+  Lives:
+  - {fileID: 11419608, guid: a3d73cf3a6894b84abc17aa5ed04048d, type: 2}
+  - {fileID: 11496604, guid: 330a61732099da0468066524fe725cd0, type: 2}
+  - {fileID: 11456052, guid: a2140c3ea44042142b9e53b1da9264cc, type: 2}
+  - {fileID: 11494554, guid: 8753f508fe3226c4cb3f9747e5eef22a, type: 2}
+  - {fileID: 11496556, guid: d6adb3e7e1d4a3e40bca3d4cf8b55f58, type: 2}
 --- !u!114 &11413736
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1000,7 +1011,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5bf80ea6886d1b47976a55cf4c6238d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PauseCanvas: {fileID: 182840}
+  PauseCanvas: {fileID: 22361192}
   PauseButtons:
   - {fileID: 11449928}
   - {fileID: 11473600}

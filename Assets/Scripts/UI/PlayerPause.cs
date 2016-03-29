@@ -24,7 +24,6 @@ public class PlayerPause : MonoBehaviour {
     {
         PauseCanvas.enabled = false;
         ControllerNumber = CharacterMenuController.ControllerNumber;
-        //start1 = GetComponent<PauseMenu>().TogglePause(false);
     }
     // Use this for initialization
     void Start()
@@ -49,29 +48,24 @@ public class PlayerPause : MonoBehaviour {
     {
 
 
+        if (Pause.Paused())
+        {
+            start1 = true;
+        }
+
+        if (Pause.Paused() == false)
+        {
+            start1 = false;
+        }
+
         //******Need to fix start bool************* 
 
         if (Input.GetButton("Start_" + 1) && (count == 0))
         {
             count++;
             start1 = true;
-            Debug.Log(start1);
             PauseCanvas.enabled = start1;
 
-            if (count > 1)
-            {
-                StartCoroutine("resetCount");
-                start1 = false;
-                PauseCanvas.enabled = start1;
-                Debug.LogError("Count");
-                Object temp;
-                temp = Instantiate(PauseCanvas, transform.position, Quaternion.identity);
-                Debug.Log(start1);
-
-                Destroy(temp);
-                //Invoke("resetCount", .25f);
-
-            }
             //float velocity = Input.GetAxis("DPad_XAxis_1") * speed;
 
         }
@@ -84,11 +78,9 @@ public class PlayerPause : MonoBehaviour {
             if (Input.GetAxis("DPad_YAxis_1") == -1 && menuCount == 0)
             {
                 menuCount++;
-                Debug.LogError("Hello" + menuCount);
 
                 if (menuCount == 1)
                 {
-                    Debug.LogError("Hello");
                     ColorBlock temp1;
                     temp1 = PauseButtons[0].GetComponent<Button>().colors;
                     temp1.normalColor = Color.white;
@@ -107,7 +99,6 @@ public class PlayerPause : MonoBehaviour {
                 }
                 if (Input.GetAxis("DPad_YAxis_1") == 1)
                 {
-                    Debug.Log("I wish i worked");
                     StartCoroutine("resetThisButton1");
                 }
             }
@@ -130,7 +121,6 @@ public class PlayerPause : MonoBehaviour {
     IEnumerator resetThisButton1()
     {
 
-        Debug.Log("Hi");
         ColorBlock temp;
         temp = PauseButtons[0].GetComponent<Button>().colors;
         temp.normalColor = Color.yellow;

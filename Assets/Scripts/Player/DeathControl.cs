@@ -83,6 +83,11 @@ public class DeathControl : MonoBehaviour
         }
     }
 
+    public void GodMode(int lifes)
+    {
+        lives = lifes;
+    }
+
     public void Spawn()
     {
         transform.position = new Vector3(Zones.GetSafeSpawnX(), Zones.GetSafeSpawnY(), 0);

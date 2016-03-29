@@ -355,7 +355,7 @@ MonoBehaviour:
   invincibilityTime: 1
   maxHealth: 1
   numberOfLives: 10
-  lives: 10
+  lives: 99996
 --- !u!114 &11423480
 MonoBehaviour:
   m_ObjectHideFlags: 1
