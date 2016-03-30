@@ -17,6 +17,9 @@ public class GrabBlock : MonoBehaviour
     private Queue<GameObject> originalBlocks;
     private Queue<GameObject> grenadeBlocks;
     private const float BASE_VERTICAL_FORCE = 250;
+    private bool canThrow;
+    private bool throwing;
+    private float angle;
 
     // Use this for initialization
     void Start()
@@ -28,7 +31,7 @@ public class GrabBlock : MonoBehaviour
                 sprite = t;
             }
         }
-        Debug.Log(name);
+        //Debug.Log(name);
         controller = GetComponent<ControllerNumber>();
         block = null;
         axisInUse = false;
@@ -36,6 +39,8 @@ public class GrabBlock : MonoBehaviour
         carryingExplosive = false;
         originalBlocks = new Queue<GameObject>();
         grenadeBlocks = new Queue<GameObject>();
+        canThrow = false;
+        throwing = false;
     }
 
     void CheckForBlock()
@@ -63,7 +68,6 @@ public class GrabBlock : MonoBehaviour
             Collider collider = hit.collider;
             if (collider.CompareTag("Block") && collider.gameObject.GetComponent<GrenadeControl>() == null) //cannot grab explosive blocks. Not that you'd want to, anyways.
             {
-                Debug.Log("Found " + hit.collider.name);
                 block = hit.collider.gameObject;
                 originalParent = block.transform.parent;
                 foundBlock = true;
@@ -76,53 +80,48 @@ public class GrabBlock : MonoBehaviour
     {
         //blockGrabPressed = Input.GetAxisRaw("TriggersR_" + controller.controllerNumber) == 1;
         blockGrabPressed = Input.GetAxisRaw("TriggersR_" + controller.controllerNumber) == 1 || Input.GetAxisRaw("RB_" + controller.controllerNumber) == 1;
-        if (blockGrabPressed)
+        bool blockGrabDown = Input.GetButtonDown("RB_" + controller.controllerNumber);
+        bool blockGrab = Input.GetButton("RB_" + controller.controllerNumber);
+        bool blockGrabUp = Input.GetButtonUp("RB_" + controller.controllerNumber);
+        if (blockGrabDown)
         {
-            if (!axisInUse)
+            if (!foundBlock && !carryingBlock)
             {
-                if (!foundBlock && !carryingBlock)
+                CheckForBlock();
+                if (foundBlock && !block.GetComponent<BlockInteraction>().IsGrabbedBySomeoneElse)
                 {
-                    CheckForBlock();
-                    if (foundBlock && !block.GetComponent<BlockInteraction>().IsGrabbedBySomeoneElse)
+                    if (AbilityRegistry.AbilityStatus(name, "GrenadeBlock") == Ability.Status.ACTIVE)
                     {
-                        if (AbilityRegistry.AbilityStatus(name, "GrenadeBlock") == Ability.Status.ACTIVE)
-                        {
-                            carryingExplosive = true;
-                            CarryExplosiveBlock();
-                        }
-                        else
-                        {
-                            CarryBlock();
-                        }
-                        carryingBlock = true;
+                        carryingExplosive = true;
+                        CarryExplosiveBlock();
                     }
                     else
                     {
-                        carryingBlock = false;
-                        carryingExplosive = false;
+                        CarryBlock();
                     }
+                    carryingBlock = true;
+                    canThrow = true;
                 }
-                else if (carryingBlock && !carryingExplosive)
+                else
                 {
-                    ThrowBlock();
                     carryingBlock = false;
-                }
-                else if (carryingBlock && carryingExplosive)
-                {
                     carryingExplosive = false;
-                    carryingBlock = false;
-                    ThrowExplosiveBlock();
                 }
-                axisInUse = true;
             }
         }
-        if (!blockGrabPressed)
+        if (blockGrab && canThrow)
         {
-            axisInUse = false;
+            if (carryingBlock && !carryingExplosive)
+            {
+                ThrowBlock();
+            }
+            else if (carryingBlock && carryingExplosive)
+            {
+                ThrowExplosiveBlock();
+            }
         }
         if (carryingBlock)
         {
-            block.transform.localScale = Vector3.one * 0.5f;
             block.transform.position = transform.position + Vector3.right * sprite.localScale.x * 0.75f;
         }
     }
@@ -132,13 +131,10 @@ public class GrabBlock : MonoBehaviour
         foundBlock = false;
         BlockInteraction blockScript = block.GetComponent<BlockInteraction>();
         blockScript.IsGrabbedBySomeoneElse = true;
-        //blockScript.StopReset();
         block.GetComponent<Collider>().enabled = false;
-        blockScript.SetColor(new Color(0.6f, 0.63f, 0.75f));
-        var em = blockScript.GrabParticleSystem.emission;
-        blockScript.GrabParticleSystem.startColor = new Color(0.6f, 0.63f, 0.75f);
-        em.enabled = true;
         block.GetComponent<Rigidbody>().isKinematic = false;
+        block.transform.position = transform.position + Vector3.right * sprite.localScale.x * 0.75f;
+        block.transform.localScale = Vector3.one * 0.5f;
         block.transform.parent = transform;
     }
 
@@ -149,7 +145,6 @@ public class GrabBlock : MonoBehaviour
         block.SetActive(false);
         originalBlocks.Enqueue(block);
         block = (GameObject)Instantiate(grenadePrefab, Vector3.up * 100, Quaternion.identity);
-        Debug.Log(originalBlocks.Peek().name);
         grenadeBlocks.Enqueue(block);
         block.SetActive(true);
         block.transform.rotation = Quaternion.identity;
@@ -161,17 +156,27 @@ public class GrabBlock : MonoBehaviour
 
     void ThrowBlock()
     {
+        float x = Input.GetAxis("R_XAxis_" + controller.controllerNumber);
+        float y = -Input.GetAxis("R_YAxis_" + controller.controllerNumber);
+        Vector3 forceAngle = new Vector3(x, y);
         BlockInteraction blockScript = block.GetComponent<BlockInteraction>();
-        blockScript.IsGrabbedBySomeoneElse = false;
-        block.GetComponent<Collider>().enabled = true;
-        block.transform.parent = originalParent;
-        block.transform.localScale = Vector3.one;
-        float verticalForce = Mathf.Clamp(GetComponentInParent<Rigidbody>().velocity.y * 200, -BASE_VERTICAL_FORCE, blockThrowForce);
-        Vector3 force = Vector3.right * blockThrowForce * sprite.localScale.x + Vector3.up * (BASE_VERTICAL_FORCE + verticalForce);
-        blockScript.Throw(force, 10, new Color(0.4f, 1, 0.6f));
-        var em = blockScript.GrabParticleSystem.emission;
-        blockScript.GrabParticleSystem.startColor = new Color(0.4f, 1, 0.6f);
-        foundBlock = false;
+        
+        if (forceAngle.magnitude > 0.5f)
+        {
+            throwing = true;
+            forceAngle = forceAngle.normalized;
+            blockScript.IsGrabbedBySomeoneElse = false;
+            block.GetComponent<Collider>().enabled = true;
+            block.transform.parent = originalParent;
+            block.transform.localScale = Vector3.one;
+            Vector3 force = new Vector3(blockThrowForce * forceAngle.x, blockThrowForce * forceAngle.y, 0);
+            blockScript.Throw(force, 10, new Color(0.4f, 1, 0.6f));
+            var em = blockScript.GrabParticleSystem.emission;
+            blockScript.GrabParticleSystem.startColor = new Color(0.4f, 1, 0.6f);
+            foundBlock = false;
+            canThrow = false;
+            carryingBlock = false;
+        }
     }
 
     void ThrowExplosiveBlock()
@@ -187,6 +192,8 @@ public class GrabBlock : MonoBehaviour
         grenadeScript.Exploded = false;
         Invoke("ResetGrenade", 5);
         foundBlock = false;
+        carryingExplosive = false;
+        carryingBlock = false;
     }
 
     void ResetGrenade()
@@ -195,5 +202,10 @@ public class GrabBlock : MonoBehaviour
         Destroy(grenadeBlocks.Dequeue());
         originalBlocks.Peek().SetActive(true);
         originalBlocks.Dequeue().GetComponent<BlockInteraction>().ResetImmediately();
+    }
+
+    public bool Throwing
+    {
+        get { return throwing; }
     }
 }

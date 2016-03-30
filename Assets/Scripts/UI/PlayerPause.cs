@@ -103,10 +103,6 @@ public class PlayerPause : MonoBehaviour {
                 }
             }
         }
-        else
-            ;
-
-
     }
 
 

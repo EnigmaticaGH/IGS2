@@ -90,7 +90,7 @@ public class Movement : MonoBehaviour
         if (!isGrounded)
         {
             ChangeState(MovementState.AIR);
-            Debug.Log("In Air");
+            //Debug.Log("In Air");
         }
     }
 

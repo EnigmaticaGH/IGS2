@@ -49,7 +49,7 @@ public class CloudScript : MonoBehaviour {
         {
             if (cloud.Contains(i.ToString()))
             {
-                Debug.LogError(i);
+                //Debug.LogError(i);
                 CloudNum = i - 1;
                 Reset();
             }

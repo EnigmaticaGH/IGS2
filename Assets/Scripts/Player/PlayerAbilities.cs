@@ -49,7 +49,7 @@ public class PlayerAbilities : MonoBehaviour
         }
         abilities = new Ability[]
         {
-            new Ability("BlockSmash", 0.5f, 0.125f, 0.5f,
+            new Ability("BlockSmash", 0.5f, 0.125f, 0.75f,
                 new string[]
                 {
                     "R_XAxis",
@@ -87,7 +87,7 @@ public class PlayerAbilities : MonoBehaviour
             if (ability.Button != "" && Input.GetButtonDown(ability.Button + "_" + controller.controllerNumber) && ability.AbilityStatus == Ability.Status.READY)
             {
                 StartCoroutine("Ability_" + ability.Name + "_Activate", ability);
-                Debug.Log(ability.Button + "_" + controller.controllerNumber);
+                //Debug.Log(ability.Button + "_" + controller.controllerNumber);
             }
             else if (ability.Axis != null)
             {
@@ -96,7 +96,7 @@ public class PlayerAbilities : MonoBehaviour
                     if(Mathf.Abs(Input.GetAxis(axisName + "_" + controller.controllerNumber)) > ability.AxisThreshold && ability.AbilityStatus == Ability.Status.READY)
                     {
                         StartCoroutine("Ability_" + ability.Name + "_Activate", ability);
-                        Debug.Log(name + axisName + "_" + controller.controllerNumber);
+                        //Debug.Log(name + axisName + "_" + controller.controllerNumber);
                     }
                 }
             }
@@ -122,17 +122,25 @@ public class PlayerAbilities : MonoBehaviour
     {
         string axisX = ability.Axis[0];
         string axisY = ability.Axis[1];
+        float x = Input.GetAxis(axisX + "_" + controller.controllerNumber);
+        float y = -Input.GetAxis(axisY + "_" + controller.controllerNumber);
+        Vector3 forceAngle = new Vector3(x, y);
         float threshold = ability.AxisThreshold;
         dashTrail.time = ability.ActiveTime * 2;
         ability.AbilityStatus = Ability.Status.ACTIVE;
-        if (movement.State != Movement.MovementState.GROUND && !usedAirDash)
+        if (movement.State != Movement.MovementState.GROUND && !usedAirDash && !GetComponent<GrabBlock>().Throwing)
         {
             usedAirDash = true;
         }
-        else if (movement.State != Movement.MovementState.GROUND && usedAirDash)
+        else if ((movement.State != Movement.MovementState.GROUND && usedAirDash) || GetComponent<GrabBlock>().Throwing)
         {
             ability.AbilityStatus = Ability.Status.READY;
+            dashTrail.time = 0;
             yield break;
+        }
+        if (forceAngle.magnitude > threshold)
+        {
+
         }
         // Ability code here
         if (Input.GetAxis(axisY + "_" + controller.controllerNumber) < -threshold)
