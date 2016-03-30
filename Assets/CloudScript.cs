@@ -13,9 +13,6 @@ public class CloudScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        //startPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-
-
         for (int i = 0; i < Clouds.Length; i++)
         {
             startPos[i] = new Vector3(Clouds[i].transform.position.x, Clouds[i].transform.position.y, Clouds[i].transform.position.z);
@@ -32,14 +29,6 @@ public class CloudScript : MonoBehaviour {
 
 	}
 
-    void OnTriggerEnter(Collider col)
-    {
-        if (col.tag == "END")
-        {
-
-
-        }
-    }
 
     public void CloudEnd(string name)
     {
@@ -58,7 +47,7 @@ public class CloudScript : MonoBehaviour {
 
     void Reset()
     {
-        Debug.Log("Hi");
+        //Debug.Log("Hi");
         bufferHeight = Random.Range(2, 5);
   
         Clouds[CloudNum].transform.position = new Vector3(startPos[CloudNum].x - 10, startPos[CloudNum].y, startPos[CloudNum].z);
