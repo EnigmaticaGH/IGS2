@@ -102468,6 +102468,40 @@ Prefab:
       propertyPath: Loop
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 140564, guid: b81dabc65872b9c47b112daf10ce4159, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 144674, guid: b81dabc65872b9c47b112daf10ce4159, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 179336, guid: b81dabc65872b9c47b112daf10ce4159, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198346, guid: b81dabc65872b9c47b112daf10ce4159, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11495486, guid: b81dabc65872b9c47b112daf10ce4159, type: 2}
+      propertyPath: m_Text
+      value: '
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 11475100, guid: b81dabc65872b9c47b112daf10ce4159, type: 2}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11475100, guid: b81dabc65872b9c47b112daf10ce4159, type: 2}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11475100, guid: b81dabc65872b9c47b112daf10ce4159, type: 2}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8278744, guid: b81dabc65872b9c47b112daf10ce4159, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: b81dabc65872b9c47b112daf10ce4159, type: 2}

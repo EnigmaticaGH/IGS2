@@ -75,14 +75,14 @@ public class PlayerLives : MonoBehaviour
         }
 
 
-        player1Lives.gameObject.SetActive(true);
+        /*player1Lives.gameObject.SetActive(true);
         //Debug.Log(player1.GetComponent<DeathControl>().lives);
         if (CharacterMenuController.ControllerNumber > 1)
             player2Lives.gameObject.SetActive(true);
         if (CharacterMenuController.ControllerNumber > 2)
             player3Lives.gameObject.SetActive(true);
         if (CharacterMenuController.ControllerNumber > 3)
-            player4Lives.gameObject.SetActive(true);
+            player4Lives.gameObject.SetActive(true);*/
 
 
 
@@ -113,14 +113,14 @@ public class PlayerLives : MonoBehaviour
 
         //numberOfLives = PlayerTracker.players[0].GetComponent<DeathControl>().getNumberOfLives();
 
-        player1Lives.text = "Player 1 Lives: " + PlayerTracker.players[0].GetComponent<DeathControl>().getLives();
+        /*player1Lives.text = "Player 1 Lives: " + PlayerTracker.players[0].GetComponent<DeathControl>().getLives();
         //Debug.Log(player1.GetComponent<DeathControl>().getLives());
         if (CharacterMenuController.ControllerNumber > 1)
             player2Lives.text = "Player 2 Lives: " + PlayerTracker.players[1].GetComponent<DeathControl>().getLives();
         if (CharacterMenuController.ControllerNumber > 2)
             player3Lives.text = "Player 3 Lives " + PlayerTracker.players[2].GetComponent<DeathControl>().getLives();
         if (CharacterMenuController.ControllerNumber > 3)
-            player4Lives.text = "Player 4 Lives " + PlayerTracker.players[3].GetComponent<DeathControl>().getLives();
+            player4Lives.text = "Player 4 Lives " + PlayerTracker.players[3].GetComponent<DeathControl>().getLives();*/
 
 
 
