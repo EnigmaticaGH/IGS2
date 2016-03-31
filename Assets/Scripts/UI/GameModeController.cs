@@ -33,10 +33,10 @@ public class GameModeController : MonoBehaviour {
         
         GameModeText = GameModeText.GetComponent<Text>();
         GameModeText.text = GameModes[0];
+        TextController(0);
         TimeAmount = TimeAmount.GetComponent<Text>();
         TimeAmount.text = Times[0];
 
-        TextController(0);
 	
 	}
 
@@ -56,7 +56,7 @@ public class GameModeController : MonoBehaviour {
         CursorMovement.OnClickedLeftTime += CursorLeftTime;
 
     }
-	
+	 
 	// Update is called once per frame
 	void Update () {
 

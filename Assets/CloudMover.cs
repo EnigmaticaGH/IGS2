@@ -14,7 +14,7 @@ public class CloudMover : MonoBehaviour {
 	void Update () {
 
         
-        transform.position = Vector3.MoveTowards(transform.position, new Vector3(200, transform.position.y, transform.position.z), (speed * Time.deltaTime) / 2);
+        transform.position = Vector3.MoveTowards(transform.position, new Vector3(200, transform.position.y, transform.position.z), (speed * Time.deltaTime) / 4);
         
 	
 	}

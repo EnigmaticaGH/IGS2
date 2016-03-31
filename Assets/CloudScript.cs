@@ -6,12 +6,14 @@ public class CloudScript : MonoBehaviour {
     public float speed = 5;
     float bufferHeight;
     public GameObject[] Clouds;
-    Vector3[] startPos = new Vector3[5];
+    Vector3[] startPos;
     string cloud;
     int CloudNum;
 
 	// Use this for initialization
 	void Start () {
+
+        startPos = new Vector3[Clouds.Length];
 
         for (int i = 0; i < Clouds.Length; i++)
         {
@@ -32,7 +34,7 @@ public class CloudScript : MonoBehaviour {
 
     public void CloudEnd(string name)
     {
-        Debug.Log(name);
+        //Debug.Log(name);
         cloud = name;
         for (int i = 1; i <= Clouds.Length; i++)
         {
@@ -40,17 +42,17 @@ public class CloudScript : MonoBehaviour {
             {
                 //Debug.LogError(i);
                 CloudNum = i - 1;
-                Reset();
+                Reset(CloudNum);
             }
         }
     }
 
-    void Reset()
+    void Reset(int num)
     {
         //Debug.Log("Hi");
         bufferHeight = Random.Range(2, 5);
   
-        Clouds[CloudNum].transform.position = new Vector3(startPos[CloudNum].x - 10, startPos[CloudNum].y, startPos[CloudNum].z);
+        Clouds[num].transform.position = new Vector3(-30, startPos[CloudNum].y, startPos[CloudNum].z);
 
 
     }

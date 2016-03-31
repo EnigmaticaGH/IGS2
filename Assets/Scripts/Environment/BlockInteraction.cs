@@ -14,7 +14,9 @@ public class BlockInteraction : MonoBehaviour {
     private Material blockMaterial;
     private Color blockColor;
     private ParticleSystem grabSystem;
+    private ParticleSystem grabSystem2;
     private ParticleSystem.EmissionModule grabSystemEmission;
+    private ParticleSystem.EmissionModule grabSystemEmission2;
     private bool isGrabbedBySomeoneElse;
     private IEnumerator reset;
     private Transform originalParent;
@@ -25,6 +27,7 @@ public class BlockInteraction : MonoBehaviour {
         //lowGravity = SceneManager.LoadScene(6);
         lowGravity = SceneManager.GetActiveScene();
         grabSystem = GetComponent<ParticleSystem>();
+        grabSystem2 = GetComponentInChildren<ParticleSystem>();
         blockMaterial = GetComponent<MeshRenderer>().material;
         //blockColor = blockMaterial.color;
         body = GetComponent<Rigidbody>();
@@ -33,6 +36,8 @@ public class BlockInteraction : MonoBehaviour {
         isGrabbedBySomeoneElse = false;
         grabSystemEmission = grabSystem.emission;
         grabSystemEmission.enabled = false;
+        grabSystemEmission2 = grabSystem2.emission;
+        grabSystemEmission2.enabled = false;
         reset = Reset();
         startRotation = transform.rotation;
         originalParent = transform.parent;
@@ -212,6 +217,7 @@ public class BlockInteraction : MonoBehaviour {
         }
         time = 0;
         grabSystemEmission.enabled = false;
+        grabSystemEmission2.enabled = false;
         blockMaterial.color = blockColor;
         transform.position = startPosition;
         transform.rotation = startRotation;
@@ -253,6 +259,7 @@ public class BlockInteraction : MonoBehaviour {
         body.useGravity = false;
         body.isKinematic = true;
         grabSystemEmission.enabled = false;
+        grabSystemEmission2.enabled = false;
         blockMaterial.color = blockColor;
         transform.rotation = startRotation;
         transform.position = startPosition;
