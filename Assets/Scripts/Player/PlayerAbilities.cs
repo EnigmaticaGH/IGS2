@@ -17,6 +17,7 @@ public class PlayerAbilities : MonoBehaviour
     //Assign new abilities here
     private Ability[] abilities;
     private bool usedAirDash;
+    private bool thumbstickInUse;
 
     enum Powerup : int
     {
@@ -49,7 +50,7 @@ public class PlayerAbilities : MonoBehaviour
         }
         abilities = new Ability[]
         {
-            new Ability("BlockSmash", 0.5f, 0.125f, 0.75f,
+            new Ability("BlockSmash", 0.125f, 0.125f, 0.2f,
                 new string[]
                 {
                     "R_XAxis",
@@ -81,25 +82,25 @@ public class PlayerAbilities : MonoBehaviour
     {
         if (movement.State == Movement.MovementState.GROUND)
             usedAirDash = false;
-        foreach (Ability ability in abilities)
+
+        float x = Input.GetAxis(abilities[0].Axis[0] + "_" + controller.controllerNumber);
+        float y = -Input.GetAxis(abilities[0].Axis[1] + "_" + controller.controllerNumber);
+        Vector3 rThumbstick = new Vector3(x, y);
+        
+        if (rThumbstick.magnitude != 0)
         {
-            //Check for input on abilities
-            if (ability.Button != "" && Input.GetButtonDown(ability.Button + "_" + controller.controllerNumber) && ability.AbilityStatus == Ability.Status.READY)
+            if (thumbstickInUse == false)
             {
-                StartCoroutine("Ability_" + ability.Name + "_Activate", ability);
-                //Debug.Log(ability.Button + "_" + controller.controllerNumber);
-            }
-            else if (ability.Axis != null)
-            {
-                foreach(string axisName in ability.Axis)
+                if (!GetComponent<GrabBlock>().CarryingBlock && abilities[0].AbilityStatus == Ability.Status.READY)
                 {
-                    if(Mathf.Abs(Input.GetAxis(axisName + "_" + controller.controllerNumber)) > ability.AxisThreshold && ability.AbilityStatus == Ability.Status.READY)
-                    {
-                        StartCoroutine("Ability_" + ability.Name + "_Activate", ability);
-                        //Debug.Log(name + axisName + "_" + controller.controllerNumber);
-                    }
+                    StartCoroutine("Ability_" + abilities[0].Name + "_Activate", abilities[0]);
                 }
+                thumbstickInUse = true;
             }
+        }
+        if (rThumbstick.magnitude == 0)
+        {
+            thumbstickInUse = false;
         }
 
         if (currentPowerup != Powerup.None)
@@ -120,73 +121,42 @@ public class PlayerAbilities : MonoBehaviour
 
     IEnumerator Ability_BlockSmash_Activate(Ability ability)
     {
-        string axisX = ability.Axis[0];
-        string axisY = ability.Axis[1];
-        float x = Input.GetAxis(axisX + "_" + controller.controllerNumber);
-        float y = -Input.GetAxis(axisY + "_" + controller.controllerNumber);
+        float x = Input.GetAxis(ability.Axis[0] + "_" + controller.controllerNumber);
+        float y = -Input.GetAxis(ability.Axis[1] + "_" + controller.controllerNumber);
         Vector3 forceAngle = new Vector3(x, y);
-        float threshold = ability.AxisThreshold;
+
         dashTrail.time = ability.ActiveTime * 2;
+
         ability.AbilityStatus = Ability.Status.ACTIVE;
-        if (movement.State != Movement.MovementState.GROUND && !usedAirDash && !GetComponent<GrabBlock>().Throwing)
+
+        if (movement.State != Movement.MovementState.GROUND && !usedAirDash)
         {
             usedAirDash = true;
         }
-        else if ((movement.State != Movement.MovementState.GROUND && usedAirDash) || GetComponent<GrabBlock>().Throwing)
+        else if (movement.State != Movement.MovementState.GROUND && usedAirDash)
         {
             ability.AbilityStatus = Ability.Status.READY;
             dashTrail.time = 0;
             yield break;
         }
-        if (forceAngle.magnitude > threshold)
+        Vector3 force = new Vector3(ABILITY_B_FORCE * forceAngle.normalized.x, ABILITY_B_FORCE * forceAngle.normalized.y);
+        player.useGravity = false;
+        if (Mathf.Abs(x) > ability.AxisThreshold / 2)
         {
-
-        }
-        // Ability code here
-        if (Input.GetAxis(axisY + "_" + controller.controllerNumber) < -threshold)
-        {
-            //shoot up
-            player.AddForce(Vector3.up * ABILITY_B_FORCE);
-            movement.Disable(ability.ActiveTime);
-            Invoke("ZeroVelocity", ability.ActiveTime);
-        }
-        else if (Input.GetAxis(axisY + "_" + controller.controllerNumber) > threshold)
-        {
-            //shoot down
-            player.AddForce(Vector3.down * ABILITY_B_FORCE);
-            movement.Disable(ability.ActiveTime);
-            Invoke("ZeroVelocity", ability.ActiveTime);
-        }
-        else if (Input.GetAxis(axisX + "_" + controller.controllerNumber) > threshold)
-        {
-            //shoot right
-            player.useGravity = false;
             player.MovePosition(transform.position + Vector3.up * 0.1f);
-            player.AddForce(Vector3.right * ABILITY_B_FORCE);
-            movement.Disable(ability.ActiveTime);
-            Invoke("ZeroVelocity", ability.ActiveTime);
         }
-        else if (Input.GetAxis(axisX + "_" + controller.controllerNumber) < -threshold)
-        {
-            //shoot left
-            player.useGravity = false;
-            player.MovePosition(transform.position + Vector3.up * 0.1f);
-            player.AddForce(Vector3.left * ABILITY_B_FORCE);
-            movement.Disable(ability.ActiveTime);
-            Invoke("ZeroVelocity", ability.ActiveTime);
-        }
-        // -----------------
+        player.AddForce(force);
+        movement.Disable(ability.ActiveTime);
+        Invoke("ZeroVelocity", ability.ActiveTime);
+        
         yield return new WaitForSeconds(ability.ActiveTime);
+
         player.useGravity = true;
         dashTrail.time = 0;
-        ability.AbilityStatus = Ability.Status.COOLDOWN;
-        yield return new WaitForSeconds(ability.CooldownTime);
 
-        while (Mathf.Abs(Input.GetAxis(axisX + "_" + controller.controllerNumber)) > threshold
-            || Mathf.Abs(Input.GetAxis(axisY + "_" + controller.controllerNumber)) > threshold)
-        {
-            yield return new WaitForFixedUpdate();
-        }
+        ability.AbilityStatus = Ability.Status.COOLDOWN;
+
+        yield return new WaitForSeconds(ability.CooldownTime);
 
         ability.AbilityStatus = Ability.Status.READY;
     }
