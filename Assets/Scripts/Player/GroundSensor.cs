@@ -15,7 +15,7 @@ public class GroundSensor : MonoBehaviour
     void FixedUpdate()
     {
         hitsGround = 0;
-        Ray ray = new Ray(transform.position + Vector3.right + Vector3.down, Vector3.left);
+        Ray ray = new Ray(transform.position + (Vector3.right * 0.9f) + Vector3.down, Vector3.left);
 
         Debug.DrawLine(ray.origin, ray.origin + ray.direction * 1.25f, Color.blue);
 

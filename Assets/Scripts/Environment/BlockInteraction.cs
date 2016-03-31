@@ -55,71 +55,35 @@ public class BlockInteraction : MonoBehaviour {
 
 	void OnCollisionEnter(Collision c)
     {
-        if (c.collider.CompareTag("Player")
-            && c.relativeVelocity.sqrMagnitude > 44
-            && AbilityRegistry.AbilityStatus(c.gameObject.name, "BlockSmash") != Ability.Status.ACTIVE)
+        if (c.collider.CompareTag("Player") && AbilityRegistry.AbilityStatus(c.gameObject.name, "BlockSmash") != Ability.Status.ACTIVE)
         {
             r = c.gameObject.GetComponent<Rigidbody>();
             Movement m = c.gameObject.GetComponent<Movement>();
             Vector3 playerPosition = c.gameObject.transform.position;
-            if (playerPosition.y > transform.position.y && c.relativeVelocity.y < -6f)
-            {
-                //Block hit from bottom
-                r.AddForce(Vector3.up * 5 * Mathf.Pow(body.velocity.y, 2));
-            }
-            if (playerPosition.y < transform.position.y && c.relativeVelocity.y > 12f)
+            float xDiff = Mathf.Abs(playerPosition.x - transform.position.x);
+            if (xDiff < 0.5f && c.relativeVelocity.y > 10f)
             {
                 //Block hit from top (crush)
+                Debug.Log("Squish");
                 Squish(m, body.velocity.sqrMagnitude);
             }
-            if (playerPosition.x > transform.position.x && c.relativeVelocity.x < -6f)
+            else if (body.velocity.magnitude > 5)
             {
-                //Block hit from left side
-                PushPlayer(true, m, body.velocity.sqrMagnitude);
-            }
-            if (playerPosition.x < transform.position.x && c.relativeVelocity.x > 6f)
-            {
-                //Block hit from right side
-                PushPlayer(false, m, body.velocity.sqrMagnitude);
+                Vector3 diff = (playerPosition - transform.position).normalized;
+                Vector3 force = new Vector3(diff.x * Mathf.Abs(c.relativeVelocity.x) * 15, diff.y * Mathf.Abs(c.relativeVelocity.y) * 15 + 250);
+                PushPlayer(m, force);
             }
         }
-
-        if (c.collider.CompareTag("Player")
-            && AbilityRegistry.AbilityStatus(c.gameObject.name, "BlockSmash") == Ability.Status.ACTIVE
-            && c.relativeVelocity.magnitude > 10)
+        else if (c.collider.CompareTag("Player") && c.relativeVelocity.magnitude > 20)
         {
             foreach(ContactPoint p in c.contacts)
             {
-                //Debug.Log(p.point + " | " + transform.position);
-                if (p.point.y < transform.position.y - 0.35f && c.relativeVelocity.y > 10)
-                {
-                    Debug.Log("Upsmash");
-                    //player hits from under with high Y speed
-                    Launch(Vector2.up * 1000f, false);
-                }
-                if (p.point.y > transform.position.y + 0.35f && c.relativeVelocity.y < -10)
-                {
-                    Debug.Log("Downsmash");
-                    //player hits from on top with high Y speed
-                    Launch(Vector2.down * 1000f, false);
-                }
-                if (p.point.x > transform.position.x + 0.25f && c.relativeVelocity.x < -10)
-                {
-                    Debug.Log("Leftsmash");
-                    //player hits from the right
-                    Launch(Vector2.left * 1000f, true);
-                }
-                if (p.point.x < transform.position.x - 0.25f && c.relativeVelocity.x > 10)
-                {
-                    Debug.Log("Rightsmash");
-                    //player hits from left
-                    Launch(Vector2.right * 1000f, true);
-                }
+                Vector3 force = new Vector3(c.relativeVelocity.x * 50f, c.relativeVelocity.y * 50f, 0);
+                Launch(force, Mathf.Abs(c.relativeVelocity.x) > 20);
             }
         }
 
-        if (c.collider.CompareTag("Player") && !isShattering
-            && AbilityRegistry.AbilityStatus(c.gameObject.name, "BlockDrop") == Ability.Status.ACTIVE)
+        if (c.collider.CompareTag("Player") && !isShattering && AbilityRegistry.AbilityStatus(c.gameObject.name, "BlockDrop") == Ability.Status.ACTIVE)
         {
             StartCoroutine(Shatter(0.5f));
         }
@@ -129,7 +93,6 @@ public class BlockInteraction : MonoBehaviour {
     {
         body.useGravity = true;
         body.isKinematic = false;
-        //blockMaterial.color = new Color(1, blockColor.g, blockColor.b);
         if (isSidewaysLaunch)
             body.MovePosition(transform.position + Vector3.up * 0.2f);
         body.AddForce(force);
@@ -138,15 +101,12 @@ public class BlockInteraction : MonoBehaviour {
         StartCoroutine(reset);
     }
 
-    void PushPlayer(bool right, Movement m, float power)
+    void PushPlayer(Movement m, Vector3 power)
     {
-        int direction = right ? 1 : -1;
         r.MovePosition(r.transform.position + Vector3.up * 0.1f);
-        //r.useGravity = false;
-        r.AddForce(Vector3.right * direction * power + Vector3.up * 20);
+        r.AddForce(power);
         m.UseForceInstead(0.5f);
-        time += 5;
-        //Invoke("SetGravity", 0.5f);
+        time = 5;
     }
 
     void Squish(Movement m, float power)
@@ -162,16 +122,10 @@ public class BlockInteraction : MonoBehaviour {
         }
     }
 
-    void SetGravity()
-    {
-        //r.useGravity = true;
-    }
-
     public void Throw(Vector3 force, float respawnTime, Color color)
     {
         body.isKinematic = false;
         body.useGravity = true;
-        //blockMaterial.color = color;
         body.AddForce(force);
         time = respawnTime;
         reset = Reset();
@@ -223,27 +177,26 @@ public class BlockInteraction : MonoBehaviour {
 
     IEnumerator Shatter(float t)
     {
+        SpriteRenderer s = transform.GetChild(0).GetComponent<SpriteRenderer>();
         isShattering = true;
-        float red = blockColor.r;
-        float grn = blockColor.g;
-        float blu = blockColor.b;
         float maxt = t;
         //grabSystemEmission.enabled = true;
         while ((t -= Time.deltaTime) > 0)
         {
             float normalizedTime = t / maxt;
-
-            blockMaterial.color = new Color(
-                Mathf.Lerp(red, 1, (1 - normalizedTime)),
-                Mathf.Lerp(grn, 0, (1 - normalizedTime)),
-                Mathf.Lerp(blu, 0, (1 - normalizedTime)));
+            s.color = new Color(1, 0, 0, Mathf.Lerp(0, 1, (1 - normalizedTime)));
             yield return new WaitForFixedUpdate();
-            //grabSystem.startColor = blockMaterial.color;
         }
-        blockMaterial.color = blockColor;
         body.useGravity = true;
         body.isKinematic = false;
-        time += 5;
+        time = 5;
+        t = 0.5f;
+        while ((t -= Time.deltaTime) > 0)
+        {
+            float normalizedTime = t / maxt;
+            s.color = new Color(1, 0, 0, Mathf.Lerp(1, 0, (1 - normalizedTime)));
+            yield return new WaitForFixedUpdate();
+        }
         reset = Reset();
         StartCoroutine(reset);
     }
