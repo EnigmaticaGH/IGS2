@@ -3479,6 +3479,14 @@ Prefab:
       propertyPath: m_TagString
       value: Cloud
       objectReference: {fileID: 0}
+    - target: {fileID: 438000, guid: fe6d4a97910066c43a197786ecee968f, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 438000, guid: fe6d4a97910066c43a197786ecee968f, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fe6d4a97910066c43a197786ecee968f, type: 2}
   m_IsPrefabParent: 0
@@ -13905,6 +13913,14 @@ Prefab:
     - target: {fileID: 179696, guid: b437b5ac349be524bb2a6490d0bff4e1, type: 2}
       propertyPath: m_TagString
       value: Cloud
+      objectReference: {fileID: 0}
+    - target: {fileID: 462638, guid: b437b5ac349be524bb2a6490d0bff4e1, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 462638, guid: b437b5ac349be524bb2a6490d0bff4e1, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b437b5ac349be524bb2a6490d0bff4e1, type: 2}
@@ -50784,6 +50800,14 @@ Prefab:
     - target: {fileID: 117300, guid: 25e17fd767bc010448901cdd6ae5488b, type: 2}
       propertyPath: m_TagString
       value: Cloud
+      objectReference: {fileID: 0}
+    - target: {fileID: 409000, guid: 25e17fd767bc010448901cdd6ae5488b, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 409000, guid: 25e17fd767bc010448901cdd6ae5488b, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 25e17fd767bc010448901cdd6ae5488b, type: 2}
