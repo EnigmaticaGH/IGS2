@@ -6,7 +6,7 @@ public class LandingParticles : MonoBehaviour
     private GameObject prefab;
     private GameObject left;
     private GameObject right;
-    private IEnumerator land;
+    //private IEnumerator land;
     // Use this for initialization
     void Start()
     {
@@ -19,7 +19,7 @@ public class LandingParticles : MonoBehaviour
         left.SetActive(false);
         right.SetActive(false);
         left.transform.localScale = new Vector3(-1, 1, 1);
-        land = Land(1);
+        //land = Land(1);
     }
 
     public void StartLandingAnimation()
