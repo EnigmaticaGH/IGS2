@@ -86,7 +86,6 @@ public class PlayerAbilities : MonoBehaviour
         float x = Input.GetAxis(abilities[0].Axis[0] + "_" + controller.controllerNumber);
         float y = -Input.GetAxis(abilities[0].Axis[1] + "_" + controller.controllerNumber);
         Vector3 rThumbstick = new Vector3(x, y);
-        
         if (rThumbstick.magnitude != 0)
         {
             if (thumbstickInUse == false)
