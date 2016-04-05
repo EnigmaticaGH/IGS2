@@ -33,6 +33,7 @@ GameObject:
   - 114: {fileID: 11438388}
   - 114: {fileID: 11411078}
   - 96: {fileID: 9670566}
+  - 114: {fileID: 11439870}
   m_Layer: 8
   m_Name: Player 1
   m_TagString: Player
@@ -392,6 +393,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grenadeThrowForce: 2000
   grenadePrefab: {fileID: 120964, guid: 2a62a430d9bb06345a3515eef72540ca, type: 2}
+--- !u!114 &11439870
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 132552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1419745cdc37af04aab7b92a2dd64214, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11447844
 MonoBehaviour:
   m_ObjectHideFlags: 1
