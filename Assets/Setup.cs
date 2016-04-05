@@ -64,13 +64,6 @@ public class Setup : MonoBehaviour
 
     }
 
-    void FixedUpdate()
-    {
-        if (LoadScene)
-        {
-            SelectedObjects[3].SetActive(false);
-        }
-    }
 
     // Update is called once per frame
     void Update()
@@ -241,6 +234,7 @@ public class Setup : MonoBehaviour
 
                             if (Input.GetButtonDown("Start_1") || Input.GetButtonDown("A_1") && cd == 0)
                             {
+                                SelectedObjects[3].SetActive(false);
                                 LoadScene = true;
                                 cd++;
                                 Debug.Log("Count");
