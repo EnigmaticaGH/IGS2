@@ -22,11 +22,8 @@ public class Setup : MonoBehaviour
     public string[] LevelNames = { "Cloudy", "Outback", "Mechanic" };
     public string[] Details = { "Throw clouds at each other!", "Hit up the desert or the saloon in this outback thriller!", "Wow!! lots of moving stuff cooooolllll!" };
     public Sprite[] LevelImages;
-    public Transform LocationMODE;
-    public Transform LocationTIME;
-    public Transform LocationSTART;
     Vector3 startingLoc;
-    public GameObject Arrow;
+    public GameObject[] SelectedObjects;
 
     int i = 0;
     public int placeHolder = 0;
@@ -43,7 +40,11 @@ public class Setup : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        startingLoc = Arrow.transform.position;
+
+        for(int i = 0; i < SelectedObjects.Length; i++)
+        {
+            SelectedObjects[i].SetActive(false);
+        }
 
         Highlight.gameObject.SetActive(false);
 
@@ -70,6 +71,8 @@ public class Setup : MonoBehaviour
         {
             if (!SelectedLevel)
             {
+                SelectedObjects[0].SetActive(true);
+
                 Highlight.gameObject.SetActive(false);
                 if ((Input.GetAxisRaw("L_XAxis_1") == 1 || Input.GetAxisRaw("DPad_XAxis_1") == 1) && (i == 0))
                 {
@@ -106,7 +109,6 @@ public class Setup : MonoBehaviour
                     SelectedLevel = true;
                     mode++;
                     time++;
-                    Arrow.transform.position = LocationMODE.transform.position;
                     //LevelImage.color = Color.red;
                     Invoke("ResetMode", .5f);
                     Highlight.gameObject.SetActive(true);
@@ -116,8 +118,12 @@ public class Setup : MonoBehaviour
 
             if (SelectedLevel)
             {
+                SelectedObjects[0].SetActive(false);
+
                 if (Mode == false)
                 {
+                    SelectedObjects[1].SetActive(true);
+
                     if ((Input.GetAxisRaw("L_XAxis_1") == 1 || Input.GetAxisRaw("DPad_XAxis_1") == 1) && (cd == 0))
                     {
                         cd++;
@@ -145,9 +151,8 @@ public class Setup : MonoBehaviour
                     {
                         Mode = true;
                         Time = false;
-                        time++;              
+                        time++;
                         ModeText.color = textColor;
-                        Arrow.transform.position = LocationTIME.transform.position;
                         Invoke("ResetTime", .5f);
                     }
 
@@ -155,9 +160,9 @@ public class Setup : MonoBehaviour
                     {
                         Mode = false;
                         SelectedLevel = false;
+                        SelectedObjects[1].SetActive(false);
                         ResetDatColor();
                         ResetDatSelected();
-                        Arrow.transform.position = startingLoc;
                         ModeText.color = Color.white;
                     }
 
@@ -166,8 +171,12 @@ public class Setup : MonoBehaviour
 
                 if (Mode)
                 {
-                    if(Time == false)
+                    SelectedObjects[1].SetActive(false);
+
+                    if (Time == false)
                     {
+                        SelectedObjects[2].SetActive(true);
+
                         if ((Input.GetAxis("L_XAxis_1") == 1 || Input.GetAxisRaw("DPad_XAxis_1") == 1) && (cd == 0))
                         {
                             cd++;
@@ -197,7 +206,6 @@ public class Setup : MonoBehaviour
                         {
                             Time = true;
                             Invoke("ResetMode", .5f);
-                            Arrow.transform.position = LocationSTART.transform.position;
                             TimeText.color = textColor;
                         }
 
@@ -206,19 +214,23 @@ public class Setup : MonoBehaviour
                             Time = false;
                             Mode = false;
                             mode++;
+                            SelectedObjects[2].SetActive(false);
                             Invoke("ResetMode", .5f);
                             ModeText.color = Color.white;
-                            Arrow.transform.position = LocationMODE.transform.position;
                         }
                     }
 
 
                     if (Time)
                     {
+                        SelectedObjects[2].SetActive(false);
+
                         StartCD = true;
 
                         if (StartCD)
                         {
+                            SelectedObjects[3].SetActive(true);
+
                             if (Input.GetButtonDown("Start_1") || Input.GetButtonDown("A_1") && cd == 0)
                             {
                                 LoadScene = true;
@@ -232,10 +244,10 @@ public class Setup : MonoBehaviour
                                 Time = false;
                                 Mode = true;
                                 StartCD = false;
+                                SelectedObjects[3].SetActive(false);
                                 time++;
                                 Invoke("ResetTime", .5f);
                                 TimeText.color = Color.white;
-                                Arrow.transform.position = LocationTIME.transform.position;
                             }
                         }
                     }

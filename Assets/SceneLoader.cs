@@ -16,6 +16,9 @@ public class SceneLoader : MonoBehaviour {
 
     public Image loadingImage;
     public Text loadingText;
+    public Image Controller;
+
+    public GameObject Controls;
 
     public GameObject levelManager;
 
@@ -29,6 +32,10 @@ public class SceneLoader : MonoBehaviour {
         loadingImage.enabled = false;
 
         loadingText.enabled = false;
+
+        Controller.enabled = false;
+
+        Controls.SetActive(false);
 
         Setup = levelManager.GetComponent<Setup>();
 
@@ -54,11 +61,15 @@ public class SceneLoader : MonoBehaviour {
 
             loadScene = true;
 
+            Controller.enabled = true;
+
             StartCoroutine(LoadNewScene());
 
             loadingImage.enabled = true;
 
             loadingText.enabled = true;
+
+            Controls.SetActive(true);
 
             //SceneManager.LoadScene(scene);
         }
@@ -83,7 +94,7 @@ public class SceneLoader : MonoBehaviour {
 
         // This line waits for 3 seconds before executing the next line in the coroutine.
         // This line is only necessary for this demo. The scenes are so simple that they load too fast to read the "Loading..." text.
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(10);
 
         // Start an asynchronous operation to load the scene that was passed to the LoadNewScene coroutine.
         AsyncOperation async = SceneManager.LoadSceneAsync(scene); //FIX THIS
