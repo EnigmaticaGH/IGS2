@@ -150,7 +150,12 @@ public class Movement : MonoBehaviour
 
     public void SendGroundSensorReading(bool status)
     {
+        bool oldStatus = isGrounded;
         isGrounded = status;
+        if (oldStatus != status && status)
+        {
+            GetComponent<LandingParticles>().StartLandingAnimation();
+        }
     }
 
     public MovementState State
