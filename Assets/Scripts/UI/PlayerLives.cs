@@ -159,7 +159,7 @@ public class PlayerLives : MonoBehaviour
             {
                 if ((ControllerNumber - 1) == 0) 
                 {
-                    Debug.Log(lifes);
+                    //Debug.Log(lifes);
                     UIHeadsP1[lifes].gameObject.SetActive(false);
                 }
                 if ((ControllerNumber - 1) == 1)

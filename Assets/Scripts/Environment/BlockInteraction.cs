@@ -85,14 +85,14 @@ public class BlockInteraction : MonoBehaviour {
             Vector3 diff = (playerPosition - transform.position).normalized;
             Vector3 force = new Vector3(diff.x * Mathf.Abs(c.relativeVelocity.x) * 15, diff.y * Mathf.Abs(c.relativeVelocity.y) * 15 + 250);
             PushPlayer(m, force);
+            return;
         }
-        else if (c.collider.CompareTag("Player") && c.relativeVelocity.magnitude > 20)
+        else if (c.collider.CompareTag("Player") && c.relativeVelocity.magnitude > 16 && //has to be player who is moving fast enough
+            AbilityRegistry.AbilityStatus(c.gameObject.name, "BlockSmash") == Ability.Status.ACTIVE) //dash ability must be active
         {
-            foreach (ContactPoint p in c.contacts)
-            {
-                Vector3 force = new Vector3(c.relativeVelocity.x * 50f, c.relativeVelocity.y * 50f, 0);
-                Launch(force, Mathf.Abs(c.relativeVelocity.x) > 20, p);
-            }
+            Vector3 force = new Vector3(c.relativeVelocity.x * 50f, c.relativeVelocity.y * 50f, 0);
+            Launch(force, Mathf.Abs(c.relativeVelocity.x) > 20);
+            return;
         }
 
         if (c.collider.CompareTag("Player") && !isShattering && AbilityRegistry.AbilityStatus(c.gameObject.name, "BlockDrop") == Ability.Status.ACTIVE)
@@ -101,7 +101,7 @@ public class BlockInteraction : MonoBehaviour {
         }
     }
 
-    void Launch(Vector3 force, bool isSidewaysLaunch, ContactPoint p)
+    void Launch(Vector3 force, bool isSidewaysLaunch)
     {
         em.enabled = true;
         body.useGravity = true;
