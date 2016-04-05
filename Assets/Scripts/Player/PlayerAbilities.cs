@@ -98,7 +98,7 @@ public class PlayerAbilities : MonoBehaviour
                 thumbstickInUse = true;
             }
         }
-        if (rThumbstick.magnitude == 0)
+        else if (rThumbstick.magnitude == 0)
         {
             thumbstickInUse = false;
         }

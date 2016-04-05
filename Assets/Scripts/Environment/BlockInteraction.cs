@@ -13,10 +13,6 @@ public class BlockInteraction : MonoBehaviour {
     private float time;
     private Material blockMaterial;
     private Color blockColor;
-    private ParticleSystem grabSystem;
-    private ParticleSystem grabSystem2;
-    private ParticleSystem.EmissionModule grabSystemEmission;
-    private ParticleSystem.EmissionModule grabSystemEmission2;
     private bool isGrabbedBySomeoneElse;
     private IEnumerator reset;
     private Transform originalParent;
@@ -26,22 +22,19 @@ public class BlockInteraction : MonoBehaviour {
     {
         //lowGravity = SceneManager.LoadScene(6);
         lowGravity = SceneManager.GetActiveScene();
-        grabSystem = GetComponent<ParticleSystem>();
-        grabSystem2 = GetComponentInChildren<ParticleSystem>();
         blockMaterial = GetComponent<MeshRenderer>().material;
         //blockColor = blockMaterial.color;
         body = GetComponent<Rigidbody>();
         startPosition = transform.position;
         time = 0;
         isGrabbedBySomeoneElse = false;
-        grabSystemEmission = grabSystem.emission;
-        grabSystemEmission.enabled = false;
-        grabSystemEmission2 = grabSystem2.emission;
-        grabSystemEmission2.enabled = false;
         reset = Reset();
         startRotation = transform.rotation;
         originalParent = transform.parent;
         isShattering = false;
+
+        var em = GetComponentInChildren<ParticleSystem>().emission;
+        em.enabled = false;
 
         if (lowGravity.name == "Level 4 - No Gravity!")
         {
@@ -129,6 +122,8 @@ public class BlockInteraction : MonoBehaviour {
 
     public void Throw(Vector3 force, float respawnTime, Color color)
     {
+        var em = GetComponentInChildren<ParticleSystem>().emission;
+        //em.enabled = true;
         body.isKinematic = false;
         body.useGravity = true;
         body.AddForce(force);
@@ -163,6 +158,8 @@ public class BlockInteraction : MonoBehaviour {
 
     IEnumerator Reset()
     {
+        var em = GetComponentInChildren<ParticleSystem>().emission;
+        em.enabled = false;
         while (time >= 0)
         {
             yield return new WaitForFixedUpdate();
@@ -170,8 +167,6 @@ public class BlockInteraction : MonoBehaviour {
                 time -= Time.deltaTime;
         }
         time = 0;
-        grabSystemEmission.enabled = false;
-        grabSystemEmission2.enabled = false;
         blockMaterial.color = blockColor;
         transform.position = startPosition;
         transform.rotation = startRotation;
@@ -183,7 +178,7 @@ public class BlockInteraction : MonoBehaviour {
 
     IEnumerator Shatter(float t)
     {
-        SpriteRenderer s = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        SpriteRenderer s = transform.FindChild("Square(Clone)").GetComponent<SpriteRenderer>();
         isShattering = true;
         float maxt = t;
         //grabSystemEmission.enabled = true;
@@ -211,8 +206,6 @@ public class BlockInteraction : MonoBehaviour {
     {
         body.useGravity = false;
         body.isKinematic = true;
-        grabSystemEmission.enabled = false;
-        grabSystemEmission2.enabled = false;
         blockMaterial.color = blockColor;
         transform.rotation = startRotation;
         transform.position = startPosition;
@@ -229,10 +222,5 @@ public class BlockInteraction : MonoBehaviour {
     {
         get { return startRotation; }
         set { startRotation = StartRotation; }
-    }
-
-    public ParticleSystem GrabParticleSystem
-    {
-        get { return grabSystem; }
     }
 }
