@@ -22,7 +22,7 @@ public class Setup : MonoBehaviour
     public string[] LevelNames = { "Cloudy", "Outback", "Mechanic" };
     public string[] Details = { "Throw clouds at each other!", "Hit up the desert or the saloon in this outback thriller!", "Wow!! lots of moving stuff cooooolllll!" };
     public Sprite[] LevelImages;
-    Vector3 startingLoc;
+    //Vector3 startingLoc;
     public GameObject[] SelectedObjects;
 
     int i = 0;
@@ -31,7 +31,7 @@ public class Setup : MonoBehaviour
     GameModeController GameController;
     int ControllerSpot = 0;
     int cd = 0;
-    int TimerSpot = 0;
+    //int TimerSpot = 0;
     int tracker = 0;
     int mode = 0;
     int time = 0;

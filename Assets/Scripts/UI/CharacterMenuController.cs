@@ -35,7 +35,7 @@ public class CharacterMenuController : MonoBehaviour {
     public static int p3Pos = 0;
     public static int p4Pos = 0;
 
-    private Sprite[] original = new Sprite[4];
+    //private Sprite[] original = new Sprite[4];
 
     int stickResetP1 = 0;
     int AResetP1 = 0;

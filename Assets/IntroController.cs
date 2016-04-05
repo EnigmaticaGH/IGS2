@@ -10,20 +10,20 @@ public class IntroController : MonoBehaviour {
     public Transform[] playerSpawns;
     public GameObject[] Characters;
     //public Text[] Names;
-    int conrtollerNumber;
+    //int conrtollerNumber;
 
     void Awake()
     {
-        int p1Pos = 0;
-        int p2Pos = 0;
-        int p3Pos = 0;
-        int p4Pos = 0;
-        p1Pos = CharacterMenuController.p1Pos; //Use this for spawning selected characters
-        p2Pos = CharacterMenuController.p2Pos; //Use this for spawning selected characters
-        p3Pos = CharacterMenuController.p3Pos; //Use this for spawning selected characters
-        p4Pos = CharacterMenuController.p4Pos; //Use this for spawning selected characters
+        //int p1Pos = 0;
+        //int p2Pos = 0;
+        //int p3Pos = 0;
+        //int p4Pos = 0;
+        //p1Pos = CharacterMenuController.p1Pos; //Use this for spawning selected characters
+        //p2Pos = CharacterMenuController.p2Pos; //Use this for spawning selected characters
+        //p3Pos = CharacterMenuController.p3Pos; //Use this for spawning selected characters
+        //p4Pos = CharacterMenuController.p4Pos; //Use this for spawning selected characters
 
-        conrtollerNumber = CharacterMenuController.ControllerNumber;
+        //conrtollerNumber = CharacterMenuController.ControllerNumber;
 
         //transform.position = new Vector3(locationIntro.position.x, locationIntro.position.y, locationIntro.position.z);
 

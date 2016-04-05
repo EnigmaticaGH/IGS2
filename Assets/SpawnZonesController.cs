@@ -9,7 +9,7 @@ public class SpawnZonesController : MonoBehaviour {
 
     bool[] safe = new bool[10];
 
-    Vector2 safeLocation;
+    //Vector2 safeLocation;
 
     float safeX = 0;
     float safeY = 0;

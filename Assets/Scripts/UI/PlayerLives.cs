@@ -17,7 +17,7 @@ public class PlayerLives : MonoBehaviour
     public GameObject player4;
     public Text player4Lives;
     private int ControllerNumber;
-    List<List<int>> playerLives;
+    //List<List<int>> playerLives;
 
     GameObject[] UIHeadsP1 = new GameObject[10];
     GameObject[] UIHeadsP2 = new GameObject[10];
@@ -32,7 +32,7 @@ public class PlayerLives : MonoBehaviour
     int pPos3 = 0;
     int pPos4 = 0;
     int FunTracker = 0;
-    int numberOfLives = 0;
+    //int numberOfLives = 0;
     int OffsetX = -370;
     int OffsetY = -200;
     int OffsetSecY = -230;
@@ -41,7 +41,7 @@ public class PlayerLives : MonoBehaviour
 
     void Awake()
     {
-        playerLives = new List<List<int>>();
+        //playerLives = new List<List<int>>();
         player1Lives.gameObject.SetActive(false);
         player2Lives.gameObject.SetActive(false);
         player3Lives.gameObject.SetActive(false);

@@ -4,7 +4,7 @@ using System.Collections;
 public class SpawnZones : MonoBehaviour {
 
     public GameObject[] startingObjects = new GameObject[10];
-    private GameObject[] newObjects = new GameObject[50];
+    //private GameObject[] newObjects = new GameObject[50];
     public int Zone = 0;
     int i = 0;
     int StartCount = 0;

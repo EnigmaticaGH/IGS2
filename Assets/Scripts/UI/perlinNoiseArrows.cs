@@ -23,9 +23,9 @@ public class perlinNoiseArrows : MonoBehaviour {
         height = arrowWH.rect.height;
 
         offset = new Vector3(
-Random.Range(-1, 10),
-Random.Range(-1, 10),
-Random.Range(2, 5));
+            Random.Range(-1, 10),
+            Random.Range(-1, 10),
+            Random.Range(2, 5));
 	
 	}
 	
@@ -34,7 +34,7 @@ Random.Range(2, 5));
 
         float sampleX = Mathf.PerlinNoise(Time.time, offset.x);
         float sampleY = Mathf.PerlinNoise(Time.time, offset.y);
-        float sampleZ = Mathf.PerlinNoise(Time.time, offset.z);
+        //float sampleZ = Mathf.PerlinNoise(Time.time, offset.z);
         //sampleX = Mathf.Clamp(0, .3f);
 
         arrow.GetComponent<RectTransform>().sizeDelta = new Vector2((sampleX * (value * 2)) + width, (sampleY * (value / 2)) + height);

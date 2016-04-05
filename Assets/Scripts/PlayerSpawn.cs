@@ -26,8 +26,8 @@ public class PlayerSpawn : MonoBehaviour
      */
     public GameObject[] Characters;
 
-    private int[] playerLives;
-    GameModeController Gm;
+    //private int[] playerLives;
+    //GameModeController Gm;
 
     int PlayersAmt = 0;
     // Use this for initialization
@@ -95,7 +95,8 @@ public class PlayerSpawn : MonoBehaviour
             Characters[p3Pos].name = "Player 3";
             GameObject p3;
             p3 = (GameObject)Instantiate(Characters[p3Pos], new Vector3(player3Spawn.transform.position.x, player3Spawn.transform.position.y, player3Spawn.transform.position.z), Quaternion.identity); //Need to effect this for menu system
-            Characters[p3Pos].GetComponent<ControllerNumber>().controllerNumber = 3;
+            //Characters[p3Pos].GetComponent<ControllerNumber>().controllerNumber = 3;
+            p3.GetComponent<ControllerNumber>().controllerNumber = 3;
             Debug.Log("Spawn p3");
         }
         if (PlayersAmt == 4)
@@ -103,7 +104,8 @@ public class PlayerSpawn : MonoBehaviour
             Characters[p4Pos].name = "Player 4";
             GameObject p4;
             p4 = (GameObject)Instantiate(Characters[p4Pos], new Vector3(player4Spawn.transform.position.x, player4Spawn.transform.position.y, player4Spawn.transform.position.z), Quaternion.identity); //Need to effect this for menu system
-            Characters[p4Pos].GetComponent<ControllerNumber>().controllerNumber = 4;
+            //Characters[p4Pos].GetComponent<ControllerNumber>().controllerNumber = 4;
+            p4.GetComponent<ControllerNumber>().controllerNumber = 4;
             Debug.Log("Spawn p4");
         }
         Characters[p1Pos].name = p1n;

@@ -12,7 +12,7 @@ public class PlayerPause : MonoBehaviour {
     public Canvas PauseCanvas;
     public Button[] PauseButtons;
 
-    int ControllerNumber = 0;
+    //int ControllerNumber = 0;
     int count = 0;
     public bool start1 = false;
 
@@ -23,7 +23,7 @@ public class PlayerPause : MonoBehaviour {
     void Awake()
     {
         PauseCanvas.enabled = false;
-        ControllerNumber = CharacterMenuController.ControllerNumber;
+        //ControllerNumber = CharacterMenuController.ControllerNumber;
     }
     // Use this for initialization
     void Start()

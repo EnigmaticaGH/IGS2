@@ -7,7 +7,7 @@ using System.Collections;
 public class StartMovie : MonoBehaviour {
 
     public MovieTexture movie;
-    private AudioSource audioSource;
+    //private AudioSource audioSource;
 
 	// Use this for initialization
 	void Start () {

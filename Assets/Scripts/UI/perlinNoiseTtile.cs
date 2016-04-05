@@ -27,9 +27,9 @@ public class perlinNoiseTtile : MonoBehaviour {
 
         float sampleX = Mathf.PerlinNoise(Time.time, offset.x);
         float sampleY = Mathf.PerlinNoise(Time.time, offset.y);
-        float sampleZ = Mathf.PerlinNoise(Time.time, offset.z);
+        //float sampleZ = Mathf.PerlinNoise(Time.time, offset.z);
 
-        Vector2 position = new Vector2 ((sampleX * (value * 2)) + 130, (sampleY * (value)) + 40);
+        //Vector2 position = new Vector2 ((sampleX * (value * 2)) + 130, (sampleY * (value)) + 40);
 
         //size.transform.localScale = new Vector3(Mathf.Clamp(Mathf.Sin(Time.time * .5f) + .6f, .6f, 1.2f), 1, 1);
 

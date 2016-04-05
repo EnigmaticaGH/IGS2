@@ -12,7 +12,7 @@ public class DeathControl : MonoBehaviour
     private Rigidbody player;
     public float respawnTime;
     private bool doneRespawning = true;
-    private Vector3 startPosition;
+    //private Vector3 startPosition;
 
     public float invincibilityTime;
     public int maxHealth;
@@ -36,7 +36,7 @@ public class DeathControl : MonoBehaviour
         num = GetComponent<ControllerNumber>();
         controllerNumber = num.GetComponent<ControllerNumber>().controllerNumber;
         //Debug.Log(controllerNumber);
-        startPosition = transform.position;
+        //startPosition = transform.position;
         player = GetComponent<Rigidbody>();
         lives = numberOfLives;
         health = maxHealth;

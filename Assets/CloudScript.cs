@@ -4,7 +4,7 @@ using System.Collections;
 public class CloudScript : MonoBehaviour {
 
     public float speed = 5;
-    float bufferHeight;
+    //float bufferHeight;
     public GameObject[] Clouds;
     Vector3[] startPos;
     string cloud;
@@ -50,7 +50,7 @@ public class CloudScript : MonoBehaviour {
     void Reset(int num)
     {
         //Debug.Log("Hi");
-        bufferHeight = Random.Range(2, 5);
+        //bufferHeight = Random.Range(2, 5);
   
         Clouds[num].transform.position = new Vector3(-30, startPos[CloudNum].y, startPos[CloudNum].z);
 

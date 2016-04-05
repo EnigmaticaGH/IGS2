@@ -6,7 +6,7 @@ public class UILevelSelect : MonoBehaviour {
     public Transform RotationPoint;
     public GameObject[] Levels;
     public float speed = 10;
-    int b = 0;
+    //int b = 0;
 
     Vector3 pos1;
     Vector3 pos2;

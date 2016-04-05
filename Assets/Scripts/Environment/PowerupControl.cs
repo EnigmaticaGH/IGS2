@@ -6,7 +6,7 @@ public class PowerupControl : MonoBehaviour
 {
     public static GameObject[] powerupSpawns;
     private List<GameObject> powerups;
-    private GameObject currentPowerup;
+    //private GameObject currentPowerup;
 
     // Use this for initialization
     void Start()

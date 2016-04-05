@@ -17,7 +17,7 @@ public class Ability
         COOLDOWN,
         NULL
     };
-    Status abilityStatus;
+    //Status abilityStatus;
 
     public Ability(string abilityName, float abilityCooldownTime, float abilityActiveTime)
     {

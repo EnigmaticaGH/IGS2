@@ -8,7 +8,7 @@ public class PlayerAbilities : MonoBehaviour
     public GameObject grenadePrefab;
 
     private Dictionary<string, GameObject> particleSystems;
-    private GameObject sprite;
+    //private GameObject sprite;
     private ControllerNumber controller;
     private Rigidbody player;
     private Movement movement;
@@ -34,7 +34,7 @@ public class PlayerAbilities : MonoBehaviour
         player = GetComponent<Rigidbody>();
         movement = GetComponent<Movement>();
         controller = GetComponent<ControllerNumber>();
-        sprite = GetComponentInChildren<SpriteRenderer>().gameObject;
+        //sprite = GetComponentInChildren<SpriteRenderer>().gameObject;
         particleSystems = new Dictionary<string, GameObject>();
         foreach(GameObject ps in Resources.LoadAll<GameObject>("Particles"))
         {

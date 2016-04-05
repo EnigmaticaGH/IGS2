@@ -7,7 +7,7 @@ public class TimerController : MonoBehaviour {
     public GameObject LevelSetup;
     public Text timer;
 
-    LevelSetupController TimerAmt;
+    //LevelSetupController TimerAmt;
     WinEventReceiver Win;
     PauseMenu Paused;
 
@@ -27,7 +27,7 @@ public class TimerController : MonoBehaviour {
 
         Win = GetComponent<WinEventReceiver>();
 
-        TimerAmt = GetComponent<LevelSetupController>();
+        //TimerAmt = GetComponent<LevelSetupController>();
         
         timer = GetComponent<Text>();
 

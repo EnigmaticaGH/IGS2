@@ -5,13 +5,13 @@ public class GrenadeControl : MonoBehaviour
 {
     public float explosionForce;
     public float explosionRadius;
-    private Rigidbody body;
+    //private Rigidbody body;
     private static GameObject[] blocks;
 
     // Use this for initialization
     void Start()
     {
-        body = GetComponent<Rigidbody>();
+        //body = GetComponent<Rigidbody>();
         blocks = GameObject.FindGameObjectsWithTag("Block");
         Exploded = false;
     }

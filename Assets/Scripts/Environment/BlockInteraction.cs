@@ -11,29 +11,28 @@ public class BlockInteraction : MonoBehaviour {
     private Rigidbody r;
     private Vector3 startPosition;
     private float time;
-    private Material blockMaterial;
-    private Color blockColor;
-    private bool isGrabbedBySomeoneElse;
+    //private Material blockMaterial;
+    //private Color blockColor;
+    //private bool isGrabbedBySomeoneElse;
     private IEnumerator reset;
     private Transform originalParent;
     private bool isShattering;
+    private ParticleSystem.EmissionModule em;
 
     void Start()
     {
-        //lowGravity = SceneManager.LoadScene(6);
         lowGravity = SceneManager.GetActiveScene();
-        blockMaterial = GetComponent<MeshRenderer>().material;
-        //blockColor = blockMaterial.color;
+        //blockMaterial = GetComponent<MeshRenderer>().material;
         body = GetComponent<Rigidbody>();
         startPosition = transform.position;
         time = 0;
-        isGrabbedBySomeoneElse = false;
+        //isGrabbedBySomeoneElse = false;
         reset = Reset();
         startRotation = transform.rotation;
         originalParent = transform.parent;
         isShattering = false;
 
-        var em = GetComponentInChildren<ParticleSystem>().emission;
+        em = GetComponentInChildren<ParticleSystem>().emission;
         em.enabled = false;
 
         if (lowGravity.name == "Level 4 - No Gravity!")
@@ -77,7 +76,7 @@ public class BlockInteraction : MonoBehaviour {
             foreach(ContactPoint p in c.contacts)
             {
                 Vector3 force = new Vector3(c.relativeVelocity.x * 50f, c.relativeVelocity.y * 50f, 0);
-                Launch(force, Mathf.Abs(c.relativeVelocity.x) > 20);
+                Launch(force, Mathf.Abs(c.relativeVelocity.x) > 20, p);
             }
         }
 
@@ -87,7 +86,7 @@ public class BlockInteraction : MonoBehaviour {
         }
     }
 
-    void Launch(Vector3 force, bool isSidewaysLaunch)
+    void Launch(Vector3 force, bool isSidewaysLaunch, ContactPoint p)
     {
         body.useGravity = true;
         body.isKinematic = false;
@@ -122,8 +121,7 @@ public class BlockInteraction : MonoBehaviour {
 
     public void Throw(Vector3 force, float respawnTime, Color color)
     {
-        var em = GetComponentInChildren<ParticleSystem>().emission;
-        //em.enabled = true;
+        em.enabled = true;
         body.isKinematic = false;
         body.useGravity = true;
         body.AddForce(force);
@@ -142,11 +140,6 @@ public class BlockInteraction : MonoBehaviour {
         StartCoroutine(reset);
     }
 
-    public void SetColor(Color c)
-    {
-        //blockMaterial.color = c;
-    }
-
     public void Respawn(float t)
     {
         if ((time += t) <= t)
@@ -158,16 +151,17 @@ public class BlockInteraction : MonoBehaviour {
 
     IEnumerator Reset()
     {
-        var em = GetComponentInChildren<ParticleSystem>().emission;
-        em.enabled = false;
         while (time >= 0)
         {
             yield return new WaitForFixedUpdate();
-            if (transform.parent == originalParent)
+            if (transform.parent == originalParent && body.velocity.sqrMagnitude < 1)
+            {
                 time -= Time.deltaTime;
+                em.enabled = false;
+            }
         }
         time = 0;
-        blockMaterial.color = blockColor;
+        //blockMaterial.color = blockColor;
         transform.position = startPosition;
         transform.rotation = startRotation;
         body.useGravity = false;
@@ -181,7 +175,6 @@ public class BlockInteraction : MonoBehaviour {
         SpriteRenderer s = transform.FindChild("Square(Clone)").GetComponent<SpriteRenderer>();
         isShattering = true;
         float maxt = t;
-        //grabSystemEmission.enabled = true;
         while ((t -= Time.deltaTime) > 0)
         {
             float normalizedTime = t / maxt;
@@ -206,7 +199,7 @@ public class BlockInteraction : MonoBehaviour {
     {
         body.useGravity = false;
         body.isKinematic = true;
-        blockMaterial.color = blockColor;
+        //blockMaterial.color = blockColor;
         transform.rotation = startRotation;
         transform.position = startPosition;
         isShattering = false;
