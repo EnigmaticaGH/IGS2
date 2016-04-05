@@ -233,6 +233,7 @@ public class Setup : MonoBehaviour
 
                             if (Input.GetButtonDown("Start_1") || Input.GetButtonDown("A_1") && cd == 0)
                             {
+                                SelectedObjects[3].SetActive(false);
                                 LoadScene = true;
                                 cd++;
                                 Debug.Log("Count");

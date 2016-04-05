@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class perlinNoiseCamera : MonoBehaviour {
 
     public float value = 5;
+    public Image LOGO;
     Vector3 offset;
 
     // Use this for initialization
@@ -11,9 +13,9 @@ public class perlinNoiseCamera : MonoBehaviour {
     {
 
         offset = new Vector3(
-    Random.Range(0, 30),
-    Random.Range(0, 30),
-    Random.Range(0, 30));
+    Random.Range(-10, 10),
+    Random.Range(-10, 10),
+    Random.Range(-10, 10));
 
     }
 
@@ -25,7 +27,8 @@ public class perlinNoiseCamera : MonoBehaviour {
         float sampleY = Mathf.PerlinNoise(Time.time, offset.y);
         float sampleZ = Mathf.PerlinNoise(Time.time, offset.z);
 
-        Camera.main.backgroundColor = new Color(sampleX + 2, sampleY, sampleZ);
+        //Camera.main.backgroundColor = new Color(sampleX + 2, sampleY, sampleZ);
+        LOGO.color = new Color(sampleX + .25f, sampleY + .3f, sampleZ + .25f);
 
     }
 }
