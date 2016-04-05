@@ -14,6 +14,7 @@ public class GrabBlock : MonoBehaviour
     private Transform sprite;
     private Queue<GameObject> originalBlocks;
     private Queue<GameObject> grenadeBlocks;
+    private Vector3 forceAngle;
 
     // Use this for initialization
     void Start()
@@ -71,7 +72,15 @@ public class GrabBlock : MonoBehaviour
         bool blockGrabDown = Input.GetButtonDown("RB_" + controller.controllerNumber);
         float x = Input.GetAxis("R_XAxis_" + controller.controllerNumber);
         float y = -Input.GetAxis("R_YAxis_" + controller.controllerNumber);
-        Vector3 forceAngle = new Vector3(x, y);
+        forceAngle = new Vector3(x, y);
+        if (x > 0 && sprite.localScale.x < 0)
+        {
+            sprite.localScale = Vector3.one;
+        }
+        if (x < 0 && sprite.localScale.x > 0)
+        {
+            sprite.localScale = new Vector3(-1, 1, 1);
+        }
         if (blockGrabDown)
         {
             if (!foundBlock && !carryingBlock && !carryingExplosive)
@@ -98,13 +107,13 @@ public class GrabBlock : MonoBehaviour
             }
         }
 
-        if (carryingBlock && forceAngle.magnitude > 0.5f)
+        if (carryingBlock && forceAngle.magnitude > 0.7f)
         {
-            ThrowBlock(forceAngle.normalized);
+            ThrowBlock();
         }
-        else if (carryingExplosive && forceAngle.magnitude > 0.5f)
+        else if (carryingExplosive && forceAngle.magnitude > 0.7f)
         {
-            ThrowExplosiveBlock(forceAngle.normalized);
+            ThrowExplosiveBlock();
         }
 
         if (carryingBlock || carryingExplosive)
@@ -140,13 +149,10 @@ public class GrabBlock : MonoBehaviour
         block.transform.parent = transform;
     }
 
-    void ThrowBlock(Vector3 forceAngle)
+    void ThrowBlock()
     {
         BlockInteraction blockScript = block.GetComponent<BlockInteraction>();
-        float clampedXForce = sprite.localScale.x > 0 ? 
-            Mathf.Clamp(blockThrowForce * forceAngle.x, 0, Mathf.Infinity) :
-            Mathf.Clamp(blockThrowForce * forceAngle.x, -Mathf.Infinity, 0);
-        Vector3 force = new Vector3(clampedXForce, blockThrowForce * (forceAngle.y + 0.25f), 0);
+        Vector3 force = new Vector3(blockThrowForce * forceAngle.x, blockThrowForce * (forceAngle.y + 0.25f), 0);
         blockScript.IsGrabbedBySomeoneElse = false;
         block.GetComponent<Collider>().enabled = true;
         block.transform.parent = originalParent;
@@ -156,13 +162,10 @@ public class GrabBlock : MonoBehaviour
         carryingBlock = false;
     }
 
-    void ThrowExplosiveBlock(Vector3 forceAngle)
+    void ThrowExplosiveBlock()
     {
         GrenadeControl grenadeScript = block.GetComponent<GrenadeControl>();
-        float clampedXForce = sprite.localScale.x > 0 ?
-            Mathf.Clamp(blockThrowForce * forceAngle.x, 0, Mathf.Infinity) :
-            Mathf.Clamp(blockThrowForce * forceAngle.x, -Mathf.Infinity, 0);
-        Vector3 force = new Vector3(clampedXForce, blockThrowForce * (forceAngle.y + 0.25f), 0);
+        Vector3 force = new Vector3(blockThrowForce * forceAngle.x, blockThrowForce * (forceAngle.y + 0.25f), 0);
         block.GetComponent<Collider>().enabled = true;
         block.transform.parent = null;
         block.GetComponent<Rigidbody>().isKinematic = false;

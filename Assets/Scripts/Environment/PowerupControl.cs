@@ -31,7 +31,7 @@ public class PowerupControl : MonoBehaviour
         while(true)
         {
             bool powerupAlreadySpawned = false;
-            yield return new WaitForSeconds(Random.Range(3, 9));
+            yield return new WaitForSeconds(Random.Range(8, 16));
             foreach (GameObject g in powerups)
             {
                 powerupAlreadySpawned = powerupAlreadySpawned || g.activeSelf;
