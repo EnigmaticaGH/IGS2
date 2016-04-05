@@ -18,6 +18,18 @@ public class BlockInteraction : MonoBehaviour {
     private Transform originalParent;
     private bool isShattering;
     private ParticleSystem.EmissionModule em;
+    private ParticleSystem starParticle;
+    private Color originalColor;
+    private Color warning;
+    private float vel;
+
+    void Awake()
+    {
+        starParticle = GetComponentInChildren<ParticleSystem>();
+        originalColor = GetComponentInChildren<ParticleSystem>().startColor;
+        em = starParticle.emission;
+        em.enabled = false;
+    }
 
     void Start()
     {
@@ -31,9 +43,7 @@ public class BlockInteraction : MonoBehaviour {
         startRotation = transform.rotation;
         originalParent = transform.parent;
         isShattering = false;
-
-        em = GetComponentInChildren<ParticleSystem>().emission;
-        em.enabled = false;
+        warning = new Color(1, 0.4f, 0.25f, 1);
 
         if (lowGravity.name == "Level 4 - No Gravity!")
         {
@@ -44,36 +54,41 @@ public class BlockInteraction : MonoBehaviour {
 
     void FixedUpdate()
     {
+        vel = body.velocity.magnitude;
         if (transform.position.y < -50)
         {
             ResetImmediately();
+        }
+        if (!IsGrabbedBySomeoneElse)
+        {
+            float normalizedVelocity = Mathf.Clamp01(body.velocity.magnitude / 6f);
+            starParticle.startColor = Color.Lerp(originalColor, warning, normalizedVelocity);
+        }
+        else
+        {
+            em.enabled = true;
+            starParticle.startColor = new Color(0.5f, 1, 0.25f, 1);
         }
     }
 
 	void OnCollisionEnter(Collision c)
     {
-        if (c.collider.CompareTag("Player") && AbilityRegistry.AbilityStatus(c.gameObject.name, "BlockSmash") != Ability.Status.ACTIVE)
+        if (c.collider.CompareTag("Player") && // it has to be player
+            AbilityRegistry.AbilityStatus(c.gameObject.name, "BlockSmash") != Ability.Status.ACTIVE && //player is not dashing
+            c.relativeVelocity.magnitude > 7 && vel > 7 && //block is going fast enough
+            (Mathf.Abs(transform.position.x - c.transform.position.x) < 0.5f || //block has to be a direct hit, not a graze
+            Mathf.Abs(transform.position.y - c.transform.position.y) < 0.5f))
         {
             r = c.gameObject.GetComponent<Rigidbody>();
             Movement m = c.gameObject.GetComponent<Movement>();
             Vector3 playerPosition = c.gameObject.transform.position;
-            float xDiff = Mathf.Abs(playerPosition.x - transform.position.x);
-            if (xDiff < 0.5f && c.relativeVelocity.y > 10f)
-            {
-                //Block hit from top (crush)
-                Debug.Log("Squish");
-                Squish(m, body.velocity.sqrMagnitude);
-            }
-            else if (body.velocity.magnitude > 5)
-            {
-                Vector3 diff = (playerPosition - transform.position).normalized;
-                Vector3 force = new Vector3(diff.x * Mathf.Abs(c.relativeVelocity.x) * 15, diff.y * Mathf.Abs(c.relativeVelocity.y) * 15 + 250);
-                PushPlayer(m, force);
-            }
+            Vector3 diff = (playerPosition - transform.position).normalized;
+            Vector3 force = new Vector3(diff.x * Mathf.Abs(c.relativeVelocity.x) * 15, diff.y * Mathf.Abs(c.relativeVelocity.y) * 15 + 250);
+            PushPlayer(m, force);
         }
         else if (c.collider.CompareTag("Player") && c.relativeVelocity.magnitude > 20)
         {
-            foreach(ContactPoint p in c.contacts)
+            foreach (ContactPoint p in c.contacts)
             {
                 Vector3 force = new Vector3(c.relativeVelocity.x * 50f, c.relativeVelocity.y * 50f, 0);
                 Launch(force, Mathf.Abs(c.relativeVelocity.x) > 20, p);
@@ -88,6 +103,7 @@ public class BlockInteraction : MonoBehaviour {
 
     void Launch(Vector3 force, bool isSidewaysLaunch, ContactPoint p)
     {
+        em.enabled = true;
         body.useGravity = true;
         body.isKinematic = false;
         if (isSidewaysLaunch)
@@ -103,6 +119,7 @@ public class BlockInteraction : MonoBehaviour {
         r.MovePosition(r.transform.position + Vector3.up * 0.1f);
         r.AddForce(power);
         m.UseForceInstead(0.5f);
+        m.gameObject.GetComponent<DeathControl>().Hurt(1);
         time = 5;
     }
 
@@ -151,15 +168,28 @@ public class BlockInteraction : MonoBehaviour {
 
     IEnumerator Reset()
     {
+        int count = 0;
         while (time >= 0)
         {
             yield return new WaitForFixedUpdate();
             if (transform.parent == originalParent && body.velocity.sqrMagnitude < 1)
             {
                 time -= Time.deltaTime;
-                em.enabled = false;
+            }
+            if (body.velocity.sqrMagnitude < 1)
+            {
+                count++;
+                if(count > 20)
+                {
+                    em.enabled = false;
+                }
+            }
+            else
+            {
+                count = 0;
             }
         }
+        
         time = 0;
         //blockMaterial.color = blockColor;
         transform.position = startPosition;

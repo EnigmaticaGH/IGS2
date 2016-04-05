@@ -143,7 +143,7 @@ public class PlayerAbilities : MonoBehaviour
         player.useGravity = false;
         if (Mathf.Abs(x) > ability.AxisThreshold / 2)
         {
-            player.MovePosition(transform.position + Vector3.up * 0.1f);
+            player.MovePosition(transform.position + Vector3.up * 0.2f);
         }
         player.AddForce(force);
         movement.Disable(ability.ActiveTime);
