@@ -6,15 +6,12 @@ using System.Collections.Generic;
 public class PlayerLives : MonoBehaviour
 {
 
-    public Canvas Canvas;
-    public GameObject player1;
-    public Text player1Lives;
+    public Canvas canvas1;
     public GameObject[] HeadPlayers;
-    public GameObject player2;
+    public GameObject[] HeadBackgrounds;
+    public Text player1Lives;
     public Text player2Lives;
-    public GameObject player3;
     public Text player3Lives;
-    public GameObject player4;
     public Text player4Lives;
     private int ControllerNumber;
     //List<List<int>> playerLives;
@@ -38,6 +35,8 @@ public class PlayerLives : MonoBehaviour
     int OffsetSecY = -230;
     int Length = 20;
     int spacing = 30;
+    int xPosHead = -300;
+    int offsetHeads = 200;
 
     void Awake()
     {
@@ -47,42 +46,69 @@ public class PlayerLives : MonoBehaviour
         player3Lives.gameObject.SetActive(false);
         player4Lives.gameObject.SetActive(false);
 
-        
-
         pPos1 = CharacterMenuController.p1Pos; //Use this for spawning selected characters
         pPos2 = CharacterMenuController.p2Pos; //Use this for spawning selected characters
         pPos3 = CharacterMenuController.p3Pos; //Use this for spawning selected characters
         pPos4 = CharacterMenuController.p4Pos; //Use this for spawning selected characters
 
+        for (int i = 0; i < HeadBackgrounds.Length; i++)
+        {
+            HeadBackgrounds[i].SetActive(false);
+        }
+
         for (int j = 0; j < Input.GetJoystickNames().Length; j++)
         {
-
-            //Debug.Log(Input.GetJoystickNames()[j]);
             if (Input.GetJoystickNames()[j].Contains("Xbox"))
             {
                 ControllerNumber++;
-                //Debug.Log("Controller " + ControllerNumber);
             }
-
             if (Input.GetJoystickNames()[j].Contains("XBOX"))
             {
                 ControllerNumber++;
-                //Debug.Log("Controller " + ControllerNumber);
             }
-
-            //Debug.Log(ControllerNumber);
-
         }
 
+        for (int i = 0; i < ControllerNumber; i++)
+        {
+            Debug.Log(i);
+            spawnHeads[ControllerNumber] = false;
+            switch (i)
+            {
+                case 0:
+                    Debug.Log("Hello");
+                    GameObject temp;
+                    temp = (GameObject)Instantiate(HeadPlayers[pPos1], new Vector2(xPosHead, 200), Quaternion.identity);
+                    temp.transform.parent = canvas1.transform;
+                    //Instantiate(HeadBackgrounds[i], new Vector2(xPosHead, 200), Quaternion.identity);
+                    break;
+                case 1: Object temp1;
+                    temp1 = Instantiate(HeadPlayers[pPos1], new Vector2(-100, 200), Quaternion.identity);
+                    temp1 = Instantiate(HeadBackgrounds[i], new Vector2(-100, 200), Quaternion.identity);
+                    break;
+                case 2: Object temp2;
+                    temp2 = Instantiate(HeadPlayers[pPos1], new Vector2(100, 200), Quaternion.identity);
+                    temp2 = Instantiate(HeadBackgrounds[i], new Vector2(100, 200), Quaternion.identity);
+                    break;
+                case 3: Object temp3;
+                    temp3 = Instantiate(HeadPlayers[pPos1], new Vector2(300, 200), Quaternion.identity);
+                    temp3 = Instantiate(HeadBackgrounds[i], new Vector2(300, 200), Quaternion.identity);
+                    break;
+                    
+            }
+        }
 
-        /*player1Lives.gameObject.SetActive(true);
+        Invoke("Players", .1f);
+
+
+
+        player1Lives.gameObject.SetActive(true);
         //Debug.Log(player1.GetComponent<DeathControl>().lives);
         if (CharacterMenuController.ControllerNumber > 1)
             player2Lives.gameObject.SetActive(true);
         if (CharacterMenuController.ControllerNumber > 2)
             player3Lives.gameObject.SetActive(true);
         if (CharacterMenuController.ControllerNumber > 3)
-            player4Lives.gameObject.SetActive(true);*/
+            player4Lives.gameObject.SetActive(true);
 
 
 
@@ -93,13 +119,6 @@ public class PlayerLives : MonoBehaviour
     {
 
 
-        for (int i = 0; i < ControllerNumber; i++)
-        {
-            //Debug.Log(i);
-            spawnHeads[ControllerNumber] = false;
-        }
-
-        Invoke("Players", .1f);
 
     }
 
@@ -113,14 +132,14 @@ public class PlayerLives : MonoBehaviour
 
         //numberOfLives = PlayerTracker.players[0].GetComponent<DeathControl>().getNumberOfLives();
 
-        /*player1Lives.text = "Player 1 Lives: " + PlayerTracker.players[0].GetComponent<DeathControl>().getLives();
+        player1Lives.text = "Player 1 Lives: " + PlayerTracker.players[0].GetComponent<DeathControl>().getLives();
         //Debug.Log(player1.GetComponent<DeathControl>().getLives());
         if (CharacterMenuController.ControllerNumber > 1)
             player2Lives.text = "Player 2 Lives: " + PlayerTracker.players[1].GetComponent<DeathControl>().getLives();
         if (CharacterMenuController.ControllerNumber > 2)
             player3Lives.text = "Player 3 Lives " + PlayerTracker.players[2].GetComponent<DeathControl>().getLives();
         if (CharacterMenuController.ControllerNumber > 3)
-            player4Lives.text = "Player 4 Lives " + PlayerTracker.players[3].GetComponent<DeathControl>().getLives();*/
+            player4Lives.text = "Player 4 Lives " + PlayerTracker.players[3].GetComponent<DeathControl>().getLives();
 
 
 
@@ -159,7 +178,7 @@ public class PlayerLives : MonoBehaviour
             {
                 if ((ControllerNumber - 1) == 0) 
                 {
-                    //Debug.Log(lifes);
+                    Debug.Log(lifes);
                     UIHeadsP1[lifes].gameObject.SetActive(false);
                 }
                 if ((ControllerNumber - 1) == 1)
@@ -179,7 +198,7 @@ public class PlayerLives : MonoBehaviour
             //Debug.Log(i);
             //Debug.Log(ControllerNumber);
             //Debug.Log(Lives[i]); //This is one ahead for some reason so have to account for that later on also - 1 because we use 0
-            if (spawnHeads[i] == false)
+            /*if (spawnHeads[i] == false)
             {
                 for (int b = 0; b < Lives[i]; b++)
                 {
@@ -266,7 +285,7 @@ public class PlayerLives : MonoBehaviour
                     }
                     //Debug.Log(b);
 
-                }
+                }*/
 
 
                 //Debug.Log(i);
@@ -278,4 +297,4 @@ public class PlayerLives : MonoBehaviour
         }
 
     }
-}
+
