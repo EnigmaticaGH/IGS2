@@ -56,7 +56,7 @@ public class PlayerLives : MonoBehaviour
 
         for (int i = 0; i < ControllerNumber; i++)
         {
-            Debug.Log(i);
+            //Debug.Log(i);
             spawnHeads[ControllerNumber] = false;
             switch (i)
             {
