@@ -22,6 +22,8 @@ public class SceneLoader : MonoBehaviour {
 
     public GameObject levelManager;
 
+    //Color ogColor;
+
     Setup Setup;
 
     int cd = 0;
@@ -32,6 +34,8 @@ public class SceneLoader : MonoBehaviour {
         loadingImage.enabled = false;
 
         loadingText.enabled = false;
+
+        //ogColor = loadingText.color;
 
         Controller.enabled = false;
 
@@ -81,7 +85,7 @@ public class SceneLoader : MonoBehaviour {
         {
 
             // ...then pulse the transparency of the loading text to let the player know that the computer is still working.
-            loadingImage.color = new Color(loadingImage.color.r, loadingImage.color.g, loadingImage.color.b, Mathf.PingPong(Time.time, 1));
+            loadingText.color = new Color(loadingImage.color.r, loadingImage.color.g, loadingImage.color.b, Mathf.PingPong(Time.time, 1));
 
         }
 

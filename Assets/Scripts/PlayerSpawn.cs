@@ -6,10 +6,10 @@ public class PlayerSpawn : MonoBehaviour
     //Used for switching gameplayer object to collect character selection from menu
     //I think this an apporiate route to take considering all the prefabs are the same scripts 
     //just different controller numbers
-    public GameObject player1;
-    public GameObject player2;
-    public GameObject player3;
-    public GameObject player4;
+    //public GameObject player1;
+    //public GameObject player2;
+    //public GameObject player3;
+    //public GameObject player4;
 
     //This for the most part helps with players falling through the level of spawn
     //Instead the congustion of gameplay is the middle
@@ -29,7 +29,7 @@ public class PlayerSpawn : MonoBehaviour
     //private int[] playerLives;
     //GameModeController Gm;
 
-    int PlayersAmt = 0;
+    public int PlayersAmt = 0;
     // Use this for initialization
 
     void OnEnable()

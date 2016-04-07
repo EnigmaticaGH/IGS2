@@ -6,38 +6,23 @@ using System.Collections.Generic;
 public class PlayerLives : MonoBehaviour
 {
 
-    public Canvas Canvas;
-    public GameObject player1;
-    public Text player1Lives;
+    public Transform canvas1;
     public GameObject[] HeadPlayers;
-    public GameObject player2;
+    public GameObject[] HeadBackgrounds;
+    public Transform[] SpawnUI;
+    public Text player1Lives;
     public Text player2Lives;
-    public GameObject player3;
     public Text player3Lives;
-    public GameObject player4;
     public Text player4Lives;
     private int ControllerNumber;
-    //List<List<int>> playerLives;
-
-    GameObject[] UIHeadsP1 = new GameObject[10];
-    GameObject[] UIHeadsP2 = new GameObject[10];
-    GameObject[] UIHeadsP3 = new GameObject[10];
-    GameObject[] UIHeadsP4 = new GameObject[10];
 
     int[] Lives = new int[4];
     private bool[] spawnHeads = new bool[4];
-    int dis = 0;
     int pPos1 = 0;
     int pPos2 = 0;
     int pPos3 = 0;
     int pPos4 = 0;
     int FunTracker = 0;
-    //int numberOfLives = 0;
-    int OffsetX = -370;
-    int OffsetY = -200;
-    int OffsetSecY = -230;
-    int Length = 20;
-    int spacing = 30;
 
     void Awake()
     {
@@ -47,42 +32,73 @@ public class PlayerLives : MonoBehaviour
         player3Lives.gameObject.SetActive(false);
         player4Lives.gameObject.SetActive(false);
 
-        
-
         pPos1 = CharacterMenuController.p1Pos; //Use this for spawning selected characters
         pPos2 = CharacterMenuController.p2Pos; //Use this for spawning selected characters
         pPos3 = CharacterMenuController.p3Pos; //Use this for spawning selected characters
         pPos4 = CharacterMenuController.p4Pos; //Use this for spawning selected characters
 
+        for (int i = 0; i < HeadBackgrounds.Length; i++)
+        {
+            HeadBackgrounds[i].SetActive(false);
+        }
+
         for (int j = 0; j < Input.GetJoystickNames().Length; j++)
         {
-
-            //Debug.Log(Input.GetJoystickNames()[j]);
             if (Input.GetJoystickNames()[j].Contains("Xbox"))
             {
                 ControllerNumber++;
-                //Debug.Log("Controller " + ControllerNumber);
             }
-
             if (Input.GetJoystickNames()[j].Contains("XBOX"))
             {
                 ControllerNumber++;
-                //Debug.Log("Controller " + ControllerNumber);
             }
-
-            //Debug.Log(ControllerNumber);
-
         }
 
+        for (int i = 0; i < ControllerNumber; i++)
+        {
+            Debug.Log(i);
+            spawnHeads[ControllerNumber] = false;
+            switch (i)
+            {
+                case 0:
+                    GameObject temp;
+                    temp = (GameObject)Instantiate(HeadPlayers[pPos1], new Vector2(SpawnUI[i].transform.position.x, SpawnUI[i].transform.position.y), Quaternion.identity);
+                    //temp.transform.parent = canvas1.transform;
+                    temp.transform.SetParent(canvas1, true);
+                    break;
+                case 1: 
+                    GameObject temp1;
+                    temp1 = (GameObject)Instantiate(HeadPlayers[pPos2], new Vector2(SpawnUI[i].transform.position.x, SpawnUI[i].transform.position.y), Quaternion.identity);
+                    temp1.transform.parent = canvas1.transform;
 
-        /*player1Lives.gameObject.SetActive(true);
+                    break;
+                case 2: 
+                    GameObject temp2;
+                    temp2 = (GameObject)Instantiate(HeadPlayers[pPos3], new Vector2(SpawnUI[i].transform.position.x, SpawnUI[i].transform.position.y), Quaternion.identity);
+                    temp2.transform.parent = canvas1.transform;
+
+                    break;
+                case 3: 
+                    GameObject temp3;
+                    temp3 = (GameObject)Instantiate(HeadPlayers[pPos4], new Vector2(SpawnUI[i].transform.position.x, SpawnUI[i].transform.position.y), Quaternion.identity);
+                    temp3.transform.parent = canvas1.transform;
+                    break;
+                    
+            }
+        }
+
+        Invoke("Players", .1f);
+
+
+
+        player1Lives.gameObject.SetActive(true);
         //Debug.Log(player1.GetComponent<DeathControl>().lives);
         if (CharacterMenuController.ControllerNumber > 1)
             player2Lives.gameObject.SetActive(true);
         if (CharacterMenuController.ControllerNumber > 2)
             player3Lives.gameObject.SetActive(true);
         if (CharacterMenuController.ControllerNumber > 3)
-            player4Lives.gameObject.SetActive(true);*/
+            player4Lives.gameObject.SetActive(true);
 
 
 
@@ -93,13 +109,6 @@ public class PlayerLives : MonoBehaviour
     {
 
 
-        for (int i = 0; i < ControllerNumber; i++)
-        {
-            //Debug.Log(i);
-            spawnHeads[ControllerNumber] = false;
-        }
-
-        Invoke("Players", .1f);
 
     }
 
@@ -113,14 +122,28 @@ public class PlayerLives : MonoBehaviour
 
         //numberOfLives = PlayerTracker.players[0].GetComponent<DeathControl>().getNumberOfLives();
 
-        /*player1Lives.text = "Player 1 Lives: " + PlayerTracker.players[0].GetComponent<DeathControl>().getLives();
+        player1Lives.text = "" + PlayerTracker.players[0].GetComponent<DeathControl>().getLives();
+        HeadBackgrounds[0].SetActive(true);
         //Debug.Log(player1.GetComponent<DeathControl>().getLives());
-        if (CharacterMenuController.ControllerNumber > 1)
+        if (CharacterMenuController.ControllerNumber > 1) 
+        {
             player2Lives.text = "Player 2 Lives: " + PlayerTracker.players[1].GetComponent<DeathControl>().getLives();
-        if (CharacterMenuController.ControllerNumber > 2)
+            HeadBackgrounds[1].SetActive(true);
+        }
+        if (CharacterMenuController.ControllerNumber > 2) 
+        {
             player3Lives.text = "Player 3 Lives " + PlayerTracker.players[2].GetComponent<DeathControl>().getLives();
-        if (CharacterMenuController.ControllerNumber > 3)
-            player4Lives.text = "Player 4 Lives " + PlayerTracker.players[3].GetComponent<DeathControl>().getLives();*/
+            HeadBackgrounds[2].SetActive(true);
+        }
+
+
+        if (CharacterMenuController.ControllerNumber > 3) 
+        {
+            player4Lives.text = "Player 4 Lives " + PlayerTracker.players[3].GetComponent<DeathControl>().getLives();
+            HeadBackgrounds[3].SetActive(true);
+        }
+
+
 
 
 
@@ -143,7 +166,7 @@ public class PlayerLives : MonoBehaviour
     {
         //Debug.Log(Lives[ControllerNumber - 1]);
         //int b = 0;
-        int lifes;
+        /*int lifes;
 
         if (FunTracker >= 1)
         {
@@ -159,7 +182,7 @@ public class PlayerLives : MonoBehaviour
             {
                 if ((ControllerNumber - 1) == 0) 
                 {
-                    //Debug.Log(lifes);
+                    Debug.Log(lifes);
                     UIHeadsP1[lifes].gameObject.SetActive(false);
                 }
                 if ((ControllerNumber - 1) == 1)
@@ -171,7 +194,7 @@ public class PlayerLives : MonoBehaviour
                 FunTracker = 0;
             }
 
-        }
+        }*/
 
 
         for (int i = 0; i < ControllerNumber; i++)
@@ -179,7 +202,7 @@ public class PlayerLives : MonoBehaviour
             //Debug.Log(i);
             //Debug.Log(ControllerNumber);
             //Debug.Log(Lives[i]); //This is one ahead for some reason so have to account for that later on also - 1 because we use 0
-            if (spawnHeads[i] == false)
+            /*if (spawnHeads[i] == false)
             {
                 for (int b = 0; b < Lives[i]; b++)
                 {
@@ -266,7 +289,7 @@ public class PlayerLives : MonoBehaviour
                     }
                     //Debug.Log(b);
 
-                }
+                }*/
 
 
                 //Debug.Log(i);
@@ -278,4 +301,4 @@ public class PlayerLives : MonoBehaviour
         }
 
     }
-}
+
