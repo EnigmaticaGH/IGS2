@@ -162,7 +162,7 @@ public class PlayerLives : MonoBehaviour
     {
         //Debug.Log(Lives[ControllerNumber - 1]);
         //int b = 0;
-        int lifes;
+        /*int lifes;
 
         if (FunTracker >= 1)
         {
@@ -190,7 +190,7 @@ public class PlayerLives : MonoBehaviour
                 FunTracker = 0;
             }
 
-        }
+        }*/
 
 
         for (int i = 0; i < ControllerNumber; i++)

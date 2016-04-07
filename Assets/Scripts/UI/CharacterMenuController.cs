@@ -28,7 +28,7 @@ public class CharacterMenuController : MonoBehaviour {
 
     public GameObject[] Characters;
 
-    public GameObject[] PlayerPrefabs;
+    //public GameObject[] PlayerPrefabs;
 
     public static int p1Pos = 0;
     public static int p2Pos = 0;
@@ -60,8 +60,8 @@ public class CharacterMenuController : MonoBehaviour {
     {
         //CursorMovement.p1_Next += ButtonClickP1;
         //CursorMovement.p2_Next += ButtonClickP2;
-        CursorMovement.p3_Next += ButtonClickP3;
-        CursorMovement.p4_Next += ButtonClickP4;
+        //CursorMovement.p3_Next += ButtonClickP3;
+        //CursorMovement.p4_Next += ButtonClickP4;
         CursorMovement.p1_Hover += ButtonHoverP1;
         CursorMovement.p2_Hover += ButtonHoverP2;
         CursorMovement.p3_Hover += ButtonHoverP3;
@@ -76,8 +76,8 @@ public class CharacterMenuController : MonoBehaviour {
     {
         //CursorMovement.p1_Next -= ButtonClickP1;
         //CursorMovement.p2_Next -= ButtonClickP2;
-        CursorMovement.p3_Next -= ButtonClickP3;
-        CursorMovement.p4_Next -= ButtonClickP4;
+        //CursorMovement.p3_Next -= ButtonClickP3;
+       // CursorMovement.p4_Next -= ButtonClickP4;
         CursorMovement.p1_Hover -= ButtonHoverP1;
         CursorMovement.p2_Hover -= ButtonHoverP2;
         CursorMovement.p3_Hover -= ButtonHoverP3;
@@ -440,7 +440,7 @@ public class CharacterMenuController : MonoBehaviour {
         CharacterNames[3].text = Names[p4Pos];
     }
 
-    public void ButtonClickP3()
+    /*public void ButtonClickP3()
     {
         p3Pos = p3Pos + 1;
         if (p3Pos > 1)
@@ -466,8 +466,8 @@ public class CharacterMenuController : MonoBehaviour {
                 break;
         }
 
-    }
-    public void ButtonClickP4()
+    }*/
+    /*public void ButtonClickP4()
     {
         p4Pos = p4Pos + 1;
         if (p4Pos > 1)
@@ -493,7 +493,7 @@ public class CharacterMenuController : MonoBehaviour {
             default:
                 break;
         }
-    }
+    }*/
 
     void ButtonHoverP1()
     {
