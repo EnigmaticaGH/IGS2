@@ -22,7 +22,7 @@ public class SceneLoader : MonoBehaviour {
 
     public GameObject levelManager;
 
-    Color ogColor;
+    //Color ogColor;
 
     Setup Setup;
 
@@ -35,7 +35,7 @@ public class SceneLoader : MonoBehaviour {
 
         loadingText.enabled = false;
 
-        ogColor = loadingText.color;
+        //ogColor = loadingText.color;
 
         Controller.enabled = false;
 

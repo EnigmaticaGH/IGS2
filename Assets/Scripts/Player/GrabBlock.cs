@@ -15,6 +15,7 @@ public class GrabBlock : MonoBehaviour
     private Queue<GameObject> originalBlocks;
     private Queue<GameObject> grenadeBlocks;
     private Vector3 forceAngle;
+    private Vector3 blockPos;
 
     // Use this for initialization
     void Start()
@@ -32,6 +33,7 @@ public class GrabBlock : MonoBehaviour
         carryingExplosive = false;
         originalBlocks = new Queue<GameObject>();
         grenadeBlocks = new Queue<GameObject>();
+        blockPos = Vector3.right;
     }
 
     void CheckForBlock()
@@ -77,9 +79,17 @@ public class GrabBlock : MonoBehaviour
         {
             sprite.localScale = Vector3.one;
         }
-        if (x < 0 && sprite.localScale.x > 0)
+        else if (x < 0 && sprite.localScale.x > 0)
         {
             sprite.localScale = new Vector3(-1, 1, 1);
+        }
+        if (y > 0)
+        {
+            blockPos = Vector3.up * 1.5f;
+        }
+        else
+        {
+            blockPos = Vector3.right * sprite.localScale.x;
         }
         if (blockGrabDown)
         {
@@ -118,7 +128,7 @@ public class GrabBlock : MonoBehaviour
 
         if (carryingBlock || carryingExplosive)
         {
-            block.transform.position = transform.position + Vector3.right * sprite.localScale.x;
+            block.transform.position = transform.position + blockPos;
         }
     }
 

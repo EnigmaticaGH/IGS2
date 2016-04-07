@@ -61,7 +61,7 @@ public class BlockInteraction : MonoBehaviour {
         }
         if (!IsGrabbedBySomeoneElse)
         {
-            float normalizedVelocity = Mathf.Clamp01(body.velocity.magnitude / 6f);
+            float normalizedVelocity = Mathf.Clamp01(body.velocity.magnitude / 7f);
             starParticle.startColor = Color.Lerp(originalColor, warning, normalizedVelocity);
         }
         else
@@ -116,24 +116,12 @@ public class BlockInteraction : MonoBehaviour {
 
     void PushPlayer(Movement m, Vector3 power)
     {
+        em.enabled = true;
         r.MovePosition(r.transform.position + Vector3.up * 0.1f);
         r.AddForce(power);
         m.UseForceInstead(0.5f);
         m.gameObject.GetComponent<DeathControl>().Hurt(1);
         time = 5;
-    }
-
-    void Squish(Movement m, float power)
-    {
-        if (m.State == Movement.MovementState.GROUND)
-        {
-            //squish the player
-            m.gameObject.GetComponent<DeathControl>().Hurt(1);
-        }
-        else
-        {
-            r.AddForce(Vector3.down * 5 * power);
-        }
     }
 
     public void Throw(Vector3 force, float respawnTime, Color color)
@@ -189,7 +177,7 @@ public class BlockInteraction : MonoBehaviour {
                 count = 0;
             }
         }
-        
+        em.enabled = false;
         time = 0;
         //blockMaterial.color = blockColor;
         transform.position = startPosition;
@@ -229,7 +217,7 @@ public class BlockInteraction : MonoBehaviour {
     {
         body.useGravity = false;
         body.isKinematic = true;
-        //blockMaterial.color = blockColor;
+        em.enabled = false;
         transform.rotation = startRotation;
         transform.position = startPosition;
         isShattering = false;
