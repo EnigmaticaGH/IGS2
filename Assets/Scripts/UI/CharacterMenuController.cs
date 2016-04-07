@@ -195,13 +195,58 @@ public class CharacterMenuController : MonoBehaviour {
             ReadyStamp[0].gameObject.SetActive(true);
             PlayerReady[0].enabled = true;
             //Debug.Log("i == 1" + z + "Player 1 Ready = true" + p1Ready);
-            if (z == 2) 
+            if (AResetP1 == 2) 
             {
                 p1Ready = false;
                 ReadyStamp[0].gameObject.SetActive(false);
                 PlayerReady[0].enabled = false;
-                Invoke("AReset", .5f);
+                Invoke("AResetP1FC", .25f);
                 //Debug.Log("i == 2" + z + "Player 1 Ready = false" + p1Ready);
+            }
+        }
+
+        if (p1Ready)
+        {
+            if (Input.GetButtonDown("B_1") && AResetP1 == 1)
+            {
+                AResetP1++;
+                p1Ready = false;
+                ReadyStamp[0].gameObject.SetActive(false);
+                PlayerReady[0].enabled = false;
+                Invoke("AResetP1FC", .25f);
+            }
+        }
+        if (p2Ready)
+        {
+            if (Input.GetButtonDown("B_1") && AResetP2 == 1)
+            {
+                AResetP2++;
+                p1Ready = false;
+                ReadyStamp[2].gameObject.SetActive(false);
+                PlayerReady[2].enabled = false;
+                Invoke("AResetP2FC", .25f);
+            }
+        }
+        if (p3Ready)
+        {
+            if (Input.GetButtonDown("B_1") && AResetP3 == 1)
+            {
+                AResetP3++;
+                p1Ready = false;
+                ReadyStamp[2].gameObject.SetActive(false);
+                PlayerReady[2].enabled = false;
+                Invoke("AResetP3FC", .25f);
+            }
+        }
+        if (p4Ready)
+        {
+            if (Input.GetButtonDown("B_4") && AResetP4 == 1)
+            {
+                AResetP4++;
+                p4Ready = false;
+                ReadyStamp[3].gameObject.SetActive(false);
+                PlayerReady[3].enabled = false;
+                Invoke("AResetP4FC", .25f);
             }
         }
 
@@ -230,12 +275,12 @@ public class CharacterMenuController : MonoBehaviour {
             p2Ready = true;
             PlayerReady[1].enabled = true;
             ReadyStamp[1].gameObject.SetActive(true);
-            if (z == 2)
+            if (AResetP2 == 2)
             {
                 p2Ready = false;
                 PlayerReady[1].enabled = false;
                 ReadyStamp[1].gameObject.SetActive(false);
-                Invoke("AReset", .5f);
+                Invoke("AResetP2FC", .5f);
             }
         }
 
@@ -265,12 +310,13 @@ public class CharacterMenuController : MonoBehaviour {
             PlayerReady[2].enabled = true;
             ReadyStamp[2].gameObject.SetActive(true);
             Debug.Log("i == 1" + z + "Player 3 Ready = true" + p3Ready);
-            if (z == 2)
+            if (AResetP3 == 2)
             {
                 p2Ready = false;
                 PlayerReady[2].enabled = false;
                 ReadyStamp[2].gameObject.SetActive(false);
-                Invoke("AReset", .5f);            }
+                Invoke("AResetP3FC", .5f);            
+            }
         }
 
         if (p4Ready == false)
@@ -299,12 +345,12 @@ public class CharacterMenuController : MonoBehaviour {
             PlayerReady[3].enabled = true;
             ReadyStamp[3].gameObject.SetActive(true);
             Debug.Log("i == 1" + z + "Player 4 Ready = true" + p4Ready);
-            if (z == 2)
+            if (AResetP4 == 2)
             {
                 p4Ready = false;
                 PlayerReady[3].enabled = false;
                 ReadyStamp[3].gameObject.SetActive(false);
-                Invoke("AReset", .5f);
+                Invoke("AResetP4FC", .5f);
             }
         }
 
@@ -350,11 +396,20 @@ public class CharacterMenuController : MonoBehaviour {
 
     }
 
-    void AReset()
+    void AResetP1FC() 
     {
         AResetP1 = 0;
+    }
+    void AResetP2FC()
+    {
         AResetP2 = 0;
+    }
+    void AResetP3FC()
+    {
         AResetP3 = 0;
+    }
+    void AResetP4FC()
+    {
         AResetP4 = 0;
     }
 

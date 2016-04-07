@@ -6,37 +6,23 @@ using System.Collections.Generic;
 public class PlayerLives : MonoBehaviour
 {
 
-    public Canvas canvas1;
+    public Transform canvas1;
     public GameObject[] HeadPlayers;
     public GameObject[] HeadBackgrounds;
+    public Transform[] SpawnUI;
     public Text player1Lives;
     public Text player2Lives;
     public Text player3Lives;
     public Text player4Lives;
     private int ControllerNumber;
-    //List<List<int>> playerLives;
-
-    GameObject[] UIHeadsP1 = new GameObject[10];
-    GameObject[] UIHeadsP2 = new GameObject[10];
-    GameObject[] UIHeadsP3 = new GameObject[10];
-    GameObject[] UIHeadsP4 = new GameObject[10];
 
     int[] Lives = new int[4];
     private bool[] spawnHeads = new bool[4];
-    int dis = 0;
     int pPos1 = 0;
     int pPos2 = 0;
     int pPos3 = 0;
     int pPos4 = 0;
     int FunTracker = 0;
-    //int numberOfLives = 0;
-    int OffsetX = -370;
-    int OffsetY = -200;
-    int OffsetSecY = -230;
-    int Length = 20;
-    int spacing = 30;
-    int xPosHead = -300;
-    int offsetHeads = 200;
 
     void Awake()
     {
@@ -75,23 +61,27 @@ public class PlayerLives : MonoBehaviour
             switch (i)
             {
                 case 0:
-                    Debug.Log("Hello");
                     GameObject temp;
-                    temp = (GameObject)Instantiate(HeadPlayers[pPos1], new Vector2(xPosHead, 200), Quaternion.identity);
-                    temp.transform.parent = canvas1.transform;
-                    //Instantiate(HeadBackgrounds[i], new Vector2(xPosHead, 200), Quaternion.identity);
+                    temp = (GameObject)Instantiate(HeadPlayers[pPos1], new Vector2(SpawnUI[i].transform.position.x, SpawnUI[i].transform.position.y), Quaternion.identity);
+                    //temp.transform.parent = canvas1.transform;
+                    temp.transform.SetParent(canvas1, true);
                     break;
-                case 1: Object temp1;
-                    temp1 = Instantiate(HeadPlayers[pPos1], new Vector2(-100, 200), Quaternion.identity);
-                    temp1 = Instantiate(HeadBackgrounds[i], new Vector2(-100, 200), Quaternion.identity);
+                case 1: 
+                    GameObject temp1;
+                    temp1 = (GameObject)Instantiate(HeadPlayers[pPos2], new Vector2(SpawnUI[i].transform.position.x, SpawnUI[i].transform.position.y), Quaternion.identity);
+                    temp1.transform.parent = canvas1.transform;
+
                     break;
-                case 2: Object temp2;
-                    temp2 = Instantiate(HeadPlayers[pPos1], new Vector2(100, 200), Quaternion.identity);
-                    temp2 = Instantiate(HeadBackgrounds[i], new Vector2(100, 200), Quaternion.identity);
+                case 2: 
+                    GameObject temp2;
+                    temp2 = (GameObject)Instantiate(HeadPlayers[pPos3], new Vector2(SpawnUI[i].transform.position.x, SpawnUI[i].transform.position.y), Quaternion.identity);
+                    temp2.transform.parent = canvas1.transform;
+
                     break;
-                case 3: Object temp3;
-                    temp3 = Instantiate(HeadPlayers[pPos1], new Vector2(300, 200), Quaternion.identity);
-                    temp3 = Instantiate(HeadBackgrounds[i], new Vector2(300, 200), Quaternion.identity);
+                case 3: 
+                    GameObject temp3;
+                    temp3 = (GameObject)Instantiate(HeadPlayers[pPos4], new Vector2(SpawnUI[i].transform.position.x, SpawnUI[i].transform.position.y), Quaternion.identity);
+                    temp3.transform.parent = canvas1.transform;
                     break;
                     
             }
@@ -132,14 +122,28 @@ public class PlayerLives : MonoBehaviour
 
         //numberOfLives = PlayerTracker.players[0].GetComponent<DeathControl>().getNumberOfLives();
 
-        player1Lives.text = "Player 1 Lives: " + PlayerTracker.players[0].GetComponent<DeathControl>().getLives();
+        player1Lives.text = "" + PlayerTracker.players[0].GetComponent<DeathControl>().getLives();
+        HeadBackgrounds[0].SetActive(true);
         //Debug.Log(player1.GetComponent<DeathControl>().getLives());
-        if (CharacterMenuController.ControllerNumber > 1)
+        if (CharacterMenuController.ControllerNumber > 1) 
+        {
             player2Lives.text = "Player 2 Lives: " + PlayerTracker.players[1].GetComponent<DeathControl>().getLives();
-        if (CharacterMenuController.ControllerNumber > 2)
+            HeadBackgrounds[1].SetActive(true);
+        }
+        if (CharacterMenuController.ControllerNumber > 2) 
+        {
             player3Lives.text = "Player 3 Lives " + PlayerTracker.players[2].GetComponent<DeathControl>().getLives();
-        if (CharacterMenuController.ControllerNumber > 3)
+            HeadBackgrounds[2].SetActive(true);
+        }
+
+
+        if (CharacterMenuController.ControllerNumber > 3) 
+        {
             player4Lives.text = "Player 4 Lives " + PlayerTracker.players[3].GetComponent<DeathControl>().getLives();
+            HeadBackgrounds[3].SetActive(true);
+        }
+
+
 
 
 
