@@ -42,13 +42,11 @@ public class TextInput : MonoBehaviour {
 
         if (arg0.ToString().ToLower().Contains("night"))
         {
-            Debug.Log("night");
             Sun.color = Color.black;
         }
 
         if (arg0.ToString().ToLower().Contains("day"))
         {
-            Debug.Log("night");
             Sun.color = Color.white;
         }
 

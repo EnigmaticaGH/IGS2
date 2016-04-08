@@ -47,30 +47,31 @@ public class PlayerPause : MonoBehaviour {
     void Update()
     {
 
-
-        if (Pause.Paused())
+        if (start1 == false)
         {
-            start1 = true;
+
+            if (Input.GetButtonDown("Start_" + 1) && (count == 0))
+            {
+                count++;
+                start1 = true;
+                PauseCanvas.enabled = start1;
+                StartCoroutine("resetCount");
+            }
+
         }
 
-        if (Pause.Paused() == false)
-        {
-            start1 = false;
-        }
-
-        //******Need to fix start bool************* 
-
-        if (Input.GetButton("Start_" + 1) && (count == 0))
-        {
-            count++;
-            start1 = true;
-            PauseCanvas.enabled = start1;
-
-            //float velocity = Input.GetAxis("DPad_XAxis_1") * speed;
-
-        }
         if (start1)
         {
+
+            if (Input.GetButtonDown("Start_" + 1) && (count == 0))
+            {
+                Debug.Log("Hello");
+                count++;
+                start1 = false;
+                PauseCanvas.enabled = start1;
+                StartCoroutine("resetCount");
+            }
+
             if (Input.GetButton("A_1"))
             {
                 SceneManager.LoadScene(0); //Menu
@@ -111,7 +112,6 @@ public class PlayerPause : MonoBehaviour {
         yield return new WaitForSeconds(.25f);
         count = 0;
         Debug.Log("Reset Count");
-        start1 = false;
     }
 
     IEnumerator resetThisButton1()
