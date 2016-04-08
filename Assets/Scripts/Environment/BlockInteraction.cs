@@ -11,22 +11,22 @@ public class BlockInteraction : MonoBehaviour {
     private Rigidbody r;
     private Vector3 startPosition;
     private float time;
-    //private Material blockMaterial;
-    //private Color blockColor;
-    //private bool isGrabbedBySomeoneElse;
+    private MeshRenderer cube;
     private IEnumerator reset;
     private Transform originalParent;
     private bool isShattering;
     private ParticleSystem.EmissionModule em;
     private ParticleSystem starParticle;
     private Color originalColor;
-    private Color warning;
+    public Color warning;
+    public float lethalVelocity;
     private float vel;
 
     void Awake()
     {
         starParticle = GetComponentInChildren<ParticleSystem>();
         originalColor = GetComponentInChildren<ParticleSystem>().startColor;
+        cube = GetComponent<MeshRenderer>();
         em = starParticle.emission;
         em.enabled = false;
     }
@@ -61,13 +61,16 @@ public class BlockInteraction : MonoBehaviour {
         }
         if (!IsGrabbedBySomeoneElse)
         {
-            float normalizedVelocity = Mathf.Clamp01(body.velocity.magnitude / 7f);
+            float normalizedVelocity = Mathf.Clamp01(body.velocity.magnitude / lethalVelocity - 0.1f);
             starParticle.startColor = Color.Lerp(originalColor, warning, normalizedVelocity);
+            cube.enabled = body.isKinematic;
+            em.enabled = !body.isKinematic;
         }
         else
         {
+            cube.enabled = false;
             em.enabled = true;
-            starParticle.startColor = new Color(0.5f, 1, 0.25f, 1);
+            starParticle.startColor = Color.white;
         }
     }
 
@@ -75,7 +78,7 @@ public class BlockInteraction : MonoBehaviour {
     {
         if (c.collider.CompareTag("Player") && // it has to be player
             AbilityRegistry.AbilityStatus(c.gameObject.name, "BlockSmash") != Ability.Status.ACTIVE && //player is not dashing
-            c.relativeVelocity.magnitude > 7 && vel > 7 && //block is going fast enough
+            c.relativeVelocity.magnitude > lethalVelocity && vel > lethalVelocity && //block is going fast enough
             (Mathf.Abs(transform.position.x - c.transform.position.x) < 0.5f || //block has to be a direct hit, not a graze
             Mathf.Abs(transform.position.y - c.transform.position.y) < 0.5f))
         {
@@ -87,10 +90,11 @@ public class BlockInteraction : MonoBehaviour {
             PushPlayer(m, force);
             return;
         }
-        else if (c.collider.CompareTag("Player") && c.relativeVelocity.magnitude > 16 && //has to be player who is moving fast enough
-            AbilityRegistry.AbilityStatus(c.gameObject.name, "BlockSmash") == Ability.Status.ACTIVE) //dash ability must be active
+        else if (((c.collider.CompareTag("Player") && //has to be player who is moving fast enough
+            AbilityRegistry.AbilityStatus(c.gameObject.name, "BlockSmash") == Ability.Status.ACTIVE) || //dash ability must be active
+            c.collider.CompareTag("Block") && body.velocity.magnitude == 0) && c.relativeVelocity.magnitude > lethalVelocity) //or it can be another block
         {
-            Vector3 force = new Vector3(c.relativeVelocity.x * 50f, c.relativeVelocity.y * 50f, 0);
+            Vector3 force = new Vector3((c.relativeVelocity.x / lethalVelocity) * 500, (c.relativeVelocity.y / lethalVelocity) * 500, 0);
             Launch(force, Mathf.Abs(c.relativeVelocity.x) > 20);
             return;
         }
@@ -103,6 +107,7 @@ public class BlockInteraction : MonoBehaviour {
 
     void Launch(Vector3 force, bool isSidewaysLaunch)
     {
+        Debug.Log("Emission started");
         em.enabled = true;
         body.useGravity = true;
         body.isKinematic = false;
@@ -164,12 +169,13 @@ public class BlockInteraction : MonoBehaviour {
             {
                 time -= Time.deltaTime;
             }
-            if (body.velocity.sqrMagnitude < 1)
+            if (body.velocity.sqrMagnitude < 1 && em.enabled)
             {
                 count++;
-                if(count > 20)
+                if(count > 40)
                 {
                     em.enabled = false;
+                    cube.enabled = true;
                 }
             }
             else
@@ -178,8 +184,8 @@ public class BlockInteraction : MonoBehaviour {
             }
         }
         em.enabled = false;
+        cube.enabled = true;
         time = 0;
-        //blockMaterial.color = blockColor;
         transform.position = startPosition;
         transform.rotation = startRotation;
         body.useGravity = false;

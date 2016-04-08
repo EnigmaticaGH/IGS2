@@ -6,7 +6,6 @@ public class LandingParticles : MonoBehaviour
     private GameObject prefab;
     private GameObject left;
     private GameObject right;
-    public Transform canvas;
     //private IEnumerator land;
     // Use this for initialization
     void Start()

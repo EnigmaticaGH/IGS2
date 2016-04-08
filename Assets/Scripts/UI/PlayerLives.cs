@@ -115,7 +115,7 @@ public class PlayerLives : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        for (int i = 0; i < ControllerNumber; i++)
+        for (int i = 0; i < ControllerNumber && i < PlayerTracker.players.Length; i++)
         {
             Lives[i] = PlayerTracker.players[i].GetComponent<DeathControl>().getLives();
         }
