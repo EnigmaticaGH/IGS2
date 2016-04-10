@@ -13,30 +13,26 @@ public class CharacterMenuController : MonoBehaviour {
     public Image[] CharacterPictures;
     public Text[] CharacterNames;
     public string[] Names;
-    //GameObject[] InvCharacters;
     public GameObject[] pictureLocations;
     public GameObject[] playerCursors;
-    //public Text[] NextText;
     public Image[] PlayerReady;
     public Image[] PlayerDC;
+    public Text[] PressStart;
     public Image[] ogArrowUP;
     public Image[] ogArrowDOWN;
     public Sprite activeArrowUP; 
     public Sprite activeArrowDOWN;
     Sprite ogSpriteUp; 
     Sprite ogSpriteDown;
-    //private Sprite[] original;
 
     public GameObject[] Characters;
+    public GameObject StartButton;
 
-    //public GameObject[] PlayerPrefabs;
 
     public static int p1Pos = 0;
     public static int p2Pos = 1;
     public static int p3Pos = 2;
     public static int p4Pos = 3;
-
-    //private Sprite[] original = new Sprite[4];
 
     int stickResetP1 = 0;
     int AResetP1 = 0;
@@ -46,6 +42,14 @@ public class CharacterMenuController : MonoBehaviour {
     int AResetP3 = 0;
     int stickResetP4 = 0;
     int AResetP4 = 0;
+
+    int startCount1 = 0;
+    int startCount2 = 0;
+    int startCount3 = 0;
+    int startCount4 = 0;
+
+    public bool[] activePlayers = new bool[4];
+
 
 
     int z = 0;
@@ -57,35 +61,18 @@ public class CharacterMenuController : MonoBehaviour {
     public bool p3Ready;
     public bool p4Ready;
 
-    void OnEnable()
+    void OnLevelWasLoaded(int level)
     {
-        //CursorMovement.p1_Next += ButtonClickP1;
-        //CursorMovement.p2_Next += ButtonClickP2;
-        //CursorMovement.p3_Next += ButtonClickP3;
-        //CursorMovement.p4_Next += ButtonClickP4;
-        CursorMovement.p1_Hover += ButtonHoverP1;
-        CursorMovement.p2_Hover += ButtonHoverP2;
-        CursorMovement.p3_Hover += ButtonHoverP3;
-        CursorMovement.p4_Hover += ButtonHoverP4;
-        CursorMovement.p1_HoverExit += ButtonHoverExitP1;
-        CursorMovement.p2_HoverExit += ButtonHoverExitP2;
-        CursorMovement.p3_HoverExit += ButtonHoverExitP3;
-        CursorMovement.p4_HoverExit += ButtonHoverExitP4;
-    }
-
-    void OnDisable()
-    {
-        //CursorMovement.p1_Next -= ButtonClickP1;
-        //CursorMovement.p2_Next -= ButtonClickP2;
-        //CursorMovement.p3_Next -= ButtonClickP3;
-       // CursorMovement.p4_Next -= ButtonClickP4;
-        CursorMovement.p1_Hover -= ButtonHoverP1;
-        CursorMovement.p2_Hover -= ButtonHoverP2;
-        CursorMovement.p3_Hover -= ButtonHoverP3;
-        CursorMovement.p4_Hover -= ButtonHoverP4;
-        CursorMovement.p1_HoverExit -= ButtonHoverExitP1;
+        if (level == 1) 
+        {
+            p1Pos = 0;
+            p2Pos = 1;
+            p3Pos = 2;
+            p4Pos = 3;
+        }
 
     }
+
 
     void Awake()
     {
@@ -119,12 +106,13 @@ public class CharacterMenuController : MonoBehaviour {
 
                 ActiveControllers = Input.GetJoystickNames();
             }
-            //Debug.Log(ControllerNumber);
 
     }
 
 	// Use this for initialization
 	void Start () {
+
+        StartButton.SetActive(false);
 
         for (int i = 0; i < CharacterPictures.Length; i++)
         {
@@ -147,234 +135,364 @@ public class CharacterMenuController : MonoBehaviour {
         {
             PlayerDC[i].enabled = true;
             PlayerReady[i].enabled = false;
+            PressStart[i].enabled = true;
+            AButton[i].GetComponent<Image>().gameObject.SetActive(false);
+            activePlayers[i] = false;
         }
 
-            for (int g = 0; g < ControllerNumber; g++)
+            /*for (int g = 0; g < ControllerNumber; g++)
             {
                 playerCursors[g].SetActive(true);
                 //NextButtons[g].SetActive(true);
                 PlayerReady[g].enabled = false;
                 PlayerDC[g].enabled = false;
                 AButton[g].gameObject.SetActive(true);
-            }
+                PressStart[g].enabled = false;
+                AButton[g].gameObject.SetActive(true);
+            }*/
 
 	}
 
     void Update()
     {
-        if (p1Ready == false)
-        {
-            AButton[0].gameObject.SetActive(true);
-            if ((Input.GetAxisRaw("L_YAxis_1") == 1 || Input.GetAxisRaw("DPad_YAxis_1") == -1) && (j == stickResetP1))
-            {
-                stickResetP1++;
-                LeftStickUpP1();
-                ogArrowDOWN[0].sprite = activeArrowDOWN;
-                Invoke("StickReset", .5f);
-            }
 
-            if ((Input.GetAxisRaw("L_YAxis_1") == -1 || Input.GetAxisRaw("DPad_YAxis_1") == 1) && (j == stickResetP1))
-            {
-                stickResetP1++;
-                LeftStickDownP1();
-                ogArrowUP[0].sprite = activeArrowUP;
-                Invoke("StickReset", .5f);
-            }
-        }
 
-        if (Input.GetButtonDown("A_1") && (z <= AResetP1))
+
+        if (activePlayers[0] == false)
         {
-            AResetP1++;
-            p1Ready = true;
-            ReadyStamp[0].gameObject.SetActive(true);
-            PlayerReady[0].enabled = true;
-            //Debug.Log("i == 1" + z + "Player 1 Ready = true" + p1Ready);
-            if (AResetP1 == 2) 
+            if (Input.GetButtonDown("Start_1") && (startCount1 == 0))
             {
-                p1Ready = false;
-                ReadyStamp[0].gameObject.SetActive(false);
+                startCount1++;
                 PlayerReady[0].enabled = false;
-                Invoke("AResetP1FC", .25f);
-                //Debug.Log("i == 2" + z + "Player 1 Ready = false" + p1Ready);
+                PlayerDC[0].enabled = false;
+                AButton[0].gameObject.SetActive(true);
+                PressStart[0].enabled = false;
+                AButton[0].gameObject.SetActive(true);
+                activePlayers[0] = true;
+                Invoke("ResetStart1", .25f);
+
+            }
+            if (Input.GetButtonDown("B_1"))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
             }
         }
-
-        if (p1Ready)
+        if (activePlayers[0])
         {
-            AButton[0].gameObject.SetActive(false);
-            if (Input.GetButtonDown("B_1") && AResetP1 == 1)
+            if (p1Ready == false)
+            {
+                if ((Input.GetAxisRaw("L_YAxis_1") == 1 || Input.GetAxisRaw("DPad_YAxis_1") == -1) && (j == stickResetP1))
+                {
+                    stickResetP1++;
+                    LeftStickUpP1();
+                    ogArrowDOWN[0].sprite = activeArrowDOWN;
+                    Invoke("StickReset", .5f);
+                }
+
+                if ((Input.GetAxisRaw("L_YAxis_1") == -1 || Input.GetAxisRaw("DPad_YAxis_1") == 1) && (j == stickResetP1))
+                {
+                    stickResetP1++;
+                    LeftStickDownP1();
+                    ogArrowUP[0].sprite = activeArrowUP;
+                    Invoke("StickReset", .5f);
+                }
+
+                if ((Input.GetButtonDown("Start_1") || Input.GetButtonDown("B_1")) && startCount1 == 0)
+                {
+                    startCount1++;
+                    PlayerReady[0].enabled = true;
+                    PlayerDC[0].enabled = true;
+                    AButton[0].gameObject.SetActive(false);
+                    PressStart[0].enabled = true;
+                    AButton[0].gameObject.SetActive(false);
+                    activePlayers[0] = false;
+                    Invoke("ResetStart1", .25f);
+                }
+
+            }
+
+            if (Input.GetButtonDown("A_1") && (z <= AResetP1))
             {
                 AResetP1++;
-                p1Ready = false;
-                ReadyStamp[0].gameObject.SetActive(false);
-                PlayerReady[0].enabled = false;
-                Invoke("AResetP1FC", .25f);
-            }
-        }
-        if (p2Ready)
-        {
-            AButton[1].gameObject.SetActive(false);
-            if (Input.GetButtonDown("B_1") && AResetP2 == 1)
-            {
-                AResetP2++;
-                p1Ready = false;
-                ReadyStamp[2].gameObject.SetActive(false);
-                PlayerReady[2].enabled = false;
-                Invoke("AResetP2FC", .25f);
-            }
-        }
-        if (p3Ready)
-        {
-            AButton[2].gameObject.SetActive(false);
-            if (Input.GetButtonDown("B_1") && AResetP3 == 1)
-            {
-                AResetP3++;
-                p1Ready = false;
-                ReadyStamp[2].gameObject.SetActive(false);
-                PlayerReady[2].enabled = false;
-                Invoke("AResetP3FC", .25f);
-            }
-        }
-        if (p4Ready)
-        {
-            AButton[3].gameObject.SetActive(false);
-            if (Input.GetButtonDown("B_4") && AResetP4 == 1)
-            {
-                AResetP4++;
-                p4Ready = false;
-                ReadyStamp[3].gameObject.SetActive(false);
-                PlayerReady[3].enabled = false;
-                Invoke("AResetP4FC", .25f);
-            }
-        }
-
-        if (p2Ready == false)
-        {
-            AButton[1].gameObject.SetActive(true);
-            if ((Input.GetAxisRaw("L_YAxis_2") == 1 || Input.GetAxisRaw("DPad_YAxis_2") == 1) && (r == stickResetP2))
-            {
-                stickResetP2++;
-                LeftStickUpP2();
-                ogArrowDOWN[1].sprite = activeArrowDOWN;
-                Invoke("StickReset", .5f);
+                p1Ready = true;
+                ReadyStamp[0].gameObject.SetActive(true);
+                PlayerReady[0].enabled = true;
+                StartButton.SetActive(true);
+                //Debug.Log("i == 1" + z + "Player 1 Ready = true" + p1Ready);
+                if (AResetP1 == 2)
+                {
+                    AButton[0].gameObject.SetActive(true);
+                    p1Ready = false;
+                    ReadyStamp[0].gameObject.SetActive(false);
+                    PlayerReady[0].enabled = false;
+                    Invoke("AResetP1FC", .25f);
+                    StartButton.SetActive(false);
+                    //Debug.Log("i == 2" + z + "Player 1 Ready = false" + p1Ready);
+                }
             }
 
-            if ((Input.GetAxisRaw("L_YAxis_2") == -1 || Input.GetAxisRaw("DPad_YAxis_2") == -1) && (r == stickResetP2))
-            {
-                stickResetP2++;
-                LeftStickDownP2();
-                ogArrowUP[1].sprite = activeArrowUP;
-                Invoke("StickReset", .5f);
-            }
-        }
-
-        if (Input.GetButtonDown("A_2") && (z <= AResetP2))
-        {
-            AResetP2++;
-            p2Ready = true;
-            PlayerReady[1].enabled = true;
-            ReadyStamp[1].gameObject.SetActive(true);
-            if (AResetP2 == 2)
-            {
-                p2Ready = false;
-                PlayerReady[1].enabled = false;
-                ReadyStamp[1].gameObject.SetActive(false);
-                Invoke("AResetP2FC", .5f);
-            }
-        }
-
-        if (p3Ready == false)
-        {
-            AButton[2].gameObject.SetActive(true);
-            if ((Input.GetAxisRaw("L_YAxis_3") == 1 || Input.GetAxisRaw("DPad_YAxis_3") == 1) && (r == stickResetP3))
-            {
-                stickResetP3++;
-                LeftStickUpP3();
-                ogArrowDOWN[2].sprite = activeArrowDOWN;
-                Invoke("StickReset", .5f);
-            }
-
-            if ((Input.GetAxisRaw("L_YAxis_3") == -1 || Input.GetAxisRaw("DPad_YAxis_3") == -1) && (r == stickResetP3))
-            {
-                stickResetP3++;
-                LeftStickDownP3();
-                ogArrowUP[2].sprite = activeArrowUP;
-                Invoke("StickReset", .5f);
-            }
-        }
-
-        if (Input.GetButtonDown("A_3") && (AResetP3 <= 2))
-        {
-            AResetP3++;
-            p2Ready = true;
-            PlayerReady[2].enabled = true;
-            ReadyStamp[2].gameObject.SetActive(true);
-            Debug.Log("i == 1" + z + "Player 3 Ready = true" + p3Ready);
-            if (AResetP3 == 2)
-            {
-                p2Ready = false;
-                PlayerReady[2].enabled = false;
-                ReadyStamp[2].gameObject.SetActive(false);
-                Invoke("AResetP3FC", .5f);            
-            }
-        }
-
-        if (p4Ready == false)
-        {
-            AButton[3].gameObject.SetActive(true);
-            if ((Input.GetAxisRaw("L_YAxis_4") == 1 || Input.GetAxisRaw("DPad_YAxis_4") == 1) && (stickResetP4 == 0))
-            {
-                stickResetP4++;
-                LeftStickUpP4();
-                ogArrowDOWN[3].sprite = activeArrowDOWN;
-                Invoke("StickReset", .5f);
-            }
-
-            if ((Input.GetAxisRaw("L_YAxis_4") == -1 || Input.GetAxisRaw("DPad_YAxis_4") == -1) && (stickResetP4 == 0))
-            {
-                stickResetP4++;
-                LeftStickDownP4();
-                ogArrowUP[3].sprite = activeArrowUP;
-                Invoke("StickReset", .5f);
-            }
-        }
-
-        if (Input.GetButtonDown("A_4") && (AResetP4 <= 2))
-        {
-            AResetP4++;
-            p4Ready = true;
-            PlayerReady[3].enabled = true;
-            ReadyStamp[3].gameObject.SetActive(true);
-            Debug.Log("i == 1" + z + "Player 4 Ready = true" + p4Ready);
-            if (AResetP4 == 2)
-            {
-                p4Ready = false;
-                PlayerReady[3].enabled = false;
-                ReadyStamp[3].gameObject.SetActive(false);
-                Invoke("AResetP4FC", .5f);
-            }
-        }
-
-
-
-        if (ControllerNumber == 1)
-        {
             if (p1Ready)
             {
+                AButton[0].gameObject.SetActive(false);
+                if (Input.GetButtonDown("B_1") && AResetP1 == 1)
+                {
+                    AResetP1++;
+                    p1Ready = false;
+                    ReadyStamp[0].gameObject.SetActive(false);
+                    PlayerReady[0].enabled = false;
+                    AButton[0].gameObject.SetActive(true);
+                    StartButton.SetActive(false);
+                    Invoke("AResetP1FC", .25f);
+                }
+
                 if (Input.GetButtonDown("Start_1"))
                 {
                     SceneManager.LoadScene(2);
                 }
+
             }
         }
 
-        if (p1Ready)
+        if (activePlayers[1] == false)
         {
-            if (Input.GetButtonDown("Start_1"))
+            if ((Input.GetButtonDown("Start_2") || Input.GetButtonDown("B_2")) && startCount2 == 0)
             {
-                SceneManager.LoadScene(2);
+                startCount2++;
+                PlayerReady[1].enabled = false;
+                PlayerDC[1].enabled = false;
+                AButton[1].gameObject.SetActive(true);
+                PressStart[1].enabled = false;
+                AButton[1].gameObject.SetActive(true);
+                activePlayers[1] = true;
+                Invoke("ResetStart2", .25f);
+
             }
         }
+
+        if (activePlayers[1])
+        {
+            if (p2Ready)
+            {
+                AButton[1].gameObject.SetActive(false);
+                if (Input.GetButtonDown("B_1") && AResetP2 == 1)
+                {
+                    AResetP2++;
+                    p1Ready = false;
+                    ReadyStamp[1].gameObject.SetActive(false);
+                    PlayerReady[1].enabled = false;
+                    AButton[1].gameObject.SetActive(true);
+                    Invoke("AResetP2FC", .25f);
+                }
+            }
+
+            if (p2Ready == false)
+            {
+                if ((Input.GetAxisRaw("L_YAxis_2") == 1 || Input.GetAxisRaw("DPad_YAxis_2") == 1) && (r == stickResetP2))
+                {
+                    stickResetP2++;
+                    LeftStickUpP2();
+                    ogArrowDOWN[1].sprite = activeArrowDOWN;
+                    Invoke("StickReset", .5f);
+                }
+
+                if ((Input.GetAxisRaw("L_YAxis_2") == -1 || Input.GetAxisRaw("DPad_YAxis_2") == -1) && (r == stickResetP2))
+                {
+                    stickResetP2++;
+                    LeftStickDownP2();
+                    ogArrowUP[1].sprite = activeArrowUP;
+                    Invoke("StickReset", .5f);
+                }
+
+                if (Input.GetButtonDown("Start_2") && startCount2 == 0)
+                {
+                    startCount2++;
+                    PlayerReady[1].enabled = true;
+                    PlayerDC[1].enabled = true;
+                    AButton[1].gameObject.SetActive(false);
+                    PressStart[1].enabled = true;
+                    AButton[1].gameObject.SetActive(false);
+                    activePlayers[1] = false;
+                    Invoke("ResetStart2", .25f);
+                }
+            }
+
+            if (Input.GetButtonDown("A_2") && (z <= AResetP2))
+            {
+                AResetP2++;
+                p2Ready = true;
+                PlayerReady[1].enabled = true;
+                ReadyStamp[1].gameObject.SetActive(true);
+                if (AResetP2 == 2)
+                {
+                    AButton[1].gameObject.SetActive(true);
+                    p2Ready = false;
+                    PlayerReady[1].enabled = false;
+                    ReadyStamp[1].gameObject.SetActive(false);
+                    Invoke("AResetP2FC", .5f);
+                }
+            }
+        }
+
+        if (activePlayers[3])
+        {
+            if (p3Ready)
+            {
+                AButton[2].gameObject.SetActive(false);
+                if (Input.GetButtonDown("B_1") && AResetP3 == 1)
+                {
+                    AResetP3++;
+                    p1Ready = false;
+                    ReadyStamp[2].gameObject.SetActive(false);
+                    PlayerReady[2].enabled = false;
+                    AButton[2].gameObject.SetActive(true);
+                    Invoke("AResetP3FC", .25f);
+                }
+            }
+
+            if (p3Ready == false)
+            {
+                if ((Input.GetAxisRaw("L_YAxis_3") == 1 || Input.GetAxisRaw("DPad_YAxis_3") == 1) && (r == stickResetP3))
+                {
+                    stickResetP3++;
+                    LeftStickUpP3();
+                    ogArrowDOWN[2].sprite = activeArrowDOWN;
+                    Invoke("StickReset", .5f);
+                }
+
+                if ((Input.GetAxisRaw("L_YAxis_3") == -1 || Input.GetAxisRaw("DPad_YAxis_3") == -1) && (r == stickResetP3))
+                {
+                    stickResetP3++;
+                    LeftStickDownP3();
+                    ogArrowUP[2].sprite = activeArrowUP;
+                    Invoke("StickReset", .5f);
+                }
+
+
+                if (Input.GetButtonDown("Start_3") && startCount3 == 0)
+                {
+                    startCount3++;
+                    PlayerReady[2].enabled = true;
+                    PlayerDC[2].enabled = true;
+                    AButton[2].gameObject.SetActive(false);
+                    PressStart[2].enabled = true;
+                    AButton[2].gameObject.SetActive(false);
+                    activePlayers[2] = false;
+                    Invoke("ResetStart3", .25f);
+                }
+            }
+
+            if (Input.GetButtonDown("A_3") && (AResetP3 <= 2))
+            {
+                AResetP3++;
+                p2Ready = true;
+                PlayerReady[2].enabled = true;
+                ReadyStamp[2].gameObject.SetActive(true);
+                Debug.Log("i == 1" + z + "Player 3 Ready = true" + p3Ready);
+                if (AResetP3 == 2)
+                {
+                    AButton[2].gameObject.SetActive(true);
+                    p2Ready = false;
+                    PlayerReady[2].enabled = false;
+                    ReadyStamp[2].gameObject.SetActive(false);
+                    Invoke("AResetP3FC", .5f);
+                }
+            }
+        }
+
+        if (activePlayers[3] == false)
+        {
+            if ((Input.GetButtonDown("Start_3") || Input.GetButtonDown("B_3")) && startCount3 == 0)
+            {
+                startCount3++;
+                PlayerReady[2].enabled = false;
+                PlayerDC[2].enabled = false;
+                AButton[2].gameObject.SetActive(true);
+                PressStart[2].enabled = false;
+                AButton[2].gameObject.SetActive(true);
+                Invoke("ResetStart3", .25f);
+            }
+        }
+
+
+        if (activePlayers[3])
+        {
+            if (p4Ready)
+            {
+                AButton[3].gameObject.SetActive(false);
+                if (Input.GetButtonDown("B_4") && AResetP4 == 1)
+                {
+                    AResetP4++;
+                    p4Ready = false;
+                    ReadyStamp[3].gameObject.SetActive(false);
+                    PlayerReady[3].enabled = false;
+                    AButton[3].gameObject.SetActive(true);
+                    Invoke("AResetP4FC", .25f);
+                }
+            }
+            if (p4Ready == false)
+            {
+                if ((Input.GetAxisRaw("L_YAxis_4") == 1 || Input.GetAxisRaw("DPad_YAxis_4") == 1) && (stickResetP4 == 0))
+                {
+                    stickResetP4++;
+                    LeftStickUpP4();
+                    ogArrowDOWN[3].sprite = activeArrowDOWN;
+                    Invoke("StickReset", .5f);
+                }
+
+                if ((Input.GetAxisRaw("L_YAxis_4") == -1 || Input.GetAxisRaw("DPad_YAxis_4") == -1) && (stickResetP4 == 0))
+                {
+                    stickResetP4++;
+                    LeftStickDownP4();
+                    ogArrowUP[3].sprite = activeArrowUP;
+                    Invoke("StickReset", .5f);
+                }
+                if (Input.GetButtonDown("Start_4") && startCount4 == 0)
+                {
+                    startCount4++;
+                    PlayerReady[3].enabled = true;
+                    PlayerDC[3].enabled = true;
+                    AButton[3].gameObject.SetActive(false);
+                    PressStart[3].enabled = true;
+                    AButton[3].gameObject.SetActive(false);
+                    activePlayers[3] = false;
+                    Invoke("ResetStart4", .25f);
+                }
+            }
+
+            if (Input.GetButtonDown("A_4") && (AResetP4 <= 2))
+            {
+                AResetP4++;
+                p4Ready = true;
+                PlayerReady[3].enabled = true;
+                ReadyStamp[3].gameObject.SetActive(true);
+                Debug.Log("i == 1" + z + "Player 4 Ready = true" + p4Ready);
+                if (AResetP4 == 2)
+                {
+                    AButton[3].gameObject.SetActive(true);
+                    p4Ready = false;
+                    PlayerReady[3].enabled = false;
+                    ReadyStamp[3].gameObject.SetActive(false);
+                    Invoke("AResetP4FC", .5f);
+                }
+            }
+        }
+
+        if (activePlayers[3] == false)
+        {
+            if ((Input.GetButtonDown("Start_4") || Input.GetButtonDown("B_4")) && startCount4 == 0)
+            {
+                startCount4++;
+                PlayerReady[3].enabled = false;
+                PlayerDC[3].enabled = false;
+                AButton[3].gameObject.SetActive(true);
+                PressStart[3].enabled = false;
+                AButton[3].gameObject.SetActive(true);
+                Invoke("ResetStart4", .25f);
+            }
+        }
+
+
+
         
     }
 
@@ -496,95 +614,20 @@ public class CharacterMenuController : MonoBehaviour {
         CharacterNames[3].text = Names[p4Pos];
     }
 
-    /*public void ButtonClickP3()
+    void ResetStart1()
     {
-        p3Pos = p3Pos + 1;
-        if (p3Pos > 1)
-            p3Pos = 0;
-        CharacterPictures[0].sprite = Characters[p1Pos].GetComponentInChildren<SpriteRenderer>().sprite;
-        PlayerPrefabs[0].GetComponentInChildren<SpriteRenderer>().sprite = Characters[p1Pos].GetComponentInChildren<SpriteRenderer>().sprite;
-        //NextButtons[2].GetComponent<Button>().image.overrideSprite = NextButtonClick[2];
-        switch (p3Pos)
-        {
-            case (0):
-                CharacterNames[2].text = Names[p3Pos];
-                break;
-            case (1):
-                CharacterNames[2].text = Names[p3Pos];
-                break;
-            case (2):
-                CharacterNames[2].text = Names[p3Pos];
-                break;
-            case (3):
-                CharacterNames[2].text = Names[p3Pos];
-                break;
-            default:
-                break;
-        }
-
-    }*/
-    /*public void ButtonClickP4()
-    {
-        p4Pos = p4Pos + 1;
-        if (p4Pos > 1)
-            p4Pos = 0;
-        CharacterPictures[0].sprite = Characters[p1Pos].GetComponentInChildren<SpriteRenderer>().sprite;
-        PlayerPrefabs[0].GetComponentInChildren<SpriteRenderer>().sprite = Characters[p1Pos].GetComponentInChildren<SpriteRenderer>().sprite;
-        //NextButtons[3].GetComponent<Button>().image.overrideSprite = NextButtonClick[3];
-
-        switch (p4Pos)
-        {
-            case(0):
-                CharacterNames[3].text = Names[p4Pos];
-                break;
-            case (1):
-                CharacterNames[3].text = Names[p4Pos];
-                break;
-            case (2):
-                CharacterNames[3].text = Names[p4Pos];
-                break;
-            case (3):
-                CharacterNames[3].text = Names[p4Pos];
-                break;
-            default:
-                break;
-        }
-    }*/
-
-    void ButtonHoverP1()
-    {
-        //NextButtons[0].GetComponent<Button>().image.overrideSprite = NextButtonsHover[0];
+        startCount1 = 0;
     }
-    void ButtonHoverP2()
+    void ResetStart2()
     {
-        //NextButtons[1].GetComponent<Button>().image.overrideSprite = NextButtonsHover[1];
-
+        startCount2 = 0;
     }
-    void ButtonHoverP3()
+    void ResetStart3()
     {
-        //NextButtons[2].GetComponent<Button>().image.overrideSprite = NextButtonsHover[2];
-
+        startCount3 = 0;
     }
-    void ButtonHoverP4()
+    void ResetStart4()
     {
-        //NextButtons[3].GetComponent<Button>().image.overrideSprite = NextButtonsHover[3];
-
-    }
-
-    void ButtonHoverExitP1()
-    {
-        //NextButtons[0].GetComponent<Button>().image.overrideSprite = original[0];
-    }
-    void ButtonHoverExitP2()
-    {
-        //NextButtons[1].GetComponent<Button>().image.overrideSprite = original[1];
-    }
-    void ButtonHoverExitP3()
-    {
-        //NextButtons[2].GetComponent<Button>().image.overrideSprite = original[2];
-    }
-    void ButtonHoverExitP4()
-    {
-        //NextButtons[3].GetComponent<Button>().image.overrideSprite = original[3];
+        startCount4 = 0;
     }
 }
