@@ -56,7 +56,7 @@ public class PlayerLives : MonoBehaviour
 
         for (int i = 0; i < ControllerNumber; i++)
         {
-            Debug.Log(i);
+            //Debug.Log(i);
             spawnHeads[ControllerNumber] = false;
             switch (i)
             {
@@ -119,7 +119,7 @@ public class PlayerLives : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        for (int i = 0; i < ControllerNumber; i++)
+        for (int i = 0; i < ControllerNumber && i < PlayerTracker.players.Length; i++)
         {
             Lives[i] = PlayerTracker.players[i].GetComponent<DeathControl>().getLives();
         }

@@ -15,7 +15,6 @@ GameObject:
   - 114: {fileID: 11444654}
   - 114: {fileID: 11436922}
   - 114: {fileID: 11452268}
-  - 114: {fileID: 11438672}
   - 114: {fileID: 11477112}
   - 114: {fileID: 11494500}
   m_Layer: 0
@@ -96,10 +95,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb53e07c49a06d045a28073c0e23c478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player1: {fileID: 132552, guid: a3d73cf3a6894b84abc17aa5ed04048d, type: 2}
-  player2: {fileID: 174768, guid: 9c9caf78eccbf3140ac415e9d2ca5a14, type: 2}
-  player3: {fileID: 159070, guid: 9c1fad9ab4b05974c9452f1afe6efded, type: 2}
-  player4: {fileID: 170682, guid: b38d23deb03f2c9499c9887967b1a081, type: 2}
   player1Spawn: {fileID: 0}
   player2Spawn: {fileID: 0}
   player3Spawn: {fileID: 0}
@@ -110,30 +105,7 @@ MonoBehaviour:
   - {fileID: 141014, guid: a2140c3ea44042142b9e53b1da9264cc, type: 2}
   - {fileID: 193262, guid: 8753f508fe3226c4cb3f9747e5eef22a, type: 2}
   - {fileID: 138384, guid: d6adb3e7e1d4a3e40bca3d4cf8b55f58, type: 2}
---- !u!114 &11438672
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 153628}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1acd732dcd869b34a95c73b3e7208f1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  locationIntro: {fileID: 0}
-  platformLoc: {fileID: 0}
-  playerSpawns:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  Characters:
-  - {fileID: 154002, guid: a94676289250b6f4c8b70dc9e2154d20, type: 2}
-  - {fileID: 171790, guid: 4f355ea7641566a4daa610622d8e6ee7, type: 2}
-  - {fileID: 137992, guid: 815f3d70e9a8ce545808a782a52fb780, type: 2}
-  - {fileID: 174944, guid: 237c15cd675fda3499b2a4841a6207a6, type: 2}
-  - {fileID: 167768, guid: f23643f7968391144b65bede9f3601bc, type: 2}
+  PlayersAmt: 4
 --- !u!114 &11444654
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -145,7 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 652c318ef8e877c488178f6f52ead7df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  motionDamping: 4
+  motionDamping: 12
   levelBounds: {x: 22, y: 32}
 --- !u!114 &11452268
 MonoBehaviour:
