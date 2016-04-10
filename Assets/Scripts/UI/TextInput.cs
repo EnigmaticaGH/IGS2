@@ -11,6 +11,7 @@ public class TextInput : MonoBehaviour {
     InputField.SubmitEvent se;
 
     int GodMode = 99999;
+    bool boom = false;
 
 	// Use this for initialization
 	void Start () {
@@ -20,11 +21,12 @@ public class TextInput : MonoBehaviour {
         se.AddListener(SumbitInput);
         input.onEndEdit = se;
 
-	
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+
 	
 	}
 
@@ -48,6 +50,21 @@ public class TextInput : MonoBehaviour {
         if (arg0.ToString().ToLower().Contains("day"))
         {
             Sun.color = Color.white;
+        }
+        if (arg0.ToString().ToLower().Contains("slow"))
+        {
+            Time.timeScale = .4f;
+        }
+
+        if (arg0.ToString().ToLower().Contains("fast"))
+        {
+            Time.timeScale = 2;
+        }
+
+        if (arg0.ToString().ToLower().Contains("boom"))
+        {
+            boom = true;
+
         }
 
     }

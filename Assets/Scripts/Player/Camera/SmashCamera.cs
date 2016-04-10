@@ -10,12 +10,19 @@ public class SmashCamera : MonoBehaviour {
     private float minX, minY, maxX, maxY;
     private Vector3 size;
     private Vector3 velocity = Vector3.zero;
+    private float vel = 0;
+    private Camera cam;
 
     public static void InitalizePlayers(GameObject[] p)
     {
         players = p;
         xValues = new float[p.Length];
         yValues = new float[p.Length];
+    }
+
+    void Awake()
+    {
+        cam = GetComponent<Camera>();
     }
 
     void Update()
@@ -34,17 +41,14 @@ public class SmashCamera : MonoBehaviour {
             xValues[i] = players[i].transform.position.x;
             yValues[i] = players[i].transform.position.y;
         }
-        size = ScreenSize();
-        float zoom = Mathf.Sqrt(Mathf.Pow(maxX - minX, 2) + Mathf.Pow(maxY - minY, 2));
-        zoom = Mathf.Clamp(zoom, 6, 12);
-        Vector3 zpos = new Vector3(transform.position.x, transform.position.y, -zoom);
-        Vector3.SmoothDamp(transform.position, zpos, ref velocity, motionDamping * Time.deltaTime);
-        Vector3 destination = midpoint + Vector3.forward * -zoom;
+        size = new Vector3(cam.orthographicSize * cam.aspect, cam.orthographicSize);
+        float zoom = Mathf.Clamp(Mathf.Sqrt(Mathf.Pow(maxX - minX, 2) + Mathf.Pow(maxY - minY, 2)), 6, 12);
         Vector3 clampedPosition = new Vector3(
-            Mathf.Clamp(destination.x, -levelBounds.x + (size.x / 2f), levelBounds.x - (size.x / 2f)),
-            Mathf.Clamp(destination.y, -1 + (size.y / 2f), levelBounds.y - (size.y / 2f)),
+            Mathf.Clamp(midpoint.x, -levelBounds.x + size.x, levelBounds.x - size.x),
+            Mathf.Clamp(midpoint.y, -1 + size.y, levelBounds.y - size.y),
             transform.position.z);
         transform.position = Vector3.SmoothDamp(transform.position, clampedPosition, ref velocity, motionDamping * Time.deltaTime);
+        cam.orthographicSize = Mathf.SmoothDamp(cam.orthographicSize, zoom * 0.66f, ref vel, motionDamping * Time.deltaTime);
     }
 
     Vector3 ScreenSize()

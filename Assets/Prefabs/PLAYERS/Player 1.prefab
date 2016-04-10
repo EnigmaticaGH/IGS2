@@ -319,6 +319,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grenadePrefab: {fileID: 120964, guid: 2a62a430d9bb06345a3515eef72540ca, type: 2}
   blockThrowForce: 2000
+  carryingExplosive: 1
 --- !u!114 &11411426
 MonoBehaviour:
   m_ObjectHideFlags: 1

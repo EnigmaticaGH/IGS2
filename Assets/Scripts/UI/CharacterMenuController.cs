@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class CharacterMenuController : MonoBehaviour {
 
+    public Image[] AButton;
     public Image[] ReadyStamp;
     public string[] ActiveControllers;
     public static int ControllerNumber;
@@ -31,9 +32,9 @@ public class CharacterMenuController : MonoBehaviour {
     //public GameObject[] PlayerPrefabs;
 
     public static int p1Pos = 0;
-    public static int p2Pos = 0;
-    public static int p3Pos = 0;
-    public static int p4Pos = 0;
+    public static int p2Pos = 1;
+    public static int p3Pos = 2;
+    public static int p4Pos = 3;
 
     //private Sprite[] original = new Sprite[4];
 
@@ -88,6 +89,11 @@ public class CharacterMenuController : MonoBehaviour {
 
     void Awake()
     {
+
+        p1Pos = 0;
+        p2Pos = 1;
+        p3Pos = 2;
+        p4Pos = 3;
         //ActiveControllers[Input.GetJoystickNames().Length]
         ControllerNumber = 0;
 
@@ -120,20 +126,11 @@ public class CharacterMenuController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        //PlayerPrefabs[0].GetComponentInChildren<SpriteRenderer>().sprite = Characters[0].GetComponentInChildren<SpriteRenderer>().sprite; //*****IMPORTANT FOR SETTING SPRITE
-
-        //CharacterPictures[0].sprite = Characters[0];
-
-        //Make the character picture image the first element in the characters array *******
         for (int i = 0; i < CharacterPictures.Length; i++)
         {
-            CharacterPictures[i].sprite = Characters[0].GetComponentInChildren<SpriteRenderer>().sprite; //Awesome this works 
+            CharacterPictures[i].sprite = Characters[i].GetComponentInChildren<SpriteRenderer>().sprite; //Awesome this works 
+            CharacterNames[i].text = Names[i];
         }
-
-        /*for (int k = 0; k < NextButtons.Length; k++)
-        {
-            NextButtons[k].SetActive(false);
-        }*/
 
         for (int i = 0; i < playerCursors.Length; i++)
         {
@@ -158,20 +155,17 @@ public class CharacterMenuController : MonoBehaviour {
                 //NextButtons[g].SetActive(true);
                 PlayerReady[g].enabled = false;
                 PlayerDC[g].enabled = false;
+                AButton[g].gameObject.SetActive(true);
             }
 
-
-        /*for (int i = 0; i < NextButtons.Length; i++)
-        {
-            original[i] = NextButtons[i].GetComponent<Button>().image.overrideSprite;
-        }*/
 	}
 
     void Update()
     {
         if (p1Ready == false)
         {
-            if ((Input.GetAxisRaw("L_YAxis_1") == 1 || Input.GetAxisRaw("DPad_YAxis_1") == 1) && (j == stickResetP1))
+            AButton[0].gameObject.SetActive(true);
+            if ((Input.GetAxisRaw("L_YAxis_1") == 1 || Input.GetAxisRaw("DPad_YAxis_1") == -1) && (j == stickResetP1))
             {
                 stickResetP1++;
                 LeftStickUpP1();
@@ -179,7 +173,7 @@ public class CharacterMenuController : MonoBehaviour {
                 Invoke("StickReset", .5f);
             }
 
-            if ((Input.GetAxisRaw("L_YAxis_1") == -1 || Input.GetAxisRaw("DPad_YAxis_1") == -1) && (j == stickResetP1))
+            if ((Input.GetAxisRaw("L_YAxis_1") == -1 || Input.GetAxisRaw("DPad_YAxis_1") == 1) && (j == stickResetP1))
             {
                 stickResetP1++;
                 LeftStickDownP1();
@@ -207,6 +201,7 @@ public class CharacterMenuController : MonoBehaviour {
 
         if (p1Ready)
         {
+            AButton[0].gameObject.SetActive(false);
             if (Input.GetButtonDown("B_1") && AResetP1 == 1)
             {
                 AResetP1++;
@@ -218,6 +213,7 @@ public class CharacterMenuController : MonoBehaviour {
         }
         if (p2Ready)
         {
+            AButton[1].gameObject.SetActive(false);
             if (Input.GetButtonDown("B_1") && AResetP2 == 1)
             {
                 AResetP2++;
@@ -229,6 +225,7 @@ public class CharacterMenuController : MonoBehaviour {
         }
         if (p3Ready)
         {
+            AButton[2].gameObject.SetActive(false);
             if (Input.GetButtonDown("B_1") && AResetP3 == 1)
             {
                 AResetP3++;
@@ -240,6 +237,7 @@ public class CharacterMenuController : MonoBehaviour {
         }
         if (p4Ready)
         {
+            AButton[3].gameObject.SetActive(false);
             if (Input.GetButtonDown("B_4") && AResetP4 == 1)
             {
                 AResetP4++;
@@ -252,6 +250,7 @@ public class CharacterMenuController : MonoBehaviour {
 
         if (p2Ready == false)
         {
+            AButton[1].gameObject.SetActive(true);
             if ((Input.GetAxisRaw("L_YAxis_2") == 1 || Input.GetAxisRaw("DPad_YAxis_2") == 1) && (r == stickResetP2))
             {
                 stickResetP2++;
@@ -286,6 +285,7 @@ public class CharacterMenuController : MonoBehaviour {
 
         if (p3Ready == false)
         {
+            AButton[2].gameObject.SetActive(true);
             if ((Input.GetAxisRaw("L_YAxis_3") == 1 || Input.GetAxisRaw("DPad_YAxis_3") == 1) && (r == stickResetP3))
             {
                 stickResetP3++;
@@ -321,6 +321,7 @@ public class CharacterMenuController : MonoBehaviour {
 
         if (p4Ready == false)
         {
+            AButton[3].gameObject.SetActive(true);
             if ((Input.GetAxisRaw("L_YAxis_4") == 1 || Input.GetAxisRaw("DPad_YAxis_4") == 1) && (stickResetP4 == 0))
             {
                 stickResetP4++;
