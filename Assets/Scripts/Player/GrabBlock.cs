@@ -15,6 +15,7 @@ public class GrabBlock : MonoBehaviour
     private Queue<GameObject> originalBlocks;
     private Queue<GameObject> grenadeBlocks;
     private Vector3 forceAngle;
+    private Vector3 throwForce;
     private Vector3 blockPos;
 
     // Use this for initialization
@@ -71,19 +72,32 @@ public class GrabBlock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bool blockGrabDown = Input.GetButtonDown("RB_" + controller.controllerNumber);
+        bool blockGrabDown = 
+            Input.GetButtonDown("RB_" + controller.controllerNumber) ||
+            Input.GetMouseButtonDown(1);
         float x = Input.GetAxis("R_XAxis_" + controller.controllerNumber);
         float y = -Input.GetAxis("R_YAxis_" + controller.controllerNumber);
         forceAngle = new Vector3(x, y);
-        if (x > 0 && sprite.localScale.x < 0)
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector3 m = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position);
+            Vector3 mouse = new Vector3(m.x, m.y, 0).normalized;
+            if (forceAngle.magnitude == 0)
+            {
+                forceAngle = mouse;
+            }
+        }
+
+        if (forceAngle.x > 0 && sprite.localScale.x < 0)
         {
             sprite.localScale = Vector3.one;
         }
-        else if (x < 0 && sprite.localScale.x > 0)
+        else if (forceAngle.x < 0 && sprite.localScale.x > 0)
         {
             sprite.localScale = new Vector3(-1, 1, 1);
         }
-        if (y > 0)
+        if (forceAngle.y > 0)
         {
             blockPos = Vector3.up * 1.5f;
         }
@@ -119,11 +133,13 @@ public class GrabBlock : MonoBehaviour
 
         if (carryingBlock && forceAngle.magnitude > 0.7f)
         {
-            ThrowBlock();
+            throwForce = forceAngle;
+            Invoke("ThrowBlock", 0.05f);
         }
         else if (carryingExplosive && forceAngle.magnitude > 0.7f)
         {
-            ThrowExplosiveBlock();
+            throwForce = forceAngle;
+            Invoke("ThrowExplosiveBlock", 0.05f);
         }
 
         if (carryingBlock || carryingExplosive)
@@ -162,7 +178,7 @@ public class GrabBlock : MonoBehaviour
     void ThrowBlock()
     {
         BlockInteraction blockScript = block.GetComponent<BlockInteraction>();
-        Vector3 force = new Vector3(blockThrowForce * forceAngle.x, blockThrowForce * (forceAngle.y + 0.25f), 0);
+        Vector3 force = new Vector3(blockThrowForce * throwForce.x, blockThrowForce * (throwForce.y + 0.25f), 0);
         blockScript.IsGrabbedBySomeoneElse = false;
         block.GetComponent<Collider>().enabled = true;
         block.transform.parent = originalParent;
@@ -175,7 +191,7 @@ public class GrabBlock : MonoBehaviour
     void ThrowExplosiveBlock()
     {
         GrenadeControl grenadeScript = block.GetComponent<GrenadeControl>();
-        Vector3 force = new Vector3(blockThrowForce * forceAngle.x, blockThrowForce * (forceAngle.y + 0.25f), 0);
+        Vector3 force = new Vector3(blockThrowForce * throwForce.x, blockThrowForce * (throwForce.y + 0.25f), 0);
         block.GetComponent<Collider>().enabled = true;
         block.transform.parent = null;
         block.GetComponent<Rigidbody>().isKinematic = false;

@@ -7,14 +7,11 @@ public class DeathParticles : MonoBehaviour
     private GameObject death;
     private ParticleSystem deathParticles;
     private ParticleSystem.EmissionModule em;
-    private Rigidbody body;
     private float offset;
     // Use this for initialization
     void Awake()
     {
         DeathControl.OnDeath += Die;
-        DeathControl.OnRespawn += Respawn;
-        body = GetComponent<Rigidbody>();
         foreach (GameObject g in Resources.LoadAll<GameObject>("Death"))
         {
             prefab = g;
@@ -23,15 +20,12 @@ public class DeathParticles : MonoBehaviour
         death.transform.parent = transform;
         deathParticles = death.GetComponent<ParticleSystem>();
         em = deathParticles.emission;
-        deathParticles.Stop();
-        em.enabled = false;
         offset = deathParticles.shape.arc / 2;
     }
 
     void OnDestroy()
     {
         DeathControl.OnDeath -= Die;
-        DeathControl.OnRespawn -= Respawn;
     }
 
     void Update()
@@ -66,13 +60,6 @@ public class DeathParticles : MonoBehaviour
 
     void Die(float respawnTime)
     {
-        em.enabled = true;
         deathParticles.Play();
-    }
-
-    void Respawn()
-    {
-        deathParticles.Stop();
-        em.enabled = false;
     }
 }
