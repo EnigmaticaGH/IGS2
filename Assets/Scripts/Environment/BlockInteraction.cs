@@ -43,7 +43,6 @@ public class BlockInteraction : MonoBehaviour {
         startRotation = transform.rotation;
         originalParent = transform.parent;
         isShattering = false;
-        warning = new Color(1, 0.4f, 0.25f, 1);
 
         if (lowGravity.name == "Level 4 - No Gravity!")
         {
@@ -63,12 +62,12 @@ public class BlockInteraction : MonoBehaviour {
         {
             float normalizedVelocity = Mathf.Clamp01(body.velocity.magnitude / lethalVelocity - 0.1f);
             starParticle.startColor = Color.Lerp(originalColor, warning, normalizedVelocity);
-            cube.enabled = body.isKinematic;
-            em.enabled = !body.isKinematic;
+            //cube.enabled = body.isKinematic || isShattering;
+            em.enabled = !body.isKinematic && !isShattering;
         }
         else
         {
-            cube.enabled = false;
+            //cube.enabled = false;
             em.enabled = true;
             starParticle.startColor = Color.white;
         }
@@ -95,7 +94,10 @@ public class BlockInteraction : MonoBehaviour {
             c.collider.CompareTag("Block") && body.velocity.magnitude == 0) && c.relativeVelocity.magnitude > lethalVelocity) //or it can be another block
         {
             Vector3 force = new Vector3((c.relativeVelocity.x / lethalVelocity) * 500, (c.relativeVelocity.y / lethalVelocity) * 500, 0);
-            Launch(force, Mathf.Abs(c.relativeVelocity.x) > 20);
+            if (!float.IsInfinity(force.magnitude) && !float.IsNaN(force.magnitude))
+            {
+                Launch(force, Mathf.Abs(c.relativeVelocity.x) > 20);
+            }
             return;
         }
 
@@ -202,7 +204,7 @@ public class BlockInteraction : MonoBehaviour {
         while ((t -= Time.deltaTime) > 0)
         {
             float normalizedTime = t / maxt;
-            s.color = new Color(1, 0, 0, Mathf.Lerp(0, 1, (1 - normalizedTime)));
+            s.color = new Color(0, 0.2f, 1, Mathf.Lerp(0, 1, (1 - normalizedTime)));
             yield return new WaitForFixedUpdate();
         }
         body.useGravity = true;
@@ -212,7 +214,7 @@ public class BlockInteraction : MonoBehaviour {
         while ((t -= Time.deltaTime) > 0)
         {
             float normalizedTime = t / maxt;
-            s.color = new Color(1, 0, 0, Mathf.Lerp(1, 0, (1 - normalizedTime)));
+            s.color = new Color(0, 0.2f, 1, Mathf.Lerp(1, 0, (1 - normalizedTime)));
             yield return new WaitForFixedUpdate();
         }
         reset = Reset();

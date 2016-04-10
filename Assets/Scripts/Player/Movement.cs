@@ -67,6 +67,21 @@ public class Movement : MonoBehaviour
         float lateralVelocity = Input.GetAxis("L_XAxis_" + controller.controllerNumber) * maxSpeed;
         if (Mathf.Abs(lateralVelocity) / maxSpeed < 0.3f) lateralVelocity = 0;
         Vector3 lateralForce = Vector3.right * Input.GetAxisRaw("L_XAxis_" + controller.controllerNumber) * moveForce;
+        if (Input.GetKey(KeyCode.A))
+        {
+            lateralVelocity = -maxSpeed;
+            lateralForce = Vector3.right * -moveForce;
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            lateralVelocity = maxSpeed;
+            lateralForce = Vector3.right * moveForce;
+        }
+        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D))
+        {
+            lateralVelocity = 0;
+            lateralForce = Vector3.zero;
+        }
 
         if (!useForce)
             player.velocity = new Vector3(lateralVelocity, player.velocity.y, player.velocity.z);

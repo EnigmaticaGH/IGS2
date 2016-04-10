@@ -12,7 +12,7 @@ public class PlayerAbilities : MonoBehaviour
     private ControllerNumber controller;
     private Rigidbody player;
     private Movement movement;
-    private TrailRenderer dashTrail;
+    private ParticleSystem dashTrail;
     private const float ABILITY_B_FORCE = 600;
     //Assign new abilities here
     private Ability[] abilities;
@@ -30,7 +30,7 @@ public class PlayerAbilities : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
-        dashTrail = GetComponent<TrailRenderer>();
+        dashTrail = transform.FindChild("Dash").GetComponent<ParticleSystem>();
         player = GetComponent<Rigidbody>();
         movement = GetComponent<Movement>();
         controller = GetComponent<ControllerNumber>();
@@ -50,7 +50,7 @@ public class PlayerAbilities : MonoBehaviour
         }
         abilities = new Ability[]
         {
-            new Ability("BlockSmash", 0.125f, 0.125f, 0.2f,
+            new Ability("BlockSmash", 0.13f, 0.13f, 0.2f,
                 new string[]
                 {
                     "R_XAxis",
@@ -73,7 +73,6 @@ public class PlayerAbilities : MonoBehaviour
             AbilityRegistry.RegisterAbility(name, ability);
         }
         usedAirDash = false;
-        dashTrail.time = 0;
         currentPowerup = Powerup.None;
     }
 
@@ -86,6 +85,14 @@ public class PlayerAbilities : MonoBehaviour
         float x = Input.GetAxis(abilities[0].Axis[0] + "_" + controller.controllerNumber);
         float y = -Input.GetAxis(abilities[0].Axis[1] + "_" + controller.controllerNumber);
         Vector3 rThumbstick = new Vector3(x, y);
+        Vector2 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (!GetComponent<GrabBlock>().CarryingBlock && abilities[0].AbilityStatus == Ability.Status.READY)
+            {
+                StartCoroutine("Ability_" + abilities[0].Name + "_Activate", abilities[0]);
+            }
+        }
         if (rThumbstick.magnitude != 0)
         {
             if (thumbstickInUse == false)
@@ -123,8 +130,12 @@ public class PlayerAbilities : MonoBehaviour
         float x = Input.GetAxis(ability.Axis[0] + "_" + controller.controllerNumber);
         float y = -Input.GetAxis(ability.Axis[1] + "_" + controller.controllerNumber);
         Vector3 forceAngle = new Vector3(x, y);
-
-        dashTrail.time = ability.ActiveTime * 2;
+        Vector3 m = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position);
+        Vector3 mouse = new Vector3(m.x, m.y, 0).normalized;
+        if (forceAngle.magnitude == 0)
+        {
+            forceAngle = mouse;
+        }
 
         ability.AbilityStatus = Ability.Status.ACTIVE;
 
@@ -135,9 +146,9 @@ public class PlayerAbilities : MonoBehaviour
         else if (movement.State != Movement.MovementState.GROUND && usedAirDash)
         {
             ability.AbilityStatus = Ability.Status.READY;
-            dashTrail.time = 0;
             yield break;
         }
+        dashTrail.Play();
         Vector3 force = new Vector3(ABILITY_B_FORCE * forceAngle.normalized.x, ABILITY_B_FORCE * forceAngle.normalized.y);
         player.useGravity = false;
         if (Mathf.Abs(x) > ability.AxisThreshold / 2)
@@ -151,7 +162,6 @@ public class PlayerAbilities : MonoBehaviour
         yield return new WaitForSeconds(ability.ActiveTime);
 
         player.useGravity = true;
-        dashTrail.time = 0;
 
         ability.AbilityStatus = Ability.Status.COOLDOWN;
 
