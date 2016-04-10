@@ -361,6 +361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1419745cdc37af04aab7b92a2dd64214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvas: {fileID: 0}
 --- !u!114 &11478092
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -451,6 +452,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grenadePrefab: {fileID: 120964, guid: 2a62a430d9bb06345a3515eef72540ca, type: 2}
   blockThrowForce: 2000
+  carryingExplosive: 1
 --- !u!136 &13606100
 CapsuleCollider:
   m_ObjectHideFlags: 1

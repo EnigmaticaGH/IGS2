@@ -1,9 +1,13 @@
 fileFormatVersion: 2
 guid: f3d49380d685d9e4091aae78b43aa3ca
-timeCreated: 1460072677
+timeCreated: 1460095322
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: A B BUTTONS_0
+    21300002: A B BUTTONS_1
+    21300004: A B BUTTONS_2
+    21300006: A B BUTTONS_3
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -30,26 +34,102 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
-    aniso: -1
+    aniso: 16
     mipBias: -1
-    wrapMode: -1
-  nPOTScale: 1
+    wrapMode: 1
+  nPOTScale: 0
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
   allowsAlphaSplitting: 0
-  spriteMode: 0
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 100
-  alphaIsTransparency: 0
-  textureType: -1
+  spritePixelsToUnits: 600
+  alphaIsTransparency: 1
+  textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: A B BUTTONS_0
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 177
+        width: 83
+        height: 84
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 30.5, y: 42}
+        - {x: -34.5, y: 42}
+        - {x: -41.5, y: 40}
+        - {x: -41.5, y: -30}
+        - {x: -25.5, y: -35}
+        - {x: 24.5, y: -35}
+        - {x: 37.5, y: -19}
+        - {x: 37.5, y: 17}
+        - {x: 34.5, y: 35}
+    - name: A B BUTTONS_1
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 185
+        width: 190
+        height: 87
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -95, y: 22.5}
+        - {x: -95, y: -29.5}
+        - {x: -89, y: -31.5}
+        - {x: 93, y: -31.5}
+        - {x: 93, y: 22.5}
+    - name: A B BUTTONS_2
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 27
+        width: 80
+        height: 83
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 27, y: 41.5}
+        - {x: -24, y: 41.5}
+        - {x: -34, y: 39.5}
+        - {x: -39, y: 29.5}
+        - {x: -39, y: -34.5}
+        - {x: -32, y: -36.5}
+        - {x: 36, y: -36.5}
+        - {x: 40, y: -27.5}
+        - {x: 40, y: 16.5}
+        - {x: 37, y: 33.5}
+    - name: A B BUTTONS_3
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 31
+        width: 169
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -79.5, y: 27}
+        - {x: -79.5, y: -23}
+        - {x: -76.5, y: -25}
+        - {x: -71.5, y: -26}
+        - {x: 67.5, y: -26}
+        - {x: 77.5, y: -25}
+        - {x: 77.5, y: 16}
+        - {x: 59.5, y: 27}
     outline: []
   spritePackingTag: 
   userData: 

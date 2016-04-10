@@ -9,7 +9,7 @@ public class GrabBlock : MonoBehaviour
     public float blockThrowForce;
     private bool foundBlock;
     private bool carryingBlock;
-    private bool carryingExplosive;
+    public bool carryingExplosive;
     private Transform originalParent;
     private Transform sprite;
     private Queue<GameObject> originalBlocks;

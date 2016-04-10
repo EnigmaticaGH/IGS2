@@ -3,8 +3,6 @@ using System.Collections;
 
 public class LevelSetupController : MonoBehaviour {
 
-    public GameObject player1;
-    public GameObject player2;
 
     public GameObject[] players;
     

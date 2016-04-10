@@ -40,6 +40,6 @@ public class WinEventReceiver : MonoBehaviour
     public void Button1_Click()
     {
         //Application.LoadLevel(0);
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
     }
 }

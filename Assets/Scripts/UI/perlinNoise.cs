@@ -26,8 +26,9 @@ public class perlinNoise : MonoBehaviour {
         float sampleX = Mathf.PerlinNoise(Time.time, offset.x);
         float sampleY = Mathf.PerlinNoise(Time.time, offset.y);
         float sampleZ = Mathf.PerlinNoise(Time.time, offset.z);
+        float sampleA = Mathf.PerlinNoise(Time.time, offset.z);
 
-        background.color = new Color(sampleX, sampleY, sampleZ);
+        background.color = new Color(background.color.r, background.color.g, background.color.b, sampleA + .25f);
 	
 	}
 }
