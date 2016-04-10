@@ -11,11 +11,9 @@ public class BlockInteraction : MonoBehaviour {
     private Rigidbody r;
     private Vector3 startPosition;
     private float time;
-    private MeshRenderer cube;
     private IEnumerator reset;
     private Transform originalParent;
     private bool isShattering;
-    private ParticleSystem.EmissionModule em;
     private ParticleSystem starParticle;
     private Color originalColor;
     public Color warning;
@@ -26,19 +24,14 @@ public class BlockInteraction : MonoBehaviour {
     {
         starParticle = GetComponentInChildren<ParticleSystem>();
         originalColor = GetComponentInChildren<ParticleSystem>().startColor;
-        cube = GetComponent<MeshRenderer>();
-        em = starParticle.emission;
-        em.enabled = false;
     }
 
     void Start()
     {
         lowGravity = SceneManager.GetActiveScene();
-        //blockMaterial = GetComponent<MeshRenderer>().material;
         body = GetComponent<Rigidbody>();
         startPosition = transform.position;
         time = 0;
-        //isGrabbedBySomeoneElse = false;
         reset = Reset();
         startRotation = transform.rotation;
         originalParent = transform.parent;
@@ -62,13 +55,9 @@ public class BlockInteraction : MonoBehaviour {
         {
             float normalizedVelocity = Mathf.Clamp01(body.velocity.magnitude / lethalVelocity - 0.1f);
             starParticle.startColor = Color.Lerp(originalColor, warning, normalizedVelocity);
-            //cube.enabled = body.isKinematic || isShattering;
-            em.enabled = !body.isKinematic && !isShattering;
         }
         else
         {
-            //cube.enabled = false;
-            em.enabled = true;
             starParticle.startColor = Color.white;
         }
     }
@@ -109,8 +98,6 @@ public class BlockInteraction : MonoBehaviour {
 
     void Launch(Vector3 force, bool isSidewaysLaunch)
     {
-        Debug.Log("Emission started");
-        em.enabled = true;
         body.useGravity = true;
         body.isKinematic = false;
         if (isSidewaysLaunch)
@@ -123,7 +110,6 @@ public class BlockInteraction : MonoBehaviour {
 
     void PushPlayer(Movement m, Vector3 power)
     {
-        em.enabled = true;
         r.MovePosition(r.transform.position + Vector3.up * 0.1f);
         r.AddForce(power);
         m.UseForceInstead(0.5f);
@@ -133,7 +119,6 @@ public class BlockInteraction : MonoBehaviour {
 
     public void Throw(Vector3 force, float respawnTime, Color color)
     {
-        em.enabled = true;
         body.isKinematic = false;
         body.useGravity = true;
         body.AddForce(force);
@@ -163,7 +148,6 @@ public class BlockInteraction : MonoBehaviour {
 
     IEnumerator Reset()
     {
-        int count = 0;
         while (time >= 0)
         {
             yield return new WaitForFixedUpdate();
@@ -171,22 +155,7 @@ public class BlockInteraction : MonoBehaviour {
             {
                 time -= Time.deltaTime;
             }
-            if (body.velocity.sqrMagnitude < 1 && em.enabled)
-            {
-                count++;
-                if(count > 40)
-                {
-                    em.enabled = false;
-                    cube.enabled = true;
-                }
-            }
-            else
-            {
-                count = 0;
-            }
         }
-        em.enabled = false;
-        cube.enabled = true;
         time = 0;
         transform.position = startPosition;
         transform.rotation = startRotation;
@@ -225,7 +194,6 @@ public class BlockInteraction : MonoBehaviour {
     {
         body.useGravity = false;
         body.isKinematic = true;
-        em.enabled = false;
         transform.rotation = startRotation;
         transform.position = startPosition;
         isShattering = false;

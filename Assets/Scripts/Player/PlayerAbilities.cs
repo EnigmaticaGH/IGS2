@@ -85,7 +85,6 @@ public class PlayerAbilities : MonoBehaviour
         float x = Input.GetAxis(abilities[0].Axis[0] + "_" + controller.controllerNumber);
         float y = -Input.GetAxis(abilities[0].Axis[1] + "_" + controller.controllerNumber);
         Vector3 rThumbstick = new Vector3(x, y);
-        Vector2 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         if (Input.GetMouseButtonDown(0))
         {
             if (!GetComponent<GrabBlock>().CarryingBlock && abilities[0].AbilityStatus == Ability.Status.READY)

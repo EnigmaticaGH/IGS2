@@ -6,7 +6,6 @@ public class DeathParticles : MonoBehaviour
     private GameObject prefab;
     private GameObject death;
     private ParticleSystem deathParticles;
-    private ParticleSystem.EmissionModule em;
     private float offset;
     // Use this for initialization
     void Awake()
@@ -19,7 +18,6 @@ public class DeathParticles : MonoBehaviour
         death = (GameObject)Instantiate(prefab, transform.position, Quaternion.identity);
         death.transform.parent = transform;
         deathParticles = death.GetComponent<ParticleSystem>();
-        em = deathParticles.emission;
         offset = deathParticles.shape.arc / 2;
     }
 

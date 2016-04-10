@@ -433,7 +433,7 @@ ParticleSystem:
   EmissionModule:
     enabled: 1
     serializedVersion: 2
-    m_Type: 0
+    m_Type: 1
     rate:
       scalar: 15
       maxCurve:

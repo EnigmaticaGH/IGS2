@@ -18,7 +18,7 @@ public class PlayerPause : MonoBehaviour {
 
     int menuCount;
 
-    PauseMenu Pause;
+    //PauseMenu Pause;
 
     void Awake()
     {
@@ -29,7 +29,7 @@ public class PlayerPause : MonoBehaviour {
     void Start()
     {
 
-        Pause = GameObject.Find("UIController").GetComponent<PauseMenu>();
+        //Pause = GameObject.Find("UIController").GetComponent<PauseMenu>();
         
         //DevField = DevField.Addcmponent<GameObject>;
         for (int i = 0; i < PauseButtons.Length; i++)

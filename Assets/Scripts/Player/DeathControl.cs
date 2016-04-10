@@ -91,7 +91,7 @@ public class DeathControl : MonoBehaviour
     public void Spawn()
     {
         transform.position = new Vector3(Zones.GetSafeSpawnX(), Zones.GetSafeSpawnY(), 0);
-        Debug.LogError("Spawn " + transform.gameObject.name + " " + transform.position);
+        //Debug.LogError("Spawn " + transform.gameObject.name + " " + transform.position);
     }
 
     IEnumerator Respawn(float respawnTime)

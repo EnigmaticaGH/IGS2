@@ -11,7 +11,7 @@ public class TextInput : MonoBehaviour {
     InputField.SubmitEvent se;
 
     int GodMode = 99999;
-    bool boom = false;
+    //bool boom = false;
 
 	// Use this for initialization
 	void Start () {
@@ -63,7 +63,7 @@ public class TextInput : MonoBehaviour {
 
         if (arg0.ToString().ToLower().Contains("boom"))
         {
-            boom = true;
+            //boom = true;
 
         }
 
