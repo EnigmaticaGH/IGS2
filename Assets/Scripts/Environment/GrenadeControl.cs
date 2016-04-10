@@ -7,12 +7,14 @@ public class GrenadeControl : MonoBehaviour
     public float explosionRadius;
     //private Rigidbody body;
     private static GameObject[] blocks;
+    private ParticleSystem explosion;
 
     // Use this for initialization
     void Start()
     {
         //body = GetComponent<Rigidbody>();
         blocks = GameObject.FindGameObjectsWithTag("Block");
+        explosion = transform.FindChild("Explosion").GetComponent<ParticleSystem>();
         Exploded = false;
     }
 
@@ -25,6 +27,7 @@ public class GrenadeControl : MonoBehaviour
     {
         if (!Exploded && other.relativeVelocity.sqrMagnitude > 10)
         {
+            explosion.Play();
             UpdateBlockList();
             Exploded = true;
             foreach (GameObject block in blocks)

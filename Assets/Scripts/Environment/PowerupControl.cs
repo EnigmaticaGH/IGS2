@@ -24,6 +24,22 @@ public class PowerupControl : MonoBehaviour
         StartCoroutine(SpawnPowerup());
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            foreach (GameObject g in powerups)
+            {
+                Debug.Log(g.name);
+                if (g.name == "GrenadePowerup(Clone)")
+                {
+                    g.SetActive(true);
+                    g.transform.position = powerupSpawns[0].transform.position;
+                }
+            }
+        }
+    }
+
     IEnumerator SpawnPowerup()
     {
         int numPowerups = powerups.Count;
