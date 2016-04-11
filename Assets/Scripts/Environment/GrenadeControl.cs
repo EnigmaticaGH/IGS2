@@ -8,6 +8,8 @@ public class GrenadeControl : MonoBehaviour
     //private Rigidbody body;
     private static GameObject[] blocks;
     private ParticleSystem explosion;
+    [HideInInspector]
+    public Color teamColor;
 
     // Use this for initialization
     void Start()
@@ -23,33 +25,39 @@ public class GrenadeControl : MonoBehaviour
         blocks = GameObject.FindGameObjectsWithTag("Block");
     }
 
+    void ExplosionProcess()
+    {
+        explosion.Play();
+        UpdateBlockList();
+        Exploded = true;
+        foreach (GameObject block in blocks)
+        {
+            if (Vector3.Distance(block.transform.position, transform.position) < explosionRadius &&
+                block.GetComponent<BlockInteraction>() != null)
+            {
+                Vector3 distance = block.transform.position - transform.position;
+                Vector3 force = distance * (explosionForce / distance.sqrMagnitude);
+                block.GetComponent<BlockInteraction>().SetParticleColor(teamColor);
+                block.GetComponent<BlockInteraction>().Explode(force);
+            }
+        }
+
+        foreach (GameObject player in PlayerTracker.players)
+        {
+            if (Vector3.Distance(player.transform.position, transform.position) < explosionRadius)
+            {
+                Vector3 distance = player.transform.position - transform.position;
+                Vector3 force = distance * (explosionForce / distance.sqrMagnitude);
+                player.GetComponent<Rigidbody>().AddForce(force);
+            }
+        }
+    }
+
     void OnCollisionEnter(Collision other)
     {
         if (!Exploded && other.relativeVelocity.sqrMagnitude > 10)
         {
-            explosion.Play();
-            UpdateBlockList();
-            Exploded = true;
-            foreach (GameObject block in blocks)
-            {
-                if (Vector3.Distance(block.transform.position, transform.position) < explosionRadius &&
-                    block.GetComponent<BlockInteraction>() != null)
-                {
-                    Vector3 distance = block.transform.position - transform.position;
-                    Vector3 force = distance * (explosionForce / distance.sqrMagnitude);
-                    block.GetComponent<BlockInteraction>().Explode(force);
-                }
-            }
-
-            foreach (GameObject player in PlayerTracker.players)
-            {
-                if (Vector3.Distance(player.transform.position, transform.position) < explosionRadius)
-                {
-                    Vector3 distance = player.transform.position - transform.position;
-                    Vector3 force = distance * (explosionForce / distance.sqrMagnitude);
-                    player.GetComponent<Rigidbody>().AddForce(force);
-                }
-            }
+            ExplosionProcess();
         }
     }
 
@@ -57,28 +65,7 @@ public class GrenadeControl : MonoBehaviour
     {
         if (!Exploded)
         {
-            UpdateBlockList();
-            Exploded = true;
-            foreach (GameObject block in blocks)
-            {
-                if (Vector3.Distance(block.transform.position, transform.position) < explosionRadius &&
-                    block.GetComponent<BlockInteraction>() != null)
-                {
-                    Vector3 distance = block.transform.position - transform.position;
-                    Vector3 force = distance * (explosionForce / distance.sqrMagnitude);
-                    block.GetComponent<BlockInteraction>().Explode(force);
-                }
-            }
-
-            foreach (GameObject player in PlayerTracker.players)
-            {
-                if (Vector3.Distance(player.transform.position, transform.position) < explosionRadius)
-                {
-                    Vector3 distance = player.transform.position - transform.position;
-                    Vector3 force = distance * (explosionForce / distance.sqrMagnitude);
-                    player.GetComponent<Rigidbody>().AddForce(force);
-                }
-            }
+            ExplosionProcess();
         }
         gameObject.SetActive(false);
     }

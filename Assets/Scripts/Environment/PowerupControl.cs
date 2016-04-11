@@ -30,7 +30,6 @@ public class PowerupControl : MonoBehaviour
         {
             foreach (GameObject g in powerups)
             {
-                Debug.Log(g.name);
                 if (g.name == "GrenadePowerup(Clone)")
                 {
                     g.SetActive(true);
