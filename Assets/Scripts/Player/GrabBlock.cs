@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class GrabBlock : MonoBehaviour
 {
     public GameObject grenadePrefab;
+    public Color teamColor;
     private ControllerNumber controller;
     private GameObject block;
     public float blockThrowForce;
@@ -152,6 +153,7 @@ public class GrabBlock : MonoBehaviour
     {
         foundBlock = false;
         BlockInteraction blockScript = block.GetComponent<BlockInteraction>();
+        blockScript.SetParticleColor(teamColor);
         blockScript.IsGrabbedBySomeoneElse = true;
         block.GetComponent<Collider>().enabled = false;
         block.GetComponent<Rigidbody>().isKinematic = false;
@@ -197,6 +199,7 @@ public class GrabBlock : MonoBehaviour
         block.GetComponent<Rigidbody>().isKinematic = false;
         block.GetComponent<Rigidbody>().useGravity = true;
         block.GetComponent<Rigidbody>().AddForce(force);
+        grenadeScript.teamColor = teamColor;
         grenadeScript.Exploded = false;
         Invoke("ResetGrenade", 5);
         foundBlock = false;

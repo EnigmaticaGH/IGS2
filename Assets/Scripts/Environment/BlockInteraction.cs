@@ -15,14 +15,20 @@ public class BlockInteraction : MonoBehaviour {
     private Transform originalParent;
     private bool isShattering;
     private ParticleSystem starParticle;
+    private ParticleSystem.EmissionModule em;
+    private ParticleSystem.MinMaxCurve mmc;
     private Color originalColor;
+    private Color currentColor;
     public Color warning;
     public float lethalVelocity;
     private float vel;
+    private float startRate;
 
     void Awake()
     {
         starParticle = GetComponentInChildren<ParticleSystem>();
+        em = starParticle.emission;
+        mmc = em.rate;
         originalColor = GetComponentInChildren<ParticleSystem>().startColor;
     }
 
@@ -36,6 +42,7 @@ public class BlockInteraction : MonoBehaviour {
         startRotation = transform.rotation;
         originalParent = transform.parent;
         isShattering = false;
+        startRate = mmc.constantMax;
 
         if (lowGravity.name == "Level 4 - No Gravity!")
         {
@@ -54,11 +61,7 @@ public class BlockInteraction : MonoBehaviour {
         if (!IsGrabbedBySomeoneElse)
         {
             float normalizedVelocity = Mathf.Clamp01(body.velocity.magnitude / lethalVelocity - 0.1f);
-            starParticle.startColor = Color.Lerp(originalColor, warning, normalizedVelocity);
-        }
-        else
-        {
-            starParticle.startColor = Color.white;
+            starParticle.startColor = Color.Lerp(currentColor, warning, normalizedVelocity);
         }
     }
 
@@ -92,6 +95,8 @@ public class BlockInteraction : MonoBehaviour {
 
         if (c.collider.CompareTag("Player") && !isShattering && AbilityRegistry.AbilityStatus(c.gameObject.name, "BlockDrop") == Ability.Status.ACTIVE)
         {
+            currentColor = c.gameObject.GetComponent<GrabBlock>().teamColor;
+            starParticle.startColor = currentColor;
             StartCoroutine(Shatter(0.5f));
         }
     }
@@ -156,9 +161,13 @@ public class BlockInteraction : MonoBehaviour {
                 time -= Time.deltaTime;
             }
         }
+        starParticle.startColor = originalColor;
+        currentColor = originalColor;
         time = 0;
+        mmc.constantMax = 0.25f;
         transform.position = startPosition;
         transform.rotation = startRotation;
+        mmc.constantMax = startRate;
         body.useGravity = false;
         body.isKinematic = true;
         isShattering = false;
@@ -170,10 +179,11 @@ public class BlockInteraction : MonoBehaviour {
         SpriteRenderer s = transform.FindChild("Square(Clone)").GetComponent<SpriteRenderer>();
         isShattering = true;
         float maxt = t;
+        Color c = currentColor;
         while ((t -= Time.deltaTime) > 0)
         {
             float normalizedTime = t / maxt;
-            s.color = new Color(0, 0.2f, 1, Mathf.Lerp(0, 1, (1 - normalizedTime)));
+            s.color = new Color(c.r, c.g, c.b, Mathf.Lerp(0, 1, (1 - normalizedTime)));
             yield return new WaitForFixedUpdate();
         }
         body.useGravity = true;
@@ -183,7 +193,7 @@ public class BlockInteraction : MonoBehaviour {
         while ((t -= Time.deltaTime) > 0)
         {
             float normalizedTime = t / maxt;
-            s.color = new Color(0, 0.2f, 1, Mathf.Lerp(1, 0, (1 - normalizedTime)));
+            s.color = new Color(c.r, c.g, c.b, Mathf.Lerp(1, 0, (1 - normalizedTime)));
             yield return new WaitForFixedUpdate();
         }
         reset = Reset();
@@ -197,6 +207,12 @@ public class BlockInteraction : MonoBehaviour {
         transform.rotation = startRotation;
         transform.position = startPosition;
         isShattering = false;
+    }
+
+    public void SetParticleColor(Color teamColor)
+    {
+        currentColor = teamColor;
+        starParticle.startColor = currentColor;
     }
 
     public bool IsGrabbedBySomeoneElse

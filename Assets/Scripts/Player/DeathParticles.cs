@@ -6,6 +6,7 @@ public class DeathParticles : MonoBehaviour
     private GameObject prefab;
     private GameObject death;
     private ParticleSystem deathParticles;
+    private Color teamColor;
     private float offset;
     // Use this for initialization
     void Awake()
@@ -19,6 +20,8 @@ public class DeathParticles : MonoBehaviour
         death.transform.parent = transform;
         deathParticles = death.GetComponent<ParticleSystem>();
         offset = deathParticles.shape.arc / 2;
+        teamColor = GetComponent<GrabBlock>().teamColor;
+        deathParticles.subEmitters.birth0.startColor = teamColor;
     }
 
     void OnDestroy()

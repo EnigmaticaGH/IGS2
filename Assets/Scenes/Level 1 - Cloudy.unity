@@ -56712,7 +56712,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 485130, guid: 2ea38f736b6646743a9b07ef2da86153, type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 418804, guid: 2ea38f736b6646743a9b07ef2da86153, type: 2}
       propertyPath: m_LocalPosition.y
@@ -68959,23 +68959,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 429480, guid: 8753f508fe3226c4cb3f9747e5eef22a, type: 2}
       propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 193262, guid: 8753f508fe3226c4cb3f9747e5eef22a, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11454060, guid: 8753f508fe3226c4cb3f9747e5eef22a, type: 2}
-      propertyPath: controllerNumber
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5442168, guid: 8753f508fe3226c4cb3f9747e5eef22a, type: 2}
-      propertyPath: m_UseGravity
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5442168, guid: 8753f508fe3226c4cb3f9747e5eef22a, type: 2}
-      propertyPath: m_Mass
-      value: 0.25
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8753f508fe3226c4cb3f9747e5eef22a, type: 2}
