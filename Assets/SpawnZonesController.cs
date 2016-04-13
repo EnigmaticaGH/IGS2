@@ -40,8 +40,8 @@ public class SpawnZonesController : MonoBehaviour {
 
             if (safe[i])
             {
-                SafeSpawnX(SpawnZonesOBJ[i].transform.position.x);
-                SafeSpawnY(SpawnZonesOBJ[i].transform.position.y);
+                SafeSpawnX(SpawnZonesOBJ[i].transform.position.x + Random.RandomRange(-1, 1));
+                SafeSpawnY(SpawnZonesOBJ[i].transform.position.y + .5f);
             }
         }
 	
