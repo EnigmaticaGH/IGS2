@@ -19,11 +19,16 @@ public class Setup : MonoBehaviour
     public Image LevelImage;
     public Text ModeText;
     public Text DetailText;
-    public string[] LevelNames = { "Cloudy", "Outback", "Mechanic" };
-    public string[] Details = { "Throw clouds at each other!", "Hit up the desert or the saloon in this outback thriller!", "Wow!! lots of moving stuff cooooolllll!" };
+    public string[] LevelNames = { "Cloudy"};
+    public string[] Details = { "Throw clouds at each other!"};
     public Sprite[] LevelImages;
     //Vector3 startingLoc;
     public GameObject[] SelectedObjects;
+
+    public AudioSource Source;
+    public AudioClip Click;
+    public AudioClip Scroll;
+    public AudioClip Back;
 
     int i = 0;
     public int placeHolder = 0;
@@ -72,6 +77,13 @@ public class Setup : MonoBehaviour
         {
             if (!SelectedLevel)
             {
+                if (Input.GetButtonUp("B_1"))
+                {
+                    Source.clip = Back;
+                    Source.Play();
+                    SceneManager.LoadScene(1);
+                }
+
                 SelectedObjects[0].SetActive(true);
 
                 Highlight.gameObject.SetActive(false);
@@ -84,6 +96,8 @@ public class Setup : MonoBehaviour
                     LevelText.text = LevelNames[placeHolder];
                     LevelImage.sprite = LevelImages[placeHolder];
                     DetailText.text = Details[placeHolder];
+                    Source.clip = Scroll;
+                    Source.Play();
 
                     Invoke("ResetDatI", 1);
                     Invoke("ResetDatColor", .2f);
@@ -98,6 +112,8 @@ public class Setup : MonoBehaviour
                     LevelImage.sprite = LevelImages[placeHolder];
                     LevelText.text = LevelNames[placeHolder];
                     DetailText.text = Details[placeHolder];
+                    Source.clip = Scroll;
+                    Source.Play();
 
                     Invoke("ResetDatI", 1);
                     Invoke("ResetDatColor", .2f);
@@ -110,6 +126,8 @@ public class Setup : MonoBehaviour
                     SelectedLevel = true;
                     mode++;
                     time++;
+                    Source.clip = Click;
+                    Source.Play();
                     //LevelImage.color = Color.red;
                     Invoke("ResetMode", .5f);
                     Highlight.gameObject.SetActive(true);
@@ -133,6 +151,8 @@ public class Setup : MonoBehaviour
                         {
                             ControllerSpot = 0;
                         }
+                        Source.clip = Scroll;
+                        Source.Play();
                         GameController.TextController(ControllerSpot);
                         Invoke("ResetDatCD", .2f);
                     }
@@ -144,6 +164,8 @@ public class Setup : MonoBehaviour
                         {
                             ControllerSpot = GameController.GameModes.Length;
                         }
+                        Source.clip = Scroll;
+                        Source.Play();
                         GameController.TextController(ControllerSpot);
                         Invoke("ResetDatCD", .2f);
                     }
@@ -153,12 +175,16 @@ public class Setup : MonoBehaviour
                         Mode = true;
                         Time = false;
                         time++;
+                        Source.clip = Click;
+                        Source.Play();
                         ModeText.color = textColor;
                         Invoke("ResetTime", .5f);
                     }
 
                     if ((Input.GetButtonUp("B_1") || Input.GetAxisRaw("L_YAxis_1") == 1 || Input.GetAxisRaw("DPad_YAxis_1") == 1) && mode == 0)
                     {
+                        Source.clip = Back;
+                        Source.Play();
                         Mode = false;
                         SelectedLevel = false;
                         SelectedObjects[1].SetActive(false);
@@ -180,6 +206,8 @@ public class Setup : MonoBehaviour
 
                         if ((Input.GetAxis("L_XAxis_1") == 1 || Input.GetAxisRaw("DPad_XAxis_1") == 1) && (cd == 0))
                         {
+                            Source.clip = Scroll;
+                            Source.Play();
                             cd++;
                             tracker++;
                             Debug.Log(tracker);
@@ -192,6 +220,8 @@ public class Setup : MonoBehaviour
                         }
                         if ((Input.GetAxis("L_XAxis_1") == -1 || Input.GetAxisRaw("DPad_XAxis_1") == -1) && (cd == 0))
                         {
+                            Source.clip = Scroll;
+                            Source.Play();
                             cd++;
                             tracker--;
                             Debug.Log(tracker);
@@ -205,6 +235,8 @@ public class Setup : MonoBehaviour
 
                         if ((Input.GetButtonUp("A_1") || Input.GetAxisRaw("L_YAxis_1") == -1 || Input.GetAxisRaw("DPad_YAxis_1") == -1) && time == 0)
                         {
+                            Source.clip = Click;
+                            Source.Play();
                             Time = true;
                             Invoke("ResetMode", .5f);
                             TimeText.color = textColor;
@@ -212,6 +244,8 @@ public class Setup : MonoBehaviour
 
                         if ((Input.GetButtonUp("B_1") || Input.GetAxisRaw("L_YAxis_1") == 1 || Input.GetAxisRaw("DPad_YAxis_1") == 1) && time == 0)
                         {
+                            Source.clip = Back;
+                            Source.Play();
                             Time = false;
                             Mode = false;
                             mode++;
@@ -234,6 +268,8 @@ public class Setup : MonoBehaviour
 
                             if (Input.GetButtonDown("Start_1") || Input.GetButtonDown("A_1") && cd == 0)
                             {
+                                Source.clip = Click;
+                                Source.Play();
                                 SelectedObjects[3].SetActive(false);
                                 LoadScene = true;
                                 cd++;
@@ -243,6 +279,8 @@ public class Setup : MonoBehaviour
 
                             if (Input.GetButtonUp("B_1") || Input.GetAxisRaw("L_YAxis_1") == 1 || Input.GetAxisRaw("DPad_YAxis_1") == 1)
                             {
+                                Source.clip = Back;
+                                Source.Play();
                                 Time = false;
                                 Mode = true;
                                 StartCD = false;
