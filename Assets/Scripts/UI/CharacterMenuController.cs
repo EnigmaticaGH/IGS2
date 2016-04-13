@@ -178,7 +178,7 @@ public class CharacterMenuController : MonoBehaviour
         {
             if (p1Ready == false)
             {
-                if ((Input.GetAxisRaw("L_YAxis_1") == 1 || Input.GetAxisRaw("DPad_YAxis_1") == -1) && (j == stickResetP1))
+                if ((Input.GetAxisRaw("L_YAxis_1") == 1 || Input.GetAxisRaw("DPad_YAxis_1") == -1) && (stickResetP1 == 0))
                 {
                     stickResetP1++;
                     LeftStickUpP1();
@@ -186,7 +186,7 @@ public class CharacterMenuController : MonoBehaviour
                     Invoke("StickReset", .5f);
                 }
 
-                if ((Input.GetAxisRaw("L_YAxis_1") == -1 || Input.GetAxisRaw("DPad_YAxis_1") == 1) && (j == stickResetP1))
+                if ((Input.GetAxisRaw("L_YAxis_1") == -1 || Input.GetAxisRaw("DPad_YAxis_1") == 1) && (stickResetP1 == 0))
                 {
                     stickResetP1++;
                     LeftStickDownP1();
@@ -286,7 +286,7 @@ public class CharacterMenuController : MonoBehaviour
 
             if (p2Ready == false)
             {
-                if ((Input.GetAxisRaw("L_YAxis_2") == 1 || Input.GetAxisRaw("DPad_YAxis_2") == -1) && (r == stickResetP2))
+                if ((Input.GetAxisRaw("L_YAxis_2") == 1 || Input.GetAxisRaw("DPad_YAxis_2") == -1) && (stickResetP2 == 0))
                 {
                     stickResetP2++;
                     LeftStickUpP2();
@@ -294,7 +294,7 @@ public class CharacterMenuController : MonoBehaviour
                     Invoke("StickReset", .5f);
                 }
 
-                if ((Input.GetAxisRaw("L_YAxis_2") == -1 || Input.GetAxisRaw("DPad_YAxis_2") == 1) && (r == stickResetP2))
+                if ((Input.GetAxisRaw("L_YAxis_2") == -1 || Input.GetAxisRaw("DPad_YAxis_2") == 1) && (stickResetP2 == 0))
                 {
                     stickResetP2++;
                     LeftStickDownP2();
