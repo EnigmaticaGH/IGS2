@@ -2,9 +2,11 @@
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 
-public class CharacterMenuController : MonoBehaviour {
+public class CharacterMenuController : MonoBehaviour
+{
 
     public Image[] AButton;
     public Image[] ReadyStamp;
@@ -20,9 +22,9 @@ public class CharacterMenuController : MonoBehaviour {
     public Text[] PressStart;
     public Image[] ogArrowUP;
     public Image[] ogArrowDOWN;
-    public Sprite activeArrowUP; 
+    public Sprite activeArrowUP;
     public Sprite activeArrowDOWN;
-    Sprite ogSpriteUp; 
+    Sprite ogSpriteUp;
     Sprite ogSpriteDown;
 
     public GameObject[] Characters;
@@ -32,6 +34,7 @@ public class CharacterMenuController : MonoBehaviour {
     public static int p1Pos = 0;
     public static int p2Pos = 1;
     public static int p3Pos = 2;
+    public static int length = 0;
     public static int p4Pos = 3;
 
     int stickResetP1 = 0;
@@ -49,7 +52,8 @@ public class CharacterMenuController : MonoBehaviour {
     int startCount4 = 0;
 
     public bool[] activePlayers = new bool[4];
-
+    [SerializeField]
+    public static List<int> playerSize = new List<int>();
 
 
     int z = 0;
@@ -61,14 +65,17 @@ public class CharacterMenuController : MonoBehaviour {
     public bool p3Ready;
     public bool p4Ready;
 
+    public bool[] playerReady;
+
     void OnLevelWasLoaded(int level)
     {
-        if (level == 1) 
+        if (level == 1)
         {
             p1Pos = 0;
             p2Pos = 1;
             p3Pos = 2;
             p4Pos = 3;
+            ControllerNumber = 0;
         }
 
     }
@@ -88,29 +95,30 @@ public class CharacterMenuController : MonoBehaviour {
         ogSpriteDown = ogArrowDOWN[0].sprite;
 
 
-            for (int j = 0; j < Input.GetJoystickNames().Length; j++)
+        for (int j = 0; j < Input.GetJoystickNames().Length; j++)
+        {
+
+            //Debug.LogError(Input.GetJoystickNames()[j]);
+            if (Input.GetJoystickNames()[j].Contains("Xbox"))
             {
-
-                //Debug.LogError(Input.GetJoystickNames()[j]);
-                if (Input.GetJoystickNames()[j].Contains("Xbox"))
-                {
-                    ControllerNumber++;
-                    Debug.Log("Controller " + ControllerNumber);
-                }
-
-                if (Input.GetJoystickNames()[j].Contains("XBOX"))
-                {
-                    ControllerNumber++;
-                    Debug.Log("Controller " + ControllerNumber);
-                }
-
-                ActiveControllers = Input.GetJoystickNames();
+                ControllerNumber++;
+                Debug.Log("Controller " + ControllerNumber);
             }
+
+            if (Input.GetJoystickNames()[j].Contains("XBOX"))
+            {
+                ControllerNumber++;
+                Debug.Log("Controller " + ControllerNumber);
+            }
+
+            ActiveControllers = Input.GetJoystickNames();
+        }
 
     }
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
 
         StartButton.SetActive(false);
 
@@ -122,7 +130,7 @@ public class CharacterMenuController : MonoBehaviour {
 
         for (int i = 0; i < playerCursors.Length; i++)
         {
-           playerCursors[i].SetActive(false); //Set all cursors to false for now
+            playerCursors[i].SetActive(false); //Set all cursors to false for now
 
         }
 
@@ -140,23 +148,11 @@ public class CharacterMenuController : MonoBehaviour {
             activePlayers[i] = false;
         }
 
-            /*for (int g = 0; g < ControllerNumber; g++)
-            {
-                playerCursors[g].SetActive(true);
-                //NextButtons[g].SetActive(true);
-                PlayerReady[g].enabled = false;
-                PlayerDC[g].enabled = false;
-                AButton[g].gameObject.SetActive(true);
-                PressStart[g].enabled = false;
-                AButton[g].gameObject.SetActive(true);
-            }*/
 
-	}
+    }
 
     void Update()
     {
-
-
 
         if (activePlayers[0] == false)
         {
@@ -169,6 +165,7 @@ public class CharacterMenuController : MonoBehaviour {
                 PressStart[0].enabled = false;
                 AButton[0].gameObject.SetActive(true);
                 activePlayers[0] = true;
+                playerSize.Add(1);
                 Invoke("ResetStart1", .25f);
 
             }
@@ -206,6 +203,7 @@ public class CharacterMenuController : MonoBehaviour {
                     PressStart[0].enabled = true;
                     AButton[0].gameObject.SetActive(false);
                     activePlayers[0] = false;
+                    playerSize.Remove(0);
                     Invoke("ResetStart1", .25f);
                 }
 
@@ -264,6 +262,7 @@ public class CharacterMenuController : MonoBehaviour {
                 PressStart[1].enabled = false;
                 AButton[1].gameObject.SetActive(true);
                 activePlayers[1] = true;
+                playerSize.Add(0);
                 Invoke("ResetStart2", .25f);
 
             }
@@ -274,7 +273,7 @@ public class CharacterMenuController : MonoBehaviour {
             if (p2Ready)
             {
                 AButton[1].gameObject.SetActive(false);
-                if (Input.GetButtonDown("B_1") && AResetP2 == 1)
+                if (Input.GetButtonDown("B_2") && AResetP2 == 1)
                 {
                     AResetP2++;
                     p1Ready = false;
@@ -287,7 +286,7 @@ public class CharacterMenuController : MonoBehaviour {
 
             if (p2Ready == false)
             {
-                if ((Input.GetAxisRaw("L_YAxis_2") == 1 || Input.GetAxisRaw("DPad_YAxis_2") == 1) && (r == stickResetP2))
+                if ((Input.GetAxisRaw("L_YAxis_2") == 1 || Input.GetAxisRaw("DPad_YAxis_2") == -1) && (r == stickResetP2))
                 {
                     stickResetP2++;
                     LeftStickUpP2();
@@ -295,7 +294,7 @@ public class CharacterMenuController : MonoBehaviour {
                     Invoke("StickReset", .5f);
                 }
 
-                if ((Input.GetAxisRaw("L_YAxis_2") == -1 || Input.GetAxisRaw("DPad_YAxis_2") == -1) && (r == stickResetP2))
+                if ((Input.GetAxisRaw("L_YAxis_2") == -1 || Input.GetAxisRaw("DPad_YAxis_2") == 1) && (r == stickResetP2))
                 {
                     stickResetP2++;
                     LeftStickDownP2();
@@ -312,6 +311,7 @@ public class CharacterMenuController : MonoBehaviour {
                     PressStart[1].enabled = true;
                     AButton[1].gameObject.SetActive(false);
                     activePlayers[1] = false;
+                    playerSize.Remove(0);
                     Invoke("ResetStart2", .25f);
                 }
             }
@@ -333,12 +333,12 @@ public class CharacterMenuController : MonoBehaviour {
             }
         }
 
-        if (activePlayers[3])
+        if (activePlayers[2])
         {
             if (p3Ready)
             {
                 AButton[2].gameObject.SetActive(false);
-                if (Input.GetButtonDown("B_1") && AResetP3 == 1)
+                if (Input.GetButtonDown("B_3") && AResetP3 == 1)
                 {
                     AResetP3++;
                     p1Ready = false;
@@ -351,7 +351,7 @@ public class CharacterMenuController : MonoBehaviour {
 
             if (p3Ready == false)
             {
-                if ((Input.GetAxisRaw("L_YAxis_3") == 1 || Input.GetAxisRaw("DPad_YAxis_3") == 1) && (r == stickResetP3))
+                if ((Input.GetAxisRaw("L_YAxis_3") == 1 || Input.GetAxisRaw("DPad_YAxis_3") == -1) && (r == stickResetP3))
                 {
                     stickResetP3++;
                     LeftStickUpP3();
@@ -359,7 +359,7 @@ public class CharacterMenuController : MonoBehaviour {
                     Invoke("StickReset", .5f);
                 }
 
-                if ((Input.GetAxisRaw("L_YAxis_3") == -1 || Input.GetAxisRaw("DPad_YAxis_3") == -1) && (r == stickResetP3))
+                if ((Input.GetAxisRaw("L_YAxis_3") == -1 || Input.GetAxisRaw("DPad_YAxis_3") == 1) && (r == stickResetP3))
                 {
                     stickResetP3++;
                     LeftStickDownP3();
@@ -377,6 +377,7 @@ public class CharacterMenuController : MonoBehaviour {
                     PressStart[2].enabled = true;
                     AButton[2].gameObject.SetActive(false);
                     activePlayers[2] = false;
+                    playerSize.Remove(0);
                     Invoke("ResetStart3", .25f);
                 }
             }
@@ -399,7 +400,7 @@ public class CharacterMenuController : MonoBehaviour {
             }
         }
 
-        if (activePlayers[3] == false)
+        if (activePlayers[2] == false)
         {
             if ((Input.GetButtonDown("Start_3") || Input.GetButtonDown("B_3")) && startCount3 == 0)
             {
@@ -409,6 +410,7 @@ public class CharacterMenuController : MonoBehaviour {
                 AButton[2].gameObject.SetActive(true);
                 PressStart[2].enabled = false;
                 AButton[2].gameObject.SetActive(true);
+                playerSize.Add(0);
                 Invoke("ResetStart3", .25f);
             }
         }
@@ -431,7 +433,7 @@ public class CharacterMenuController : MonoBehaviour {
             }
             if (p4Ready == false)
             {
-                if ((Input.GetAxisRaw("L_YAxis_4") == 1 || Input.GetAxisRaw("DPad_YAxis_4") == 1) && (stickResetP4 == 0))
+                if ((Input.GetAxisRaw("L_YAxis_4") == 1 || Input.GetAxisRaw("DPad_YAxis_4") == -1) && (stickResetP4 == 0))
                 {
                     stickResetP4++;
                     LeftStickUpP4();
@@ -439,7 +441,7 @@ public class CharacterMenuController : MonoBehaviour {
                     Invoke("StickReset", .5f);
                 }
 
-                if ((Input.GetAxisRaw("L_YAxis_4") == -1 || Input.GetAxisRaw("DPad_YAxis_4") == -1) && (stickResetP4 == 0))
+                if ((Input.GetAxisRaw("L_YAxis_4") == -1 || Input.GetAxisRaw("DPad_YAxis_4") == 1) && (stickResetP4 == 0))
                 {
                     stickResetP4++;
                     LeftStickDownP4();
@@ -455,6 +457,7 @@ public class CharacterMenuController : MonoBehaviour {
                     PressStart[3].enabled = true;
                     AButton[3].gameObject.SetActive(false);
                     activePlayers[3] = false;
+                    playerSize.Remove(0);
                     Invoke("ResetStart4", .25f);
                 }
             }
@@ -487,13 +490,13 @@ public class CharacterMenuController : MonoBehaviour {
                 AButton[3].gameObject.SetActive(true);
                 PressStart[3].enabled = false;
                 AButton[3].gameObject.SetActive(true);
+                playerSize.Add(0);
                 Invoke("ResetStart4", .25f);
             }
         }
 
+   
 
-
-        
     }
 
     void StickReset()
@@ -515,7 +518,7 @@ public class CharacterMenuController : MonoBehaviour {
 
     }
 
-    void AResetP1FC() 
+    void AResetP1FC()
     {
         AResetP1 = 0;
     }
@@ -532,7 +535,7 @@ public class CharacterMenuController : MonoBehaviour {
         AResetP4 = 0;
     }
 
-    void LeftStickDownP1() 
+    void LeftStickDownP1()
     {
         p1Pos = p1Pos - 1;
         if (p1Pos < 0)
@@ -540,7 +543,7 @@ public class CharacterMenuController : MonoBehaviour {
         CharacterPictures[0].sprite = Characters[p1Pos].GetComponentInChildren<SpriteRenderer>().sprite;
 
         CharacterNames[0].text = Names[p1Pos];
-        
+
     }
 
     void LeftStickUpP1()
@@ -630,4 +633,6 @@ public class CharacterMenuController : MonoBehaviour {
     {
         startCount4 = 0;
     }
+
+
 }

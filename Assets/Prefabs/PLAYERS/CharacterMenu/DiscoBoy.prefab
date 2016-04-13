@@ -333,7 +333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e9d1223e3121974092328a81fb71d95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grenadeThrowForce: 2000
+  grenadeThrowForce: 1500
   grenadePrefab: {fileID: 120964, guid: 2a62a430d9bb06345a3515eef72540ca, type: 2}
 --- !u!114 &11442494
 MonoBehaviour:
@@ -348,7 +348,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grenadePrefab: {fileID: 120964, guid: 2a62a430d9bb06345a3515eef72540ca, type: 2}
   teamColor: {r: 0.6313726, g: 0.53333336, b: 0.68235296, a: 1}
-  blockThrowForce: 2000
+  blockThrowForce: 1500
   carryingExplosive: 0
 --- !u!114 &11457610
 MonoBehaviour:
@@ -2037,7 +2037,15 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: grenadeThrowForce
+      value: 1500
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: blockThrowForce
+      value: 1500
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 138384}
