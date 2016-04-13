@@ -105,8 +105,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace22d36205efa146aa746d64e2ae0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warning: {r: 0.2352941, g: 0.2352941, b: 0.2352941, a: 1}
-  lethalVelocity: 10
+  warning: {r: 0.9558824, g: 0.9558824, b: 0.9558824, a: 1}
+  lethalVelocity: 5
 --- !u!65 &29674660
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -117,7 +117,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0039912, y: 0.9988422, z: 1.003991}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: -0.00000014901161, y: -0.0025742948, z: -0.000000091269605}
 --- !u!54 &29674665
 Rigidbody:
@@ -323,8 +323,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace22d36205efa146aa746d64e2ae0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warning: {r: 0.2352941, g: 0.2352941, b: 0.2352941, a: 1}
-  lethalVelocity: 10
+  warning: {r: 0.9558824, g: 0.9558824, b: 0.9558824, a: 1}
+  lethalVelocity: 5
 --- !u!65 &47547375
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -335,7 +335,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0039912, y: 0.9988422, z: 1.003991}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: -0.00000014901161, y: -0.0025742948, z: -0.000000091269605}
 --- !u!54 &47547380
 Rigidbody:
@@ -2017,8 +2017,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace22d36205efa146aa746d64e2ae0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warning: {r: 0.2352941, g: 0.2352941, b: 0.2352941, a: 1}
-  lethalVelocity: 10
+  warning: {r: 0.9558824, g: 0.9558824, b: 0.9558824, a: 1}
+  lethalVelocity: 5
 --- !u!65 &60770150
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2029,7 +2029,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0039912, y: 0.9988422, z: 1.003991}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: -0.00000014901161, y: -0.0025742948, z: -0.000000091269605}
 --- !u!54 &60770155
 Rigidbody:
@@ -3984,8 +3984,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace22d36205efa146aa746d64e2ae0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warning: {r: 0.2352941, g: 0.2352941, b: 0.2352941, a: 1}
-  lethalVelocity: 10
+  warning: {r: 0.9558824, g: 0.9558824, b: 0.9558824, a: 1}
+  lethalVelocity: 5
 --- !u!65 &112622462
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3996,7 +3996,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0039912, y: 0.9988422, z: 1.003991}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: -0.00000014901161, y: -0.0025742948, z: -0.000000091269605}
 --- !u!54 &112622467
 Rigidbody:
@@ -11808,8 +11808,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace22d36205efa146aa746d64e2ae0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warning: {r: 0.2352941, g: 0.2352941, b: 0.2352941, a: 1}
-  lethalVelocity: 10
+  warning: {r: 0.9558824, g: 0.9558824, b: 0.9558824, a: 1}
+  lethalVelocity: 5
 --- !u!65 &275132537
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11820,7 +11820,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0039912, y: 0.9988422, z: 1.003991}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: -0.00000014901161, y: -0.0025742948, z: -0.000000091269605}
 --- !u!54 &275132542
 Rigidbody:
@@ -11898,8 +11898,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace22d36205efa146aa746d64e2ae0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warning: {r: 0.2352941, g: 0.2352941, b: 0.2352941, a: 1}
-  lethalVelocity: 10
+  warning: {r: 0.9558824, g: 0.9558824, b: 0.9558824, a: 1}
+  lethalVelocity: 5
 --- !u!65 &284661572
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11910,7 +11910,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0039912, y: 0.9988422, z: 1.003991}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: -0.00000014901161, y: -0.0025742948, z: -0.000000091269605}
 --- !u!54 &284661577
 Rigidbody:
@@ -12189,8 +12189,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace22d36205efa146aa746d64e2ae0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warning: {r: 0.2352941, g: 0.2352941, b: 0.2352941, a: 1}
-  lethalVelocity: 10
+  warning: {r: 0.9558824, g: 0.9558824, b: 0.9558824, a: 1}
+  lethalVelocity: 5
 --- !u!65 &317424932
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12201,7 +12201,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0039912, y: 0.9988422, z: 1.003991}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: -0.00000014901161, y: -0.0025742948, z: -0.000000091269605}
 --- !u!54 &317424937
 Rigidbody:
@@ -14183,8 +14183,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace22d36205efa146aa746d64e2ae0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warning: {r: 0.2352941, g: 0.2352941, b: 0.2352941, a: 1}
-  lethalVelocity: 10
+  warning: {r: 0.9558824, g: 0.9558824, b: 0.9558824, a: 1}
+  lethalVelocity: 5
 --- !u!65 &390641450
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14195,7 +14195,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0039912, y: 0.9988422, z: 1.003991}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: -0.00000014901161, y: -0.0025742948, z: -0.000000091269605}
 --- !u!54 &390641455
 Rigidbody:
@@ -14546,8 +14546,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace22d36205efa146aa746d64e2ae0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warning: {r: 0.2352941, g: 0.2352941, b: 0.2352941, a: 1}
-  lethalVelocity: 10
+  warning: {r: 0.9558824, g: 0.9558824, b: 0.9558824, a: 1}
+  lethalVelocity: 5
 --- !u!65 &451744810
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14558,7 +14558,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0039912, y: 0.9988422, z: 1.003991}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: -0.00000014901161, y: -0.0025742948, z: -0.000000091269605}
 --- !u!54 &451744815
 Rigidbody:
@@ -18058,8 +18058,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace22d36205efa146aa746d64e2ae0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warning: {r: 0.2352941, g: 0.2352941, b: 0.2352941, a: 1}
-  lethalVelocity: 10
+  warning: {r: 0.9558824, g: 0.9558824, b: 0.9558824, a: 1}
+  lethalVelocity: 5
 --- !u!65 &510591105
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18070,7 +18070,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0039912, y: 0.9988422, z: 1.003991}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: -0.00000014901161, y: -0.0025742948, z: -0.000000091269605}
 --- !u!54 &510591110
 Rigidbody:
@@ -19744,8 +19744,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace22d36205efa146aa746d64e2ae0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warning: {r: 0.2352941, g: 0.2352941, b: 0.2352941, a: 1}
-  lethalVelocity: 10
+  warning: {r: 0.9558824, g: 0.9558824, b: 0.9558824, a: 1}
+  lethalVelocity: 5
 --- !u!65 &525566825
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19756,7 +19756,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0039912, y: 0.9988422, z: 1.003991}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: -0.00000014901161, y: -0.0025742948, z: -0.000000091269605}
 --- !u!54 &525566830
 Rigidbody:
@@ -20320,8 +20320,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace22d36205efa146aa746d64e2ae0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warning: {r: 0.2352941, g: 0.2352941, b: 0.2352941, a: 1}
-  lethalVelocity: 10
+  warning: {r: 0.9558824, g: 0.9558824, b: 0.9558824, a: 1}
+  lethalVelocity: 5
 --- !u!65 &579894704
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20332,7 +20332,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0039912, y: 0.9988422, z: 1.003991}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: -0.00000014901161, y: -0.0025742948, z: -0.000000091269605}
 --- !u!54 &579894709
 Rigidbody:
@@ -27536,8 +27536,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace22d36205efa146aa746d64e2ae0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warning: {r: 0.2352941, g: 0.2352941, b: 0.2352941, a: 1}
-  lethalVelocity: 10
+  warning: {r: 0.9558824, g: 0.9558824, b: 0.9558824, a: 1}
+  lethalVelocity: 5
 --- !u!65 &720723106
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -27548,7 +27548,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0039912, y: 0.9988422, z: 1.003991}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: -0.00000014901161, y: -0.0025742948, z: -0.000000091269605}
 --- !u!54 &720723111
 Rigidbody:
@@ -31318,8 +31318,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace22d36205efa146aa746d64e2ae0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warning: {r: 0.2352941, g: 0.2352941, b: 0.2352941, a: 1}
-  lethalVelocity: 10
+  warning: {r: 0.9558824, g: 0.9558824, b: 0.9558824, a: 1}
+  lethalVelocity: 5
 --- !u!65 &788602442
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -31330,7 +31330,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0039912, y: 0.9988422, z: 1.003991}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: -0.00000014901161, y: -0.0025742948, z: -0.000000091269605}
 --- !u!54 &788602447
 Rigidbody:
@@ -32148,8 +32148,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace22d36205efa146aa746d64e2ae0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warning: {r: 0.2352941, g: 0.2352941, b: 0.2352941, a: 1}
-  lethalVelocity: 10
+  warning: {r: 0.9558824, g: 0.9558824, b: 0.9558824, a: 1}
+  lethalVelocity: 5
 --- !u!65 &906805307
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -32160,7 +32160,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0039912, y: 0.9988422, z: 1.003991}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: -0.00000014901161, y: -0.0025742948, z: -0.000000091269605}
 --- !u!54 &906805312
 Rigidbody:
@@ -32637,8 +32637,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace22d36205efa146aa746d64e2ae0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warning: {r: 0.2352941, g: 0.2352941, b: 0.2352941, a: 1}
-  lethalVelocity: 10
+  warning: {r: 0.9558824, g: 0.9558824, b: 0.9558824, a: 1}
+  lethalVelocity: 5
 --- !u!65 &961480217
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -32649,7 +32649,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0039912, y: 0.9988422, z: 1.003991}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: -0.00000014901161, y: -0.0025742948, z: -0.000000091269605}
 --- !u!54 &961480222
 Rigidbody:
@@ -32805,8 +32805,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace22d36205efa146aa746d64e2ae0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warning: {r: 0.2352941, g: 0.2352941, b: 0.2352941, a: 1}
-  lethalVelocity: 10
+  warning: {r: 0.9558824, g: 0.9558824, b: 0.9558824, a: 1}
+  lethalVelocity: 5
 --- !u!65 &993095621
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -32817,7 +32817,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0039912, y: 0.9988422, z: 1.003991}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: -0.00000014901161, y: -0.0025742948, z: -0.000000091269605}
 --- !u!54 &993095626
 Rigidbody:
@@ -38465,6 +38465,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1075505539}
   m_Mesh: {fileID: 4300090, guid: aca38222ac0ab4044be55a1af81526f3, type: 3}
+--- !u!1 &1080371381 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 193262, guid: 8753f508fe3226c4cb3f9747e5eef22a, type: 2}
+  m_PrefabInternal: {fileID: 1951174299}
+--- !u!114 &1080371382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1080371381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 642879d632e7d58459cc15166b11ebeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1083076489
 GameObject:
   m_ObjectHideFlags: 0
@@ -38835,8 +38850,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace22d36205efa146aa746d64e2ae0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warning: {r: 0.2352941, g: 0.2352941, b: 0.2352941, a: 1}
-  lethalVelocity: 10
+  warning: {r: 0.9558824, g: 0.9558824, b: 0.9558824, a: 1}
+  lethalVelocity: 5
 --- !u!65 &1114359659
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -38847,7 +38862,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0039912, y: 0.9988422, z: 1.003991}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: -0.00000014901161, y: -0.0025742948, z: -0.000000091269605}
 --- !u!54 &1114359664
 Rigidbody:
@@ -38883,8 +38898,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace22d36205efa146aa746d64e2ae0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warning: {r: 0.2352941, g: 0.2352941, b: 0.2352941, a: 1}
-  lethalVelocity: 10
+  warning: {r: 0.9558824, g: 0.9558824, b: 0.9558824, a: 1}
+  lethalVelocity: 5
 --- !u!65 &1131108889
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -38895,7 +38910,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0039912, y: 0.9988422, z: 1.003991}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: -0.00000014901161, y: -0.0025742948, z: -0.000000091269605}
 --- !u!54 &1131108894
 Rigidbody:
@@ -42942,8 +42957,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace22d36205efa146aa746d64e2ae0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warning: {r: 0.2352941, g: 0.2352941, b: 0.2352941, a: 1}
-  lethalVelocity: 10
+  warning: {r: 0.9558824, g: 0.9558824, b: 0.9558824, a: 1}
+  lethalVelocity: 5
 --- !u!65 &1273408723
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -42954,7 +42969,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0039912, y: 0.9988422, z: 1.003991}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: -0.00000014901161, y: -0.0025742948, z: -0.000000091269605}
 --- !u!54 &1273408728
 Rigidbody:
@@ -42990,8 +43005,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace22d36205efa146aa746d64e2ae0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warning: {r: 0.2352941, g: 0.2352941, b: 0.2352941, a: 1}
-  lethalVelocity: 10
+  warning: {r: 0.9558824, g: 0.9558824, b: 0.9558824, a: 1}
+  lethalVelocity: 5
 --- !u!65 &1274114359
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -43002,7 +43017,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0039912, y: 0.9988422, z: 1.003991}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: -0.00000014901161, y: -0.0025742948, z: -0.000000091269605}
 --- !u!54 &1274114364
 Rigidbody:
@@ -43065,8 +43080,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace22d36205efa146aa746d64e2ae0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warning: {r: 0.2352941, g: 0.2352941, b: 0.2352941, a: 1}
-  lethalVelocity: 10
+  warning: {r: 0.9558824, g: 0.9558824, b: 0.9558824, a: 1}
+  lethalVelocity: 5
 --- !u!65 &1283442002
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -43077,7 +43092,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0039912, y: 0.9988422, z: 1.003991}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: -0.00000014901161, y: -0.0025742948, z: -0.000000091269605}
 --- !u!54 &1283442007
 Rigidbody:
@@ -44873,8 +44888,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace22d36205efa146aa746d64e2ae0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warning: {r: 0.2352941, g: 0.2352941, b: 0.2352941, a: 1}
-  lethalVelocity: 10
+  warning: {r: 0.9558824, g: 0.9558824, b: 0.9558824, a: 1}
+  lethalVelocity: 5
 --- !u!65 &1357077538
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -44885,7 +44900,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0039912, y: 0.9988422, z: 1.003991}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: -0.00000014901161, y: -0.0025742948, z: -0.000000091269605}
 --- !u!54 &1357077543
 Rigidbody:
@@ -44975,8 +44990,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace22d36205efa146aa746d64e2ae0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warning: {r: 0.2352941, g: 0.2352941, b: 0.2352941, a: 1}
-  lethalVelocity: 10
+  warning: {r: 0.9558824, g: 0.9558824, b: 0.9558824, a: 1}
+  lethalVelocity: 5
 --- !u!65 &1367324823
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -44987,7 +45002,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0039912, y: 0.9988422, z: 1.003991}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: -0.00000014901161, y: -0.0025742948, z: -0.000000091269605}
 --- !u!54 &1367324828
 Rigidbody:
@@ -45095,8 +45110,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace22d36205efa146aa746d64e2ae0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warning: {r: 0.2352941, g: 0.2352941, b: 0.2352941, a: 1}
-  lethalVelocity: 10
+  warning: {r: 0.9558824, g: 0.9558824, b: 0.9558824, a: 1}
+  lethalVelocity: 5
 --- !u!65 &1403567577
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -45107,7 +45122,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0039912, y: 0.9988422, z: 1.003991}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: -0.00000014901161, y: -0.0025742948, z: -0.000000091269605}
 --- !u!54 &1403567582
 Rigidbody:
@@ -45325,8 +45340,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace22d36205efa146aa746d64e2ae0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warning: {r: 0.2352941, g: 0.2352941, b: 0.2352941, a: 1}
-  lethalVelocity: 10
+  warning: {r: 0.9558824, g: 0.9558824, b: 0.9558824, a: 1}
+  lethalVelocity: 5
 --- !u!65 &1445212389
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -45337,7 +45352,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0039912, y: 0.9988422, z: 1.003991}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: -0.00000014901161, y: -0.0025742948, z: -0.000000091269605}
 --- !u!54 &1445212394
 Rigidbody:
@@ -56712,7 +56727,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 485130, guid: 2ea38f736b6646743a9b07ef2da86153, type: 2}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 418804, guid: 2ea38f736b6646743a9b07ef2da86153, type: 2}
       propertyPath: m_LocalPosition.y
@@ -60847,8 +60862,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace22d36205efa146aa746d64e2ae0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warning: {r: 0.2352941, g: 0.2352941, b: 0.2352941, a: 1}
-  lethalVelocity: 10
+  warning: {r: 0.9558824, g: 0.9558824, b: 0.9558824, a: 1}
+  lethalVelocity: 5
 --- !u!65 &1698630215
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -60859,7 +60874,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0039912, y: 0.9988422, z: 1.003991}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: -0.00000014901161, y: -0.0025742948, z: -0.000000091269605}
 --- !u!54 &1698630220
 Rigidbody:
@@ -61281,8 +61296,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace22d36205efa146aa746d64e2ae0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warning: {r: 0.2352941, g: 0.2352941, b: 0.2352941, a: 1}
-  lethalVelocity: 10
+  warning: {r: 0.9558824, g: 0.9558824, b: 0.9558824, a: 1}
+  lethalVelocity: 5
 --- !u!65 &1762792975
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -61293,7 +61308,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0039912, y: 0.9988422, z: 1.003991}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: -0.00000014901161, y: -0.0025742948, z: -0.000000091269605}
 --- !u!54 &1762792980
 Rigidbody:
@@ -63636,8 +63651,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace22d36205efa146aa746d64e2ae0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warning: {r: 0.2352941, g: 0.2352941, b: 0.2352941, a: 1}
-  lethalVelocity: 10
+  warning: {r: 0.9558824, g: 0.9558824, b: 0.9558824, a: 1}
+  lethalVelocity: 5
 --- !u!65 &1853647150
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -63648,7 +63663,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0039912, y: 0.9988422, z: 1.003991}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: -0.00000014901161, y: -0.0025742948, z: -0.000000091269605}
 --- !u!54 &1853647155
 Rigidbody:
@@ -68959,7 +68974,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 429480, guid: 8753f508fe3226c4cb3f9747e5eef22a, type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 11463668, guid: 8753f508fe3226c4cb3f9747e5eef22a, type: 2}
+      propertyPath: blockThrowForce
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 11463668, guid: 8753f508fe3226c4cb3f9747e5eef22a, type: 2}
+      propertyPath: carryingExplosive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11494554, guid: 8753f508fe3226c4cb3f9747e5eef22a, type: 2}
+      propertyPath: maxHealth
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8753f508fe3226c4cb3f9747e5eef22a, type: 2}
@@ -70891,8 +70918,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace22d36205efa146aa746d64e2ae0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warning: {r: 0.2352941, g: 0.2352941, b: 0.2352941, a: 1}
-  lethalVelocity: 10
+  warning: {r: 0.9558824, g: 0.9558824, b: 0.9558824, a: 1}
+  lethalVelocity: 5
 --- !u!65 &1986131877
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -70903,7 +70930,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0039912, y: 0.9988422, z: 1.003991}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: -0.00000014901161, y: -0.0025742948, z: -0.000000091269605}
 --- !u!54 &1986131882
 Rigidbody:
@@ -72523,8 +72550,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace22d36205efa146aa746d64e2ae0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warning: {r: 0.2352941, g: 0.2352941, b: 0.2352941, a: 1}
-  lethalVelocity: 10
+  warning: {r: 0.9558824, g: 0.9558824, b: 0.9558824, a: 1}
+  lethalVelocity: 5
 --- !u!65 &1987691329
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -72535,7 +72562,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0039912, y: 0.9988422, z: 1.003991}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: -0.00000014901161, y: -0.0025742948, z: -0.000000091269605}
 --- !u!54 &1987691334
 Rigidbody:
@@ -73122,8 +73149,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace22d36205efa146aa746d64e2ae0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warning: {r: 0.2352941, g: 0.2352941, b: 0.2352941, a: 1}
-  lethalVelocity: 10
+  warning: {r: 0.9558824, g: 0.9558824, b: 0.9558824, a: 1}
+  lethalVelocity: 5
 --- !u!65 &2064533754
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -73134,7 +73161,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0039912, y: 0.9988422, z: 1.003991}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: -0.00000014901161, y: -0.0025742948, z: -0.000000091269605}
 --- !u!54 &2064533759
 Rigidbody:
