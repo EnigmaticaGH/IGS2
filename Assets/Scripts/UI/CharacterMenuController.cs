@@ -121,28 +121,6 @@ public class CharacterMenuController : MonoBehaviour
         ogSpriteUp = ogArrowUP[0].sprite;
         ogSpriteDown = ogArrowDOWN[0].sprite;
 
-
-        for (int j = 0; j < Input.GetJoystickNames().Length; j++)
-        {
-
-            //Debug.LogError(Input.GetJoystickNames()[j]);
-            if (Input.GetJoystickNames()[j].Contains("Xbox"))
-            {
-                ControllerNumber++;
-                Debug.Log("Controller " + ControllerNumber);
-            }
-
-            if (Input.GetJoystickNames()[j].Contains("XBOX"))
-            {
-                ControllerNumber++;
-                Debug.Log("Controller " + ControllerNumber);
-            }
-
-            ActiveControllers = Input.GetJoystickNames();
-        }
-
-    }
-
     // Use this for initialization
     void Start()
     {
