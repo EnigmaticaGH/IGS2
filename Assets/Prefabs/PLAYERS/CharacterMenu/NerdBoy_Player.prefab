@@ -118,6 +118,7 @@ GameObject:
   - 114: {fileID: 11463668}
   - 114: {fileID: 11468242}
   - 114: {fileID: 11456962}
+  - 114: {fileID: 11451218}
   m_Layer: 8
   m_Name: NerdBoy_Player
   m_TagString: Player
@@ -334,6 +335,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frictionCollider: {fileID: 177584}
   nonFrictionCollider: {fileID: 194608}
+--- !u!114 &11451218
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 193262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 642879d632e7d58459cc15166b11ebeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11453770
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -443,7 +455,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnTime: 1
   invincibilityTime: 1
-  maxHealth: 1
+  maxHealth: 5
   numberOfLives: 10
   lives: 0
 --- !u!136 &13615394

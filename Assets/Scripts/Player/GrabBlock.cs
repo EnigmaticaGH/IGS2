@@ -198,8 +198,9 @@ public class GrabBlock : MonoBehaviour
     void ThrowBlock()
     {
         BlockInteraction blockScript = block.GetComponent<BlockInteraction>();
-        Vector3 force = new Vector3(blockThrowForce * throwForce.x, blockThrowForce * (throwForce.y + 0.25f), 0);
+        Vector3 force = new Vector3(blockThrowForce * throwForce.x, blockThrowForce * (throwForce.y + 0.1f), 0);
         blockScript.IsGrabbedBySomeoneElse = false;
+        blockScript.IsBeingThrown = true;
         block.GetComponent<Collider>().enabled = true;
         block.transform.parent = originalParent;
         block.transform.localScale = Vector3.one;

@@ -66,6 +66,8 @@ GameObject:
   - 114: {fileID: 11455220}
   - 114: {fileID: 11418108}
   - 114: {fileID: 11425468}
+  - 114: {fileID: 11415744}
+  - 114: {fileID: 11485576}
   m_Layer: 8
   m_Name: CoolBoy_Player
   m_TagString: Player
@@ -300,6 +302,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controllerNumber: 2
+--- !u!114 &11415744
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 141014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 497f5712992035d4282443b0e3cb3151, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11416554
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -385,7 +398,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnTime: 1
   invincibilityTime: 1
-  maxHealth: 1
+  maxHealth: 5
   numberOfLives: 10
   lives: 0
 --- !u!114 &11470096
@@ -419,6 +432,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6bd0c442e39d16a4b9c7fc3a9bb57a48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11485576
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 141014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 642879d632e7d58459cc15166b11ebeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &11493072

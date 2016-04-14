@@ -65,6 +65,8 @@ GameObject:
   - 114: {fileID: 11442606}
   - 114: {fileID: 11497786}
   - 114: {fileID: 11464326}
+  - 114: {fileID: 11467300}
+  - 114: {fileID: 11464036}
   m_Layer: 8
   m_Name: Girl_Player
   m_TagString: Player
@@ -332,6 +334,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grenadeThrowForce: 2000
   grenadePrefab: {fileID: 120964, guid: 2a62a430d9bb06345a3515eef72540ca, type: 2}
+--- !u!114 &11464036
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 139846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 497f5712992035d4282443b0e3cb3151, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11464326
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -341,6 +354,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1419745cdc37af04aab7b92a2dd64214, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11467300
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 139846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 642879d632e7d58459cc15166b11ebeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &11478092
@@ -405,7 +429,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnTime: 1
   invincibilityTime: 1
-  maxHealth: 1
+  maxHealth: 5
   numberOfLives: 10
   lives: 0
 --- !u!114 &11497436

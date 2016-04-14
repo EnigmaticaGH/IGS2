@@ -14,7 +14,7 @@ public class BlockInteraction : MonoBehaviour {
     private IEnumerator reset;
     private Transform originalParent;
     private bool isShattering;
-    private ParticleSystem starParticle;
+    private ParticleSystem cloudParticle;
     private ParticleSystem.EmissionModule em;
     private ParticleSystem.MinMaxCurve mmc;
     private ParticleSystem.ShapeModule sm;
@@ -22,20 +22,21 @@ public class BlockInteraction : MonoBehaviour {
     private Color currentColor;
     public Color warning;
     public float lethalVelocity;
-    private float vel;
+    private Vector3 vel;
     private float startRate;
     private float startSize;
 
     void Awake()
     {
-        starParticle = GetComponentInChildren<ParticleSystem>();
-        em = starParticle.emission;
+        cloudParticle = GetComponentInChildren<ParticleSystem>();
+        em = cloudParticle.emission;
         mmc = em.rate;
-        sm = starParticle.shape;
+        sm = cloudParticle.shape;
         originalColor = GetComponentInChildren<ParticleSystem>().startColor;
         currentColor = originalColor;
-        startSize = starParticle.startSize;
+        startSize = cloudParticle.startSize;
         startRate = mmc.constantMax;
+        IsBeingThrown = false;
     }
 
     void Start()
@@ -58,16 +59,19 @@ public class BlockInteraction : MonoBehaviour {
 
     void FixedUpdate()
     {
-        vel = body.velocity.magnitude;
+        vel = body.velocity;
         if (transform.position.y < -50)
         {
             ResetImmediately();
         }
         if (!IsGrabbedBySomeoneElse)
         {
-            float normalizedVelocity = Mathf.Clamp01(body.velocity.magnitude / lethalVelocity);
-            starParticle.startColor = Color.Lerp(currentColor, warning, normalizedVelocity);
-            starParticle.startSize = startSize;
+            if (!IsBeingThrown)
+            {
+                float normalizedVelocity = Mathf.Clamp01(body.velocity.magnitude / lethalVelocity);
+                cloudParticle.startColor = Color.Lerp(currentColor, warning, normalizedVelocity);
+                cloudParticle.startSize = startSize;
+            }
             em.type = ParticleSystemEmissionType.Distance;
             mmc.constantMax = startRate;
             em.rate = mmc;
@@ -75,7 +79,7 @@ public class BlockInteraction : MonoBehaviour {
         }
         else
         {
-            starParticle.startSize = startSize / 3;
+            cloudParticle.startSize = startSize / 3;
             em.type = ParticleSystemEmissionType.Time;
             mmc.constantMax = startRate * 10;
             em.rate = mmc;
@@ -87,7 +91,7 @@ public class BlockInteraction : MonoBehaviour {
     {
         if (c.collider.CompareTag("Player") && // it has to be player
             AbilityRegistry.AbilityStatus(c.gameObject.name, "BlockSmash") != Ability.Status.ACTIVE && //player is not dashing
-            c.relativeVelocity.magnitude > lethalVelocity && vel > lethalVelocity && //block is going fast enough
+            c.relativeVelocity.magnitude > lethalVelocity && vel.magnitude > lethalVelocity && //block is going fast enough
             (Mathf.Abs(transform.position.x - c.transform.position.x) < 0.5f || //block has to be a direct hit, not a graze
             Mathf.Abs(transform.position.y - c.transform.position.y) < 0.5f))
         {
@@ -95,14 +99,10 @@ public class BlockInteraction : MonoBehaviour {
             Movement m = c.gameObject.GetComponent<Movement>();
             Vector3 playerPosition = c.gameObject.transform.position;
             Vector3 diff = (playerPosition - transform.position).normalized;
-            Vector3 force = new Vector3(diff.x * Mathf.Abs(c.relativeVelocity.x) * 15, diff.y * Mathf.Abs(c.relativeVelocity.y) * 15 + 250);
-            if (r.velocity.y > body.velocity.y) //player is not falling faster than the block itself (i.e. falling into a falling block)
-                PushPlayer(m, force);
+            Vector3 force = new Vector3(diff.x * c.relativeVelocity.x * 15, diff.y * c.relativeVelocity.y * 15 + 250);
+            PushPlayer(m, force);
             return;
         }
-        //else if (((c.collider.CompareTag("Player") && //has to be player who is moving fast enough
-        //    AbilityRegistry.AbilityStatus(c.gameObject.name, "BlockSmash") == Ability.Status.ACTIVE) || //dash ability must be active
-        //    c.collider.CompareTag("Block") && body.velocity.magnitude == 0) && c.relativeVelocity.magnitude > lethalVelocity) //or it can be another block
         else if (c.collider.CompareTag("Player") && c.relativeVelocity.magnitude > lethalVelocity && //has to be player who is moving fast enough
             AbilityRegistry.AbilityStatus(c.gameObject.name, "BlockSmash") == Ability.Status.ACTIVE)
         {
@@ -117,7 +117,7 @@ public class BlockInteraction : MonoBehaviour {
         if (c.collider.CompareTag("Player") && !isShattering && AbilityRegistry.AbilityStatus(c.gameObject.name, "BlockDrop") == Ability.Status.ACTIVE)
         {
             currentColor = c.gameObject.GetComponent<GrabBlock>().teamColor;
-            starParticle.startColor = currentColor;
+            cloudParticle.startColor = currentColor;
             StartCoroutine(Shatter(0.5f));
         }
     }
@@ -141,7 +141,7 @@ public class BlockInteraction : MonoBehaviour {
         m.gameObject.GetComponent<DeathControl>().Hurt(1);
         r.velocity = Vector3.zero;
         m.Disable(2, true);
-        starParticle.Emit(25);
+        cloudParticle.Emit(25);
         time = 5;
     }
 
@@ -216,15 +216,16 @@ public class BlockInteraction : MonoBehaviour {
 
     public void ResetImmediately()
     {
-        starParticle.startSize = 0;
+        IsBeingThrown = false;
+        cloudParticle.startSize = 0;
         time = 0;
         transform.position = startPosition;
         transform.rotation = startRotation;
-        starParticle.startColor = originalColor;
+        cloudParticle.startColor = originalColor;
         currentColor = originalColor;
-        starParticle.startSize = startSize;
-        starParticle.Emit(10);
-        starParticle.Play();
+        cloudParticle.startSize = startSize;
+        cloudParticle.Emit(10);
+        cloudParticle.Play();
         body.useGravity = false;
         body.isKinematic = true;
         isShattering = false;
@@ -233,10 +234,16 @@ public class BlockInteraction : MonoBehaviour {
     public void SetParticleColor(Color teamColor)
     {
         currentColor = teamColor;
-        starParticle.startColor = currentColor;
+        cloudParticle.startColor = currentColor;
     }
 
     public bool IsGrabbedBySomeoneElse
+    {
+        get;
+        set;
+    }
+
+    public bool IsBeingThrown
     {
         get;
         set;
