@@ -3,6 +3,8 @@ using System.Collections;
 
 public class DeathParticles : MonoBehaviour
 {
+    private Transform upperBounds;
+    private Transform lowerBounds;
     private GameObject prefab;
     private GameObject death;
     private ParticleSystem deathParticles;
@@ -24,6 +26,12 @@ public class DeathParticles : MonoBehaviour
         deathParticles.subEmitters.birth0.startColor = teamColor;
     }
 
+    void Start()
+    {
+        upperBounds = GameObject.Find("UpperBounds").transform;
+        lowerBounds = GameObject.Find("LowerBounds").transform;
+    }
+
     void OnDestroy()
     {
         DeathControl.OnDeath -= Die;
@@ -32,28 +40,34 @@ public class DeathParticles : MonoBehaviour
     void Update()
     {
         float angle;
-        if (transform.position.y < 20)
+        if (transform.position.y < upperBounds.position.y)
         {
-            angle = 90 - offset;
-            if (transform.position.x < -20)
+            if (transform.position.x < lowerBounds.position.x)
             {
                 angle = 45 - offset;
             }
-            else if (transform.position.x > 20)
+            else if (transform.position.x > upperBounds.position.x)
             {
                 angle = 135 - offset;
+            }
+            else
+            {
+                angle = 90 - offset;
             }
         }
         else
         {
-            angle = 270 - offset;
-            if (transform.position.x < -20)
+            if (transform.position.x < lowerBounds.position.x)
             {
                 angle = 315 - offset;
             }
-            else if (transform.position.x > 20)
+            else if (transform.position.x > upperBounds.position.x)
             {
                 angle = 225 - offset;
+            }
+            else
+            {
+                angle = 270 - offset;
             }
         }
         death.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));

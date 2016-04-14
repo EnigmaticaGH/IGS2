@@ -3,6 +3,8 @@ using System.Collections;
 
 public class DeathControl : MonoBehaviour
 {
+    private Transform upperBounds;
+    private Transform lowerBounds;
     public delegate void OutOfLivesEvent(string sender);
     public static event OutOfLivesEvent OutOfLives;
     public delegate void DeathEvent(float respawnTime);
@@ -42,12 +44,14 @@ public class DeathControl : MonoBehaviour
         health = maxHealth;
         invincible = false;
         outOfLives = false;
+        upperBounds = GameObject.Find("UpperBounds").transform;
+        lowerBounds = GameObject.Find("LowerBounds").transform;
     }
 
     void Update()
     {
-        bool outOfBounds = transform.position.y < PlayerTracker.bottomOfLevel || transform.position.y > PlayerTracker.levelBoundY
-            || transform.position.x < -PlayerTracker.levelBoundsX || transform.position.x > PlayerTracker.levelBoundsX;
+        bool outOfBounds = transform.position.y < lowerBounds.position.y - 2 || transform.position.y > upperBounds.transform.position.y + 2
+            || transform.position.x < lowerBounds.position.x - 2 || transform.position.x > upperBounds.position.x + 2;
         if (outOfBounds && doneRespawning)
         {
             Kill();
