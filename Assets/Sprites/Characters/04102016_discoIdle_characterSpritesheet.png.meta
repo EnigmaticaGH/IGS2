@@ -1,0 +1,311 @@
+fileFormatVersion: 2
+guid: 16cbc9e36731ec24b8148a2720699ec0
+timeCreated: 1460660014
+licenseType: Pro
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: 04102016_discoIdle_characterSpritesheet_0
+    21300002: 04102016_discoIdle_characterSpritesheet_1
+    21300004: 04102016_discoIdle_characterSpritesheet_2
+    21300006: 04102016_discoIdle_characterSpritesheet_3
+    21300008: 04102016_discoIdle_characterSpritesheet_4
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 4096
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 400
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: 04102016_discoIdle_characterSpritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 1031
+        width: 247
+        height: 541
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 83.5, y: -270.5}
+        - {x: 92.5, y: -269.5}
+        - {x: 88.5, y: -260.5}
+        - {x: 73.5, y: -106.5}
+        - {x: 97.5, y: -143.5}
+        - {x: 123.5, y: -116.5}
+        - {x: 123.5, y: -50.5}
+        - {x: 112.5, y: -13.5}
+        - {x: 72.5, y: 26.5}
+        - {x: 38.5, y: 56.5}
+        - {x: 98.5, y: 108.5}
+        - {x: 105.5, y: 140.5}
+        - {x: 105.5, y: 198.5}
+        - {x: 61.5, y: 259.5}
+        - {x: 20.5, y: 270.5}
+        - {x: -23.5, y: 270.5}
+        - {x: -58.5, y: 265.5}
+        - {x: -89.5, y: 251.5}
+        - {x: -122.5, y: 176.5}
+        - {x: -113.5, y: 143.5}
+        - {x: -94.5, y: 104.5}
+        - {x: -51.5, y: 67.5}
+        - {x: -73.5, y: 18.5}
+        - {x: -123.5, y: -45.5}
+        - {x: -123.5, y: -111.5}
+        - {x: -86.5, y: -122.5}
+        - {x: -60.5, y: -53.5}
+        - {x: -70.5, y: -144.5}
+        - {x: -78.5, y: -268.5}
+        - {x: -73.5, y: -270.5}
+        - {x: -2.5, y: -270.5}
+        - {x: 4.5, y: -194.5}
+        - {x: 16.5, y: -265.5}
+        - {x: 25.5, y: -270.5}
+    - name: 04102016_discoIdle_characterSpritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 1031
+        width: 268
+        height: 516
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 85, y: -258}
+        - {x: 86, y: -251}
+        - {x: 64, y: -232}
+        - {x: 73, y: -112}
+        - {x: 44, y: -8}
+        - {x: 134, y: -40}
+        - {x: 134, y: 29}
+        - {x: 113, y: 58}
+        - {x: 118, y: 144}
+        - {x: 75, y: 237}
+        - {x: 44, y: 251}
+        - {x: 11, y: 258}
+        - {x: -41, y: 258}
+        - {x: -84, y: 244}
+        - {x: -110, y: 200}
+        - {x: -120, y: 166}
+        - {x: -114, y: 105}
+        - {x: -67, y: 65}
+        - {x: -122, y: 51}
+        - {x: -134, y: 36}
+        - {x: -134, y: -26}
+        - {x: -132, y: -39}
+        - {x: -101, y: -34}
+        - {x: -57, y: -29}
+        - {x: -77, y: -103}
+        - {x: -62, y: -230}
+        - {x: -86, y: -258}
+        - {x: -17, y: -258}
+        - {x: -13, y: -256}
+        - {x: -9, y: -251}
+        - {x: 19, y: -258}
+      - - {x: 88, y: -108}
+        - {x: 88, y: -113}
+        - {x: 89, y: -117}
+        - {x: 94, y: -117}
+        - {x: 97, y: -116}
+        - {x: 97, y: -113}
+        - {x: 94, y: -109}
+        - {x: 90, y: -108}
+      - - {x: -101, y: -19}
+        - {x: -102, y: -24}
+        - {x: -100, y: -26}
+        - {x: -99, y: -26}
+        - {x: -96, y: -23}
+        - {x: -96, y: -20}
+        - {x: -98, y: -18}
+    - name: 04102016_discoIdle_characterSpritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 1465
+        y: 1026
+        width: 213
+        height: 508
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 98.5, y: -254}
+        - {x: 88.5, y: -218}
+        - {x: 86.5, y: -101}
+        - {x: 87.5, y: -34}
+        - {x: 41.5, y: 49}
+        - {x: 58.5, y: 52}
+        - {x: 106.5, y: 93}
+        - {x: 106.5, y: 197}
+        - {x: 84.5, y: 233}
+        - {x: 37.5, y: 254}
+        - {x: -41.5, y: 254}
+        - {x: -76.5, y: 243}
+        - {x: -105.5, y: 198}
+        - {x: -106.5, y: 192}
+        - {x: -106.5, y: 117}
+        - {x: -93.5, y: 94}
+        - {x: -74.5, y: 78}
+        - {x: -36.5, y: 51}
+        - {x: -76.5, y: -32}
+        - {x: -68.5, y: -151}
+        - {x: -44.5, y: -226}
+        - {x: -66.5, y: -243}
+        - {x: -71.5, y: -251}
+        - {x: -69.5, y: -254}
+        - {x: -11.5, y: -254}
+        - {x: 5.5, y: -252}
+        - {x: 6.5, y: -182}
+        - {x: 20.5, y: -251}
+        - {x: 30.5, y: -254}
+      - - {x: 96.5, y: -115}
+        - {x: 98.5, y: -120}
+        - {x: 105.5, y: -120}
+        - {x: 105.5, y: -116}
+        - {x: 104.5, y: -112}
+        - {x: 98.5, y: -111}
+        - {x: 96.5, y: -112}
+    - name: 04102016_discoIdle_characterSpritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 2005
+        y: 1026
+        width: 267
+        height: 516
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 85.5, y: -258}
+        - {x: 86.5, y: -251}
+        - {x: 64.5, y: -232}
+        - {x: 73.5, y: -112}
+        - {x: 44.5, y: -8}
+        - {x: 133.5, y: -40}
+        - {x: 133.5, y: 31}
+        - {x: 113.5, y: 58}
+        - {x: 118.5, y: 144}
+        - {x: 75.5, y: 237}
+        - {x: 44.5, y: 251}
+        - {x: 11.5, y: 258}
+        - {x: -40.5, y: 258}
+        - {x: -83.5, y: 244}
+        - {x: -109.5, y: 200}
+        - {x: -119.5, y: 166}
+        - {x: -113.5, y: 105}
+        - {x: -66.5, y: 65}
+        - {x: -121.5, y: 51}
+        - {x: -133.5, y: 36}
+        - {x: -133.5, y: -26}
+        - {x: -131.5, y: -39}
+        - {x: -100.5, y: -34}
+        - {x: -56.5, y: -29}
+        - {x: -76.5, y: -103}
+        - {x: -61.5, y: -230}
+        - {x: -85.5, y: -258}
+        - {x: -16.5, y: -258}
+        - {x: -12.5, y: -256}
+        - {x: -8.5, y: -251}
+        - {x: 19.5, y: -258}
+      - - {x: 88.5, y: -108}
+        - {x: 88.5, y: -113}
+        - {x: 89.5, y: -117}
+        - {x: 94.5, y: -117}
+        - {x: 97.5, y: -116}
+        - {x: 97.5, y: -113}
+        - {x: 94.5, y: -109}
+        - {x: 90.5, y: -108}
+      - - {x: -100.5, y: -19}
+        - {x: -101.5, y: -24}
+        - {x: -99.5, y: -26}
+        - {x: -98.5, y: -26}
+        - {x: -95.5, y: -23}
+        - {x: -95.5, y: -20}
+        - {x: -97.5, y: -18}
+    - name: 04102016_discoIdle_characterSpritesheet_4
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 233
+        width: 247
+        height: 539
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 75.5, y: -69.5}
+        - {x: 97.5, y: -143.5}
+        - {x: 123.5, y: -116.5}
+        - {x: 123.5, y: -50.5}
+        - {x: 112.5, y: -13.5}
+        - {x: 72.5, y: 26.5}
+        - {x: 38.5, y: 56.5}
+        - {x: 98.5, y: 108.5}
+        - {x: 105.5, y: 140.5}
+        - {x: 105.5, y: 198.5}
+        - {x: 61.5, y: 259.5}
+        - {x: 24.5, y: 269.5}
+        - {x: -29.5, y: 269.5}
+        - {x: -58.5, y: 265.5}
+        - {x: -89.5, y: 251.5}
+        - {x: -122.5, y: 176.5}
+        - {x: -113.5, y: 143.5}
+        - {x: -94.5, y: 104.5}
+        - {x: -51.5, y: 67.5}
+        - {x: -73.5, y: 18.5}
+        - {x: -123.5, y: -45.5}
+        - {x: -123.5, y: -111.5}
+        - {x: -86.5, y: -122.5}
+        - {x: -60.5, y: -53.5}
+        - {x: -70.5, y: -144.5}
+        - {x: -50.5, y: -238.5}
+        - {x: -66.5, y: -252.5}
+        - {x: -78.5, y: -268.5}
+        - {x: -76.5, y: -269.5}
+        - {x: 100.5, y: -269.5}
+        - {x: 88.5, y: -260.5}
+        - {x: 73.5, y: -106.5}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

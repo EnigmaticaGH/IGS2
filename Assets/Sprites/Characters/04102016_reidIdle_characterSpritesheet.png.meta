@@ -1,0 +1,377 @@
+fileFormatVersion: 2
+guid: 2377f7f76e72b5e4596993d8004cb587
+timeCreated: 1460660026
+licenseType: Pro
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: 04102016_reidIdle_characterSpritesheet_0
+    21300002: 04102016_reidIdle_characterSpritesheet_1
+    21300004: 04102016_reidIdle_characterSpritesheet_2
+    21300006: 04102016_reidIdle_characterSpritesheet_3
+    21300008: 04102016_reidIdle_characterSpritesheet_4
+    21300010: 04102016_reidIdle_characterSpritesheet_5
+    21300012: 04102016_reidIdle_characterSpritesheet_6
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 4096
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 400
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: 04102016_reidIdle_characterSpritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 1026
+        width: 233
+        height: 501
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 101.5, y: -101.5}
+        - {x: 116.5, y: -86.5}
+        - {x: 116.5, y: -25.5}
+        - {x: 112.5, y: -0.5}
+        - {x: 89.5, y: 30.5}
+        - {x: 62.5, y: 80.5}
+        - {x: 98.5, y: 139.5}
+        - {x: 96.5, y: 217.5}
+        - {x: 27.5, y: 250.5}
+        - {x: -47.5, y: 250.5}
+        - {x: -86.5, y: 223.5}
+        - {x: -94.5, y: 188.5}
+        - {x: -95.5, y: 137.5}
+        - {x: -44.5, y: 87.5}
+        - {x: -111.5, y: -24.5}
+        - {x: -116.5, y: -51.5}
+        - {x: -116.5, y: -82.5}
+        - {x: -108.5, y: -87.5}
+        - {x: -88.5, y: -89.5}
+        - {x: -72.5, y: -59.5}
+        - {x: -74.5, y: -181.5}
+        - {x: -72.5, y: -250.5}
+        - {x: -7.5, y: -250.5}
+        - {x: 0.5, y: -193.5}
+        - {x: 19.5, y: -250.5}
+        - {x: 84.5, y: -250.5}
+        - {x: 85.5, y: -244.5}
+        - {x: 78.5, y: -239.5}
+        - {x: 86.5, y: -90.5}
+      - - {x: -67.5, y: -192.5}
+        - {x: -63.5, y: -193.5}
+        - {x: -60.5, y: -191.5}
+        - {x: -61.5, y: -188.5}
+        - {x: -66.5, y: -187.5}
+        - {x: -68.5, y: -189.5}
+    - name: 04102016_reidIdle_characterSpritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 826
+        y: 1031
+        width: 252
+        height: 483
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 40, y: -25.5}
+        - {x: 117, y: 50.5}
+        - {x: 126, y: 66.5}
+        - {x: 126, y: 90.5}
+        - {x: 105, y: 104.5}
+        - {x: 51, y: 103.5}
+        - {x: 70, y: 183.5}
+        - {x: 49, y: 216.5}
+        - {x: 20, y: 241.5}
+        - {x: -87, y: 241.5}
+        - {x: -115, y: 206.5}
+        - {x: -126, y: 163.5}
+        - {x: -126, y: 112.5}
+        - {x: -78, y: 61.5}
+        - {x: -110, y: 10.5}
+        - {x: -126, y: -51.5}
+        - {x: -126, y: -157.5}
+        - {x: -125, y: -163.5}
+        - {x: -126, y: -170.5}
+        - {x: -126, y: -241.5}
+        - {x: -82, y: -241.5}
+        - {x: -46, y: -237.5}
+        - {x: -9, y: -187.5}
+        - {x: 3, y: -235.5}
+        - {x: 6, y: -239.5}
+        - {x: 43, y: -241.5}
+        - {x: 67, y: -241.5}
+        - {x: 70, y: -235.5}
+        - {x: 59, y: -189.5}
+        - {x: 71, y: -55.5}
+      - - {x: -114, y: -185.5}
+        - {x: -110, y: -186.5}
+        - {x: -107, y: -184.5}
+        - {x: -108, y: -181.5}
+        - {x: -113, y: -180.5}
+        - {x: -115, y: -182.5}
+    - name: 04102016_reidIdle_characterSpritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 1480
+        y: 1026
+        width: 198
+        height: 472
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 87, y: -66}
+        - {x: 56, y: -8}
+        - {x: 85, y: -3}
+        - {x: 99, y: 50}
+        - {x: 99, y: 188}
+        - {x: 41, y: 236}
+        - {x: -52, y: 236}
+        - {x: -56, y: 235}
+        - {x: -99, y: 183}
+        - {x: -99, y: 145}
+        - {x: -95, y: 124}
+        - {x: -54, y: 81}
+        - {x: -65, y: 26}
+        - {x: -99, y: -29}
+        - {x: -99, y: -145}
+        - {x: -86, y: -194}
+        - {x: -96, y: -236}
+        - {x: -26, y: -236}
+        - {x: -19, y: -178}
+        - {x: 21, y: -182}
+        - {x: 31, y: -236}
+        - {x: 94, y: -236}
+        - {x: 96, y: -230}
+        - {x: 81, y: -188}
+        - {x: 88, y: -109}
+      - - {x: -83, y: -183}
+        - {x: -80, y: -182}
+        - {x: -80, y: -179}
+        - {x: -83, y: -178}
+        - {x: -85, y: -180}
+    - name: 04102016_reidIdle_characterSpritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 2091
+        y: 1031
+        width: 198
+        height: 471
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 87, y: -65.5}
+        - {x: 56, y: -7.5}
+        - {x: 85, y: -2.5}
+        - {x: 99, y: 47.5}
+        - {x: 99, y: 163.5}
+        - {x: 89, y: 198.5}
+        - {x: 32, y: 234.5}
+        - {x: 26, y: 235.5}
+        - {x: -42, y: 235.5}
+        - {x: -90, y: 202.5}
+        - {x: -98, y: 162.5}
+        - {x: -96, y: 122.5}
+        - {x: -43, y: 56.5}
+        - {x: -99, y: -20.5}
+        - {x: -99, y: -116.5}
+        - {x: -81, y: -193.5}
+        - {x: -94, y: -226.5}
+        - {x: -92, y: -232.5}
+        - {x: -86, y: -235.5}
+        - {x: -26, y: -235.5}
+        - {x: -19, y: -177.5}
+        - {x: 21, y: -181.5}
+        - {x: 31, y: -235.5}
+        - {x: 94, y: -235.5}
+        - {x: 96, y: -229.5}
+        - {x: 81, y: -187.5}
+        - {x: 88, y: -108.5}
+      - - {x: -83, y: -182.5}
+        - {x: -80, y: -181.5}
+        - {x: -80, y: -178.5}
+        - {x: -83, y: -177.5}
+        - {x: -85, y: -179.5}
+    - name: 04102016_reidIdle_characterSpritesheet_4
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 233
+        width: 199
+        height: 471
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 87.5, y: -66.5}
+        - {x: 85.5, y: -3.5}
+        - {x: 99.5, y: 49.5}
+        - {x: 99.5, y: 153.5}
+        - {x: 92.5, y: 185.5}
+        - {x: 77.5, y: 210.5}
+        - {x: 22.5, y: 235.5}
+        - {x: -48.5, y: 235.5}
+        - {x: -54.5, y: 234.5}
+        - {x: -95.5, y: 186.5}
+        - {x: -95.5, y: 122.5}
+        - {x: -35.5, y: 55.5}
+        - {x: -64.5, y: 25.5}
+        - {x: -95.5, y: -27.5}
+        - {x: -99.5, y: -53.5}
+        - {x: -99.5, y: -119.5}
+        - {x: -84.5, y: -197.5}
+        - {x: -95.5, y: -235.5}
+        - {x: -24.5, y: -235.5}
+        - {x: -18.5, y: -178.5}
+        - {x: 18.5, y: -156.5}
+        - {x: 23.5, y: -232.5}
+        - {x: 32.5, y: -234.5}
+        - {x: 54.5, y: -235.5}
+        - {x: 94.5, y: -235.5}
+        - {x: 96.5, y: -230.5}
+        - {x: 81.5, y: -188.5}
+        - {x: 88.5, y: -109.5}
+      - - {x: -82.5, y: -183.5}
+        - {x: -79.5, y: -182.5}
+        - {x: -79.5, y: -179.5}
+        - {x: -82.5, y: -178.5}
+        - {x: -84.5, y: -180.5}
+    - name: 04102016_reidIdle_characterSpritesheet_5
+      rect:
+        serializedVersion: 2
+        x: 826
+        y: 233
+        width: 252
+        height: 482
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 40, y: -26}
+        - {x: 117, y: 50}
+        - {x: 126, y: 66}
+        - {x: 126, y: 90}
+        - {x: 105, y: 104}
+        - {x: 20, y: 63}
+        - {x: 51, y: 103}
+        - {x: 70, y: 183}
+        - {x: 49, y: 216}
+        - {x: 20, y: 241}
+        - {x: -87, y: 241}
+        - {x: -115, y: 206}
+        - {x: -126, y: 163}
+        - {x: -126, y: 112}
+        - {x: -78, y: 60}
+        - {x: -115, y: 12}
+        - {x: -126, y: -39}
+        - {x: -126, y: -141}
+        - {x: -106, y: -197}
+        - {x: -126, y: -240}
+        - {x: -126, y: -241}
+        - {x: -74, y: -241}
+        - {x: -47, y: -238}
+        - {x: -12, y: -168}
+        - {x: -4, y: -239}
+        - {x: 28, y: -241}
+        - {x: 67, y: -241}
+        - {x: 70, y: -236}
+        - {x: 59, y: -190}
+        - {x: 71, y: -56}
+      - - {x: -114, y: -186}
+        - {x: -110, y: -187}
+        - {x: -107, y: -185}
+        - {x: -108, y: -182}
+        - {x: -113, y: -181}
+        - {x: -115, y: -183}
+    - name: 04102016_reidIdle_characterSpritesheet_6
+      rect:
+        serializedVersion: 2
+        x: 1445
+        y: 233
+        width: 233
+        height: 500
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 86.5, y: -91}
+        - {x: 101.5, y: -102}
+        - {x: 116.5, y: -87}
+        - {x: 116.5, y: -26}
+        - {x: 112.5, y: -1}
+        - {x: 89.5, y: 30}
+        - {x: 62.5, y: 80}
+        - {x: 98.5, y: 139}
+        - {x: 96.5, y: 217}
+        - {x: 27.5, y: 250}
+        - {x: -47.5, y: 250}
+        - {x: -86.5, y: 223}
+        - {x: -94.5, y: 188}
+        - {x: -95.5, y: 137}
+        - {x: -44.5, y: 87}
+        - {x: -111.5, y: -25}
+        - {x: -116.5, y: -52}
+        - {x: -116.5, y: -135}
+        - {x: -86.5, y: -115}
+        - {x: -74.5, y: -182}
+        - {x: -72.5, y: -250}
+        - {x: -38.5, y: -250}
+        - {x: -9.5, y: -246}
+        - {x: -6.5, y: -244}
+        - {x: 15.5, y: -250}
+        - {x: 84.5, y: -250}
+        - {x: 85.5, y: -245}
+        - {x: 71.5, y: -235}
+      - - {x: -67.5, y: -193}
+        - {x: -63.5, y: -194}
+        - {x: -60.5, y: -192}
+        - {x: -61.5, y: -189}
+        - {x: -66.5, y: -188}
+        - {x: -68.5, y: -190}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

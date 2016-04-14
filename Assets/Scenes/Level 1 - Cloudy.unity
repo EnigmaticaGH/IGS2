@@ -43155,6 +43155,48 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+--- !u!1001 &1223259954
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 469042, guid: 330a61732099da0468066524fe725cd0, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 469042, guid: 330a61732099da0468066524fe725cd0, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 469042, guid: 330a61732099da0468066524fe725cd0, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 469042, guid: 330a61732099da0468066524fe725cd0, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 469042, guid: 330a61732099da0468066524fe725cd0, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 469042, guid: 330a61732099da0468066524fe725cd0, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 469042, guid: 330a61732099da0468066524fe725cd0, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 469042, guid: 330a61732099da0468066524fe725cd0, type: 2}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 330a61732099da0468066524fe725cd0, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1223333596
 GameObject:
   m_ObjectHideFlags: 0
@@ -59809,6 +59851,10 @@ MonoBehaviour:
   PauseButtons:
   - {fileID: 609204404}
   - {fileID: 101456080}
+  Source: {fileID: 0}
+  Click: {fileID: 0}
+  Scroll: {fileID: 0}
+  Back: {fileID: 0}
   start1: 0
 --- !u!114 &1627534333
 MonoBehaviour:
@@ -61708,6 +61754,7 @@ MonoBehaviour:
   player2Lives: {fileID: 1844108449}
   player3Lives: {fileID: 539822939}
   player4Lives: {fileID: 695398174}
+  Control: {fileID: 0}
 --- !u!114 &1678181913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72187,6 +72234,10 @@ Prefab:
     - target: {fileID: 429480, guid: 8753f508fe3226c4cb3f9747e5eef22a, type: 2}
       propertyPath: m_RootOrder
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 193262, guid: 8753f508fe3226c4cb3f9747e5eef22a, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8753f508fe3226c4cb3f9747e5eef22a, type: 2}
