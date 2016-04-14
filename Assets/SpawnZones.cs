@@ -68,9 +68,15 @@ public class SpawnZones : MonoBehaviour {
             if(col.name.Contains("STARTCUBE_" + Zone) == false)
             {
                 //Debug.Log("Foreign Object detected" + col.name);
-                zoneBlocks++;
-                ForeignObject = true;
-                SafeCheck();
+                if (col.tag == "player")
+                    ;
+                else
+                {
+                    zoneBlocks++;
+                    ForeignObject = true;
+                    SafeCheck();
+                }
+
             }
 
         }
@@ -88,15 +94,19 @@ public class SpawnZones : MonoBehaviour {
             if (col.name.Contains("STARTCUBE_" + Zone))
             {
                 NewCount--;
-                //Debug.Log(col.name);
+                
                 NewObjects();
             }
 
             if (col.name.Contains("STARTCUBE_" + Zone) == false)
             {
-                zoneBlocks--;
-                ForeignObject = false;
-                SafeCheck();
+                if (col.tag == "player")
+                    ;
+                else
+                {
+                    zoneBlocks--;
+                    SafeCheck();
+                }
             }
         }
     }
@@ -113,13 +123,22 @@ public class SpawnZones : MonoBehaviour {
 
     void SafeCheck()
     {
+        Debug.Log(zoneBlocks);
+        if (zoneBlocks == 0)
+        {
+            ForeignObject = false;
+        }
+        if (zoneBlocks > 0)
+        {
+            ForeignObject = true;
+        }
         if (ForeignObject == true)
         {
             Safe = false;
         }
         if (ForeignObject == false)
         {
-            if(NewCount == StartCount)
+            if (NewCount == StartCount)
                 Safe = true;
         }
     }

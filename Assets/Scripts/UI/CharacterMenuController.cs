@@ -2,9 +2,15 @@
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 
-public class CharacterMenuController : MonoBehaviour {
+public class CharacterMenuController : MonoBehaviour
+{
+    
+    
+    
+    public static List<int> playerSize = new List<int>();
 
     public Image[] AButton;
     public Image[] ReadyStamp;
@@ -20,18 +26,23 @@ public class CharacterMenuController : MonoBehaviour {
     public Text[] PressStart;
     public Image[] ogArrowUP;
     public Image[] ogArrowDOWN;
-    public Sprite activeArrowUP; 
+    public Sprite activeArrowUP;
     public Sprite activeArrowDOWN;
-    Sprite ogSpriteUp; 
+    Sprite ogSpriteUp;
     Sprite ogSpriteDown;
 
     public GameObject[] Characters;
     public GameObject StartButton;
+    public Text loadingText;
+    bool loadScene = false;
+
+    public static int[] playerINDEX_Pos = new int[4];
 
 
     public static int p1Pos = 0;
     public static int p2Pos = 1;
     public static int p3Pos = 2;
+    public static int length = 0;
     public static int p4Pos = 3;
 
     int stickResetP1 = 0;
@@ -48,7 +59,10 @@ public class CharacterMenuController : MonoBehaviour {
     int startCount3 = 0;
     int startCount4 = 0;
 
+    public int[] startCount = new int[4];
+
     public bool[] activePlayers = new bool[4];
+
 
 
 
@@ -61,14 +75,32 @@ public class CharacterMenuController : MonoBehaviour {
     public bool p3Ready;
     public bool p4Ready;
 
+    public bool[] playerReady = new bool[4];
+
+    public AudioSource Audio;
+    public AudioClip Click;
+    public AudioClip Scroll;
+    public AudioClip Back;
+    public AudioClip StartFX;
+
     void OnLevelWasLoaded(int level)
     {
-        if (level == 1) 
+        if (level == 1)
         {
-            p1Pos = 0;
+            for (int b = 0; b < 4; b++)
+            {
+                playerINDEX_Pos[b] = b;
+            }
+                p1Pos = 0;
             p2Pos = 1;
             p3Pos = 2;
             p4Pos = 3;
+            ControllerNumber = 0;
+
+            for (int j = 0; j < playerSize.Count; j++)
+            {
+                playerSize.Remove(1);
+            }
         }
 
     }
@@ -76,7 +108,9 @@ public class CharacterMenuController : MonoBehaviour {
 
     void Awake()
     {
-
+        loadingText.enabled = false;
+        playerReady = new bool[4];
+        startCount = new int[4];
         p1Pos = 0;
         p2Pos = 1;
         p3Pos = 2;
@@ -86,31 +120,11 @@ public class CharacterMenuController : MonoBehaviour {
 
         ogSpriteUp = ogArrowUP[0].sprite;
         ogSpriteDown = ogArrowDOWN[0].sprite;
-
-
-            for (int j = 0; j < Input.GetJoystickNames().Length; j++)
-            {
-
-                //Debug.LogError(Input.GetJoystickNames()[j]);
-                if (Input.GetJoystickNames()[j].Contains("Xbox"))
-                {
-                    ControllerNumber++;
-                    Debug.Log("Controller " + ControllerNumber);
-                }
-
-                if (Input.GetJoystickNames()[j].Contains("XBOX"))
-                {
-                    ControllerNumber++;
-                    Debug.Log("Controller " + ControllerNumber);
-                }
-
-                ActiveControllers = Input.GetJoystickNames();
-            }
-
     }
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
 
         StartButton.SetActive(false);
 
@@ -122,7 +136,7 @@ public class CharacterMenuController : MonoBehaviour {
 
         for (int i = 0; i < playerCursors.Length; i++)
         {
-           playerCursors[i].SetActive(false); //Set all cursors to false for now
+            playerCursors[i].SetActive(false); //Set all cursors to false for now
 
         }
 
@@ -140,48 +154,192 @@ public class CharacterMenuController : MonoBehaviour {
             activePlayers[i] = false;
         }
 
-            /*for (int g = 0; g < ControllerNumber; g++)
-            {
-                playerCursors[g].SetActive(true);
-                //NextButtons[g].SetActive(true);
-                PlayerReady[g].enabled = false;
-                PlayerDC[g].enabled = false;
-                AButton[g].gameObject.SetActive(true);
-                PressStart[g].enabled = false;
-                AButton[g].gameObject.SetActive(true);
-            }*/
 
-	}
+    }
 
     void Update()
     {
-
-
-
-        if (activePlayers[0] == false)
+        //Debug.Log(playerSize.Count + "-____________________");
+        for (int i = 1; i <= 4; i++)
         {
-            if (Input.GetButtonDown("Start_1") && (startCount1 == 0))
+            Debug.Log(i);
+            if (activePlayers[i - 1] == false)
             {
-                startCount1++;
-                PlayerReady[0].enabled = false;
-                PlayerDC[0].enabled = false;
-                AButton[0].gameObject.SetActive(true);
-                PressStart[0].enabled = false;
-                AButton[0].gameObject.SetActive(true);
-                activePlayers[0] = true;
-                Invoke("ResetStart1", .25f);
+                if ((Input.GetButtonUp("Start_" + i) || Input.GetButtonUp("A_" + i)) && startCount[i - 1] == 0)
+                {
+                    Debug.Log(i);
+                    startCount[i - 1]++;
+                    PlayerDC[i - 1].enabled = false;
+                    AButton[i - 1].gameObject.SetActive(true);
+                    PressStart[i - 1].enabled = false;
+                    AButton[i - 1].gameObject.SetActive(true);
+                    activePlayers[i - 1] = true;
+                    playerSize.Add(1);
+                    Audio.clip = Click;
+                    Audio.Play();
+                    Invoke("ResetStart" + i, .25f);
 
+                }
+                if (Input.GetButtonUp("B_" + i) && startCount[i - 1] == 0)
+                {
+                    Audio.clip = Back;
+                    Audio.Play();
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+                }
             }
-            if (Input.GetButtonDown("B_1"))
+            if (activePlayers[i - 1])
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+                if (playerReady[i - 1] == false)
+                {
+                    PlayerReady[i - 1].enabled = false;
+                    if ((Input.GetAxisRaw("L_YAxis_" + i) == 1 || Input.GetAxisRaw("DPad_YAxis_" + i) == -1) && (stickResetP1 == 0))
+                    {
+                        stickResetP1++;
+                        //LeftStickUpP1();
+                        Audio.clip = Scroll;
+                        Audio.Play();
+                        LeftStickUp(i);
+                        ogArrowDOWN[i - 1].sprite = activeArrowDOWN;
+                        Invoke("StickReset", .5f);
+                    }
+
+                    if ((Input.GetAxisRaw("L_YAxis_" + i) == -1 || Input.GetAxisRaw("DPad_YAxis_" + i) == 1) && (stickResetP1 == 0))
+                    {
+                        stickResetP1++;
+                        Audio.clip = Scroll;
+                        Audio.Play();
+                        //LeftStickDownP1();
+                        LeftStickDown(i);
+                        ogArrowUP[i - 1].sprite = activeArrowUP;
+                        Invoke("StickReset", .5f);
+                    }
+
+                    if ((Input.GetButtonDown("Start_" + i) || Input.GetButtonDown("B_" + i)) && startCount[i - 1] == 0)
+                    {
+                        Audio.clip = Back;
+                        Audio.Play();
+                        startCount[i - 1]++;
+                        PlayerReady[i - 1].enabled = true;
+                        PlayerDC[i - 1].enabled = true;
+                        AButton[i - 1].gameObject.SetActive(false);
+                        PressStart[i - 1].enabled = true;
+                        AButton[i - 1].gameObject.SetActive(false);
+                        activePlayers[i - 1] = false;
+                        playerSize.Remove(1);
+                        Invoke("ResetStart" + i, .5f);
+                    }
+
+                }
+
+                if (Input.GetButtonDown("A_" + i) && (z <= AResetP1))
+                {
+                    Audio.clip = Click;
+                    Audio.Play();
+                    AResetP1++;
+                    p1Ready = true;
+                    ReadyStamp[i - 1].gameObject.SetActive(true);
+                    PlayerReady[i - 1].enabled = true;
+                    playerReady[i - 1] = true;
+                    AButton[i - 1].gameObject.SetActive(false);
+                    Debug.Log(i);
+
+                    if (playerSize.Count == 1)
+                        if (playerReady[0])
+                            StartButton.SetActive(true);
+                    if (playerSize.Count == 2)
+                        if (playerReady[0] && playerReady[1])
+                            StartButton.SetActive(true);
+                    if (playerSize.Count == 3)
+                        if (playerReady[0] && playerReady[1] && playerReady[2])
+                            StartButton.SetActive(true);
+                    if (playerSize.Count == 2)
+                        if (playerReady[0] && playerReady[1] && playerReady[2] && playerReady[3])
+                            StartButton.SetActive(true);
+                    
+                    //Debug.Log("i == 1" + z + "Player 1 Ready = true" + p1Ready);
+                    if (AResetP1 == 2)
+                    {
+                        Audio.clip = Click;
+                        Audio.Play();
+                        AButton[i - 1].gameObject.SetActive(true);
+                        p1Ready = false;
+                        ReadyStamp[i - 1].gameObject.SetActive(false);
+                        PlayerReady[i - 1].enabled = false;
+                        playerReady[i - 1] = false;
+                        Invoke("AResetP1FC", .25f);
+                        StartButton.SetActive(false);
+
+                        //Debug.Log("i == 2" + z + "Player 1 Ready = false" + p1Ready);
+                    }
+                }
+
+                if (playerReady[i - i])
+                {
+                    AButton[i - 1].gameObject.SetActive(false);
+                    if (Input.GetButtonUp("B_" + i) && AResetP1 == 1)
+                    {
+                        Audio.clip = Back;
+                        Audio.Play();
+                        AResetP1++;
+                        startCount1++;
+                        Invoke("ResetStart1",.25f);
+                        p1Ready = false;
+                        ReadyStamp[i - 1].gameObject.SetActive(false);
+                        PlayerReady[i - 1].enabled = false;
+                        AButton[i - 1].gameObject.SetActive(true);
+                        StartButton.SetActive(false);
+                        playerReady[i - 1] = false;
+                        Invoke("AResetP1FC", .25f);
+                    }
+
+                    if (Input.GetButtonDown("Start_" + i))
+                    {
+                        Audio.clip = StartFX;
+                        Audio.Play();
+                        loadingText.enabled = true;
+                        StartCoroutine("LoadNewScene");
+                        //SceneManager.LoadScene(2);
+                    }
+
+                }
             }
         }
+
+        // If the new scene has started loading...
+        if (loadScene == true)
+        {
+
+            // ...then pulse the transparency of the loading text to let the player know that the computer is still working.
+            loadingText.color = new Color(loadingText.color.r, loadingText.color.g, loadingText.color.b, Mathf.PingPong(Time.time, 1));
+
+        }
+        #region OLD
+
+        /*          if (activePlayers[0] == false)
+            {
+                if (Input.GetButtonDown("Start_1") && (startCount1 == 0))
+                {
+                    startCount1++;
+                    PlayerReady[0].enabled = false;
+                    PlayerDC[0].enabled = false;
+                    AButton[0].gameObject.SetActive(true);
+                    PressStart[0].enabled = false;
+                    AButton[0].gameObject.SetActive(true);
+                    activePlayers[0] = true;
+                    playerSize.Add(1);
+                    Invoke("ResetStart1", .25f);
+
+                }
+                if (Input.GetButtonDown("B_1"))
+                {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+                }
+            }
         if (activePlayers[0])
         {
             if (p1Ready == false)
             {
-                if ((Input.GetAxisRaw("L_YAxis_1") == 1 || Input.GetAxisRaw("DPad_YAxis_1") == -1) && (j == stickResetP1))
+                if ((Input.GetAxisRaw("L_YAxis_1") == 1 || Input.GetAxisRaw("DPad_YAxis_1") == -1) && (stickResetP1 == 0))
                 {
                     stickResetP1++;
                     LeftStickUpP1();
@@ -189,7 +347,7 @@ public class CharacterMenuController : MonoBehaviour {
                     Invoke("StickReset", .5f);
                 }
 
-                if ((Input.GetAxisRaw("L_YAxis_1") == -1 || Input.GetAxisRaw("DPad_YAxis_1") == 1) && (j == stickResetP1))
+                if ((Input.GetAxisRaw("L_YAxis_1") == -1 || Input.GetAxisRaw("DPad_YAxis_1") == 1) && (stickResetP1 == 0))
                 {
                     stickResetP1++;
                     LeftStickDownP1();
@@ -206,6 +364,7 @@ public class CharacterMenuController : MonoBehaviour {
                     PressStart[0].enabled = true;
                     AButton[0].gameObject.SetActive(false);
                     activePlayers[0] = false;
+                    playerSize.Remove(0);
                     Invoke("ResetStart1", .25f);
                 }
 
@@ -264,6 +423,7 @@ public class CharacterMenuController : MonoBehaviour {
                 PressStart[1].enabled = false;
                 AButton[1].gameObject.SetActive(true);
                 activePlayers[1] = true;
+                playerSize.Add(0);
                 Invoke("ResetStart2", .25f);
 
             }
@@ -274,7 +434,7 @@ public class CharacterMenuController : MonoBehaviour {
             if (p2Ready)
             {
                 AButton[1].gameObject.SetActive(false);
-                if (Input.GetButtonDown("B_1") && AResetP2 == 1)
+                if (Input.GetButtonDown("B_2") && AResetP2 == 1)
                 {
                     AResetP2++;
                     p1Ready = false;
@@ -287,7 +447,7 @@ public class CharacterMenuController : MonoBehaviour {
 
             if (p2Ready == false)
             {
-                if ((Input.GetAxisRaw("L_YAxis_2") == 1 || Input.GetAxisRaw("DPad_YAxis_2") == 1) && (r == stickResetP2))
+                if ((Input.GetAxisRaw("L_YAxis_2") == 1 || Input.GetAxisRaw("DPad_YAxis_2") == -1) && (stickResetP2 == 0))
                 {
                     stickResetP2++;
                     LeftStickUpP2();
@@ -295,7 +455,7 @@ public class CharacterMenuController : MonoBehaviour {
                     Invoke("StickReset", .5f);
                 }
 
-                if ((Input.GetAxisRaw("L_YAxis_2") == -1 || Input.GetAxisRaw("DPad_YAxis_2") == -1) && (r == stickResetP2))
+                if ((Input.GetAxisRaw("L_YAxis_2") == -1 || Input.GetAxisRaw("DPad_YAxis_2") == 1) && (stickResetP2 == 0))
                 {
                     stickResetP2++;
                     LeftStickDownP2();
@@ -312,6 +472,7 @@ public class CharacterMenuController : MonoBehaviour {
                     PressStart[1].enabled = true;
                     AButton[1].gameObject.SetActive(false);
                     activePlayers[1] = false;
+                    playerSize.Remove(0);
                     Invoke("ResetStart2", .25f);
                 }
             }
@@ -333,12 +494,12 @@ public class CharacterMenuController : MonoBehaviour {
             }
         }
 
-        if (activePlayers[3])
+        if (activePlayers[2])
         {
             if (p3Ready)
             {
                 AButton[2].gameObject.SetActive(false);
-                if (Input.GetButtonDown("B_1") && AResetP3 == 1)
+                if (Input.GetButtonDown("B_3") && AResetP3 == 1)
                 {
                     AResetP3++;
                     p1Ready = false;
@@ -351,7 +512,7 @@ public class CharacterMenuController : MonoBehaviour {
 
             if (p3Ready == false)
             {
-                if ((Input.GetAxisRaw("L_YAxis_3") == 1 || Input.GetAxisRaw("DPad_YAxis_3") == 1) && (r == stickResetP3))
+                if ((Input.GetAxisRaw("L_YAxis_3") == 1 || Input.GetAxisRaw("DPad_YAxis_3") == -1) && (r == stickResetP3))
                 {
                     stickResetP3++;
                     LeftStickUpP3();
@@ -359,7 +520,7 @@ public class CharacterMenuController : MonoBehaviour {
                     Invoke("StickReset", .5f);
                 }
 
-                if ((Input.GetAxisRaw("L_YAxis_3") == -1 || Input.GetAxisRaw("DPad_YAxis_3") == -1) && (r == stickResetP3))
+                if ((Input.GetAxisRaw("L_YAxis_3") == -1 || Input.GetAxisRaw("DPad_YAxis_3") == 1) && (r == stickResetP3))
                 {
                     stickResetP3++;
                     LeftStickDownP3();
@@ -377,6 +538,7 @@ public class CharacterMenuController : MonoBehaviour {
                     PressStart[2].enabled = true;
                     AButton[2].gameObject.SetActive(false);
                     activePlayers[2] = false;
+                    playerSize.Remove(0);
                     Invoke("ResetStart3", .25f);
                 }
             }
@@ -399,7 +561,7 @@ public class CharacterMenuController : MonoBehaviour {
             }
         }
 
-        if (activePlayers[3] == false)
+        if (activePlayers[2] == false)
         {
             if ((Input.GetButtonDown("Start_3") || Input.GetButtonDown("B_3")) && startCount3 == 0)
             {
@@ -409,6 +571,7 @@ public class CharacterMenuController : MonoBehaviour {
                 AButton[2].gameObject.SetActive(true);
                 PressStart[2].enabled = false;
                 AButton[2].gameObject.SetActive(true);
+                playerSize.Add(0);
                 Invoke("ResetStart3", .25f);
             }
         }
@@ -431,7 +594,7 @@ public class CharacterMenuController : MonoBehaviour {
             }
             if (p4Ready == false)
             {
-                if ((Input.GetAxisRaw("L_YAxis_4") == 1 || Input.GetAxisRaw("DPad_YAxis_4") == 1) && (stickResetP4 == 0))
+                if ((Input.GetAxisRaw("L_YAxis_4") == 1 || Input.GetAxisRaw("DPad_YAxis_4") == -1) && (stickResetP4 == 0))
                 {
                     stickResetP4++;
                     LeftStickUpP4();
@@ -439,7 +602,7 @@ public class CharacterMenuController : MonoBehaviour {
                     Invoke("StickReset", .5f);
                 }
 
-                if ((Input.GetAxisRaw("L_YAxis_4") == -1 || Input.GetAxisRaw("DPad_YAxis_4") == -1) && (stickResetP4 == 0))
+                if ((Input.GetAxisRaw("L_YAxis_4") == -1 || Input.GetAxisRaw("DPad_YAxis_4") == 1) && (stickResetP4 == 0))
                 {
                     stickResetP4++;
                     LeftStickDownP4();
@@ -455,6 +618,7 @@ public class CharacterMenuController : MonoBehaviour {
                     PressStart[3].enabled = true;
                     AButton[3].gameObject.SetActive(false);
                     activePlayers[3] = false;
+                    playerSize.Remove(0);
                     Invoke("ResetStart4", .25f);
                 }
             }
@@ -487,13 +651,15 @@ public class CharacterMenuController : MonoBehaviour {
                 AButton[3].gameObject.SetActive(true);
                 PressStart[3].enabled = false;
                 AButton[3].gameObject.SetActive(true);
+                playerSize.Add(0);
                 Invoke("ResetStart4", .25f);
             }
         }
 
+   */
 
+        #endregion
 
-        
     }
 
     void StickReset()
@@ -515,7 +681,7 @@ public class CharacterMenuController : MonoBehaviour {
 
     }
 
-    void AResetP1FC() 
+    void AResetP1FC()
     {
         AResetP1 = 0;
     }
@@ -532,7 +698,10 @@ public class CharacterMenuController : MonoBehaviour {
         AResetP4 = 0;
     }
 
-    void LeftStickDownP1() 
+    #region Old Functions
+
+
+    void LeftStickDownP1()
     {
         p1Pos = p1Pos - 1;
         if (p1Pos < 0)
@@ -540,7 +709,7 @@ public class CharacterMenuController : MonoBehaviour {
         CharacterPictures[0].sprite = Characters[p1Pos].GetComponentInChildren<SpriteRenderer>().sprite;
 
         CharacterNames[0].text = Names[p1Pos];
-        
+
     }
 
     void LeftStickUpP1()
@@ -614,20 +783,67 @@ public class CharacterMenuController : MonoBehaviour {
         CharacterNames[3].text = Names[p4Pos];
     }
 
+    #endregion
+
+    void LeftStickDown(int i)
+    {
+        i = i - 1;
+        playerINDEX_Pos[i] = playerINDEX_Pos[i] - 1;
+        if (playerINDEX_Pos[i] < 0)
+            playerINDEX_Pos[i] = Characters.Length - 1;
+        CharacterPictures[i].sprite = Characters[playerINDEX_Pos[i]].GetComponentInChildren<SpriteRenderer>().sprite;
+        CharacterNames[i].text = Names[playerINDEX_Pos[i]];
+
+    }
+
+    void LeftStickUp(int i)
+    {
+        i = i - 1;
+        playerINDEX_Pos[i] = playerINDEX_Pos[i] + 1;
+        if (playerINDEX_Pos[i] > Characters.Length - 1)
+            playerINDEX_Pos[i] = 0;
+        CharacterPictures[i].sprite = Characters[playerINDEX_Pos[i]].GetComponentInChildren<SpriteRenderer>().sprite;
+        CharacterNames[i].text = Names[playerINDEX_Pos[i]];
+
+    }
+
     void ResetStart1()
     {
-        startCount1 = 0;
+        startCount[0] = 0;
     }
     void ResetStart2()
     {
-        startCount2 = 0;
+        startCount[1] = 0;
     }
     void ResetStart3()
     {
-        startCount3 = 0;
+        startCount[2] = 0;
     }
     void ResetStart4()
     {
-        startCount4 = 0;
+        startCount[3] = 0;
     }
+
+    // The coroutine runs on its own at the same time as Update() and takes an integer indicating which scene to load.
+    IEnumerator LoadNewScene()
+    {
+
+        // This line waits for 3 seconds before executing the next line in the coroutine.
+        // This line is only necessary for this demo. The scenes are so simple that they load too fast to read the "Loading..." text.
+        yield return new WaitForSeconds(.000001f);
+
+        // Start an asynchronous operation to load the scene that was passed to the LoadNewScene coroutine.
+        AsyncOperation async = SceneManager.LoadSceneAsync(2); //FIX THIS
+        //SceneManager.LoadScene(scene);
+
+
+        // While the asynchronous operation to load the new scene is not yet complete, continue waiting until it's done. //FIX THIS
+        while (!async.isDone)
+        {
+            yield return null;
+        }
+
+    }
+
+
 }

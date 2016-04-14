@@ -12,6 +12,11 @@ public class PlayerPause : MonoBehaviour {
     public Canvas PauseCanvas;
     public Button[] PauseButtons;
 
+    public AudioSource Source;
+    public AudioClip Click;
+    public AudioClip Scroll;
+    public AudioClip Back;
+
     //int ControllerNumber = 0;
     int count = 0;
     public bool start1 = false;
@@ -47,63 +52,80 @@ public class PlayerPause : MonoBehaviour {
     void Update()
     {
 
-        if (start1 == false)
+        for (int i = 1; i <= 4; i++)
         {
-
-            if (Input.GetButtonDown("Start_" + 1) && (count == 0))
+            if (start1 == false)
             {
-                count++;
-                start1 = true;
-                PauseCanvas.enabled = start1;
-                StartCoroutine("resetCount");
+
+                if ((Input.GetButtonDown("Start_" + i)) && (count == 0))
+                {
+                    Source.clip = Click;
+                    Source.Play();
+                    count++;
+                    start1 = true;
+                    PauseCanvas.enabled = start1;
+                    StartCoroutine("resetCount");
+                }
+
             }
 
-        }
-
-        if (start1)
-        {
-
-            if (Input.GetButtonDown("Start_" + 1) && (count == 0))
+            if (start1)
             {
-                Debug.Log("Hello");
-                count++;
-                start1 = false;
-                PauseCanvas.enabled = start1;
-                StartCoroutine("resetCount");
-            }
 
-            if (Input.GetButton("A_1"))
-            {
-                SceneManager.LoadScene(0); //Menu
-            }
-            if (Input.GetAxis("DPad_YAxis_1") == -1 && menuCount == 0)
-            {
-                menuCount++;
+                if ((Input.GetButtonDown("Start_" + i) || Input.GetButtonUp("B_" + i)) && (count == 0))
+                {
+                    Source.clip = Back;
+                    Source.Play();
+                    Debug.Log("Hello");
+                    count++;
+                    start1 = false;
+                    PauseCanvas.enabled = start1;
+                    StartCoroutine("resetCount");
+                }
+
+                if (Input.GetButton("A_" + i))
+                {
+                    Source.clip = Click;
+                    Source.Play();
+                    SceneManager.LoadScene(0); //Menu
+                }
+                if (Input.GetAxis("DPad_YAxis_" + i) == -1 && menuCount == 0)
+                {
+                    Source.clip = Scroll;
+                    Source.Play();
+                    menuCount++;
+
+                    if (menuCount == 1)
+                    {
+                        ColorBlock temp1;
+                        temp1 = PauseButtons[0].GetComponent<Button>().colors;
+                        temp1.normalColor = Color.white;
+                        PauseButtons[0].GetComponent<Button>().colors = temp1;
+                        temp1.normalColor = Color.yellow;
+                        PauseButtons[1].GetComponent<Button>().colors = temp1;
+                    }
+
+                }
 
                 if (menuCount == 1)
                 {
-                    ColorBlock temp1;
-                    temp1 = PauseButtons[0].GetComponent<Button>().colors;
-                    temp1.normalColor = Color.white;
-                    PauseButtons[0].GetComponent<Button>().colors = temp1;
-                    temp1.normalColor = Color.yellow;
-                    PauseButtons[1].GetComponent<Button>().colors = temp1;
-                }
-
-            }
-
-            if (menuCount == 1)
-            {
-                if (Input.GetButton("A_1"))
-                {
-                    SceneManager.LoadScene(1); //Character Menu
-                }
-                if (Input.GetAxis("DPad_YAxis_1") == 1)
-                {
-                    StartCoroutine("resetThisButton1");
+                    if (Input.GetButton("A_" + i))
+                    {
+                        Source.clip = Click;
+                        Source.Play();
+                        SceneManager.LoadScene(1); //Character Menu
+                    }
+                    if (Input.GetAxis("DPad_YAxis_" + i) == 1)
+                    {
+                        Source.clip = Scroll;
+                        Source.Play();
+                        StartCoroutine("resetThisButton1");
+                    }
                 }
             }
         }
+
+
     }
 
 

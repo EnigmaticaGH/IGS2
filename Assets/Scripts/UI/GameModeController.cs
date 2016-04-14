@@ -72,21 +72,28 @@ public class GameModeController : MonoBehaviour {
                 GameModeText.text = GameModes[j]; //Stock 10 deaths 
                 TimeAmount.gameObject.SetActive(true);
                 StockTen();
+                GameModeText.fontSize = 30;
+
                 break;
             case 1:
                 GameModeText.text = GameModes[j]; //Stock 5 deaths
                 TimeAmount.gameObject.SetActive(true);
                 StockFive();
+                GameModeText.fontSize = 30;
+
                 break;
             case 2:
                 GameModeText.text = GameModes[j]; //Stock 3 deaths
                 TimeAmount.gameObject.SetActive(true);
                 StockThree();
+                GameModeText.fontSize = 30;
+
                 break;
             case 3:
                 GameModeText.text = GameModes[j]; //Timed
                 TimeAmount.gameObject.SetActive(true);
                 Timed();
+                GameModeText.fontSize = 64;
                 break;
             default:
                 break;
@@ -102,18 +109,22 @@ public class GameModeController : MonoBehaviour {
         {
             case 0:
                 TimeAmount.text = Times[b]; //5:00
+                TimeAmount.fontSize = 24;
                 Five();
                 break;
             case 1:
                 TimeAmount.text = Times[b]; //3:00
+                TimeAmount.fontSize = 24;
                 Three();
                 break;
             case 2:
                 TimeAmount.text = Times[b]; //2:00
+                TimeAmount.fontSize = 24;
                 Two();
                 break;
             case 3:
                 TimeAmount.text = Times[b]; //Unlimited
+                TimeAmount.fontSize = 64;
                 Unlimited();
                 break;
             default:

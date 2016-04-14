@@ -23,6 +23,9 @@ public class PlayerLives : MonoBehaviour
     int pPos3 = 0;
     int pPos4 = 0;
     int FunTracker = 0;
+    int activePlayers = 0;
+
+    public CharacterMenuController Control;
 
     void Awake()
     {
@@ -37,12 +40,22 @@ public class PlayerLives : MonoBehaviour
         pPos3 = CharacterMenuController.p3Pos; //Use this for spawning selected characters
         pPos4 = CharacterMenuController.p4Pos; //Use this for spawning selected characters
 
+        //Control = Control.GetComponent<CharacterMenuController>();
+
+        //activePlayers = Control.ActivePlayers();
+
+        //activePlayers = CharacterMenuController.length;
+
+        activePlayers = CharacterMenuController.playerSize.Count;
+
+        Debug.Log(activePlayers);
+
         for (int i = 0; i < HeadBackgrounds.Length; i++)
         {
             HeadBackgrounds[i].SetActive(false);
         }
 
-        for (int j = 0; j < Input.GetJoystickNames().Length; j++)
+        /*for (int j = 0; j < Input.GetJoystickNames().Length; j++)
         {
             if (Input.GetJoystickNames()[j].Contains("Xbox"))
             {
@@ -52,9 +65,9 @@ public class PlayerLives : MonoBehaviour
             {
                 ControllerNumber++;
             }
-        }
+        }*/
 
-        for (int i = 0; i < ControllerNumber; i++)
+        for (int i = 0; i < activePlayers; i++)
         {
             //Debug.Log(i);
             spawnHeads[ControllerNumber] = false;
@@ -97,20 +110,12 @@ public class PlayerLives : MonoBehaviour
 
         player1Lives.gameObject.SetActive(true);
         //Debug.Log(player1.GetComponent<DeathControl>().lives);
-        if (CharacterMenuController.ControllerNumber > 1)
+        if (activePlayers > 1)
             player2Lives.gameObject.SetActive(true);
-        if (CharacterMenuController.ControllerNumber > 2)
+        if (activePlayers > 2)
             player3Lives.gameObject.SetActive(true);
-        if (CharacterMenuController.ControllerNumber > 3)
+        if (activePlayers > 3)
             player4Lives.gameObject.SetActive(true);
-
-
-
-    }
-
-    // Use this for initialization
-    void Start()
-    {
 
 
 
@@ -129,29 +134,24 @@ public class PlayerLives : MonoBehaviour
         player1Lives.text = "" + PlayerTracker.players[0].GetComponent<DeathControl>().getLives();
         HeadBackgrounds[0].SetActive(true);
         //Debug.Log(player1.GetComponent<DeathControl>().getLives());
-        if (CharacterMenuController.ControllerNumber > 1) 
+        if (activePlayers > 1)
         {
-            player2Lives.text = "Player 2 Lives: " + PlayerTracker.players[1].GetComponent<DeathControl>().getLives();
+            player2Lives.text = "" + PlayerTracker.players[1].GetComponent<DeathControl>().getLives();
             HeadBackgrounds[1].SetActive(true);
+
+            if (activePlayers > 2)
+            {
+                player3Lives.text = "" + PlayerTracker.players[2].GetComponent<DeathControl>().getLives();
+                HeadBackgrounds[2].SetActive(true);
+            }
+
+
+            if (activePlayers > 3)
+            {
+                player4Lives.text = "" + PlayerTracker.players[3].GetComponent<DeathControl>().getLives();
+                HeadBackgrounds[3].SetActive(true);
+            }
         }
-        if (CharacterMenuController.ControllerNumber > 2) 
-        {
-            player3Lives.text = "Player 3 Lives " + PlayerTracker.players[2].GetComponent<DeathControl>().getLives();
-            HeadBackgrounds[2].SetActive(true);
-        }
-
-
-        if (CharacterMenuController.ControllerNumber > 3) 
-        {
-            player4Lives.text = "Player 4 Lives " + PlayerTracker.players[3].GetComponent<DeathControl>().getLives();
-            HeadBackgrounds[3].SetActive(true);
-        }
-
-
-
-
-
-
     }
 
     public void death(int controllerNumber, int lives)

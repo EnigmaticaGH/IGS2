@@ -66,7 +66,10 @@ public class PlayerSpawn : MonoBehaviour
 
         //Debug.Log(p1Pos);
         //PlayersAmt = CursorController.ControllerAmount; //Gets 2 because Cursor Controller is used in multiple scenes
-        PlayersAmt = CharacterMenuController.ControllerNumber; //USed character menu controller since it's only called once
+        //PlayersAmt = CharacterMenuController.ControllerNumber; //USed character menu controller since it's only called once
+        //PlayersAmt = CharacterMenuController.ActivePlayers();
+
+        PlayersAmt = CharacterMenuController.playerSize.Count;
 
         //Debug.Log(PlayersAmt);
 
