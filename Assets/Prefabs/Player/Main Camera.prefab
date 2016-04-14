@@ -118,7 +118,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   motionDamping: 12
-  levelBounds: {x: 22, y: 32}
+  upperBounds: {fileID: 0}
+  lowerBounds: {fileID: 0}
 --- !u!114 &11452268
 MonoBehaviour:
   m_ObjectHideFlags: 1

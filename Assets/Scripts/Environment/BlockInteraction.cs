@@ -90,7 +90,7 @@ public class BlockInteraction : MonoBehaviour {
 	void OnCollisionEnter(Collision c)
     {
         if (c.collider.CompareTag("Player") && // it has to be player
-            AbilityRegistry.AbilityStatus(c.gameObject.name, "BlockSmash") != Ability.Status.ACTIVE && //player is not dashing
+            AbilityRegistry.AbilityStatus(c.gameObject.name, "BlockSmash") == Ability.Status.READY && //player is not dashing
             c.relativeVelocity.magnitude > lethalVelocity && vel.magnitude > lethalVelocity && //block is going fast enough
             (Mathf.Abs(transform.position.x - c.transform.position.x) < 0.5f || //block has to be a direct hit, not a graze
             Mathf.Abs(transform.position.y - c.transform.position.y) < 0.5f))

@@ -4,7 +4,8 @@ using System.Collections;
 public class SmashCamera : MonoBehaviour {
 
     public float motionDamping;
-    public Vector2 levelBounds;
+    public Transform upperBounds;
+    public Transform lowerBounds;
     private static GameObject[] players;
     private static float[] xValues, yValues;
     private float minX, minY, maxX, maxY;
@@ -44,8 +45,8 @@ public class SmashCamera : MonoBehaviour {
         size = new Vector3(cam.orthographicSize * cam.aspect, cam.orthographicSize);
         float zoom = Mathf.Clamp(Mathf.Sqrt(Mathf.Pow(maxX - minX, 2) + Mathf.Pow(maxY - minY, 2)), 6, 12);
         Vector3 clampedPosition = new Vector3(
-            Mathf.Clamp(midpoint.x, -levelBounds.x + size.x, levelBounds.x - size.x),
-            Mathf.Clamp(midpoint.y, -1 + size.y, levelBounds.y - size.y),
+            Mathf.Clamp(midpoint.x, lowerBounds.position.x + size.x, upperBounds.position.x - size.x),
+            Mathf.Clamp(midpoint.y, lowerBounds.position.y + size.y, upperBounds.position.y - size.y),
             transform.position.z);
         transform.position = Vector3.SmoothDamp(transform.position, clampedPosition, ref velocity, motionDamping * Time.deltaTime);
         cam.orthographicSize = Mathf.SmoothDamp(cam.orthographicSize, zoom * 0.66f, ref vel, motionDamping * Time.deltaTime);
