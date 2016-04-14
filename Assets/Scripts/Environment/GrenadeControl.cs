@@ -51,6 +51,8 @@ public class GrenadeControl : MonoBehaviour
                 player.GetComponent<Rigidbody>().AddForce(force);
             }
         }
+        GetComponent<MeshRenderer>().enabled = false;
+        GetComponent<BoxCollider>().enabled = false;
     }
 
     void OnCollisionEnter(Collision other)
@@ -67,6 +69,8 @@ public class GrenadeControl : MonoBehaviour
         {
             ExplosionProcess();
         }
+        GetComponent<MeshRenderer>().enabled = true;
+        GetComponent<BoxCollider>().enabled = true;
         gameObject.SetActive(false);
     }
 

@@ -10,7 +10,7 @@ public class GrabBlock : MonoBehaviour
     public float blockThrowForce;
     private bool foundBlock;
     private bool carryingBlock;
-    public bool carryingExplosive;
+    private bool carryingExplosive;
     private Transform originalParent;
     private Transform sprite;
     private Queue<GameObject> originalBlocks;
@@ -18,6 +18,19 @@ public class GrabBlock : MonoBehaviour
     private Vector3 forceAngle;
     private Vector3 throwForce;
     private Vector3 blockPos;
+    private bool isDead;
+
+    void Awake()
+    {
+        DeathControl.OnDeath += OnDeath;
+        DeathControl.OnRespawn += OnRespawn;
+    }
+
+    void OnDestroy()
+    {
+        DeathControl.OnDeath += OnDeath;
+        DeathControl.OnRespawn -= OnRespawn;
+    }
 
     // Use this for initialization
     void Start()
@@ -73,6 +86,11 @@ public class GrabBlock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isDead)
+        {
+            return;
+        }
+
         bool blockGrabDown = 
             Input.GetButtonDown("RB_" + controller.controllerNumber) ||
             Input.GetMouseButtonDown(1);
@@ -180,8 +198,9 @@ public class GrabBlock : MonoBehaviour
     void ThrowBlock()
     {
         BlockInteraction blockScript = block.GetComponent<BlockInteraction>();
-        Vector3 force = new Vector3(blockThrowForce * throwForce.x, blockThrowForce * (throwForce.y + 0.25f), 0);
+        Vector3 force = new Vector3(blockThrowForce * throwForce.x, blockThrowForce * (throwForce.y + 0.1f), 0);
         blockScript.IsGrabbedBySomeoneElse = false;
+        blockScript.IsBeingThrown = true;
         block.GetComponent<Collider>().enabled = true;
         block.transform.parent = originalParent;
         block.transform.localScale = Vector3.one;
@@ -217,5 +236,24 @@ public class GrabBlock : MonoBehaviour
     public bool CarryingBlock
     {
         get { return carryingBlock || carryingExplosive; }
+    }
+
+    private void OnDeath(float respawnTime)
+    {
+        isDead = true;
+        throwForce = Vector2.zero;
+        if (carryingBlock)
+        {
+            ThrowBlock();
+        }
+        else if (carryingExplosive)
+        {
+            ThrowExplosiveBlock();
+        }
+    }
+
+    private void OnRespawn()
+    {
+        isDead = false;
     }
 }

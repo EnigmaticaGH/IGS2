@@ -81,6 +81,8 @@ public class PlayerAbilities : MonoBehaviour
     {
         if (movement.State == Movement.MovementState.GROUND)
             usedAirDash = false;
+        if (movement.State == Movement.MovementState.DISABLED)
+            return;
 
         float x = Input.GetAxis(abilities[0].Axis[0] + "_" + controller.controllerNumber);
         float y = -Input.GetAxis(abilities[0].Axis[1] + "_" + controller.controllerNumber);
@@ -155,7 +157,7 @@ public class PlayerAbilities : MonoBehaviour
             player.MovePosition(transform.position + Vector3.up * 0.2f);
         }
         player.AddForce(force);
-        movement.Disable(ability.ActiveTime);
+        movement.Disable(ability.ActiveTime, false);
         Invoke("ZeroVelocity", ability.ActiveTime);
         
         yield return new WaitForSeconds(ability.ActiveTime);

@@ -126,10 +126,12 @@ public class Movement : MonoBehaviour
 
     #endregion
 
-    IEnumerator DisableMovement(float disableTime)
+    IEnumerator DisableMovement(float disableTime, bool isStun)
     {
         MovementState oldState = state;
         ChangeState(MovementState.DISABLED);
+        if (isStun)
+            GetComponent<StunParticles>().Stun(disableTime);
         yield return new WaitForSeconds(disableTime);
         oldState = oldState.ToString() != "DISABLED" ? oldState : MovementState.AIR;
         ChangeState(oldState);
@@ -146,9 +148,9 @@ public class Movement : MonoBehaviour
         useForce = false;
     }
 
-    public void Disable(float time)
+    public void Disable(float time, bool isStun)
     {
-        StartCoroutine(DisableMovement(time));
+        StartCoroutine(DisableMovement(time, isStun));
     }
 
     public void UseForceInstead(float time)

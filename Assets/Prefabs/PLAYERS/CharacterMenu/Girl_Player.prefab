@@ -65,6 +65,8 @@ GameObject:
   - 114: {fileID: 11442606}
   - 114: {fileID: 11497786}
   - 114: {fileID: 11464326}
+  - 114: {fileID: 11467300}
+  - 114: {fileID: 11464036}
   m_Layer: 8
   m_Name: Girl_Player
   m_TagString: Player
@@ -330,8 +332,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e9d1223e3121974092328a81fb71d95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grenadeThrowForce: 1500
+  grenadeThrowForce: 2000
   grenadePrefab: {fileID: 120964, guid: 2a62a430d9bb06345a3515eef72540ca, type: 2}
+--- !u!114 &11464036
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 139846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 497f5712992035d4282443b0e3cb3151, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11464326
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -341,6 +354,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1419745cdc37af04aab7b92a2dd64214, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11467300
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 139846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 642879d632e7d58459cc15166b11ebeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &11478092
@@ -405,7 +429,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnTime: 1
   invincibilityTime: 1
-  maxHealth: 1
+  maxHealth: 5
   numberOfLives: 10
   lives: 0
 --- !u!114 &11497436
@@ -433,8 +457,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grenadePrefab: {fileID: 120964, guid: 2a62a430d9bb06345a3515eef72540ca, type: 2}
   teamColor: {r: 0.8196079, g: 0.32156864, b: 0.19607845, a: 1}
-  blockThrowForce: 1500
-  carryingExplosive: 1
+  blockThrowForce: 2000
 --- !u!136 &13606100
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -2044,11 +2067,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: blockThrowForce
-      value: 1500
+      value: 2000
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: grenadeThrowForce
-      value: 1500
+      value: 2000
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: grenadePrefab

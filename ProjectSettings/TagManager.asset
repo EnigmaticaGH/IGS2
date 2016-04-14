@@ -26,6 +26,7 @@ TagManager:
   - Powerup
   - END
   - Cloud
+  - Grenade
   layers:
   - Default
   - TransparentFX

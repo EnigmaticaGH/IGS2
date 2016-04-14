@@ -17,7 +17,7 @@ GameObject:
   - 114: {fileID: 11449274}
   m_Layer: 0
   m_Name: Grenade
-  m_TagString: Block
+  m_TagString: Grenade
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -63,7 +63,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 120964}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.1628381, y: 3.61099, z: -5.153389}
+  m_LocalPosition: {x: 3.4596672, y: 3.5018647, z: 10.317855}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 443436}
@@ -167,6 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionForce: 1200
   explosionRadius: 3
+  teamColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!198 &19804688
 ParticleSystem:
   m_ObjectHideFlags: 1

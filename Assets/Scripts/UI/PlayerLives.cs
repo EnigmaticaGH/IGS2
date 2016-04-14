@@ -40,7 +40,7 @@ public class PlayerLives : MonoBehaviour
         pPos3 = CharacterMenuController.p3Pos; //Use this for spawning selected characters
         pPos4 = CharacterMenuController.p4Pos; //Use this for spawning selected characters
 
-        Control = Control.GetComponent<CharacterMenuController>();
+        //Control = Control.GetComponent<CharacterMenuController>();
 
         //activePlayers = Control.ActivePlayers();
 
