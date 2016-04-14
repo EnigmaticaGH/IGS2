@@ -120,6 +120,7 @@ public class CharacterMenuController : MonoBehaviour
 
         ogSpriteUp = ogArrowUP[0].sprite;
         ogSpriteDown = ogArrowDOWN[0].sprite;
+    }
 
     // Use this for initialization
     void Start()
