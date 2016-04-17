@@ -15,6 +15,7 @@ public class DeathControl : MonoBehaviour
     public float respawnTime;
     private bool doneRespawning = true;
     //private Vector3 startPosition;
+    public float Damage { get; private set; }
 
     public float invincibilityTime;
     public int maxHealth;
@@ -46,6 +47,7 @@ public class DeathControl : MonoBehaviour
         outOfLives = false;
         upperBounds = GameObject.Find("UpperBounds").transform;
         lowerBounds = GameObject.Find("LowerBounds").transform;
+        Damage = 0;
     }
 
     void Update()
@@ -105,6 +107,7 @@ public class DeathControl : MonoBehaviour
         GetComponentInChildren<SpriteRenderer>().enabled = false;
         GetComponent<DynamicCollider>().Disable();
         yield return new WaitForSeconds(respawnTime);
+        Damage = 0;
         GetComponentInChildren<SpriteRenderer>().enabled = true;
         player.isKinematic = false;
         player.useGravity = true;
@@ -141,5 +144,9 @@ public class DeathControl : MonoBehaviour
     {
         return numberOfLives;
     }
-
+    public void AddDamage(float damage)
+    {
+        Damage += damage;
+        Debug.Log("Damage: " + (Damage * 100) + "%");
+    }
 }

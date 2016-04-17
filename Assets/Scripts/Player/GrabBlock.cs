@@ -166,7 +166,6 @@ public class GrabBlock : MonoBehaviour
             carryingBlock = false;
             IsThrowing = true;
             throwForce = forceAngle;
-            Debug.Log(throwForce);
             Invoke("ThrowBlock", 0.05f);
         }
         else if (carryingExplosive && forceAngle.magnitude > 0.7f)
@@ -218,7 +217,6 @@ public class GrabBlock : MonoBehaviour
     {
         float xForce = blockThrowForce * throwForce.x;
         float yForce = blockThrowForce * (throwForce.y + 0.1f);
-        Debug.Log(throwForce);
         carryingBlock = false;
         CancelInvoke("DisableInvincibility");
         IsInvincible = true;

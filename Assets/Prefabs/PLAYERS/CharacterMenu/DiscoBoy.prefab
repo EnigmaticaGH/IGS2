@@ -373,6 +373,7 @@ MonoBehaviour:
   grenadePrefab: {fileID: 120964, guid: 2a62a430d9bb06345a3515eef72540ca, type: 2}
   teamColor: {r: 0.6313726, g: 0.53333336, b: 0.68235296, a: 1}
   blockThrowForce: 2000
+  foundBlock: 0
 --- !u!114 &11457610
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -455,7 +456,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnTime: 1
   invincibilityTime: 1
-  maxHealth: 5
+  maxHealth: 1
   numberOfLives: 10
   lives: 0
 --- !u!136 &13661084

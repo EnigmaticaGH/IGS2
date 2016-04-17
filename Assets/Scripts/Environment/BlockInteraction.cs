@@ -38,7 +38,7 @@ public class BlockInteraction : MonoBehaviour {
         startSize = cloudParticle.startSize;
         startRate = mmc.constantMax;
         IsBeingThrown = false;
-        pushMult = 100;
+        pushMult = 10;
     }
 
     void Start()
@@ -97,12 +97,12 @@ public class BlockInteraction : MonoBehaviour {
             (Mathf.Abs(transform.position.x - c.transform.position.x) < 0.5f || //block has to be a direct hit, not a graze
             Mathf.Abs(transform.position.y - c.transform.position.y) < 0.5f))
         {
-            Debug.Log(vel.magnitude);
             r = c.gameObject.GetComponent<Rigidbody>();
             Movement m = c.gameObject.GetComponent<Movement>();
             Vector3 playerPosition = c.gameObject.transform.position;
             Vector3 diff = (playerPosition - transform.position).normalized;
-            Vector3 force = new Vector3(diff.x * c.relativeVelocity.x * pushMult, diff.y * c.relativeVelocity.y * pushMult);
+            Debug.Log(c.relativeVelocity);
+            Vector3 force = new Vector3(-c.relativeVelocity.x * pushMult, -c.relativeVelocity.y * pushMult);
             PushPlayer(m, force);
             return;
         }
@@ -139,8 +139,11 @@ public class BlockInteraction : MonoBehaviour {
 
     void PushPlayer(Movement m, Vector3 power)
     {
+        float damage = power.magnitude / pushMult / 100;
+        Vector3 force = power * (1 + m.gameObject.GetComponent<DeathControl>().Damage);
+        Debug.Log(force + " | " + power);
         r.MovePosition(r.transform.position + Vector3.up * 0.1f);
-        m.gameObject.GetComponent<DeathControl>().Hurt(1);
+        r.AddForce(force);
         if (power.y < -lethalVelocity * pushMult)
         {
             m.Disable(2, true);
@@ -152,9 +155,9 @@ public class BlockInteraction : MonoBehaviour {
         else
         {
             m.UseForceInstead(0.5f);
-            r.AddForce(power);
             r.velocity = Vector3.zero;
         }
+        m.gameObject.GetComponent<DeathControl>().AddDamage(damage);
         time = 5;
     }
 
