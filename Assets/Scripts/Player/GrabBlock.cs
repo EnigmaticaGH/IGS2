@@ -8,7 +8,7 @@ public class GrabBlock : MonoBehaviour
     private ControllerNumber controller;
     private GameObject block;
     public float blockThrowForce;
-    private bool foundBlock;
+    public bool foundBlock;
     private bool carryingBlock;
     private bool carryingExplosive;
     private Transform originalParent;
@@ -55,6 +55,7 @@ public class GrabBlock : MonoBehaviour
         grenadeBlocks = new Queue<GameObject>();
         blockPos = Vector3.right;
         IsInvincible = false;
+        IsThrowing = false;
     }
 
     void CheckForBlock()
@@ -163,12 +164,15 @@ public class GrabBlock : MonoBehaviour
         if (carryingBlock && forceAngle.magnitude > 0.7f)
         {
             carryingBlock = false;
+            IsThrowing = true;
             throwForce = forceAngle;
+            Debug.Log(throwForce);
             Invoke("ThrowBlock", 0.05f);
         }
         else if (carryingExplosive && forceAngle.magnitude > 0.7f)
         {
             carryingExplosive = false;
+            IsThrowing = true;
             throwForce = forceAngle;
             Invoke("ThrowExplosiveBlock", 0.05f);
         }
@@ -189,6 +193,7 @@ public class GrabBlock : MonoBehaviour
         blockScript.IsGrabbedBySomeoneElse = true;
         block.GetComponent<Collider>().enabled = false;
         block.GetComponent<Rigidbody>().isKinematic = false;
+        block.GetComponent<Rigidbody>().useGravity = false;
         block.transform.position = transform.position + Vector3.right * sprite.localScale.x * 0.75f;
         block.transform.localScale = Vector3.one * 0.5f;
         block.transform.parent = transform;
@@ -213,10 +218,7 @@ public class GrabBlock : MonoBehaviour
     {
         float xForce = blockThrowForce * throwForce.x;
         float yForce = blockThrowForce * (throwForce.y + 0.1f);
-        if (GetComponent<Movement>().State == Movement.MovementState.GROUND)
-        {
-            yForce = Mathf.Clamp(blockThrowForce * (throwForce.y + 0.1f), 100, Mathf.Infinity);
-        }
+        Debug.Log(throwForce);
         carryingBlock = false;
         CancelInvoke("DisableInvincibility");
         IsInvincible = true;
@@ -226,9 +228,11 @@ public class GrabBlock : MonoBehaviour
         blockScript.IsBeingThrown = true;
         block.GetComponent<Collider>().enabled = true;
         block.transform.parent = originalParent;
+        block.GetComponent<Rigidbody>().useGravity = true;
         block.transform.localScale = Vector3.one;
         blockScript.Throw(force, 10, new Color(0.4f, 1, 0.6f));
         foundBlock = false;
+        IsThrowing = false;
         Invoke("DisableInvincibility", 0.5f);
     }
 
@@ -248,6 +252,7 @@ public class GrabBlock : MonoBehaviour
         grenadeScript.Exploded = false;
         Invoke("ResetGrenade", 5);
         foundBlock = false;
+        IsThrowing = false;
         Invoke("DisableInvincibility", 0.5f);
     }
 

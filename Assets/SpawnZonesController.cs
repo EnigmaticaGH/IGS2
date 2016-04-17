@@ -52,7 +52,7 @@ public class SpawnZonesController : MonoBehaviour {
     public void SafeSpawnX(float x)
     {
         safeX = x;
-        Debug.Log(x);
+        //Debug.Log(x);
         return;
     }
 
@@ -64,7 +64,7 @@ public class SpawnZonesController : MonoBehaviour {
     public float SafeSpawnY(float y)
     {
         safeY = y;
-        Debug.Log(y);
+        //Debug.Log(y);
         return y;
     }
 
