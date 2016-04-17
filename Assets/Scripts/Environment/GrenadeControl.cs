@@ -11,9 +11,12 @@ public class GrenadeControl : MonoBehaviour
     [HideInInspector]
     public Color teamColor;
 
+    GrenadeFX Sound;
+
     // Use this for initialization
     void Start()
     {
+        Sound = GetComponent<GrenadeFX>();
         //body = GetComponent<Rigidbody>();
         blocks = GameObject.FindGameObjectsWithTag("Block");
         explosion = transform.FindChild("Explosion").GetComponent<ParticleSystem>();
@@ -28,6 +31,7 @@ public class GrenadeControl : MonoBehaviour
     void ExplosionProcess()
     {
         explosion.Play();
+        Sound.ExplosionFN();
         UpdateBlockList();
         Exploded = true;
         foreach (GameObject block in blocks)
