@@ -25,6 +25,7 @@ public class BlockInteraction : MonoBehaviour {
     private Vector3 vel;
     private float startRate;
     private float startSize;
+    private float pushMult;
 
     void Awake()
     {
@@ -37,6 +38,7 @@ public class BlockInteraction : MonoBehaviour {
         startSize = cloudParticle.startSize;
         startRate = mmc.constantMax;
         IsBeingThrown = false;
+        pushMult = 100;
     }
 
     void Start()
@@ -100,14 +102,14 @@ public class BlockInteraction : MonoBehaviour {
             Movement m = c.gameObject.GetComponent<Movement>();
             Vector3 playerPosition = c.gameObject.transform.position;
             Vector3 diff = (playerPosition - transform.position).normalized;
-            Vector3 force = new Vector3(diff.x * c.relativeVelocity.x * 15, diff.y * c.relativeVelocity.y * 15 + 250);
+            Vector3 force = new Vector3(diff.x * c.relativeVelocity.x * pushMult, diff.y * c.relativeVelocity.y * pushMult);
             PushPlayer(m, force);
             return;
         }
         else if (c.collider.CompareTag("Player") && c.relativeVelocity.magnitude > lethalVelocity && //has to be player who is moving fast enough
             AbilityRegistry.AbilityStatus(c.gameObject.name, "BlockSmash") == Ability.Status.ACTIVE)
         {
-            Vector3 force = new Vector3((c.relativeVelocity.x / lethalVelocity) * 50, (c.relativeVelocity.y / lethalVelocity) * 50, 0);
+            Vector3 force = new Vector3((c.relativeVelocity.x / lethalVelocity) * 100, (c.relativeVelocity.y / lethalVelocity) * 100, 0);
             if (!float.IsInfinity(force.magnitude) && !float.IsNaN(force.magnitude))
             {
                 Launch(force, Mathf.Abs(c.relativeVelocity.x) > 20);
@@ -138,11 +140,21 @@ public class BlockInteraction : MonoBehaviour {
     void PushPlayer(Movement m, Vector3 power)
     {
         r.MovePosition(r.transform.position + Vector3.up * 0.1f);
-        r.AddForce(power);
         m.gameObject.GetComponent<DeathControl>().Hurt(1);
-        r.velocity = Vector3.zero;
-        m.Disable(2, true);
-        cloudParticle.Emit(25);
+        if (power.y < -lethalVelocity * pushMult)
+        {
+            m.Disable(2, true);
+            cloudParticle.Emit(25);
+            body.AddForce(-power / 2);
+            GetComponent<Collider>().enabled = false;
+            r.velocity = Vector3.zero;
+        }
+        else
+        {
+            m.UseForceInstead(0.5f);
+            r.AddForce(power);
+            r.velocity = Vector3.zero;
+        }
         time = 5;
     }
 
@@ -230,6 +242,7 @@ public class BlockInteraction : MonoBehaviour {
         body.useGravity = false;
         body.isKinematic = true;
         isShattering = false;
+        GetComponent<Collider>().enabled = true;
     }
 
     public void SetParticleColor(Color teamColor)
