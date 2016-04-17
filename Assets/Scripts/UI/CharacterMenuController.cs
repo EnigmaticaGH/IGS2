@@ -45,35 +45,25 @@ public class CharacterMenuController : MonoBehaviour
     public static int length = 0;
     public static int p4Pos = 3;
 
-    int stickResetP1 = 0;
-    int AResetP1 = 0;
-    int stickResetP2 = 0;
-    int AResetP2 = 0;
-    int stickResetP3 = 0;
-    int AResetP3 = 0;
-    int stickResetP4 = 0;
-    int AResetP4 = 0;
+    public int[] selection = new int[4];
 
-    int startCount1 = 0;
-    int startCount2 = 0;
-    int startCount3 = 0;
-    int startCount4 = 0;
+
+    public int[] StickCount = new int[4];
 
     public int[] startCount = new int[4];
 
     public bool[] activePlayers = new bool[4];
 
-
+    string[] startButtons =
+        {
+            "Start_",
+            "A_"
+        };
 
 
     int z = 0;
-    int j = 0;
-    int r = 0;
 
-    public bool p1Ready;
-    public bool p2Ready;
-    public bool p3Ready;
-    public bool p4Ready;
+    public int[] AReset = new int[4];
 
     public bool[] playerReady = new bool[4];
 
@@ -159,6 +149,7 @@ public class CharacterMenuController : MonoBehaviour
 
     void Update()
     {
+        Debug.LogError(playerSize.Count);
         //Debug.Log(playerSize.Count + "-____________________");
         for (int i = 1; i <= 4; i++)
         {
@@ -168,23 +159,43 @@ public class CharacterMenuController : MonoBehaviour
                 if ((Input.GetButtonUp("Start_" + i) || Input.GetButtonUp("A_" + i)) && startCount[i - 1] == 0)
                 {
                     Debug.Log(i);
+
                     startCount[i - 1]++;
+
+                    AReset[i - 1]++;
+
+                    StartCoroutine(ResetA(i));
+
                     PlayerDC[i - 1].enabled = false;
+
                     AButton[i - 1].gameObject.SetActive(true);
+
                     PressStart[i - 1].enabled = false;
+
                     AButton[i - 1].gameObject.SetActive(true);
-                    activePlayers[i - 1] = true;
+
+                    activePlayers[i - 1] = true; //Next if statement
+
                     playerSize.Add(1);
+
                     Audio.clip = Click;
+
                     Audio.Play();
+
                     Invoke("ResetStart" + i, .25f);
+
+                    CheckConditionReady();
+
 
                 }
                 if (Input.GetButtonUp("B_" + i) && startCount[i - 1] == 0)
                 {
                     Audio.clip = Back;
+
                     Audio.Play();
+
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+
                 }
             }
             if (activePlayers[i - 1])
@@ -192,114 +203,225 @@ public class CharacterMenuController : MonoBehaviour
                 if (playerReady[i - 1] == false)
                 {
                     PlayerReady[i - 1].enabled = false;
-                    if ((Input.GetAxisRaw("L_YAxis_" + i) == 1 || Input.GetAxisRaw("DPad_YAxis_" + i) == -1) && (stickResetP1 == 0))
+                    if ((Input.GetAxisRaw("L_YAxis_" + i) == 1 || Input.GetAxisRaw("DPad_YAxis_" + i) == -1) && (StickCount[i - 1] == 0))
                     {
-                        stickResetP1++;
-                        //LeftStickUpP1();
+                        StickCount[i - 1]++;
+
                         Audio.clip = Scroll;
+
                         Audio.Play();
+
                         LeftStickUp(i);
+
                         ogArrowDOWN[i - 1].sprite = activeArrowDOWN;
+
                         Invoke("StickReset", .5f);
+
+                        StartCoroutine(ResetStick(i));
+
                     }
 
-                    if ((Input.GetAxisRaw("L_YAxis_" + i) == -1 || Input.GetAxisRaw("DPad_YAxis_" + i) == 1) && (stickResetP1 == 0))
+                    if ((Input.GetAxisRaw("L_YAxis_" + i) == -1 || Input.GetAxisRaw("DPad_YAxis_" + i) == 1) && (StickCount[i - 1] == 0))
                     {
-                        stickResetP1++;
+                        StickCount[i - 1]++;
+
                         Audio.clip = Scroll;
+
                         Audio.Play();
-                        //LeftStickDownP1();
+
                         LeftStickDown(i);
+
                         ogArrowUP[i - 1].sprite = activeArrowUP;
+
                         Invoke("StickReset", .5f);
+
+                        StartCoroutine(ResetStick(i));
+
                     }
 
-                    if ((Input.GetButtonDown("Start_" + i) || Input.GetButtonDown("B_" + i)) && startCount[i - 1] == 0)
+                    if ((Input.GetButtonUp("Start_" + i) || Input.GetButtonUp("B_" + i)) && startCount[i - 1] == 0)
                     {
                         Audio.clip = Back;
+
                         Audio.Play();
+
                         startCount[i - 1]++;
+
                         PlayerReady[i - 1].enabled = true;
+
                         PlayerDC[i - 1].enabled = true;
+
                         AButton[i - 1].gameObject.SetActive(false);
+
                         PressStart[i - 1].enabled = true;
+
                         AButton[i - 1].gameObject.SetActive(false);
+
                         activePlayers[i - 1] = false;
+
                         playerSize.Remove(1);
-                        Invoke("ResetStart" + i, .5f);
+
+                        Invoke("ResetStart" + i, .25f);
+
+                        CheckConditionReady();
+
                     }
 
+                } //False player if statement
+
+                if (Input.GetButtonUp("A_" + i) && (AReset[i - 1] == 0))
+                {
+                    AReset[i - 1]++;
+
+                    Audio.clip = Click;
+
+                    Audio.Play();
+
+                    ReadyStamp[i - 1].gameObject.SetActive(true);
+
+                    PlayerReady[i - 1].enabled = true;
+
+                    playerReady[i - 1] = true;
+
+                    AButton[i - 1].gameObject.SetActive(false);
+
+                    Debug.Log(i);
+
+                    CheckConditionReady();
+
+                    
+
+                    if (AReset[i - 1] == 2)
+                    {
+                        Audio.clip = Click;
+
+                        Audio.Play();
+
+                        AButton[i - 1].gameObject.SetActive(true);
+
+                        ReadyStamp[i - 1].gameObject.SetActive(false);
+
+                        PlayerReady[i - 1].enabled = false;
+
+                        playerReady[i - 1] = false;
+
+                        StartCoroutine(ResetA(i));
+
+                        CheckConditionReady();
+
+                    }
                 }
 
-                if (Input.GetButtonDown("A_" + i) && (z <= AResetP1))
+                //start player ready if statement
+                if (playerReady[i - 1])
                 {
-                    Audio.clip = Click;
-                    Audio.Play();
-                    AResetP1++;
-                    p1Ready = true;
-                    ReadyStamp[i - 1].gameObject.SetActive(true);
-                    PlayerReady[i - 1].enabled = true;
-                    playerReady[i - 1] = true;
                     AButton[i - 1].gameObject.SetActive(false);
-                    Debug.Log(i);
+                    if (Input.GetButtonUp("B_" + i) && AReset[i - 1] == 1)
+                    {
+                        Audio.clip = Back;
+
+                        Audio.Play();
+
+                        AReset[i - 1]++;
+
+                        StartCoroutine(ResetA(i));
+
+                        ReadyStamp[i - 1].gameObject.SetActive(false);
+
+                        PlayerReady[i - 1].enabled = false;
+
+                        AButton[i - 1].gameObject.SetActive(true);
+
+                        playerReady[i - 1] = false;
+
+                        StartCoroutine(ResetA(i));
+
+                        CheckConditionReady();
+
+                    }
 
                     if (playerSize.Count == 1)
                         if (playerReady[0])
+                        {
                             StartButton.SetActive(true);
+                            for(int b = 0; b < startButtons.Length; b++)
+                            {
+                                if (Input.GetButtonDown(startButtons[b] + i) && AReset[i - 1] == 1)
+                                {
+                                    Audio.clip = StartFX;
+
+                                    Audio.Play();
+
+                                    loadingText.enabled = true;
+
+                                    StartCoroutine("LoadNewScene");
+
+
+                                }
+                            }
+
+                        }
                     if (playerSize.Count == 2)
                         if (playerReady[0] && playerReady[1])
+                        {
                             StartButton.SetActive(true);
+                            for (int b = 0; b < startButtons.Length; b++)
+                            {
+                                if (Input.GetButtonDown(startButtons[b] + i) && AReset[i - 1] == 1)
+                                {
+                                    Audio.clip = StartFX;
+
+                                    Audio.Play();
+
+                                    loadingText.enabled = true;
+
+                                    StartCoroutine("LoadNewScene");
+
+
+                                }
+                            }
+                        }
                     if (playerSize.Count == 3)
                         if (playerReady[0] && playerReady[1] && playerReady[2])
+                        {
                             StartButton.SetActive(true);
-                    if (playerSize.Count == 2)
+                            for (int b = 0; b < startButtons.Length; b++)
+                            {
+                                if (Input.GetButtonDown(startButtons[b] + i) && AReset[i - 1] == 1)
+                                {
+                                    Audio.clip = StartFX;
+
+                                    Audio.Play();
+
+                                    loadingText.enabled = true;
+
+                                    StartCoroutine("LoadNewScene");
+
+
+                                }
+                            }
+                        }
+                    if (playerSize.Count == 4)
                         if (playerReady[0] && playerReady[1] && playerReady[2] && playerReady[3])
+                        {
                             StartButton.SetActive(true);
-                    
-                    //Debug.Log("i == 1" + z + "Player 1 Ready = true" + p1Ready);
-                    if (AResetP1 == 2)
-                    {
-                        Audio.clip = Click;
-                        Audio.Play();
-                        AButton[i - 1].gameObject.SetActive(true);
-                        p1Ready = false;
-                        ReadyStamp[i - 1].gameObject.SetActive(false);
-                        PlayerReady[i - 1].enabled = false;
-                        playerReady[i - 1] = false;
-                        Invoke("AResetP1FC", .25f);
-                        StartButton.SetActive(false);
+                            for (int b = 0; b < startButtons.Length; b++)
+                            {
+                                if (Input.GetButtonDown(startButtons[b] + i) && AReset[i - 1] == 1)
+                                {
+                                    Audio.clip = StartFX;
 
-                        //Debug.Log("i == 2" + z + "Player 1 Ready = false" + p1Ready);
-                    }
-                }
+                                    Audio.Play();
 
-                if (playerReady[i - i])
-                {
-                    AButton[i - 1].gameObject.SetActive(false);
-                    if (Input.GetButtonUp("B_" + i) && AResetP1 == 1)
-                    {
-                        Audio.clip = Back;
-                        Audio.Play();
-                        AResetP1++;
-                        startCount1++;
-                        Invoke("ResetStart1",.25f);
-                        p1Ready = false;
-                        ReadyStamp[i - 1].gameObject.SetActive(false);
-                        PlayerReady[i - 1].enabled = false;
-                        AButton[i - 1].gameObject.SetActive(true);
-                        StartButton.SetActive(false);
-                        playerReady[i - 1] = false;
-                        Invoke("AResetP1FC", .25f);
-                    }
+                                    loadingText.enabled = true;
 
-                    if (Input.GetButtonDown("Start_" + i))
-                    {
-                        Audio.clip = StartFX;
-                        Audio.Play();
-                        loadingText.enabled = true;
-                        StartCoroutine("LoadNewScene");
-                        //SceneManager.LoadScene(2);
-                    }
+                                    StartCoroutine("LoadNewScene");
+
+
+                                }
+                            }
+                        }
+
 
                 }
             }
@@ -673,30 +795,76 @@ public class CharacterMenuController : MonoBehaviour
         ogArrowUP[3].sprite = ogSpriteUp;
         ogArrowDOWN[3].sprite = ogSpriteDown;
 
-        stickResetP1 = 0;
-        stickResetP2 = 0;
-        stickResetP3 = 0;
-        stickResetP4 = 0;
-
 
     }
 
-    void AResetP1FC()
+    IEnumerator ResetStick(int i)
     {
-        AResetP1 = 0;
+        i = i - 1;
+        yield return new WaitForSeconds(.25f);
+        StickCount[i] = 0;
     }
-    void AResetP2FC()
+
+    IEnumerator ResetA(int i)
     {
-        AResetP2 = 0;
+        i = i - 1;
+        yield return new WaitForSeconds(.25f);
+        AReset[i] = 0;
     }
-    void AResetP3FC()
+
+    void CheckConditionReady()
     {
-        AResetP3 = 0;
+        int size = playerSize.Count;
+
+        switch (size)
+        {
+            case 1:
+                if (playerReady[0])
+                    StartButton.SetActive(true);
+                else
+                    StartButton.SetActive(false);
+                break;
+
+            case 2:
+                if (playerReady[0] && playerReady[1])
+                    StartButton.SetActive(true);
+                else
+                    StartButton.SetActive(false);
+
+                break;
+
+            case 3:
+                if (playerReady[0] && playerReady[1] && playerReady[2])
+                    StartButton.SetActive(true);
+                else
+                    StartButton.SetActive(false);
+                break;
+
+            case 4:
+                if (playerReady[0] && playerReady[1] && playerReady[2] && playerReady[3])
+                    StartButton.SetActive(true);
+                else
+                    StartButton.SetActive(false);
+                break;
+
+            default:
+                break;
+        }
     }
-    void AResetP4FC()
+
+    void SelectionFN(int i)
     {
-        AResetP4 = 0;
+        i = i - 1;
+        if (playerReady[i])
+        {
+            selection[i] = playerINDEX_Pos[i];
+        }
+
     }
+
+
+
+
 
     #region Old Functions
 
@@ -789,10 +957,20 @@ public class CharacterMenuController : MonoBehaviour
     {
         i = i - 1;
         playerINDEX_Pos[i] = playerINDEX_Pos[i] - 1;
+        SelectionFN(i);
+        for (int b = 0; b < selection.Length; b++)
+        {
+            if (playerINDEX_Pos[i] == selection[b])
+            {
+                playerINDEX_Pos[i] = playerINDEX_Pos[i] + 1;
+            }
+
+        }
         if (playerINDEX_Pos[i] < 0)
             playerINDEX_Pos[i] = Characters.Length - 1;
         CharacterPictures[i].sprite = Characters[playerINDEX_Pos[i]].GetComponentInChildren<SpriteRenderer>().sprite;
         CharacterNames[i].text = Names[playerINDEX_Pos[i]];
+
 
     }
 
@@ -800,10 +978,22 @@ public class CharacterMenuController : MonoBehaviour
     {
         i = i - 1;
         playerINDEX_Pos[i] = playerINDEX_Pos[i] + 1;
+        SelectionFN(i);
+        for (int b = 0; b < selection.Length; b++)
+        {
+            if (playerINDEX_Pos[i] == selection[b])
+            {
+                playerINDEX_Pos[i] = 0;
+            }
+
+        }
+
         if (playerINDEX_Pos[i] > Characters.Length - 1)
             playerINDEX_Pos[i] = 0;
         CharacterPictures[i].sprite = Characters[playerINDEX_Pos[i]].GetComponentInChildren<SpriteRenderer>().sprite;
         CharacterNames[i].text = Names[playerINDEX_Pos[i]];
+
+        
 
     }
 

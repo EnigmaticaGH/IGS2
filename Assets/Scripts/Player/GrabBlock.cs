@@ -19,11 +19,14 @@ public class GrabBlock : MonoBehaviour
     private Vector3 throwForce;
     private Vector3 blockPos;
     private bool isDead;
+    Controls Controls;
+    int count;
 
     void Awake()
     {
         DeathControl.OnDeath += OnDeath;
         DeathControl.OnRespawn += OnRespawn;
+        Controls = GetComponent<Controls>();
     }
 
     void OnDestroy()
@@ -92,7 +95,8 @@ public class GrabBlock : MonoBehaviour
         }
 
         bool blockGrabDown = 
-            Input.GetButtonDown("RB_" + controller.controllerNumber) ||
+            Input.GetButtonDown(Controls.GrabBlocksControls[0] + controller.controllerNumber) ||
+            Input.GetButtonDown(Controls.GrabBlocksControls[1] + controller.controllerNumber) ||
             Input.GetMouseButtonDown(1);
         float x = Input.GetAxis("R_XAxis_" + controller.controllerNumber);
         float y = -Input.GetAxis("R_YAxis_" + controller.controllerNumber);
@@ -107,6 +111,7 @@ public class GrabBlock : MonoBehaviour
                 forceAngle = mouse;
             }
         }
+
 
         if (forceAngle.x > 0 && sprite.localScale.x < 0)
         {
@@ -135,11 +140,13 @@ public class GrabBlock : MonoBehaviour
                     {
                         carryingExplosive = true;
                         CarryExplosiveBlock();
+
                     }
                     else
                     {
                         carryingBlock = true;
                         CarryBlock();
+
                     }
                 }
                 else
@@ -166,6 +173,8 @@ public class GrabBlock : MonoBehaviour
             block.transform.position = transform.position + blockPos;
         }
     }
+
+
 
     void CarryBlock()
     {
@@ -256,4 +265,6 @@ public class GrabBlock : MonoBehaviour
     {
         isDead = false;
     }
+
+
 }
