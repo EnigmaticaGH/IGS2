@@ -18,7 +18,7 @@ public class PlayerAbilities : MonoBehaviour
     private Ability[] abilities;
     private bool usedAirDash;
     private bool thumbstickInUse;
-
+    
     enum Powerup : int
     {
         None = -1,
@@ -117,6 +117,8 @@ public class PlayerAbilities : MonoBehaviour
                 StartCoroutine("Ability_" + currentPowerup.ToString() + "_Activate", abilities[(int)currentPowerup]);
             }
         }
+
+
     }
 
     void ZeroVelocity()

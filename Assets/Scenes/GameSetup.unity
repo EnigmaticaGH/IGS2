@@ -956,6 +956,7 @@ Canvas:
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -5462,8 +5463,8 @@ MonoBehaviour:
   - {fileID: 722583798}
   - {fileID: 1326865452}
   Source: {fileID: 511348485}
-  Click: {fileID: 8300000, guid: 0b5dbd4ca82ba7b45b144cda1a53fe46, type: 3}
-  Scroll: {fileID: 8300000, guid: 6e33d0a5747d03546a8976338e470a2e, type: 3}
+  Click: {fileID: 8300000, guid: f5a6976a1b1716d49bd7e32ebaecdce0, type: 3}
+  Scroll: {fileID: 8300000, guid: b956d3fbb939b224e97d6c00d861069a, type: 3}
   Back: {fileID: 8300000, guid: 369d1bc7fcc79df46bc9e8472061daea, type: 3}
   placeHolder: 0
 --- !u!1 &1326865452

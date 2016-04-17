@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class SpawnZones : MonoBehaviour {
 
@@ -13,6 +14,15 @@ public class SpawnZones : MonoBehaviour {
     int zoneBlocks;
     int playerZone;
     int count = 0;
+
+    [SerializeField]
+    public static List<string> Name_Objects;
+    string[] Objects =
+        {
+            "Player",
+            "STARTCUBE_",
+            "Powerup"
+        };
 
 
     private string[] Obj = new string[]
@@ -100,7 +110,7 @@ public class SpawnZones : MonoBehaviour {
 
             if (col.name.Contains("STARTCUBE_" + Zone) == false)
             {
-                if (col.tag == "player")
+                if ((col.tag == "player") || (col.CompareTag("Powerup") && col.name == "DropPowerup(Clone)") || (col.CompareTag("Powerup") && col.name == "GrenadePowerup(Clone)"))
                     ;
                 else
                 {
@@ -109,6 +119,11 @@ public class SpawnZones : MonoBehaviour {
                 }
             }
         }
+    }
+
+    void ZoneController(int count)
+    {
+
     }
     
 
@@ -155,7 +170,7 @@ public class SpawnZones : MonoBehaviour {
     {
         if (NewCount < StartCount)
             Safe = false;
-        if (NewCount >= StartCount)
+        if (NewCount == StartCount)
         {
             Safe = true;
         }
