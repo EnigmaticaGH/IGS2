@@ -854,7 +854,6 @@ public class CharacterMenuController : MonoBehaviour
 
     void SelectionFN(int i)
     {
-        i = i - 1;
         if (playerReady[i])
         {
             selection[i] = playerINDEX_Pos[i];
