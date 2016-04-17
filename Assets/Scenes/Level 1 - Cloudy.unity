@@ -10022,7 +10022,6 @@ Canvas:
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -12002,6 +12001,10 @@ Prefab:
       propertyPath: controllerNumber
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 139846, guid: 330a61732099da0468066524fe725cd0, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 330a61732099da0468066524fe725cd0, type: 2}
   m_IsPrefabParent: 0
@@ -13611,7 +13614,6 @@ Canvas:
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -14572,10 +14574,10 @@ MonoBehaviour:
   PauseButtons:
   - {fileID: 609204404}
   - {fileID: 101456080}
-  Source: {fileID: 0}
-  Click: {fileID: 0}
-  Scroll: {fileID: 0}
-  Back: {fileID: 0}
+  Source: {fileID: 1988763578}
+  Click: {fileID: 8300000, guid: f5a6976a1b1716d49bd7e32ebaecdce0, type: 3}
+  Scroll: {fileID: 8300000, guid: b956d3fbb939b224e97d6c00d861069a, type: 3}
+  Back: {fileID: 8300000, guid: 369d1bc7fcc79df46bc9e8472061daea, type: 3}
   start1: 0
 --- !u!114 &1627534333
 MonoBehaviour:
@@ -14584,7 +14586,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1627534330}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
@@ -17062,7 +17064,6 @@ Canvas:
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
