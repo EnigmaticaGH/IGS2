@@ -46,8 +46,6 @@ public class DeathControl : MonoBehaviour
         outOfLives = false;
         upperBounds = GameObject.Find("UpperBounds").transform;
         lowerBounds = GameObject.Find("LowerBounds").transform;
-        Debug.Log(lowerBounds.name);
-        Debug.Log(upperBounds.name);
     }
 
     void Update()

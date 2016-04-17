@@ -89,7 +89,7 @@ public class PlayerAbilities : MonoBehaviour
         Vector3 rThumbstick = new Vector3(x, y);
         if (Input.GetMouseButtonDown(0))
         {
-            if (!(GetComponent<GrabBlock>().IsInvincible || GetComponent<GrabBlock>().CarryingBlock) && abilities[0].AbilityStatus == Ability.Status.READY)
+            if (!(GetComponent<GrabBlock>().IsThrowing || GetComponent<GrabBlock>().CarryingBlock) && abilities[0].AbilityStatus == Ability.Status.READY)
             {
                 StartCoroutine("Ability_" + abilities[0].Name + "_Activate", abilities[0]);
             }
@@ -98,7 +98,7 @@ public class PlayerAbilities : MonoBehaviour
         {
             if (thumbstickInUse == false)
             {
-                if (!GetComponent<GrabBlock>().CarryingBlock && abilities[0].AbilityStatus == Ability.Status.READY)
+                if (!(GetComponent<GrabBlock>().IsThrowing || GetComponent<GrabBlock>().CarryingBlock) && abilities[0].AbilityStatus == Ability.Status.READY)
                 {
                     StartCoroutine("Ability_" + abilities[0].Name + "_Activate", abilities[0]);
                 }

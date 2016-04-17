@@ -48,7 +48,7 @@ public class PlayerLives : MonoBehaviour
 
         activePlayers = CharacterMenuController.playerSize.Count;
 
-        Debug.Log(activePlayers);
+        //Debug.Log(activePlayers);
 
         for (int i = 0; i < HeadBackgrounds.Length; i++)
         {

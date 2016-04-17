@@ -17,6 +17,7 @@ public class BlockFinder : MonoBehaviour
             square.GetComponent<SpriteRenderer>().color = Color.clear;
             square.transform.parent = block.transform;
             clouds.transform.parent = block.transform;
+            block.transform.position = new Vector3(Mathf.Round(block.transform.position.x), Mathf.Round(block.transform.position.y), Mathf.Round(block.transform.position.z));
         }
     }
 }
