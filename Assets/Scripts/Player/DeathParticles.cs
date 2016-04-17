@@ -73,8 +73,9 @@ public class DeathParticles : MonoBehaviour
         death.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
 
-    void Die(float respawnTime)
+    void Die(float respawnTime, string sender)
     {
-        deathParticles.Play();
+        if (sender == name)
+            deathParticles.Play();
     }
 }

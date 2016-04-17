@@ -138,7 +138,7 @@ public class SpawnZones : MonoBehaviour {
 
     void SafeCheck()
     {
-        Debug.Log(zoneBlocks);
+        //Debug.Log(zoneBlocks);
         if (zoneBlocks == 0)
         {
             ForeignObject = false;

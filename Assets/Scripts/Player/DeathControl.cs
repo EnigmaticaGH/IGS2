@@ -7,9 +7,9 @@ public class DeathControl : MonoBehaviour
     private Transform lowerBounds;
     public delegate void OutOfLivesEvent(string sender);
     public static event OutOfLivesEvent OutOfLives;
-    public delegate void DeathEvent(float respawnTime);
+    public delegate void DeathEvent(float respawnTime, string sender);
     public static event DeathEvent OnDeath;
-    public delegate void RespawnEvent();
+    public delegate void RespawnEvent(string sender);
     public static event RespawnEvent OnRespawn;
     private Rigidbody player;
     public float respawnTime;
@@ -46,11 +46,13 @@ public class DeathControl : MonoBehaviour
         outOfLives = false;
         upperBounds = GameObject.Find("UpperBounds").transform;
         lowerBounds = GameObject.Find("LowerBounds").transform;
+        Debug.Log(lowerBounds.name);
+        Debug.Log(upperBounds.name);
     }
 
     void Update()
     {
-        bool outOfBounds = transform.position.y < lowerBounds.position.y - 2 || transform.position.y > upperBounds.transform.position.y + 2
+        bool outOfBounds = transform.position.y < lowerBounds.position.y - 2 || transform.position.y > upperBounds.position.y + 2
             || transform.position.x < lowerBounds.position.x - 2 || transform.position.x > upperBounds.position.x + 2;
         if (outOfBounds && doneRespawning)
         {
@@ -81,7 +83,7 @@ public class DeathControl : MonoBehaviour
         if (doneRespawning && !outOfLives)
         {
             if (OnDeath != null)
-                OnDeath(respawnTime);
+                OnDeath(respawnTime, name);
             StartCoroutine(Respawn(respawnTime));
             doneRespawning = false;
         }
@@ -112,7 +114,7 @@ public class DeathControl : MonoBehaviour
         doneRespawning = true;
         GetComponent<DynamicCollider>().Enable();
         if (OnRespawn != null)
-            OnRespawn();
+            OnRespawn(name);
     }
 
     void RemoveFromGame()

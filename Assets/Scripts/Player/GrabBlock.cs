@@ -19,6 +19,8 @@ public class GrabBlock : MonoBehaviour
     private Vector3 throwForce;
     private Vector3 blockPos;
     private bool isDead;
+    public bool IsInvincible { get; private set; }
+    public bool IsThrowing { get; private set; }
     Controls Controls;
     int count;
 
@@ -52,6 +54,7 @@ public class GrabBlock : MonoBehaviour
         originalBlocks = new Queue<GameObject>();
         grenadeBlocks = new Queue<GameObject>();
         blockPos = Vector3.right;
+        IsInvincible = false;
     }
 
     void CheckForBlock()
@@ -159,11 +162,13 @@ public class GrabBlock : MonoBehaviour
 
         if (carryingBlock && forceAngle.magnitude > 0.7f)
         {
+            carryingBlock = false;
             throwForce = forceAngle;
             Invoke("ThrowBlock", 0.05f);
         }
         else if (carryingExplosive && forceAngle.magnitude > 0.7f)
         {
+            carryingExplosive = false;
             throwForce = forceAngle;
             Invoke("ThrowExplosiveBlock", 0.05f);
         }
@@ -206,8 +211,17 @@ public class GrabBlock : MonoBehaviour
 
     void ThrowBlock()
     {
+        float xForce = blockThrowForce * throwForce.x;
+        float yForce = blockThrowForce * (throwForce.y + 0.1f);
+        if (GetComponent<Movement>().State == Movement.MovementState.GROUND)
+        {
+            yForce = Mathf.Clamp(blockThrowForce * (throwForce.y + 0.1f), 100, Mathf.Infinity);
+        }
+        carryingBlock = false;
+        CancelInvoke("DisableInvincibility");
+        IsInvincible = true;
         BlockInteraction blockScript = block.GetComponent<BlockInteraction>();
-        Vector3 force = new Vector3(blockThrowForce * throwForce.x, blockThrowForce * (throwForce.y + 0.1f), 0);
+        Vector3 force = new Vector3(xForce, yForce, 0);
         blockScript.IsGrabbedBySomeoneElse = false;
         blockScript.IsBeingThrown = true;
         block.GetComponent<Collider>().enabled = true;
@@ -215,13 +229,16 @@ public class GrabBlock : MonoBehaviour
         block.transform.localScale = Vector3.one;
         blockScript.Throw(force, 10, new Color(0.4f, 1, 0.6f));
         foundBlock = false;
-        carryingBlock = false;
+        Invoke("DisableInvincibility", 0.5f);
     }
 
     void ThrowExplosiveBlock()
     {
         GrenadeControl grenadeScript = block.GetComponent<GrenadeControl>();
         Vector3 force = new Vector3(blockThrowForce * throwForce.x, blockThrowForce * (throwForce.y + 0.25f), 0);
+        CancelInvoke("DisableInvincibility");
+        IsInvincible = true;
+        carryingExplosive = false;
         block.GetComponent<Collider>().enabled = true;
         block.transform.parent = null;
         block.GetComponent<Rigidbody>().isKinematic = false;
@@ -231,7 +248,7 @@ public class GrabBlock : MonoBehaviour
         grenadeScript.Exploded = false;
         Invoke("ResetGrenade", 5);
         foundBlock = false;
-        carryingExplosive = false;
+        Invoke("DisableInvincibility", 0.5f);
     }
 
     void ResetGrenade()
@@ -242,28 +259,42 @@ public class GrabBlock : MonoBehaviour
         originalBlocks.Dequeue().GetComponent<BlockInteraction>().ResetImmediately();
     }
 
+    private void DisableInvincibility()
+    {
+        IsInvincible = false;
+    }
+
     public bool CarryingBlock
     {
         get { return carryingBlock || carryingExplosive; }
     }
 
-    private void OnDeath(float respawnTime)
+    private void OnDeath(float respawnTime, string sender)
     {
-        isDead = true;
-        throwForce = Vector2.zero;
-        if (carryingBlock)
+        if (sender == name)
         {
-            ThrowBlock();
-        }
-        else if (carryingExplosive)
-        {
-            ThrowExplosiveBlock();
+            isDead = true;
+            throwForce = Vector2.zero;
+            if (carryingBlock)
+            {
+                ThrowBlock();
+            }
+            else if (carryingExplosive)
+            {
+                ThrowExplosiveBlock();
+            }
         }
     }
 
-    private void OnRespawn()
+    private void OnRespawn(string sender)
     {
-        isDead = false;
+        if (sender == name)
+            isDead = false;
+    }
+
+    public bool Invincible(GameObject invincibleFrom)
+    {
+        return IsInvincible && block == invincibleFrom;
     }
 
 
