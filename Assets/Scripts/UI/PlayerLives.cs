@@ -55,17 +55,6 @@ public class PlayerLives : MonoBehaviour
             HeadBackgrounds[i].SetActive(false);
         }
 
-        /*for (int j = 0; j < Input.GetJoystickNames().Length; j++)
-        {
-            if (Input.GetJoystickNames()[j].Contains("Xbox"))
-            {
-                ControllerNumber++;
-            }
-            if (Input.GetJoystickNames()[j].Contains("XBOX"))
-            {
-                ControllerNumber++;
-            }
-        }*/
 
         for (int i = 0; i < activePlayers; i++)
         {
@@ -130,6 +119,7 @@ public class PlayerLives : MonoBehaviour
         }
 
         //numberOfLives = PlayerTracker.players[0].GetComponent<DeathControl>().getNumberOfLives();
+        
 
         player1Lives.text = "" + PlayerTracker.players[0].GetComponent<DeathControl>().getLives();
         HeadBackgrounds[0].SetActive(true);

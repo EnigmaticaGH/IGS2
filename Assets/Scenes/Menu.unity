@@ -323,7 +323,7 @@ Prefab:
     - target: {fileID: 11464520, guid: 9eb8357768b87f443968f5ae2fc5a1a4, type: 2}
       propertyPath: Click
       value: 
-      objectReference: {fileID: 8300000, guid: 0b5dbd4ca82ba7b45b144cda1a53fe46, type: 3}
+      objectReference: {fileID: 8300000, guid: f5a6976a1b1716d49bd7e32ebaecdce0, type: 3}
     - target: {fileID: 11464520, guid: 9eb8357768b87f443968f5ae2fc5a1a4, type: 2}
       propertyPath: loadingText
       value: 

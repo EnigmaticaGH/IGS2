@@ -12,9 +12,11 @@ public class JumpControl : MonoBehaviour
     private bool jump;
     private bool doubleJump;
     private string[] jumpAxis;
+    Controls Controls;
 
     void Awake()
     {
+        Controls = GetComponent<Controls>();
         DeathControl.OnRespawn += Reset;
         Movement.MovementStateEvent += MovementStateChange;
     }
@@ -34,7 +36,6 @@ public class JumpControl : MonoBehaviour
                 "TriggersL",
                 "L_YAxis",
                 "LB",
-                "X",
                 "Y"
             };
         jumpAxisInUse = false;
@@ -54,7 +55,7 @@ public class JumpControl : MonoBehaviour
         jumpButtonPressed = 
             Input.GetAxisRaw(jumpAxis[2] + "_" + controller.controllerNumber) == 1 || 
             Input.GetAxisRaw(jumpAxis[3] + "_" + controller.controllerNumber) == 1 || 
-            Input.GetAxisRaw(jumpAxis[4] + "_" + controller.controllerNumber) == 1 ||
+            Input.GetButtonDown(Controls.JumpControls[0] + controller.controllerNumber) ||
             Input.GetKey(KeyCode.Space);
        
         if (jumpButtonPressed)

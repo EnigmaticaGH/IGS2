@@ -5323,10 +5323,10 @@ MonoBehaviour:
   p4Ready: 0
   playerReady: 
   Audio: {fileID: 931822575}
-  Click: {fileID: 8300000, guid: 0b5dbd4ca82ba7b45b144cda1a53fe46, type: 3}
-  Scroll: {fileID: 8300000, guid: 6e33d0a5747d03546a8976338e470a2e, type: 3}
+  Click: {fileID: 8300000, guid: f5a6976a1b1716d49bd7e32ebaecdce0, type: 3}
+  Scroll: {fileID: 8300000, guid: b956d3fbb939b224e97d6c00d861069a, type: 3}
   Back: {fileID: 8300000, guid: 369d1bc7fcc79df46bc9e8472061daea, type: 3}
-  StartFX: {fileID: 8300000, guid: 0b5dbd4ca82ba7b45b144cda1a53fe46, type: 3}
+  StartFX: {fileID: 8300000, guid: f5a6976a1b1716d49bd7e32ebaecdce0, type: 3}
 --- !u!114 &1258856430
 MonoBehaviour:
   m_ObjectHideFlags: 0
