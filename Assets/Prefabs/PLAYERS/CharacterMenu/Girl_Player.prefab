@@ -429,7 +429,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnTime: 1
   invincibilityTime: 1
-  maxHealth: 5
+  maxHealth: 1
   numberOfLives: 10
   lives: 99999
 --- !u!114 &11497436
