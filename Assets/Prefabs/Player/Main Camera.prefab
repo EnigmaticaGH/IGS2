@@ -167,6 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   squarePrefab: {fileID: 149534, guid: aae6d0079f76ee449a249685054b1ef7, type: 2}
+  cloudsPrefab: {fileID: 131318, guid: 80020dac78b12e64b92a796cf601ba0b, type: 2}
 --- !u!124 &12461066
 Behaviour:
   m_ObjectHideFlags: 1

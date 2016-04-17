@@ -39,12 +39,12 @@ public class TrapControl : MonoBehaviour
 
     void Awake()
     {
-        DeathControl.OnRespawn += ResetAllTraps;
+        //DeathControl.OnRespawn += ResetAllTraps;
     }
 
     void OnDestroy()
     {
-        DeathControl.OnRespawn -= ResetAllTraps;
+        //DeathControl.OnRespawn -= ResetAllTraps;
     }
 
     // Use this for initialization

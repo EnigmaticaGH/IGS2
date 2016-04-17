@@ -28,11 +28,11 @@ public class BlockInteraction : MonoBehaviour {
 
     void Awake()
     {
-        cloudParticle = GetComponentInChildren<ParticleSystem>();
+        cloudParticle = transform.FindChild("STARs").GetComponent<ParticleSystem>();
         em = cloudParticle.emission;
         mmc = em.rate;
         sm = cloudParticle.shape;
-        originalColor = GetComponentInChildren<ParticleSystem>().startColor;
+        originalColor = cloudParticle.startColor;
         currentColor = originalColor;
         startSize = cloudParticle.startSize;
         startRate = mmc.constantMax;
@@ -89,12 +89,13 @@ public class BlockInteraction : MonoBehaviour {
 
 	void OnCollisionEnter(Collision c)
     {
-        if (c.collider.CompareTag("Player") && // it has to be player
+        if (c.collider.CompareTag("Player") && !c.gameObject.GetComponent<GrabBlock>().Invincible(gameObject) && // it has to be player
             AbilityRegistry.AbilityStatus(c.gameObject.name, "BlockSmash") == Ability.Status.READY && //player is not dashing
             c.relativeVelocity.magnitude > lethalVelocity && vel.magnitude > lethalVelocity && //block is going fast enough
             (Mathf.Abs(transform.position.x - c.transform.position.x) < 0.5f || //block has to be a direct hit, not a graze
             Mathf.Abs(transform.position.y - c.transform.position.y) < 0.5f))
         {
+            Debug.Log(vel.magnitude);
             r = c.gameObject.GetComponent<Rigidbody>();
             Movement m = c.gameObject.GetComponent<Movement>();
             Vector3 playerPosition = c.gameObject.transform.position;

@@ -42,10 +42,13 @@ public class JumpControl : MonoBehaviour
         jump = false;
     }
 
-    void Reset()
+    void Reset(string sender)
     {
-        jump = false;
-        doubleJump = false;
+        if (sender == name)
+        {
+            jump = false;
+            doubleJump = false;
+        }
     }
 
     void Update()
