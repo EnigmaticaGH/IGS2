@@ -34,12 +34,15 @@ public class Movement : MonoBehaviour
     private bool useForce;
     private float forceTime;
 
+    PlayerSounds Sounds;
+
     #endregion
 
     void Start()
     {
         player = GetComponent<Rigidbody>();
         controller = GetComponent<ControllerNumber>();
+        Sounds = GetComponent<PlayerSounds>();
         MapStateFunctions();
         ChangeState(MovementState.AIR);  
         useForce = false;
@@ -83,6 +86,8 @@ public class Movement : MonoBehaviour
             lateralForce = Vector3.zero;
         }
 
+
+
         if (!useForce)
             player.velocity = new Vector3(lateralVelocity, player.velocity.y, player.velocity.z);
         else if (Mathf.Abs(player.velocity.x) < maxSpeed)
@@ -91,7 +96,7 @@ public class Movement : MonoBehaviour
 
     void IncreaseGravity()
     {
-        if (player.velocity.y < 0 && (player.velocity.y < maxSpeed)) //Double gravity sucks when you fall off a high platform you need a limit for the speed dudeB
+        if (player.velocity.y < 0 && (player.velocity.y < maxSpeed))
             player.AddForce(Physics.gravity / 2);
     }
 
