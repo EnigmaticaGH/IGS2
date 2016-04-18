@@ -1891,22 +1891,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 11436922, guid: d86c7de9946d7bd4fbd7765b02664739, type: 2}
-      propertyPath: player1Spawn
+    - target: {fileID: 11444654, guid: d86c7de9946d7bd4fbd7765b02664739, type: 2}
+      propertyPath: upperBounds
       value: 
-      objectReference: {fileID: 314163150}
-    - target: {fileID: 11436922, guid: d86c7de9946d7bd4fbd7765b02664739, type: 2}
-      propertyPath: player2Spawn
+      objectReference: {fileID: 580164340}
+    - target: {fileID: 11444654, guid: d86c7de9946d7bd4fbd7765b02664739, type: 2}
+      propertyPath: lowerBounds
       value: 
-      objectReference: {fileID: 1698355732}
-    - target: {fileID: 11436922, guid: d86c7de9946d7bd4fbd7765b02664739, type: 2}
-      propertyPath: player3Spawn
-      value: 
-      objectReference: {fileID: 1761372075}
-    - target: {fileID: 11436922, guid: d86c7de9946d7bd4fbd7765b02664739, type: 2}
-      propertyPath: player4Spawn
-      value: 
-      objectReference: {fileID: 198329874}
+      objectReference: {fileID: 1677203113}
     - target: {fileID: 11477112, guid: d86c7de9946d7bd4fbd7765b02664739, type: 2}
       propertyPath: locationIntro
       value: 
@@ -1931,14 +1923,22 @@ Prefab:
       propertyPath: playerSpawns.Array.data[3]
       value: 
       objectReference: {fileID: 1223333597}
-    - target: {fileID: 11444654, guid: d86c7de9946d7bd4fbd7765b02664739, type: 2}
-      propertyPath: upperBounds
+    - target: {fileID: 11436922, guid: d86c7de9946d7bd4fbd7765b02664739, type: 2}
+      propertyPath: player1Spawn
       value: 
-      objectReference: {fileID: 580164340}
-    - target: {fileID: 11444654, guid: d86c7de9946d7bd4fbd7765b02664739, type: 2}
-      propertyPath: lowerBounds
+      objectReference: {fileID: 314163150}
+    - target: {fileID: 11436922, guid: d86c7de9946d7bd4fbd7765b02664739, type: 2}
+      propertyPath: player2Spawn
       value: 
-      objectReference: {fileID: 1677203113}
+      objectReference: {fileID: 1698355732}
+    - target: {fileID: 11436922, guid: d86c7de9946d7bd4fbd7765b02664739, type: 2}
+      propertyPath: player3Spawn
+      value: 
+      objectReference: {fileID: 1761372075}
+    - target: {fileID: 11436922, guid: d86c7de9946d7bd4fbd7765b02664739, type: 2}
+      propertyPath: player4Spawn
+      value: 
+      objectReference: {fileID: 198329874}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d86c7de9946d7bd4fbd7765b02664739, type: 2}
   m_IsPrefabParent: 0
@@ -10022,6 +10022,7 @@ Canvas:
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -13642,6 +13643,7 @@ Canvas:
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -17092,6 +17094,7 @@ Canvas:
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
