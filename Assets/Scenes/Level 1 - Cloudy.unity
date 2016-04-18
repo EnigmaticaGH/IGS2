@@ -11997,9 +11997,41 @@ Prefab:
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 139846, guid: 330a61732099da0468066524fe725cd0, type: 2}
+    - target: {fileID: 11419068, guid: 330a61732099da0468066524fe725cd0, type: 2}
+      propertyPath: Jump
+      value: 
+      objectReference: {fileID: 8300000, guid: bb35651d50f735e48b7d0cea9e1feef9, type: 3}
+    - target: {fileID: 115088, guid: 330a61732099da0468066524fe725cd0, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285588, guid: 330a61732099da0468066524fe725cd0, type: 2}
+      propertyPath: m_PlayOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285588, guid: 330a61732099da0468066524fe725cd0, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285588, guid: 330a61732099da0468066524fe725cd0, type: 2}
+      propertyPath: m_Pitch
+      value: 0.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285588, guid: 330a61732099da0468066524fe725cd0, type: 2}
+      propertyPath: m_Volume
+      value: 0.421
+      objectReference: {fileID: 0}
+    - target: {fileID: 8293656, guid: 330a61732099da0468066524fe725cd0, type: 2}
+      propertyPath: m_Volume
+      value: 0.828
+      objectReference: {fileID: 0}
+    - target: {fileID: 8293656, guid: 330a61732099da0468066524fe725cd0, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8293656, guid: 330a61732099da0468066524fe725cd0, type: 2}
+      propertyPath: m_PlayOnAwake
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 330a61732099da0468066524fe725cd0, type: 2}

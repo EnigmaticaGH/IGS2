@@ -270,7 +270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GrenadeSource: {fileID: 8267836}
-  Explosion: {fileID: 8300000, guid: 546bd9dc0bd961e41b846dd98b653c4a, type: 3}
+  Explosion: {fileID: 8300000, guid: ea328bef8f4e9ff4db8fbbf862589df2, type: 3}
 --- !u!114 &11449274
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4892,6 +4892,10 @@ Prefab:
       propertyPath: InitialModule.startLifetime.scalar
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Explosion
+      value: 
+      objectReference: {fileID: 8300000, guid: ea328bef8f4e9ff4db8fbbf862589df2, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 120964}

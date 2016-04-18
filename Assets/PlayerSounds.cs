@@ -10,10 +10,19 @@ public class PlayerSounds : MonoBehaviour
 
     public AudioClip CloudPop;
 
-    public AudioClip Punch; 
+    public AudioClip Punch;
+
+    public AudioClip Jump;
 
     public void Sound(string Action)
     {
+        if (Action == "Jump")
+        {
+            Source.clip = Jump;
+            Source.loop = false;
+            Source.Play();
+        }
+
 
         if (Action == "Death")
         {

@@ -17,6 +17,7 @@ public class PlayWalk : MonoBehaviour {
     public void Play()
     {
         Source.clip = Walk;
+        
         Source.Play();
     }
 }
