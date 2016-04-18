@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: particleMagic 2
-  m_Shader: {fileID: 200, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 10753, guid: 0000000000000000e000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_CustomRenderQueue: 3000
@@ -19,7 +19,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: 3b973477e4dbf704fa34bf88d9504a7e, type: 3}
+          m_Texture: {fileID: 2800000, guid: a59792ba3b6129c44af9f8af79ff339a, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -43,7 +43,7 @@ Material:
       data:
         first:
           name: _TintColor
-        second: {r: 0.102941155, g: 0.102941155, b: 0.102941155, a: 0.497}
+        second: {r: 1, g: 1, b: 1, a: 0.497}
       data:
         first:
           name: _OutlineColor

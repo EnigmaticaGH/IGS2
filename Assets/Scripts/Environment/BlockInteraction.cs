@@ -15,9 +15,11 @@ public class BlockInteraction : MonoBehaviour {
     private Transform originalParent;
     private bool isShattering;
     private ParticleSystem cloudParticle;
-    private ParticleSystem.EmissionModule em;
-    private ParticleSystem.MinMaxCurve mmc;
-    private ParticleSystem.ShapeModule sm;
+    private ParticleSystem.EmissionModule cloudParticleEM;
+    private ParticleSystem.MinMaxCurve cloudParticleMMC;
+    private ParticleSystem.ShapeModule cloudParticleSM;
+    private ParticleSystem clouds;
+    private ParticleSystem.ShapeModule cloudsSM;
     private Color originalColor;
     private Color currentColor;
     public Color warning;
@@ -30,19 +32,20 @@ public class BlockInteraction : MonoBehaviour {
     void Awake()
     {
         cloudParticle = transform.FindChild("STARs").GetComponent<ParticleSystem>();
-        em = cloudParticle.emission;
-        mmc = em.rate;
-        sm = cloudParticle.shape;
+        cloudParticleEM = cloudParticle.emission;
+        cloudParticleMMC = cloudParticleEM.rate;
+        cloudParticleSM = cloudParticle.shape;
         originalColor = cloudParticle.startColor;
         currentColor = originalColor;
         startSize = cloudParticle.startSize;
-        startRate = mmc.constantMax;
+        startRate = cloudParticleMMC.constantMax;
         IsBeingThrown = false;
         pushMult = 10;
     }
-
     void Start()
     {
+        clouds = transform.FindChild("Clouds 1(Clone)").GetComponent<ParticleSystem>();
+        cloudsSM = clouds.shape;
         lowGravity = SceneManager.GetActiveScene();
         body = GetComponent<Rigidbody>();
         startPosition = transform.position;
@@ -74,19 +77,20 @@ public class BlockInteraction : MonoBehaviour {
                 cloudParticle.startColor = Color.Lerp(currentColor, warning, normalizedVelocity);
                 cloudParticle.startSize = startSize;
             }
-            em.type = ParticleSystemEmissionType.Distance;
-            mmc.constantMax = startRate;
-            em.rate = mmc;
-            sm.box = Vector3.one;
+            cloudParticleEM.type = ParticleSystemEmissionType.Distance;
+            cloudParticleMMC.constantMax = startRate;
+            cloudParticleEM.rate = cloudParticleMMC;
+            cloudParticleSM.box = Vector3.one;
         }
         else
         {
             cloudParticle.startSize = startSize / 3;
-            em.type = ParticleSystemEmissionType.Time;
-            mmc.constantMax = startRate * 10;
-            em.rate = mmc;
-            sm.box = Vector3.one / 2;
+            cloudParticleEM.type = ParticleSystemEmissionType.Time;
+            cloudParticleMMC.constantMax = startRate * 10;
+            cloudParticleEM.rate = cloudParticleMMC;
+            cloudParticleSM.box = Vector3.one / 2;
         }
+        cloudsSM.box = transform.localScale;
     }
 
 	void OnCollisionEnter(Collision c)
