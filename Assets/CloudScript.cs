@@ -21,39 +21,44 @@ public class CloudScript : MonoBehaviour {
         }
 	
 	}
-	
-	// Update is called once per frame
-	void Update () {
 
-
-
-
-
-	}
-
-
-    public void CloudEnd(string name)
+    public void CloudEndLeft(string name)
     {
-        //Debug.Log(name);
         cloud = name;
         for (int i = 1; i <= Clouds.Length; i++)
         {
             if (cloud.Contains(i.ToString()))
             {
-                //Debug.LogError(i);
-                CloudNum = i - 1;
+                CloudNum = i;
+                Debug.Log(CloudNum);
+                ResetLeft(CloudNum);
+            }
+        }
+    }
+
+    public void CloudEnd(string name)
+    {
+        cloud = name;
+        for (int i = 1; i <= Clouds.Length; i++)
+        {
+            if (cloud.Contains(i.ToString()))
+            {
+                CloudNum = i;
+                Debug.Log(i);
                 Reset(CloudNum);
             }
         }
     }
 
+    void ResetLeft(int num)
+    {
+        Clouds[num].transform.position = new Vector3(startPos[CloudNum].x + 20, startPos[CloudNum].y, startPos[CloudNum].z);
+    }
+
     void Reset(int num)
     {
-        //Debug.Log("Hi");
-        //bufferHeight = Random.Range(2, 5);
   
-        Clouds[num].transform.position = new Vector3(-30, startPos[CloudNum].y, startPos[CloudNum].z);
-
+        Clouds[num].transform.position = new Vector3(startPos[CloudNum].x - 20, startPos[CloudNum].y, startPos[CloudNum].z);
 
     }
 }
