@@ -40,11 +40,6 @@ public class PlayerLives : MonoBehaviour
         pPos3 = CharacterMenuController.p3Pos; //Use this for spawning selected characters
         pPos4 = CharacterMenuController.p4Pos; //Use this for spawning selected characters
 
-        //Control = Control.GetComponent<CharacterMenuController>();
-
-        //activePlayers = Control.ActivePlayers();
-
-        //activePlayers = CharacterMenuController.length;
 
         activePlayers = CharacterMenuController.playerSize.Count;
 
@@ -64,28 +59,28 @@ public class PlayerLives : MonoBehaviour
             {
                 case 0:
                     GameObject temp;
-                    temp = (GameObject)Instantiate(HeadPlayers[pPos1], new Vector2(SpawnUI[i].transform.position.x, SpawnUI[i].transform.position.y), Quaternion.identity);
+                    temp = (GameObject)Instantiate(HeadPlayers[CharacterMenuController.playerINDEX_Pos[0]], new Vector2(SpawnUI[i].transform.position.x, SpawnUI[i].transform.position.y), Quaternion.identity);
                     //temp.transform.parent = canvas1.transform;
                     temp.transform.SetParent(canvas1, true);
                     temp.transform.localScale = new Vector3(2, 2, 2);
                     break;
                 case 1: 
                     GameObject temp1;
-                    temp1 = (GameObject)Instantiate(HeadPlayers[pPos2], new Vector2(SpawnUI[i].transform.position.x, SpawnUI[i].transform.position.y), Quaternion.identity);
+                    temp1 = (GameObject)Instantiate(HeadPlayers[CharacterMenuController.playerINDEX_Pos[1]], new Vector2(SpawnUI[i].transform.position.x, SpawnUI[i].transform.position.y), Quaternion.identity);
                     temp1.transform.SetParent(canvas1, true);
                     temp1.transform.localScale = new Vector3(2, 2, 2);
 
                     break;
                 case 2: 
                     GameObject temp2;
-                    temp2 = (GameObject)Instantiate(HeadPlayers[pPos3], new Vector2(SpawnUI[i].transform.position.x, SpawnUI[i].transform.position.y), Quaternion.identity);
+                    temp2 = (GameObject)Instantiate(HeadPlayers[CharacterMenuController.playerINDEX_Pos[2]], new Vector2(SpawnUI[i].transform.position.x, SpawnUI[i].transform.position.y), Quaternion.identity);
                     temp2.transform.SetParent(canvas1, true);
                     temp2.transform.localScale = new Vector3(2, 2, 2);
 
                     break;
                 case 3: 
                     GameObject temp3;
-                    temp3 = (GameObject)Instantiate(HeadPlayers[pPos4], new Vector2(SpawnUI[i].transform.position.x, SpawnUI[i].transform.position.y), Quaternion.identity);
+                    temp3 = (GameObject)Instantiate(HeadPlayers[CharacterMenuController.playerINDEX_Pos[3]], new Vector2(SpawnUI[i].transform.position.x, SpawnUI[i].transform.position.y), Quaternion.identity);
                     temp3.transform.SetParent(canvas1, true);
                     temp3.transform.localScale = new Vector3(2, 2, 2);
                     break;

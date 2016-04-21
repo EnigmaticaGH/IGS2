@@ -66,7 +66,7 @@ public class JumpControl : MonoBehaviour
        
         if (jumpButtonPressed)
         {
-            sounds.Sound("Jump");
+
 
             if (!jumpAxisInUse)
             {
@@ -95,11 +95,13 @@ public class JumpControl : MonoBehaviour
     {
         if (canJump && !jump)
         {
+            sounds.Sound("Jump");
             player.velocity = Vector3.up * jumpStrength;
             jump = true;
         }
         else if (!doubleJump)
         {
+            sounds.Sound("Jump");
             player.velocity = Vector3.up * jumpStrength;
             doubleJump = true;
         }

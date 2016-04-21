@@ -59,6 +59,7 @@ public class PlayerPause : MonoBehaviour {
 
                 if ((Input.GetButtonDown("Start_" + i)) && (count == 0))
                 {
+                    Time.timeScale = 0;
                     Source.clip = Click;
                     Source.Play();
                     count++;
@@ -74,6 +75,7 @@ public class PlayerPause : MonoBehaviour {
 
                 if ((Input.GetButtonDown("Start_" + i) || Input.GetButtonUp("B_" + i)) && (count == 0))
                 {
+                    Time.timeScale = 1;
                     Source.clip = Back;
                     Source.Play();
                     Debug.Log("Hello");
@@ -87,6 +89,7 @@ public class PlayerPause : MonoBehaviour {
                 {
                     Source.clip = Click;
                     Source.Play();
+                    Time.timeScale = 1;
                     SceneManager.LoadScene(0); //Menu
                 }
                 if (Input.GetAxis("DPad_YAxis_" + i) == -1 && menuCount == 0)
@@ -113,6 +116,7 @@ public class PlayerPause : MonoBehaviour {
                     {
                         Source.clip = Click;
                         Source.Play();
+                        Time.timeScale = 1;
                         SceneManager.LoadScene(1); //Character Menu
                     }
                     if (Input.GetAxis("DPad_YAxis_" + i) == 1)

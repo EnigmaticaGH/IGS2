@@ -302,9 +302,9 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 0.119
-  m_Pitch: -3
+  m_PlayOnAwake: 1
+  m_Volume: 0.421
+  m_Pitch: 0.42
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -376,8 +376,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 3fae894eb4bacca4cb1c2d3d7ba861a9, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 0.666
+  m_PlayOnAwake: 0
+  m_Volume: 0.828
   m_Pitch: 0.32
   Loop: 0
   Mute: 0
@@ -472,7 +472,7 @@ MonoBehaviour:
   Death: {fileID: 8300000, guid: 14f1ffdecf504c84788649baa6b2901f, type: 3}
   CloudPop: {fileID: 8300000, guid: 9ec5c5a7fccf1d3408485339de073779, type: 3}
   Punch: {fileID: 8300000, guid: 563484dea82111b448eaaa7109c2609f, type: 3}
-  Jump: {fileID: 0}
+  Jump: {fileID: 8300000, guid: bb35651d50f735e48b7d0cea9e1feef9, type: 3}
 --- !u!114 &11431746
 MonoBehaviour:
   m_ObjectHideFlags: 1
