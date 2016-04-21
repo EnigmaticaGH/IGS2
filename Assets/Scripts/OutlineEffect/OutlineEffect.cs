@@ -53,6 +53,7 @@ public class OutlineEffect : MonoBehaviour
 	private Material outlineShaderMaterial;
     private RenderTexture renderTexture;
 	private Camera _camera;
+    private Camera thisCamera;
 
     Material[] originalMaterials = new Material[1];
     int[] originalLayers = new int[1];
@@ -90,7 +91,7 @@ public class OutlineEffect : MonoBehaviour
         Material m = new Material(outlineBufferShader);
         m.SetColor("_Color", emissionColor);
         m.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-        m.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+        m.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusDstAlpha);
         m.SetInt("_ZWrite", 0);
         m.DisableKeyword("_ALPHATEST_ON");
         m.EnableKeyword("_ALPHABLEND_ON");
@@ -102,7 +103,8 @@ public class OutlineEffect : MonoBehaviour
 	void Start () 
 	{
 		CreateMaterialsIfNeeded();
-	}
+        thisCamera = GetComponent<Camera>();
+    }
 
 	void OnPreCull()
 	{
@@ -112,10 +114,10 @@ public class OutlineEffect : MonoBehaviour
         if (outlineRenderers.Distinct().Count() < outlineRenderers.Count)
             throw new System.Exception("Can't have duplicate outlines!");
 
-        Camera camera = GetComponent<Camera>();
+        
 
-        int width = camera.pixelWidth;
-        int height = camera.pixelHeight;
+        int width = thisCamera.pixelWidth;
+        int height = thisCamera.pixelHeight;
         renderTexture = RenderTexture.GetTemporary(width, height, 16, RenderTextureFormat.Default);
 
         if (_camera == null)
@@ -125,7 +127,7 @@ public class OutlineEffect : MonoBehaviour
             _camera = cameraGameObject.AddComponent<Camera>();
         }
 
-        _camera.CopyFrom(camera);
+        _camera.CopyFrom(thisCamera);
         _camera.renderingPath = RenderingPath.Forward;
         _camera.enabled = false;
         _camera.backgroundColor = new Color(0.0f, 0.0f, 0.0f, 0.0f);
@@ -203,7 +205,7 @@ public class OutlineEffect : MonoBehaviour
         }
 	}
 
-	void OnRenderImage( RenderTexture source, RenderTexture destination)
+	void OnRenderImage(RenderTexture source, RenderTexture destination)
 	{
 		CreateMaterialsIfNeeded();
 		UpdateMaterialsPublicProperties();
