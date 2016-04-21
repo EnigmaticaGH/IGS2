@@ -18,7 +18,7 @@ public class JumpControl : MonoBehaviour
 
     void Awake()
     {
-        sounds = GetComponent<PlayerSounds>();
+        //sounds = GetComponent<PlayerSounds>();
         Controls = GetComponent<Controls>();
         DeathControl.OnRespawn += Reset;
         Movement.MovementStateEvent += MovementStateChange;
@@ -66,7 +66,7 @@ public class JumpControl : MonoBehaviour
        
         if (jumpButtonPressed)
         {
-            sounds.Sound("Jump");
+            //sounds.Sound("Jump");
 
             if (!jumpAxisInUse)
             {

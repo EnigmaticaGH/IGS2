@@ -70,3 +70,6 @@ TagManager:
   - name: Particles
     uniqueID: 1001068915
     locked: 0
+  - name: Stuff
+    uniqueID: 1595157441
+    locked: 0

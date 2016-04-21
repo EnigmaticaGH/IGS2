@@ -247,7 +247,7 @@ ParticleSystem:
         rgba: 4294967295
       minMaxState: 0
     startSize:
-      scalar: 2
+      scalar: 1.4
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -263,7 +263,7 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - time: 0
-          value: 0.625
+          value: 0.25
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -342,7 +342,7 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 0
     startRotation:
-      scalar: 6.265732
+      scalar: 0
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -365,7 +365,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 0
-      minMaxState: 3
+      minMaxState: 0
     randomizeRotationDirection: 0
     gravityModifier: 0
     maxNumParticles: 4
@@ -373,13 +373,13 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 2
     enabled: 1
-    type: 5
-    radius: 1
+    type: 10
+    radius: 0.5
     angle: 25
     length: 5
-    boxX: 0
-    boxY: 0
-    boxZ: 0
+    boxX: 1
+    boxY: 1
+    boxZ: 1
     arc: 360
     placementMode: 0
     m_Mesh: {fileID: 0}
@@ -1533,7 +1533,7 @@ ParticleSystemRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 04b4ff64df6e4d14aac802db2da8be98, type: 2}
+  - {fileID: 2100000, guid: 9600382eb70e4c64db7d14b7bbc9978f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
