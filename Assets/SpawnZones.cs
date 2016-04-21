@@ -10,10 +10,12 @@ public class SpawnZones : MonoBehaviour {
     int i = 0;
     int StartCount = 0;
     int NewCount = 0;
-    bool start = false;
+    public bool start = false;
     int zoneBlocks;
     int playerZone;
     int count = 0;
+
+    public List<int> zonePlayers = new List<int>();
 
     [SerializeField]
     public static List<string> Name_Objects;
@@ -27,93 +29,103 @@ public class SpawnZones : MonoBehaviour {
 
     private string[] Obj = new string[]
     {
-        "Player"
+        "Player",
+        "STARTCUBE_"
     };
 
     public bool Safe = true;
     public bool ForeignObject = false;
 
-	// Use this for initialization
-	void Start () {
 
-
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-
-	
-	}
     void OnTriggerEnter(Collider col)
     {
-        if(start == false)
+
+        if (start == false)
+        {
+            StartCoroutine(startSomeObject(col));
+        }
+
+            if (start == true)
+            {
+
+                if (col.tag == "Player")
+                    zonePlayers.Add(1);
+
+                Checker(col);
+
+                if (col.name.Contains("STARTCUBE_" + Zone))
+                {
+                    NewCount++;
+                    if (NewCount == StartCount)
+                    {
+                        Safe = true;
+                    }
+                    NewObjects(NewCount);
+                }
+
+                if (col.name.Contains("STARTCUBE_" + Zone) == false)
+                {
+                    if (col.tag == "player")
+                        ;
+                    else
+                    {
+                        zoneBlocks++;
+                        SafeCheck();
+                    }
+
+                }
+
+            }
+        }
+    
+    
+
+    void OnTriggerStay(Collider col)
+    {
+       if(col.tag == "Player")
+           Checker(col);
+        
+
+       
+    }
+
+    IEnumerator startSomeObject(Collider col)
+    {
+        if (col.tag == "Block")
         {
 
             startingObjects[i] = col.gameObject;
             startingObjects[i].name = startingObjects[i].name + "STARTCUBE_" + Zone;
             i++;
-            Invoke("StartingObjects",.1f); //Let it loop thru for a milisecond
-        }
 
-        if (start == true)
-        {
-
-            if(col.tag == "Player")
-                playerZone++;
-
-            Checker(col);
-
-            if (col.name.Contains("STARTCUBE_" + Zone))
-            {
-                NewCount++;
-                //Debug.Log(col.name);
-                if (NewCount == StartCount)
-                {
-                    Safe = true;
-                }
-                NewObjects();
-            }
-            
-            if(col.name.Contains("STARTCUBE_" + Zone) == false)
-            {
-                //Debug.Log("Foreign Object detected" + col.name);
-                if (col.tag == "player")
-                    ;
-                else
-                {
-                    zoneBlocks++;
-                    ForeignObject = true;
-                    SafeCheck();
-                }
-
-            }
 
         }
+        yield return new WaitForSeconds(.1f);
+
+        start = true;
     }
 
     void OnTriggerExit(Collider col)
     {
         if (start == true)
         {
-            if (col.tag == "Player")
-                playerZone--;
 
-            Checker(col);
+            CheckerExit(col);
 
             if (col.name.Contains("STARTCUBE_" + Zone))
             {
                 NewCount--;
                 
-                NewObjects();
+                NewObjects(NewCount);
             }
 
             if (col.name.Contains("STARTCUBE_" + Zone) == false)
             {
-                if ((col.tag == "player") || (col.CompareTag("Powerup") && col.name == "DropPowerup(Clone)") || (col.CompareTag("Powerup") && col.name == "GrenadePowerup(Clone)"))
+                if ((col.tag == "Player") || (col.CompareTag("Powerup") && col.name == "DropPowerup(Clone)") || (col.CompareTag("Powerup") && col.name == "GrenadePowerup(Clone)"))
                     ;
                 else
                 {
+                    Debug.Log(col.tag);
                     zoneBlocks--;
                     SafeCheck();
                 }
@@ -121,10 +133,7 @@ public class SpawnZones : MonoBehaviour {
         }
     }
 
-    void ZoneController(int count)
-    {
 
-    }
     
 
     void StartingCubes(GameObject cube)
@@ -132,7 +141,6 @@ public class SpawnZones : MonoBehaviour {
         if (cube.tag == "Block")
         {
             count++;
-            //Debug.Log(count);
         }
     }
 
@@ -163,19 +171,16 @@ public class SpawnZones : MonoBehaviour {
         StartCount = i;
         start = true;
         NewCount = StartCount;
-        //Debug.Log(StartCount +" " +transform.gameObject.name);
     }
 
-    void NewObjects()
+    void NewObjects(int count)
     {
-        if (NewCount < StartCount)
+        if (count < StartCount)
             Safe = false;
-        if (NewCount == StartCount)
+        if (count == StartCount)
         {
             Safe = true;
         }
-        //Debug.Log(NewCount);
-        //Debug.Log(Safe + transform.gameObject.name);
     }
 
     void Checker(Collider col)
@@ -183,13 +188,22 @@ public class SpawnZones : MonoBehaviour {
 
         if (col.gameObject.tag.Contains(Obj[0]))
         {
-            //Debug.Log(playerZone);
-
-            if (playerZone == 0)
-                Safe = true;
             Safe = false;
         }
+        else
+            Safe = true;
             
 
     }
+
+    void CheckerExit(Collider col)
+    {
+        if (col.gameObject.tag.Contains(Obj[0]))
+        {
+            Safe = true;
+        }
+
+    }
+
+
 }

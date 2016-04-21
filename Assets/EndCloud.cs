@@ -12,7 +12,7 @@ public class EndCloud : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.tag == "Cloud")
+        if (col.name.Contains("RIGHT"))
         {
             Cloud.CloudEnd(col.gameObject.name);
         }
