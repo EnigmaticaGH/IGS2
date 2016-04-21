@@ -14,6 +14,8 @@ public class SmashCamera : MonoBehaviour {
     private float vel = 0;
     private Camera cam;
 
+    public GameObject Skybox;
+
     public static void InitalizePlayers(GameObject[] p)
     {
         players = p;

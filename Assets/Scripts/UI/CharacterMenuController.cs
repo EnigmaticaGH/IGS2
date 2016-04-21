@@ -856,7 +856,7 @@ public class CharacterMenuController : MonoBehaviour
     {
         if (playerReady[i])
         {
-            selection[i] = playerINDEX_Pos[i];
+            //selection[i] = playerINDEX_Pos[i];
         }
 
     }
@@ -956,15 +956,7 @@ public class CharacterMenuController : MonoBehaviour
     {
         i = i - 1;
         playerINDEX_Pos[i] = playerINDEX_Pos[i] - 1;
-        SelectionFN(i);
-        for (int b = 0; b < selection.Length; b++)
-        {
-            if (playerINDEX_Pos[i] == selection[b])
-            {
-                playerINDEX_Pos[i] = playerINDEX_Pos[i] + 1;
-            }
 
-        }
         if (playerINDEX_Pos[i] < 0)
             playerINDEX_Pos[i] = Characters.Length - 1;
         CharacterPictures[i].sprite = Characters[playerINDEX_Pos[i]].GetComponentInChildren<SpriteRenderer>().sprite;
@@ -975,19 +967,12 @@ public class CharacterMenuController : MonoBehaviour
 
     void LeftStickUp(int i)
     {
-        i = i - 1;
+        i = i - 1; //i = controller num
         playerINDEX_Pos[i] = playerINDEX_Pos[i] + 1;
-        SelectionFN(i);
-        for (int b = 0; b < selection.Length; b++)
-        {
-            if (playerINDEX_Pos[i] == selection[b])
-            {
-                playerINDEX_Pos[i] = 0;
-            }
 
-        }
+        Debug.Log("Left Stick Up");
 
-        if (playerINDEX_Pos[i] > Characters.Length - 1)
+        if (playerINDEX_Pos[i] >= Characters.Length - 1)
             playerINDEX_Pos[i] = 0;
         CharacterPictures[i].sprite = Characters[playerINDEX_Pos[i]].GetComponentInChildren<SpriteRenderer>().sprite;
         CharacterNames[i].text = Names[playerINDEX_Pos[i]];

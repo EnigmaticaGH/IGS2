@@ -10,6 +10,9 @@ public class CloudScript : MonoBehaviour {
     string cloud;
     int CloudNum;
 
+    public Transform LeftStart;
+    public Transform RightStart;
+
 	// Use this for initialization
 	void Start () {
 
@@ -25,12 +28,11 @@ public class CloudScript : MonoBehaviour {
     public void CloudEndLeft(string name)
     {
         cloud = name;
-        for (int i = 1; i <= Clouds.Length; i++)
+        for (int i = 0; i < Clouds.Length; i++)
         {
             if (cloud.Contains(i.ToString()))
             {
                 CloudNum = i;
-                Debug.Log(CloudNum);
                 ResetLeft(CloudNum);
             }
         }
@@ -39,12 +41,11 @@ public class CloudScript : MonoBehaviour {
     public void CloudEnd(string name)
     {
         cloud = name;
-        for (int i = 1; i <= Clouds.Length; i++)
+        for (int i = 0; i < Clouds.Length; i++)
         {
             if (cloud.Contains(i.ToString()))
             {
                 CloudNum = i;
-                Debug.Log(i);
                 Reset(CloudNum);
             }
         }
@@ -52,13 +53,13 @@ public class CloudScript : MonoBehaviour {
 
     void ResetLeft(int num)
     {
-        Clouds[num].transform.position = new Vector3(startPos[CloudNum].x + 20, startPos[CloudNum].y, startPos[CloudNum].z);
+        Clouds[num].transform.position = new Vector3(LeftStart.transform.position.x, startPos[num].y, startPos[num].z);
     }
 
     void Reset(int num)
     {
   
-        Clouds[num].transform.position = new Vector3(startPos[CloudNum].x - 20, startPos[CloudNum].y, startPos[CloudNum].z);
+        Clouds[num].transform.position = new Vector3(RightStart.transform.position.x, startPos[CloudNum].y, startPos[CloudNum].z);
 
     }
 }
