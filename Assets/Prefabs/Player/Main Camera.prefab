@@ -17,7 +17,8 @@ GameObject:
   - 114: {fileID: 11452268}
   - 114: {fileID: 11477112}
   - 114: {fileID: 11494500}
-  - 114: {fileID: 11492990}
+  - 114: {fileID: 11440882}
+  - 114: {fileID: 11473962}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -32,7 +33,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 153628}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: -3.54}
+  m_LocalPosition: {x: 0, y: 3, z: -9}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 0}
@@ -57,7 +58,7 @@ Camera:
   far clip plane: 1000
   field of view: 88.1
   orthographic: 1
-  orthographic size: 6
+  orthographic size: 3
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -107,6 +108,29 @@ MonoBehaviour:
   - {fileID: 193262, guid: 8753f508fe3226c4cb3f9747e5eef22a, type: 2}
   - {fileID: 138384, guid: d6adb3e7e1d4a3e40bca3d4cf8b55f58, type: 2}
   PlayersAmt: 4
+--- !u!114 &11440882
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 153628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a78da3f00f3328541b4526c0b0b5ec5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineRenderers:
+  - {fileID: 19980084, guid: 80020dac78b12e64b92a796cf601ba0b, type: 2}
+  outlineRendererColors: 00000000
+  eraseRenderers: []
+  lineThickness: 1.5
+  lineIntensity: 1
+  lineColor0: {r: 0, g: 0, b: 0, a: 1}
+  lineColor1: {r: 0, g: 1, b: 0, a: 1}
+  lineColor2: {r: 0, g: 0, b: 1, a: 1}
+  flipY: 1
+  darkOutlines: 1
+  alphaCutoff: 0.5
 --- !u!114 &11444654
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -132,6 +156,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47baf99c1b0c616439a5dea43842018d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11473962
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 153628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 646b5bc27a658f447b1d929fd5ffbd70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mode: 1
+  showGeneratedNormals: 0
+  offsetScale: 0.2
+  blurRadius: 18
+  edgeThresholdMin: 0.05
+  edgeThreshold: 0.2
+  edgeSharpness: 5
+  dlaaSharp: 0
+  ssaaShader: {fileID: 4800000, guid: b3728d1488b02490cbd196c7941bf1f8, type: 3}
+  dlaaShader: {fileID: 4800000, guid: 017ca72b9e8a749058d13ebd527e98fa, type: 3}
+  nfaaShader: {fileID: 4800000, guid: ce0cb2621f6d84e21a87414e471a3cce, type: 3}
+  shaderFXAAPreset2: {fileID: 4800000, guid: 6f1418cffd12146f2a83be795f6fa5a7, type: 3}
+  shaderFXAAPreset3: {fileID: 4800000, guid: c182fa94a5a0a4c02870641efcd38cd5, type: 3}
+  shaderFXAAII: {fileID: 4800000, guid: cd5b323dcc592457790ff18b528f5e67, type: 3}
+  shaderFXAAIII: {fileID: 4800000, guid: c547503fff0e8482ea5793727057041c, type: 3}
 --- !u!114 &11477112
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -156,29 +206,6 @@ MonoBehaviour:
   - {fileID: 137992, guid: 815f3d70e9a8ce545808a782a52fb780, type: 2}
   - {fileID: 174944, guid: 237c15cd675fda3499b2a4841a6207a6, type: 2}
   - {fileID: 167768, guid: f23643f7968391144b65bede9f3601bc, type: 2}
---- !u!114 &11492990
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 153628}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a78da3f00f3328541b4526c0b0b5ec5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineRenderers:
-  - {fileID: 19980084, guid: 80020dac78b12e64b92a796cf601ba0b, type: 2}
-  outlineRendererColors: 01000000
-  eraseRenderers: []
-  lineThickness: 1.5
-  lineIntensity: 1
-  lineColor0: {r: 0, g: 0, b: 0, a: 1}
-  lineColor1: {r: 0, g: 1, b: 0, a: 1}
-  lineColor2: {r: 0, g: 0, b: 1, a: 1}
-  flipY: 1
-  darkOutlines: 1
-  alphaCutoff: 0.5
 --- !u!114 &11494500
 MonoBehaviour:
   m_ObjectHideFlags: 1
