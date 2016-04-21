@@ -125,10 +125,6 @@ public class GrabBlock : MonoBehaviour
         {
             sprite.localScale = new Vector3(-1, 1, 1);
         }
-        if (forceAngle.y > 0)
-        {
-            blockPos = Vector3.up * 1.5f;
-        }
         else
         {
             blockPos = Vector3.right * sprite.localScale.x;
@@ -224,7 +220,7 @@ public class GrabBlock : MonoBehaviour
         Vector3 force = new Vector3(xForce, yForce, 0);
         blockScript.IsGrabbedBySomeoneElse = false;
         blockScript.IsBeingThrown = true;
-        block.GetComponent<Collider>().enabled = true;
+        Invoke("EnableCollision", 0.08f);
         block.transform.parent = originalParent;
         block.GetComponent<Rigidbody>().useGravity = true;
         block.transform.localScale = Vector3.one;
@@ -241,7 +237,7 @@ public class GrabBlock : MonoBehaviour
         CancelInvoke("DisableInvincibility");
         IsInvincible = true;
         carryingExplosive = false;
-        block.GetComponent<Collider>().enabled = true;
+        Invoke("EnableCollision", 0.08f);
         block.transform.parent = null;
         block.GetComponent<Rigidbody>().isKinematic = false;
         block.GetComponent<Rigidbody>().useGravity = true;
@@ -252,6 +248,11 @@ public class GrabBlock : MonoBehaviour
         foundBlock = false;
         IsThrowing = false;
         Invoke("DisableInvincibility", 0.5f);
+    }
+
+    void EnableCollision()
+    {
+        block.GetComponent<Collider>().enabled = true;
     }
 
     void ResetGrenade()

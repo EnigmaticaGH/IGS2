@@ -28,7 +28,6 @@ Shader "Hidden/OutlineEffect"
 	{
 		_MainTex ("Base (RGB)", 2D) = "white" {}
 		_LineColor ("Line Color", Color) = (1,1,1,.5)
-		
 	}
 	SubShader 
 	{
@@ -53,6 +52,7 @@ Shader "Hidden/OutlineEffect"
 			struct v2f {
 			   float4 position : SV_POSITION;
 			   float2 uv : TEXCOORD0;
+			   float depth : DEPTH;
 			};
 			
 			v2f vert(appdata_img v)
@@ -60,6 +60,7 @@ Shader "Hidden/OutlineEffect"
 			   	v2f o;
 				o.position = mul(UNITY_MATRIX_MVP, v.vertex);
 				o.uv = v.texcoord;
+				o.depth = -mul(UNITY_MATRIX_MV, v.vertex).z *_ProjectionParams.w;
 				
 			   	return o;
 			}
