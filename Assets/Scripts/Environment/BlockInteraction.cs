@@ -20,7 +20,8 @@ public class BlockInteraction : MonoBehaviour {
     private ParticleSystem.ShapeModule cloudParticleSM;
     private ParticleSystem clouds;
     private ParticleSystem.ShapeModule cloudsSM;
-    private Color originalColor;
+    private Color originalSTARsColor;
+    private Color originalCloudColor;
     private Color currentColor;
     public Color warning;
     public float lethalVelocity;
@@ -35,8 +36,8 @@ public class BlockInteraction : MonoBehaviour {
         cloudParticleEM = cloudParticle.emission;
         cloudParticleMMC = cloudParticleEM.rate;
         cloudParticleSM = cloudParticle.shape;
-        originalColor = cloudParticle.startColor;
-        currentColor = originalColor;
+        originalSTARsColor = cloudParticle.startColor;
+        currentColor = originalSTARsColor;
         startSize = cloudParticle.startSize;
         startRate = cloudParticleMMC.constantMax;
         IsBeingThrown = false;
@@ -45,6 +46,7 @@ public class BlockInteraction : MonoBehaviour {
     void Start()
     {
         clouds = transform.FindChild("Clouds 1(Clone)").GetComponent<ParticleSystem>();
+        originalCloudColor = clouds.startColor;
         cloudsSM = clouds.shape;
         lowGravity = SceneManager.GetActiveScene();
         body = GetComponent<Rigidbody>();
@@ -152,7 +154,7 @@ public class BlockInteraction : MonoBehaviour {
         {
             m.Disable(2, true);
             cloudParticle.Emit(25);
-            body.AddForce(-power / 2);
+            body.velocity = Vector3.up * 5;
             GetComponent<Collider>().enabled = false;
             r.velocity = Vector3.zero;
         }
@@ -241,8 +243,8 @@ public class BlockInteraction : MonoBehaviour {
         time = 0;
         transform.position = startPosition;
         transform.rotation = startRotation;
-        cloudParticle.startColor = originalColor;
-        currentColor = originalColor;
+        cloudParticle.startColor = originalSTARsColor;
+        currentColor = originalSTARsColor;
         cloudParticle.startSize = startSize;
         cloudParticle.Emit(10);
         cloudParticle.Play();

@@ -66,7 +66,7 @@ public class JumpControl : MonoBehaviour
        
         if (jumpButtonPressed)
         {
-
+            //sounds.Sound("Jump");
 
             if (!jumpAxisInUse)
             {
