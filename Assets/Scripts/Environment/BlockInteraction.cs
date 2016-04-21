@@ -20,6 +20,7 @@ public class BlockInteraction : MonoBehaviour {
     private ParticleSystem.ShapeModule cloudParticleSM;
     private ParticleSystem clouds;
     private ParticleSystem.ShapeModule cloudsSM;
+    private ParticleSystemRenderer cloudsRenderer;
     private Color originalSTARsColor;
     private Color originalCloudColor;
     private Color currentColor;
@@ -46,7 +47,8 @@ public class BlockInteraction : MonoBehaviour {
     void Start()
     {
         clouds = transform.FindChild("Clouds 1(Clone)").GetComponent<ParticleSystem>();
-        originalCloudColor = clouds.startColor;
+        cloudsRenderer = clouds.GetComponent<ParticleSystemRenderer>();
+        originalCloudColor = cloudsRenderer.material.color;
         cloudsSM = clouds.shape;
         lowGravity = SceneManager.GetActiveScene();
         body = GetComponent<Rigidbody>();
@@ -212,14 +214,13 @@ public class BlockInteraction : MonoBehaviour {
 
     IEnumerator Shatter(float t)
     {
-        SpriteRenderer s = transform.FindChild("Square(Clone)").GetComponent<SpriteRenderer>();
         isShattering = true;
         float maxt = t;
         Color c = currentColor;
         while ((t -= Time.deltaTime) > 0)
         {
             float normalizedTime = t / maxt;
-            s.color = new Color(c.r, c.g, c.b, Mathf.Lerp(0, 1, (1 - normalizedTime)));
+            cloudsRenderer.material.color = Color.Lerp(originalCloudColor, c, (1 - normalizedTime));
             yield return new WaitForFixedUpdate();
         }
         body.useGravity = true;
@@ -229,7 +230,7 @@ public class BlockInteraction : MonoBehaviour {
         while ((t -= Time.deltaTime) > 0)
         {
             float normalizedTime = t / maxt;
-            s.color = new Color(c.r, c.g, c.b, Mathf.Lerp(1, 0, (1 - normalizedTime)));
+            cloudsRenderer.material.color = Color.Lerp(c, originalCloudColor, (1 - normalizedTime));
             yield return new WaitForFixedUpdate();
         }
         reset = Reset();
