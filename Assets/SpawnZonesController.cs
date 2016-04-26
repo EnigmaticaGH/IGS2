@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class SpawnZonesController : MonoBehaviour {
 
     public GameObject[] SpawnZonesOBJ;
+
 
     SpawnZones[] SafeZ = new SpawnZones[10];
 

@@ -99,6 +99,11 @@ public class DeathControl : MonoBehaviour
         transform.position = new Vector3(Zones.GetSafeSpawnX(), Zones.GetSafeSpawnY(), 0);
     }
 
+    public float GetDamage()
+    {
+        return Damage;
+    }
+
     IEnumerator Respawn(float respawnTime)
     {
         player.velocity = Vector3.zero;

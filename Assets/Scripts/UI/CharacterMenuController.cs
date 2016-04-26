@@ -23,7 +23,7 @@ public class CharacterMenuController : MonoBehaviour
     public GameObject[] playerCursors;
     public Image[] PlayerReady;
     public Image[] PlayerDC;
-    public Text[] PressStart;
+    public GameObject[] PressStart;
     public Image[] ogArrowUP;
     public Image[] ogArrowDOWN;
     public Sprite activeArrowUP;
@@ -139,7 +139,7 @@ public class CharacterMenuController : MonoBehaviour
         {
             PlayerDC[i].enabled = true;
             PlayerReady[i].enabled = false;
-            PressStart[i].enabled = true;
+            PressStart[i].SetActive(true);
             AButton[i].GetComponent<Image>().gameObject.SetActive(false);
             activePlayers[i] = false;
         }
@@ -149,11 +149,9 @@ public class CharacterMenuController : MonoBehaviour
 
     void Update()
     {
-        Debug.LogError(playerSize.Count);
         //Debug.Log(playerSize.Count + "-____________________");
         for (int i = 1; i <= 4; i++)
         {
-            Debug.Log(i);
             if (activePlayers[i - 1] == false)
             {
                 if ((Input.GetButtonUp("Start_" + i) || Input.GetButtonUp("A_" + i)) && startCount[i - 1] == 0)
@@ -170,7 +168,7 @@ public class CharacterMenuController : MonoBehaviour
 
                     AButton[i - 1].gameObject.SetActive(true);
 
-                    PressStart[i - 1].enabled = false;
+                    PressStart[i - 1].SetActive(false);
 
                     AButton[i - 1].gameObject.SetActive(true);
 
@@ -253,7 +251,7 @@ public class CharacterMenuController : MonoBehaviour
 
                         AButton[i - 1].gameObject.SetActive(false);
 
-                        PressStart[i - 1].enabled = true;
+                        PressStart[i - 1].SetActive(true);
 
                         AButton[i - 1].gameObject.SetActive(false);
 
