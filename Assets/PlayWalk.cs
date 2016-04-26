@@ -16,8 +16,14 @@ public class PlayWalk : MonoBehaviour {
 
     public void Play()
     {
-        Source.clip = Walk;
-        
-        Source.Play();
+        if (!Source.isPlaying)
+        {
+
+            Source.clip = Walk;
+
+            Source.Play();
+        }
+
+
     }
 }

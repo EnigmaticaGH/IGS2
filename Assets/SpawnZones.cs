@@ -5,6 +5,8 @@ using System.Collections.Generic;
 public class SpawnZones : MonoBehaviour {
 
     public GameObject[] startingObjects = new GameObject[10];
+    [SerializeField]
+    public static List<GameObject> ObjectsZone = new List<GameObject>();
     //private GameObject[] newObjects = new GameObject[50];
     public int Zone = 0;
     int i = 0;
@@ -14,6 +16,7 @@ public class SpawnZones : MonoBehaviour {
     int zoneBlocks;
     int playerZone;
     int count = 0;
+    public int UFO = 0;
 
     public List<int> zonePlayers = new List<int>();
 
@@ -37,8 +40,16 @@ public class SpawnZones : MonoBehaviour {
     public bool ForeignObject = false;
 
 
+    void FixedUpdate()
+    {
+        UFO = ObjectsZone.Count;
+    }
+
+
     void OnTriggerEnter(Collider col)
     {
+
+        
 
         if (start == false)
         {
@@ -47,6 +58,9 @@ public class SpawnZones : MonoBehaviour {
 
             if (start == true)
             {
+                ObjectsZone.Add(col.gameObject);
+                ListCheck(ObjectsZone.Count);
+
 
                 if (col.tag == "Player")
                     zonePlayers.Add(1);
@@ -110,6 +124,12 @@ public class SpawnZones : MonoBehaviour {
         if (start == true)
         {
 
+                ObjectsZone.Remove(col.gameObject);
+                ListCheck(ObjectsZone.Count);
+
+
+
+
             CheckerExit(col);
 
             if (col.name.Contains("STARTCUBE_" + Zone))
@@ -133,6 +153,23 @@ public class SpawnZones : MonoBehaviour {
         }
     }
 
+
+    void ListCheck(int count)
+    {
+        int newObjects = count;
+
+        //Debug.LogError(count);
+
+        if (count == 0)
+        {
+            //Debug.LogError("ZERO OBJECTS IN ZONE------ " + Zone);
+        }
+
+        if (count > 0)
+        {
+            //Debug.LogError("ZONE HAS MORE AN OBJECT IN IT " + Zone);
+        }
+    }
 
     
 

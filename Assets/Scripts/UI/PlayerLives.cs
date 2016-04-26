@@ -8,15 +8,18 @@ public class PlayerLives : MonoBehaviour
 
     public Transform canvas1;
     public GameObject[] HeadPlayers;
-    public GameObject[] HeadBackgrounds;
+    public Image[] HeadBackgrounds;
+    public Sprite[] Backgrounds;
     public Transform[] SpawnUI;
     public Text player1Lives;
     public Text player2Lives;
     public Text player3Lives;
     public Text player4Lives;
+    public Text[] DamageText;
     private int ControllerNumber;
 
     int[] Lives = new int[4];
+    float[] Damage = new float[4];
     private bool[] spawnHeads = new bool[4];
     int pPos1 = 0;
     int pPos2 = 0;
@@ -25,20 +28,29 @@ public class PlayerLives : MonoBehaviour
     int FunTracker = 0;
     int activePlayers = 0;
 
-    public CharacterMenuController Control;
+    //public CharacterMenuController Control;
 
-    void Awake()
+    GameObject[] Controllers;
+    ControllerNumber[] cnumbers;
+    DeathControl[] damages;
+
+    void Start()
     {
+
+        Controllers = GameObject.FindGameObjectsWithTag("Player");
+        cnumbers = new ControllerNumber[Controllers.Length];
+        damages = new DeathControl[Controllers.Length];
+        for (int i = 0; i < Controllers.Length; i++)
+        {
+            cnumbers[i] = Controllers[i].GetComponent<ControllerNumber>();
+            damages[i] = Controllers[i].GetComponent<DeathControl>();
+        }
+
         //playerLives = new List<List<int>>();
         player1Lives.gameObject.SetActive(false);
         player2Lives.gameObject.SetActive(false);
         player3Lives.gameObject.SetActive(false);
         player4Lives.gameObject.SetActive(false);
-
-        pPos1 = CharacterMenuController.p1Pos; //Use this for spawning selected characters
-        pPos2 = CharacterMenuController.p2Pos; //Use this for spawning selected characters
-        pPos3 = CharacterMenuController.p3Pos; //Use this for spawning selected characters
-        pPos4 = CharacterMenuController.p4Pos; //Use this for spawning selected characters
 
 
         activePlayers = CharacterMenuController.playerSize.Count;
@@ -47,7 +59,7 @@ public class PlayerLives : MonoBehaviour
 
         for (int i = 0; i < HeadBackgrounds.Length; i++)
         {
-            HeadBackgrounds[i].SetActive(false);
+            HeadBackgrounds[i].enabled = false;
         }
 
 
@@ -114,27 +126,42 @@ public class PlayerLives : MonoBehaviour
         }
 
         //numberOfLives = PlayerTracker.players[0].GetComponent<DeathControl>().getNumberOfLives();
-        
+
+        foreach (GameObject controller in Controllers)
+        {
+
+            DamageText[0].text = "" + (Controllers.GetDamage() * 100).toString("0.00%");
+        }
+
 
         player1Lives.text = "" + PlayerTracker.players[0].GetComponent<DeathControl>().getLives();
-        HeadBackgrounds[0].SetActive(true);
+        //Debug.Log("Damage: " + (Damage * 100) + "%");
+        
+        HeadBackgrounds[0].enabled = true;
+        HeadBackgrounds[0].sprite = Backgrounds[CharacterMenuController.playerINDEX_Pos[0]];
         //Debug.Log(player1.GetComponent<DeathControl>().getLives());
         if (activePlayers > 1)
         {
             player2Lives.text = "" + PlayerTracker.players[1].GetComponent<DeathControl>().getLives();
-            HeadBackgrounds[1].SetActive(true);
+            DamageText[1].text = "" + (Controllers.GetDamage() * 100) + "%";
+            HeadBackgrounds[1].enabled = true;
+            HeadBackgrounds[1].sprite = Backgrounds[CharacterMenuController.playerINDEX_Pos[1]];
 
             if (activePlayers > 2)
             {
                 player3Lives.text = "" + PlayerTracker.players[2].GetComponent<DeathControl>().getLives();
-                HeadBackgrounds[2].SetActive(true);
+                DamageText[2].text = "" + (Controllers.GetDamage() * 100) + "%";
+                HeadBackgrounds[2].enabled = true;
+                HeadBackgrounds[2].sprite = Backgrounds[CharacterMenuController.playerINDEX_Pos[2]];
             }
 
 
             if (activePlayers > 3)
             {
                 player4Lives.text = "" + PlayerTracker.players[3].GetComponent<DeathControl>().getLives();
-                HeadBackgrounds[3].SetActive(true);
+                DamageText[3].text = "" + (Controllers.GetDamage() * 100) + "%";
+                HeadBackgrounds[3].enabled = true;
+                HeadBackgrounds[3].sprite = Backgrounds[CharacterMenuController.playerINDEX_Pos[3]];
             }
         }
     }
