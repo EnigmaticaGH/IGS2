@@ -73,6 +73,9 @@ public class CharacterMenuController : MonoBehaviour
     public AudioClip Back;
     public AudioClip StartFX;
 
+    public Image[] UIBackground;
+    public Sprite[] Backgrounds;
+
     void OnLevelWasLoaded(int level)
     {
         if (level == 1)
@@ -122,6 +125,7 @@ public class CharacterMenuController : MonoBehaviour
         {
             CharacterPictures[i].sprite = Characters[i].GetComponentInChildren<SpriteRenderer>().sprite; //Awesome this works 
             CharacterNames[i].text = Names[i];
+            UIBackground[i].sprite = Backgrounds[i];
         }
 
         for (int i = 0; i < playerCursors.Length; i++)
@@ -960,7 +964,7 @@ public class CharacterMenuController : MonoBehaviour
         CharacterPictures[i].sprite = Characters[playerINDEX_Pos[i]].GetComponentInChildren<SpriteRenderer>().sprite;
         CharacterNames[i].text = Names[playerINDEX_Pos[i]];
 
-
+        UIBackground[i].sprite = Backgrounds[playerINDEX_Pos[i]];
     }
 
     void LeftStickUp(int i)
@@ -970,11 +974,12 @@ public class CharacterMenuController : MonoBehaviour
 
         Debug.Log("Left Stick Up");
 
-        if (playerINDEX_Pos[i] >= Characters.Length - 1)
+        if (playerINDEX_Pos[i] >= Characters.Length)
             playerINDEX_Pos[i] = 0;
         CharacterPictures[i].sprite = Characters[playerINDEX_Pos[i]].GetComponentInChildren<SpriteRenderer>().sprite;
         CharacterNames[i].text = Names[playerINDEX_Pos[i]];
 
+        UIBackground[i].sprite = Backgrounds[playerINDEX_Pos[i]];
         
 
     }
