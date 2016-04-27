@@ -91,7 +91,7 @@ GameObject:
   - 114: {fileID: 11427536}
   - 114: {fileID: 11492578}
   m_Layer: 8
-  m_Name: Player 2
+  m_Name: DiscoBoy
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

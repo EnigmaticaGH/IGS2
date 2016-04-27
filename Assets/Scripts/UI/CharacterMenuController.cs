@@ -970,7 +970,7 @@ public class CharacterMenuController : MonoBehaviour
 
         Debug.Log("Left Stick Up");
 
-        if (playerINDEX_Pos[i] >= Characters.Length - 1)
+        if (playerINDEX_Pos[i] >= Characters.Length)
             playerINDEX_Pos[i] = 0;
         CharacterPictures[i].sprite = Characters[playerINDEX_Pos[i]].GetComponentInChildren<SpriteRenderer>().sprite;
         CharacterNames[i].text = Names[playerINDEX_Pos[i]];
