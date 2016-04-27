@@ -17,6 +17,7 @@ public class Ability
         COOLDOWN,
         NULL
     };
+    public bool UseButton { get; private set; }
     //Status abilityStatus;
 
     public Ability(string abilityName, float abilityCooldownTime, float abilityActiveTime)
@@ -24,6 +25,14 @@ public class Ability
         name = abilityName;
         cooldownTime = abilityCooldownTime;
         activeTime = abilityActiveTime;
+    }
+
+    public Ability(string abilityName, float abilityCooldownTime, float abilityActiveTime, bool useButton)
+    {
+        name = abilityName;
+        cooldownTime = abilityCooldownTime;
+        activeTime = abilityActiveTime;
+        UseButton = useButton;
     }
 
     public Ability(string abilityName, float abilityCooldownTime, float abilityActiveTime, GameObject[] abilityObjects)

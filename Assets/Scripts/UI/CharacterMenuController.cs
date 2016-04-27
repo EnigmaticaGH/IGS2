@@ -880,7 +880,7 @@ public class CharacterMenuController : MonoBehaviour
     void LeftStickUpP1()
     {
         p1Pos = p1Pos + 1;
-        if (p1Pos > Characters.Length - 1)
+        if (p1Pos > Characters.Length)
             p1Pos = 0;
         CharacterPictures[0].sprite = Characters[p1Pos].GetComponentInChildren<SpriteRenderer>().sprite;
 

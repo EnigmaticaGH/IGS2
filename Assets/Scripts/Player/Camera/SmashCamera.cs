@@ -13,8 +13,9 @@ public class SmashCamera : MonoBehaviour {
     private Vector3 velocity = Vector3.zero;
     private float vel = 0;
     private Camera cam;
-
+    public Vector3 Velocity { get; private set; }
     public GameObject Skybox;
+    Vector3 prevPos;
 
     public static void InitalizePlayers(GameObject[] p)
     {
@@ -26,6 +27,7 @@ public class SmashCamera : MonoBehaviour {
     void Awake()
     {
         cam = GetComponent<Camera>();
+        prevPos = transform.position;
     }
 
     void Update()
@@ -34,6 +36,12 @@ public class SmashCamera : MonoBehaviour {
         {
             UpdateCamera();
         }
+    }
+
+    void FixedUpdate()
+    {
+        Velocity = (transform.position - prevPos) / Time.deltaTime;
+        prevPos = transform.position;
     }
 
     void UpdateCamera()
@@ -45,7 +53,7 @@ public class SmashCamera : MonoBehaviour {
             yValues[i] = players[i].transform.position.y;
         }
         size = new Vector3(cam.orthographicSize * cam.aspect, cam.orthographicSize);
-        float zoom = Mathf.Clamp(Mathf.Sqrt(Mathf.Pow(maxX - minX, 2) + Mathf.Pow(maxY - minY, 2)), 6, 12);
+        float zoom = Mathf.Clamp(Mathf.Sqrt(Mathf.Pow(maxX - minX, 2) + Mathf.Pow(maxY - minY, 2)), 5, (upperBounds.position.x - lowerBounds.position.x) / 2);
         Vector3 clampedPosition = new Vector3(
             Mathf.Clamp(midpoint.x, lowerBounds.position.x + size.x, upperBounds.position.x - size.x),
             Mathf.Clamp(midpoint.y, lowerBounds.position.y + size.y, upperBounds.position.y - size.y),

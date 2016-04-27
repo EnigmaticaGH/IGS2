@@ -252,6 +252,7 @@ public class BlockInteraction : MonoBehaviour {
 
     public void ResetImmediately()
     {
+        cloudsRenderer.material.color = originalCloudColor;
         IsBeingThrown = false;
         cloudParticle.startSize = 0;
         time = 0;
@@ -272,6 +273,7 @@ public class BlockInteraction : MonoBehaviour {
     {
         currentColor = teamColor;
         cloudParticle.startColor = currentColor;
+        cloudsRenderer.material.color = teamColor;
     }
 
     public bool IsGrabbedBySomeoneElse

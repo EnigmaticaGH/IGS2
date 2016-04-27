@@ -56,7 +56,7 @@ public class PlayerAbilities : MonoBehaviour
                     "R_XAxis",
                     "R_YAxis"
                 }),
-            new Ability(Powerup.BlockDrop.ToString(), 0, 2.5f),
+            new Ability(Powerup.BlockDrop.ToString(), 0, 2.5f, true),
             new Ability(Powerup.GrenadeBlock.ToString(), 0, 7.5f)
         };
         foreach (Ability ability in abilities)
@@ -114,7 +114,14 @@ public class PlayerAbilities : MonoBehaviour
         {
             if (abilities[(int)currentPowerup].AbilityStatus == Ability.Status.READY)
             {
-                StartCoroutine("Ability_" + currentPowerup.ToString() + "_Activate", abilities[(int)currentPowerup]);
+                if (abilities[(int)currentPowerup].UseButton && Input.GetButtonUp("B_" + controller.controllerNumber))
+                {
+                    StartCoroutine("Ability_" + currentPowerup.ToString() + "_Activate", abilities[(int)currentPowerup]);
+                }
+                else
+                {
+                    StartCoroutine("Ability_" + currentPowerup.ToString() + "_Activate", abilities[(int)currentPowerup]);
+                }
             }
         }
 
