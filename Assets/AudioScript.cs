@@ -7,6 +7,8 @@ public class AudioScript : MonoBehaviour {
 
     public GameObject Audio;
 
+    public AudioSource Source;
+
     bool stop = false;
 
     void OnLevelWasLoaded(int level)
@@ -17,11 +19,20 @@ public class AudioScript : MonoBehaviour {
             Debug.Log(level);
         }
 
+
+        if (level == 0)
+        {
+            if (Source.isPlaying)
+                Source.Stop();
+        }
+        
+
     }
 
 	// Use this for initialization
 	void Start () {
-
+        if (!Source.isPlaying)
+            Source.Play();
 
 
 	}
