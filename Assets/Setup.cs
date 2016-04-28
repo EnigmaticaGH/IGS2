@@ -73,229 +73,234 @@ public class Setup : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!SelectedGameMode)
+        for (int i = 1; i <= 4; i++)
         {
-            if (!SelectedLevel)
+            if (!SelectedGameMode)
             {
-                if (Input.GetButtonUp("B_1"))
+                if (!SelectedLevel)
                 {
-                    Source.clip = Back;
-                    Source.Play();
-                    SceneManager.LoadScene(1);
-                }
-
-                SelectedObjects[0].SetActive(true);
-
-                Highlight.gameObject.SetActive(false);
-                if ((Input.GetAxisRaw("L_XAxis_1") == 1 || Input.GetAxisRaw("DPad_XAxis_1") == 1) && (i == 0))
-                {
-                    i++;
-                    placeHolder++;
-                    if (placeHolder >= LevelNames.Length)
-                        placeHolder = 0;
-                    LevelText.text = LevelNames[placeHolder];
-                    LevelImage.sprite = LevelImages[placeHolder];
-                    DetailText.text = Details[placeHolder];
-                    Source.clip = Scroll;
-                    Source.Play();
-
-                    Invoke("ResetDatI", 1);
-                    Invoke("ResetDatColor", .2f);
-
-                }
-                if ((Input.GetAxisRaw("L_XAxis_1") == -1 || Input.GetAxisRaw("DPad_XAxis_1") == -1) && (i == 0))
-                {
-                    i++;
-                    placeHolder--;
-                    if (placeHolder < 0)
-                        placeHolder = LevelNames.Length - 1;
-                    LevelImage.sprite = LevelImages[placeHolder];
-                    LevelText.text = LevelNames[placeHolder];
-                    DetailText.text = Details[placeHolder];
-                    Source.clip = Scroll;
-                    Source.Play();
-
-                    Invoke("ResetDatI", 1);
-                    Invoke("ResetDatColor", .2f);
-                }
-
-
-                if (((Input.GetButtonUp("A_1")) || ((Input.GetAxisRaw("L_YAxis_1") == -1)) || (Input.GetAxisRaw("DPad_YAxis_1") == -1)) && (selected <= 2))
-                {
-                    selected++;
-                    SelectedLevel = true;
-                    mode++;
-                    time++;
-                    Source.clip = Click;
-                    Source.Play();
-                    //LevelImage.color = Color.red;
-                    Invoke("ResetMode", .5f);
-                    Highlight.gameObject.SetActive(true);
-
-                }
-        }
-
-            if (SelectedLevel)
-            {
-                SelectedObjects[0].SetActive(false);
-
-                if (Mode == false)
-                {
-                    SelectedObjects[1].SetActive(true);
-
-                    if ((Input.GetAxisRaw("L_XAxis_1") == 1 || Input.GetAxisRaw("DPad_XAxis_1") == 1) && (cd == 0))
-                    {
-                        cd++;
-                        ControllerSpot++;
-                        if (ControllerSpot >= GameController.GameModes.Length)
-                        {
-                            ControllerSpot = 0;
-                        }
-                        Source.clip = Scroll;
-                        Source.Play();
-                        GameController.TextController(ControllerSpot);
-                        Invoke("ResetDatCD", .2f);
-                    }
-                    if ((Input.GetAxisRaw("L_XAxis_1") == -1 || Input.GetAxisRaw("DPad_XAxis_1") == -1) && (cd == 0))
-                    {
-                        cd++;
-                        ControllerSpot--;
-                        if (ControllerSpot < 0)
-                        {
-                            ControllerSpot = GameController.GameModes.Length;
-                        }
-                        Source.clip = Scroll;
-                        Source.Play();
-                        GameController.TextController(ControllerSpot);
-                        Invoke("ResetDatCD", .2f);
-                    }
-
-                    if ((Input.GetButtonUp("A_1") || Input.GetAxisRaw("L_YAxis_1") == 1 || (Input.GetAxisRaw("DPad_YAxis_1") == -1)) && mode == 0)
-                    {
-                        Mode = true;
-                        Time = false;
-                        time++;
-                        Source.clip = Click;
-                        Source.Play();
-                        ModeText.color = textColor;
-                        Invoke("ResetTime", .5f);
-                    }
-
-                    if ((Input.GetButtonUp("B_1") || Input.GetAxisRaw("L_YAxis_1") == 1 || Input.GetAxisRaw("DPad_YAxis_1") == 1) && mode == 0)
+                    if (Input.GetButtonUp("B_" + i))
                     {
                         Source.clip = Back;
                         Source.Play();
-                        Mode = false;
-                        SelectedLevel = false;
-                        SelectedObjects[1].SetActive(false);
-                        ResetDatColor();
-                        ResetDatSelected();
-                        ModeText.color = Color.white;
+                        SceneManager.LoadScene(1);
                     }
 
+                    SelectedObjects[0].SetActive(true);
+
+                    Highlight.gameObject.SetActive(false);
+                    if ((Input.GetAxisRaw("L_XAxis_" + i) == 1 || Input.GetAxisRaw("DPad_XAxis_" + i) == 1) && (i == 0))
+                    {
+                        i++;
+                        placeHolder++;
+                        if (placeHolder >= LevelNames.Length)
+                            placeHolder = 0;
+                        LevelText.text = LevelNames[placeHolder];
+                        LevelImage.sprite = LevelImages[placeHolder];
+                        DetailText.text = Details[placeHolder];
+                        Source.clip = Scroll;
+                        Source.Play();
+
+                        Invoke("ResetDatI", 1);
+                        Invoke("ResetDatColor", .2f);
+
+                    }
+                    if ((Input.GetAxisRaw("L_XAxis_" + i) == -1 || Input.GetAxisRaw("DPad_XAxis_" + i) == -1) && (i == 0))
+                    {
+                        i++;
+                        placeHolder--;
+                        if (placeHolder < 0)
+                            placeHolder = LevelNames.Length - 1;
+                        LevelImage.sprite = LevelImages[placeHolder];
+                        LevelText.text = LevelNames[placeHolder];
+                        DetailText.text = Details[placeHolder];
+                        Source.clip = Scroll;
+                        Source.Play();
+
+                        Invoke("ResetDatI", 1);
+                        Invoke("ResetDatColor", .2f);
+                    }
+
+
+                    if (((Input.GetButtonUp("A_" + i)) || ((Input.GetAxisRaw("L_YAxis_" + i) == -1)) || (Input.GetAxisRaw("DPad_YAxis_" + i) == -1)) && (selected <= 2))
+                    {
+                        selected++;
+                        SelectedLevel = true;
+                        mode++;
+                        time++;
+                        Source.clip = Click;
+                        Source.Play();
+                        //LevelImage.color = Color.red;
+                        Invoke("ResetMode", .5f);
+                        Highlight.gameObject.SetActive(true);
+
+                    }
                 }
 
-
-                if (Mode)
+                if (SelectedLevel)
                 {
-                    SelectedObjects[1].SetActive(false);
+                    SelectedObjects[0].SetActive(false);
 
-                    if (Time == false)
+                    if (Mode == false)
                     {
-                        SelectedObjects[2].SetActive(true);
+                        SelectedObjects[1].SetActive(true);
 
-                        if ((Input.GetAxis("L_XAxis_1") == 1 || Input.GetAxisRaw("DPad_XAxis_1") == 1) && (cd == 0))
+                        if ((Input.GetAxisRaw("L_XAxis_" + i) == 1 || Input.GetAxisRaw("DPad_XAxis_" + i) == 1) && (cd == 0))
                         {
+                            cd++;
+                            ControllerSpot++;
+                            if (ControllerSpot >= GameController.GameModes.Length)
+                            {
+                                ControllerSpot = 0;
+                            }
                             Source.clip = Scroll;
                             Source.Play();
-                            cd++;
-                            tracker++;
-                            Debug.Log(tracker);
-                            if (tracker > GameController.Times.Length)
-                            {
-                                tracker = 0;
-                            }
-                            GameController.TimeController(tracker);
+                            GameController.TextController(ControllerSpot);
                             Invoke("ResetDatCD", .2f);
                         }
-                        if ((Input.GetAxis("L_XAxis_1") == -1 || Input.GetAxisRaw("DPad_XAxis_1") == -1) && (cd == 0))
+                        if ((Input.GetAxisRaw("L_XAxis_" + i) == -1 || Input.GetAxisRaw("DPad_XAxis_" + i) == -1) && (cd == 0))
                         {
+                            cd++;
+                            ControllerSpot--;
+                            if (ControllerSpot < 0)
+                            {
+                                ControllerSpot = GameController.GameModes.Length;
+                            }
                             Source.clip = Scroll;
                             Source.Play();
-                            cd++;
-                            tracker--;
-                            Debug.Log(tracker);
-                            if (tracker < 0)
-                            {
-                                tracker = GameController.Times.Length;
-                            }
-                            GameController.TimeController(tracker);
+                            GameController.TextController(ControllerSpot);
                             Invoke("ResetDatCD", .2f);
                         }
 
-                        if ((Input.GetButtonUp("A_1") || Input.GetAxisRaw("L_YAxis_1") == -1 || Input.GetAxisRaw("DPad_YAxis_1") == -1) && time == 0)
+                        if ((Input.GetButtonUp("A_" + i) || Input.GetAxisRaw("L_YAxis_" + i) == 1 || (Input.GetAxisRaw("DPad_YAxis_" + i) == -1)) && mode == 0)
                         {
+                            Mode = true;
+                            Time = false;
+                            time++;
                             Source.clip = Click;
                             Source.Play();
-                            Time = true;
-                            Invoke("ResetMode", .5f);
-                            TimeText.color = textColor;
+                            ModeText.color = textColor;
+                            Invoke("ResetTime", .5f);
                         }
 
-                        if ((Input.GetButtonUp("B_1") || Input.GetAxisRaw("L_YAxis_1") == 1 || Input.GetAxisRaw("DPad_YAxis_1") == 1) && time == 0)
+                        if ((Input.GetButtonUp("B_" + i) || Input.GetAxisRaw("L_YAxis_" + i) == 1 || Input.GetAxisRaw("DPad_YAxis_" + i) == 1) && mode == 0)
                         {
                             Source.clip = Back;
                             Source.Play();
-                            Time = false;
                             Mode = false;
-                            mode++;
-                            SelectedObjects[2].SetActive(false);
-                            Invoke("ResetMode", .5f);
+                            SelectedLevel = false;
+                            SelectedObjects[1].SetActive(false);
+                            ResetDatColor();
+                            ResetDatSelected();
                             ModeText.color = Color.white;
                         }
+
                     }
 
 
-                    if (Time)
+                    if (Mode)
                     {
-                        SelectedObjects[2].SetActive(false);
+                        SelectedObjects[1].SetActive(false);
 
-                        StartCD = true;
-
-                        if (StartCD)
+                        if (Time == false)
                         {
-                            SelectedObjects[3].SetActive(true);
+                            SelectedObjects[2].SetActive(true);
 
-                            if (Input.GetButtonDown("Start_1") || Input.GetButtonDown("A_1") && cd == 0)
+                            if ((Input.GetAxis("L_XAxis_" + i) == 1 || Input.GetAxisRaw("DPad_XAxis_" + i) == 1) && (cd == 0))
+                            {
+                                Source.clip = Scroll;
+                                Source.Play();
+                                cd++;
+                                tracker++;
+                                Debug.Log(tracker);
+                                if (tracker > GameController.Times.Length)
+                                {
+                                    tracker = 0;
+                                }
+                                GameController.TimeController(tracker);
+                                Invoke("ResetDatCD", .2f);
+                            }
+                            if ((Input.GetAxis("L_XAxis_" + i) == -1 || Input.GetAxisRaw("DPad_XAxis_" + i) == -1) && (cd == 0))
+                            {
+                                Source.clip = Scroll;
+                                Source.Play();
+                                cd++;
+                                tracker--;
+                                Debug.Log(tracker);
+                                if (tracker < 0)
+                                {
+                                    tracker = GameController.Times.Length;
+                                }
+                                GameController.TimeController(tracker);
+                                Invoke("ResetDatCD", .2f);
+                            }
+
+                            if ((Input.GetButtonUp("A_" + i) || Input.GetAxisRaw("L_YAxis_" + i) == -1 || Input.GetAxisRaw("DPad_YAxis_" + i) == -1) && time == 0)
                             {
                                 Source.clip = Click;
                                 Source.Play();
-                                SelectedObjects[3].SetActive(false);
-                                LoadScene = true;
-                                cd++;
-                                Debug.Log("Count");
-                                //SceneManager.LoadScene(placeHolder + 3); //+ 3 for main menu and character selection and setup
+                                Time = true;
+                                Invoke("ResetMode", .5f);
+                                TimeText.color = textColor;
                             }
 
-                            if (Input.GetButtonUp("B_1") || Input.GetAxisRaw("L_YAxis_1") == 1 || Input.GetAxisRaw("DPad_YAxis_1") == 1)
+                            if ((Input.GetButtonUp("B_" + i) || Input.GetAxisRaw("L_YAxis_" + i) == 1 || Input.GetAxisRaw("DPad_YAxis_" + i) == 1) && time == 0)
                             {
                                 Source.clip = Back;
                                 Source.Play();
                                 Time = false;
-                                Mode = true;
-                                StartCD = false;
-                                SelectedObjects[3].SetActive(false);
-                                time++;
-                                Invoke("ResetTime", .5f);
-                                TimeText.color = Color.white;
+                                Mode = false;
+                                mode++;
+                                SelectedObjects[2].SetActive(false);
+                                Invoke("ResetMode", .5f);
+                                ModeText.color = Color.white;
+                            }
+                        }
+
+
+                        if (Time)
+                        {
+                            SelectedObjects[2].SetActive(false);
+
+                            StartCD = true;
+
+                            if (StartCD)
+                            {
+                                SelectedObjects[3].SetActive(true);
+
+                                if (Input.GetButtonDown("Start_" + i) || Input.GetButtonDown("A_" + i) && cd == 0)
+                                {
+                                    Source.clip = Click;
+                                    Source.Play();
+                                    SelectedObjects[3].SetActive(false);
+                                    LoadScene = true;
+                                    cd++;
+                                    Debug.Log("Count");
+                                    //SceneManager.LoadScene(placeHolder + 3); //+ 3 for main menu and character selection and setup
+                                }
+
+                                if (Input.GetButtonUp("B_" + i) || Input.GetAxisRaw("L_YAxis_" + i) == 1 || Input.GetAxisRaw("DPad_YAxis_" + i) == 1)
+                                {
+                                    Source.clip = Back;
+                                    Source.Play();
+                                    Time = false;
+                                    Mode = true;
+                                    StartCD = false;
+                                    SelectedObjects[3].SetActive(false);
+                                    time++;
+                                    Invoke("ResetTime", .5f);
+                                    TimeText.color = Color.white;
+                                }
                             }
                         }
                     }
                 }
+
+
             }
-
-
         }
+
+
 
     }
 

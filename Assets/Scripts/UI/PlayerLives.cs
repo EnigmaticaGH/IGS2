@@ -143,7 +143,6 @@ public class PlayerLives : MonoBehaviour
         if (activePlayers > 1)
         {
             player2Lives.text = "" + PlayerTracker.players[1].GetComponent<DeathControl>().getLives();
-            
             HeadBackgrounds[1].enabled = true;
             HeadBackgrounds[1].sprite = Backgrounds[CharacterMenuController.playerINDEX_Pos[1]];
 
