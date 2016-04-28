@@ -1,0 +1,198 @@
+fileFormatVersion: 2
+guid: d7fa0eb314dc25e4fb40a39d7a7c2ae7
+timeCreated: 1461712756
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Character selection edit2_0
+    21300002: Character selection edit2_1
+    21300004: Character selection edit2_2
+    21300006: Character selection edit2_3
+    21300008: Character selection edit2_4
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 400
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Character selection edit2_0
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 170
+        width: 361
+        height: 813
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -179.5, y: 406.5}
+        - {x: -180.5, y: 405.5}
+        - {x: -180.5, y: -406.5}
+        - {x: 180.5, y: -406.5}
+        - {x: 180.5, y: 405.5}
+        - {x: 179.5, y: 406.5}
+      - - {x: -155.5, y: 379.5}
+        - {x: 156.5, y: 379.5}
+        - {x: 156.5, y: -378.5}
+        - {x: -155.5, y: -378.5}
+    - name: Character selection edit2_1
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 174
+        width: 359
+        height: 809
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -178.5, y: 404.5}
+        - {x: -179.5, y: 403.5}
+        - {x: -179.5, y: -404.5}
+        - {x: 179.5, y: -404.5}
+        - {x: 179.5, y: 403.5}
+        - {x: 178.5, y: 404.5}
+      - - {x: -155.5, y: 376.5}
+        - {x: 155.5, y: 376.5}
+        - {x: 155.5, y: -376.5}
+        - {x: -155.5, y: -376.5}
+      - - {x: 111.5, y: -252.5}
+        - {x: 97.5, y: -252.5}
+        - {x: 58.5, y: -275.5}
+        - {x: 12.5, y: -302.5}
+        - {x: -6.5, y: -290.5}
+        - {x: -65.5, y: -252.5}
+        - {x: -91.5, y: -252.5}
+        - {x: -94.5, y: -253.5}
+        - {x: -104.5, y: -287.5}
+        - {x: -104.5, y: -302.5}
+        - {x: -100.5, y: -304.5}
+        - {x: -43.5, y: -337.5}
+        - {x: 7.5, y: -366.5}
+        - {x: 19.5, y: -366.5}
+        - {x: 82.5, y: -332.5}
+        - {x: 131.5, y: -300.5}
+        - {x: 131.5, y: -283.5}
+      - - {x: 114.5, y: 250.5}
+        - {x: 114.5, y: 255.5}
+        - {x: 131.5, y: 285.5}
+        - {x: 131.5, y: 297.5}
+        - {x: 120.5, y: 306.5}
+        - {x: 19.5, y: 363.5}
+        - {x: 4.5, y: 363.5}
+        - {x: -100.5, y: 302.5}
+        - {x: -104.5, y: 296.5}
+        - {x: -104.5, y: 282.5}
+        - {x: -85.5, y: 250.5}
+        - {x: -70.5, y: 250.5}
+        - {x: -67.5, y: 251.5}
+        - {x: 1.5, y: 292.5}
+        - {x: 83.5, y: 252.5}
+        - {x: 92.5, y: 250.5}
+    - name: Character selection edit2_2
+      rect:
+        serializedVersion: 2
+        x: 779
+        y: 173
+        width: 360
+        height: 810
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -180, y: 405}
+        - {x: -180, y: -405}
+        - {x: 180, y: -405}
+        - {x: 180, y: 405}
+      - - {x: -155, y: 378}
+        - {x: 155, y: 378}
+        - {x: 155, y: -378}
+        - {x: -155, y: -378}
+    - name: Character selection edit2_3
+      rect:
+        serializedVersion: 2
+        x: 1165
+        y: 174
+        width: 359
+        height: 809
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -178.5, y: 404.5}
+        - {x: -179.5, y: 403.5}
+        - {x: -179.5, y: -404.5}
+        - {x: 179.5, y: -404.5}
+        - {x: 179.5, y: 403.5}
+        - {x: 178.5, y: 404.5}
+      - - {x: -154.5, y: 377.5}
+        - {x: 154.5, y: 377.5}
+        - {x: 154.5, y: -377.5}
+        - {x: -154.5, y: -377.5}
+    - name: Character selection edit2_4
+      rect:
+        serializedVersion: 2
+        x: 1548
+        y: 174
+        width: 359
+        height: 809
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -178.5, y: 404.5}
+        - {x: -179.5, y: 403.5}
+        - {x: -179.5, y: -404.5}
+        - {x: 179.5, y: -404.5}
+        - {x: 179.5, y: 403.5}
+        - {x: 178.5, y: 404.5}
+      - - {x: -154.5, y: 377.5}
+        - {x: 154.5, y: 377.5}
+        - {x: 154.5, y: -377.5}
+        - {x: -154.5, y: -377.5}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

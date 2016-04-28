@@ -163,7 +163,8 @@ public class PlayerPause : MonoBehaviour {
                     if (Input.GetAxis("DPad_YAxis_" + i) == -1 && count == 0)
                     {
                         count++;
-
+                        Source.clip = Scroll;
+                        Source.Play();
                         StartCoroutine("resetCount");
                         restart = false;
                         ColorBlock temp;
