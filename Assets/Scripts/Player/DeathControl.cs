@@ -110,6 +110,7 @@ public class DeathControl : MonoBehaviour
         player.isKinematic = true;
         GetComponentInChildren<SpriteRenderer>().enabled = false;
         GetComponent<DynamicCollider>().Disable();
+        GetComponent<PlayerAbilities>().RemovePowerup();
         yield return new WaitForSeconds(respawnTime);
         Damage = 0;
         GetComponentInChildren<SpriteRenderer>().enabled = true;
