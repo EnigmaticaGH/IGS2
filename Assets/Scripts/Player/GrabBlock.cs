@@ -246,6 +246,7 @@ public class GrabBlock : MonoBehaviour
         foundBlock = false;
         IsThrowing = false;
         Invoke("DisableInvincibility", 0.5f);
+        GetComponent<PlayerAbilities>().RemovePowerup();
     }
 
     void EnableCollision()

@@ -1,0 +1,312 @@
+fileFormatVersion: 2
+guid: fe883c6d185cdae478fcd62820709b45
+timeCreated: 1461701414
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: 04262016_wayneWalk_characterSpritesheet_GRID_0
+    21300002: 04262016_wayneWalk_characterSpritesheet_GRID_1
+    21300004: 04262016_wayneWalk_characterSpritesheet_GRID_2
+    21300006: 04262016_wayneWalk_characterSpritesheet_GRID_3
+    21300008: 04262016_wayneWalk_characterSpritesheet_GRID_4
+    21300010: 04262016_wayneWalk_characterSpritesheet_GRID_5
+    21300012: 04262016_wayneWalk_characterSpritesheet_GRID_6
+    21300014: 04262016_wayneWalk_characterSpritesheet_GRID_7
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 400
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: 04262016_wayneWalk_characterSpritesheet_GRID_0
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 991
+        width: 337
+        height: 581
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 64.8349, y: 87.909}
+        - {x: 22.8349, y: 204.909}
+        - {x: 3.8349, y: 230.909}
+        - {x: -16.1651, y: 230.909}
+        - {x: -53.1651, y: 197.909}
+        - {x: -99.1651, y: 101.909}
+        - {x: -60.1651, y: 43.908997}
+        - {x: -90.1651, y: -19.091003}
+        - {x: -128.1651, y: -82.091}
+        - {x: -128.1651, y: -94.091}
+        - {x: -75.1651, y: -136.091}
+        - {x: 13.8349, y: -170.091}
+        - {x: 27.8349, y: -215.091}
+        - {x: 34.8349, y: -217.091}
+        - {x: 57.8349, y: -217.091}
+        - {x: 127.8349, y: -185.091}
+        - {x: 127.8349, y: -167.091}
+        - {x: 59.8349, y: -106.091}
+    - name: 04262016_wayneWalk_characterSpritesheet_GRID_1
+      rect:
+        serializedVersion: 2
+        x: 825
+        y: 999
+        width: 337
+        height: 581
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 70.588196, y: -211.1659}
+        - {x: 69.588196, y: -157.1659}
+        - {x: 17.588196, y: 20.834106}
+        - {x: 69.588196, y: 84.83411}
+        - {x: 38.588196, y: 186.8341}
+        - {x: 10.588196, y: 219.8341}
+        - {x: 1.5881958, y: 219.8341}
+        - {x: -45.411804, y: 197.8341}
+        - {x: -81.411804, y: 85.83411}
+        - {x: -90.411804, y: -43.165894}
+        - {x: -121.411804, y: -79.16589}
+        - {x: -121.411804, y: -140.1659}
+        - {x: -12.411804, y: -227.1659}
+        - {x: 54.588196, y: -227.1659}
+        - {x: 80.588196, y: -226.1659}
+        - {x: 81.588196, y: -224.1659}
+        - {x: 81.588196, y: -218.1659}
+        - {x: 77.588196, y: -214.1659}
+    - name: 04262016_wayneWalk_characterSpritesheet_GRID_2
+      rect:
+        serializedVersion: 2
+        x: 1334
+        y: 998
+        width: 337
+        height: 581
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 13.385132, y: 25.530945}
+        - {x: 58.38513, y: 31.530945}
+        - {x: 76.38513, y: 92.530945}
+        - {x: 76.38513, y: 95.530945}
+        - {x: 36.38513, y: 210.53094}
+        - {x: 0.38513184, y: 210.53094}
+        - {x: -37.61487, y: 189.53094}
+        - {x: -77.61487, y: 108.530945}
+        - {x: -77.61487, y: -120.469055}
+        - {x: -65.61487, y: -184.46906}
+        - {x: -29.614868, y: -227.46906}
+        - {x: -27.614868, y: -228.46906}
+        - {x: 3.3851318, y: -228.46906}
+        - {x: 74.38513, y: -225.46906}
+        - {x: 76.38513, y: -222.46906}
+        - {x: 76.38513, y: -206.46906}
+        - {x: 62.38513, y: -129.46906}
+    - name: 04262016_wayneWalk_characterSpritesheet_GRID_3
+      rect:
+        serializedVersion: 2
+        x: 1867
+        y: 997
+        width: 337
+        height: 581
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 41.457275, y: -65.272156}
+        - {x: 39.457275, y: 32.727844}
+        - {x: 89.457275, y: 79.727844}
+        - {x: 70.457275, y: 175.72784}
+        - {x: 48.457275, y: 220.72784}
+        - {x: 29.457275, y: 220.72784}
+        - {x: -7.5427246, y: 188.72784}
+        - {x: -70.542725, y: 112.727844}
+        - {x: -87.542725, y: -7.272156}
+        - {x: -54.542725, y: -148.27216}
+        - {x: -89.542725, y: -190.27216}
+        - {x: -89.542725, y: -222.27216}
+        - {x: -79.542725, y: -226.27216}
+        - {x: 51.457275, y: -226.27216}
+        - {x: 120.457275, y: -180.27216}
+        - {x: 120.457275, y: -150.27216}
+        - {x: 78.457275, y: -114.272156}
+      - - {x: -63.542725, y: -80.272156}
+        - {x: -64.542725, y: -81.272156}
+        - {x: -64.542725, y: -85.272156}
+        - {x: -62.542725, y: -89.272156}
+        - {x: -56.542725, y: -89.272156}
+        - {x: -53.542725, y: -88.272156}
+        - {x: -53.542725, y: -85.272156}
+        - {x: -55.542725, y: -81.272156}
+        - {x: -60.542725, y: -80.272156}
+    - name: 04262016_wayneWalk_characterSpritesheet_GRID_4
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 220
+        width: 337
+        height: 581
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 6.5317535, y: 21.6902}
+        - {x: 71.53175, y: 82.6902}
+        - {x: 21.531754, y: 220.6902}
+        - {x: -1.4682465, y: 230.6902}
+        - {x: -9.468246, y: 230.6902}
+        - {x: -13.468246, y: 219.6902}
+        - {x: -43.468246, y: 198.6902}
+        - {x: -86.46825, y: 101.6902}
+        - {x: -87.46825, y: 77.6902}
+        - {x: -127.46825, y: -79.3098}
+        - {x: -127.46825, y: -90.3098}
+        - {x: -126.46825, y: -93.3098}
+        - {x: -87.46825, y: -137.3098}
+        - {x: 32.531754, y: -217.3098}
+        - {x: 68.53175, y: -217.3098}
+        - {x: 128.53175, y: -180.3098}
+        - {x: 128.53175, y: -176.3098}
+        - {x: 123.53175, y: -172.3098}
+    - name: 04262016_wayneWalk_characterSpritesheet_GRID_5
+      rect:
+        serializedVersion: 2
+        x: 824
+        y: 220
+        width: 337
+        height: 581
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 66.785095, y: 83.6902}
+        - {x: 65.785095, y: 96.6902}
+        - {x: 30.785095, y: 195.6902}
+        - {x: 11.785095, y: 221.6902}
+        - {x: -8.214905, y: 221.6902}
+        - {x: -97.214905, y: 99.6902}
+        - {x: -64.214905, y: 40.6902}
+        - {x: -95.214905, y: -48.3098}
+        - {x: -120.214905, y: -73.3098}
+        - {x: -120.214905, y: -143.3098}
+        - {x: -38.214905, y: -224.3098}
+        - {x: 82.785095, y: -224.3098}
+        - {x: 82.785095, y: -195.3098}
+        - {x: 20.785095, y: 17.6902}
+    - name: 04262016_wayneWalk_characterSpritesheet_GRID_6
+      rect:
+        serializedVersion: 2
+        x: 1334
+        y: 224
+        width: 337
+        height: 581
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 59.38513, y: -103.09726}
+        - {x: 76.38513, y: 74.90274}
+        - {x: 76.38513, y: 77.90274}
+        - {x: 48.38513, y: 175.90274}
+        - {x: 24.385132, y: 209.90274}
+        - {x: 13.385132, y: 209.90274}
+        - {x: -15.614868, y: 188.90274}
+        - {x: -77.61487, y: 138.90274}
+        - {x: -77.61487, y: -183.09726}
+        - {x: -58.61487, y: -182.09726}
+        - {x: -26.614868, y: -228.09726}
+        - {x: -21.614868, y: -230.09726}
+        - {x: 21.385132, y: -230.09726}
+        - {x: 74.38513, y: -228.09726}
+        - {x: 76.38513, y: -224.09726}
+        - {x: 76.38513, y: -208.09726}
+      - - {x: -54.61487, y: -101.09726}
+        - {x: -56.61487, y: -103.09726}
+        - {x: -55.61487, y: -106.09726}
+        - {x: -49.61487, y: -109.09726}
+        - {x: -45.61487, y: -109.09726}
+        - {x: -45.61487, y: -105.09726}
+        - {x: -49.61487, y: -102.09726}
+    - name: 04262016_wayneWalk_characterSpritesheet_GRID_7
+      rect:
+        serializedVersion: 2
+        x: 1866
+        y: 221
+        width: 337
+        height: 581
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 121.65405, y: -143.50667}
+        - {x: 41.654053, y: -79.50667}
+        - {x: 39.654053, y: 36.493332}
+        - {x: 98.65405, y: 58.493332}
+        - {x: 66.65405, y: 220.49333}
+        - {x: 34.654053, y: 220.49333}
+        - {x: -0.34594727, y: 195.49333}
+        - {x: -66.34595, y: 111.49333}
+        - {x: -85.34595, y: -30.506668}
+        - {x: -80.34595, y: -176.50667}
+        - {x: -88.34595, y: -195.50667}
+        - {x: -88.34595, y: -217.50667}
+        - {x: -72.34595, y: -227.50667}
+        - {x: -8.345947, y: -227.50667}
+        - {x: -5.3459473, y: -225.50667}
+        - {x: 65.65405, y: -224.50667}
+        - {x: 121.65405, y: -167.50667}
+      - - {x: -61.345947, y: -81.50667}
+        - {x: -63.345947, y: -83.50667}
+        - {x: -63.345947, y: -86.50667}
+        - {x: -57.345947, y: -90.50667}
+        - {x: -53.345947, y: -90.50667}
+        - {x: -52.345947, y: -88.50667}
+        - {x: -52.345947, y: -83.50667}
+        - {x: -55.345947, y: -82.50667}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

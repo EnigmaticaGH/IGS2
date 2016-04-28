@@ -1,0 +1,253 @@
+fileFormatVersion: 2
+guid: 794d2712083fd5b4e8487a73164fcb97
+timeCreated: 1461689001
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: 04262016_annieWalk_characterSpritesheet_GRID_0
+    21300002: 04262016_annieWalk_characterSpritesheet_GRID_1
+    21300004: 04262016_annieWalk_characterSpritesheet_GRID_2
+    21300006: 04262016_annieWalk_characterSpritesheet_GRID_3
+    21300008: 04262016_annieWalk_characterSpritesheet_GRID_4
+    21300010: 04262016_annieWalk_characterSpritesheet_GRID_5
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 400
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: 04262016_annieWalk_characterSpritesheet_GRID_0
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 1040
+        width: 289
+        height: 564
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 42.909805, y: 3.2627563}
+        - {x: 89.909805, y: 37.262756}
+        - {x: 110.909805, y: 86.26276}
+        - {x: 110.909805, y: 98.26276}
+        - {x: 102.909805, y: 103.26276}
+        - {x: 76.909805, y: 192.26276}
+        - {x: 42.909805, y: 213.26276}
+        - {x: -52.090195, y: 213.26276}
+        - {x: -67.090195, y: 207.26276}
+        - {x: -96.090195, y: 184.26276}
+        - {x: -107.090195, y: 121.26276}
+        - {x: -107.090195, y: -90.73724}
+        - {x: -106.090195, y: -96.73724}
+        - {x: 39.909805, y: -116.73724}
+        - {x: 44.909805, y: -154.73724}
+        - {x: 61.909805, y: -154.73724}
+        - {x: 109.909805, y: -138.73724}
+        - {x: 110.909805, y: -132.73724}
+        - {x: 110.909805, y: -130.73724}
+        - {x: 108.909805, y: -126.73724}
+    - name: 04262016_annieWalk_characterSpritesheet_GRID_1
+      rect:
+        serializedVersion: 2
+        x: 817
+        y: 1040
+        width: 289
+        height: 564
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 39.663147, y: -159.73724}
+        - {x: 30.663147, y: -37.737244}
+        - {x: 86.66315, y: -11.737244}
+        - {x: 86.66315, y: 28.262756}
+        - {x: 83.66315, y: 33.262756}
+        - {x: 70.66315, y: 140.26276}
+        - {x: 21.663147, y: 167.26276}
+        - {x: -83.33685, y: 167.26276}
+        - {x: -112.33685, y: 111.26276}
+        - {x: -112.33685, y: 11.262756}
+        - {x: -99.33685, y: -15.737244}
+        - {x: -96.33685, y: -80.73724}
+        - {x: -60.336853, y: -152.73724}
+        - {x: -17.336853, y: -194.73724}
+        - {x: 11.663147, y: -225.73724}
+        - {x: 78.66315, y: -225.73724}
+        - {x: 85.66315, y: -222.73724}
+        - {x: 86.66315, y: -219.73724}
+        - {x: 86.66315, y: -212.73724}
+      - - {x: 51.663147, y: -98.73724}
+        - {x: 54.663147, y: -97.73724}
+        - {x: 54.663147, y: -94.73724}
+        - {x: 51.663147, y: -93.73724}
+        - {x: 49.663147, y: -95.73724}
+    - name: 04262016_annieWalk_characterSpritesheet_GRID_2
+      rect:
+        serializedVersion: 2
+        x: 1390
+        y: 1040
+        width: 289
+        height: 564
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 60.860718, y: -183.73724}
+        - {x: 21.860718, y: -138.73724}
+        - {x: 10.860718, y: 8.262756}
+        - {x: 62.860718, y: 48.262756}
+        - {x: 66.86072, y: 59.262756}
+        - {x: 66.86072, y: 106.26276}
+        - {x: 56.860718, y: 126.26276}
+        - {x: 11.860718, y: 149.26276}
+        - {x: -45.139282, y: 149.26276}
+        - {x: -72.13928, y: 145.26276}
+        - {x: -113.13928, y: 106.26276}
+        - {x: -113.13928, y: 13.262756}
+        - {x: -98.13928, y: -32.737244}
+        - {x: -95.13928, y: -225.73724}
+        - {x: 26.860718, y: -225.73724}
+        - {x: 62.860718, y: -197.73724}
+        - {x: 66.86072, y: -189.73724}
+        - {x: 66.86072, y: -184.73724}
+    - name: 04262016_annieWalk_characterSpritesheet_GRID_3
+      rect:
+        serializedVersion: 2
+        x: 1939
+        y: 1040
+        width: 289
+        height: 564
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 55.78308, y: 3.2627563}
+        - {x: 107.78308, y: 72.26276}
+        - {x: 107.78308, y: 98.26276}
+        - {x: 82.78308, y: 114.26276}
+        - {x: 34.78308, y: 74.26276}
+        - {x: 47.78308, y: 110.26276}
+        - {x: 67.78308, y: 176.26276}
+        - {x: 45.78308, y: 213.26276}
+        - {x: -44.21692, y: 213.26276}
+        - {x: -73.21692, y: 205.26276}
+        - {x: -102.21692, y: 154.26276}
+        - {x: -109.21692, y: 94.26276}
+        - {x: -110.21692, y: 58.262756}
+        - {x: -110.21692, y: -61.737244}
+        - {x: -103.21692, y: -85.73724}
+        - {x: 6.783081, y: -115.73724}
+        - {x: 41.78308, y: -154.73724}
+        - {x: 75.78308, y: -154.73724}
+        - {x: 107.78308, y: -136.73724}
+        - {x: 107.78308, y: -113.73724}
+        - {x: 53.78308, y: -43.737244}
+    - name: 04262016_annieWalk_characterSpritesheet_GRID_4
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 233
+        width: 289
+        height: 564
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 84.22862, y: -8.869019}
+        - {x: 84.22862, y: 18.130981}
+        - {x: 45.228622, y: 21.130981}
+        - {x: 19.228622, y: 28.130981}
+        - {x: 11.228622, y: 29.130981}
+        - {x: 73.22862, y: 63.13098}
+        - {x: 63.228622, y: 168.13098}
+        - {x: -95.77138, y: 168.13098}
+        - {x: -114.77138, y: 120.13098}
+        - {x: -114.77138, y: -26.869019}
+        - {x: -97.77138, y: -81.86902}
+        - {x: -42.771378, y: -183.86902}
+        - {x: 18.228622, y: -224.86902}
+        - {x: 51.228622, y: -224.86902}
+        - {x: 82.22862, y: -222.86902}
+        - {x: 84.22862, y: -219.86902}
+        - {x: 84.22862, y: -206.86902}
+        - {x: 40.228622, y: -37.86902}
+      - - {x: 46.228622, y: -95.86902}
+        - {x: 47.228622, y: -98.86902}
+        - {x: 50.228622, y: -98.86902}
+        - {x: 52.228622, y: -96.86902}
+        - {x: 51.228622, y: -93.86902}
+        - {x: 48.228622, y: -93.86902}
+    - name: 04262016_annieWalk_characterSpritesheet_GRID_5
+      rect:
+        serializedVersion: 2
+        x: 819
+        y: 233
+        width: 289
+        height: 564
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 61.26941, y: -182.86902}
+        - {x: 58.26941, y: 52.13098}
+        - {x: 68.26941, y: 76.13098}
+        - {x: 68.26941, y: 116.13098}
+        - {x: 24.26941, y: 149.13098}
+        - {x: -72.73059, y: 149.13098}
+        - {x: -112.73059, y: 97.13098}
+        - {x: -112.73059, y: -40.86902}
+        - {x: -80.73059, y: -122.86902}
+        - {x: -60.73059, y: -146.86902}
+        - {x: -73.73059, y: -155.86902}
+        - {x: -80.73059, y: -190.86902}
+        - {x: -81.73059, y: -224.86902}
+        - {x: 21.26941, y: -224.86902}
+        - {x: 68.26941, y: -191.86902}
+        - {x: 68.26941, y: -190.86902}
+        - {x: 67.26941, y: -186.86902}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,231 @@
+fileFormatVersion: 2
+guid: 0d2271195cfa6cc4bb41474252208236
+timeCreated: 1461708384
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: 04262016_wayneJump_characterSpritesheet_GRID_0
+    21300002: 04262016_wayneJump_characterSpritesheet_GRID_1
+    21300004: 04262016_wayneJump_characterSpritesheet_GRID_2
+    21300006: 04262016_wayneJump_characterSpritesheet_GRID_3
+    21300008: 04262016_wayneJump_characterSpritesheet_GRID_4
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 400
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: 04262016_wayneJump_characterSpritesheet_GRID_0
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 681
+        width: 324
+        height: 527
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -130.01373, y: 213.43646}
+        - {x: -130.01373, y: -211.56354}
+        - {x: 130.98627, y: -211.56354}
+        - {x: 130.98627, y: 213.43646}
+      - - {x: -122.01373, y: 205.43646}
+        - {x: 122.98627, y: 205.43646}
+        - {x: 122.98627, y: -203.56354}
+        - {x: -122.01373, y: -203.56354}
+      - - {x: 27.986267, y: 19.436462}
+        - {x: 56.986267, y: 40.436462}
+        - {x: 72.98627, y: 73.43646}
+        - {x: 72.98627, y: 80.43646}
+        - {x: 52.986267, y: 138.43646}
+        - {x: 6.986267, y: 191.43646}
+        - {x: -16.013733, y: 191.43646}
+        - {x: -80.01373, y: 170.43646}
+        - {x: -80.01373, y: -61.563538}
+        - {x: -48.013733, y: -195.56354}
+        - {x: -35.013733, y: -192.56354}
+        - {x: -19.013733, y: -170.56354}
+        - {x: -1.0137329, y: -144.56354}
+        - {x: -11.013733, y: -122.56354}
+        - {x: 7.986267, y: -114.56354}
+        - {x: 0.9862671, y: -151.56354}
+        - {x: 36.986267, y: -199.56354}
+        - {x: 41.986267, y: -199.56354}
+        - {x: 46.986267, y: -197.56354}
+        - {x: 72.98627, y: -62.563538}
+        - {x: 72.98627, y: -34.563538}
+        - {x: 48.986267, y: 7.4364624}
+    - name: 04262016_wayneJump_characterSpritesheet_GRID_1
+      rect:
+        serializedVersion: 2
+        x: 622
+        y: 680
+        width: 324
+        height: 527
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -129.94864, y: 212.1333}
+        - {x: -129.94864, y: -211.8667}
+        - {x: 131.05136, y: -211.8667}
+        - {x: 131.05136, y: 212.1333}
+    - name: 04262016_wayneJump_characterSpritesheet_GRID_2
+      rect:
+        serializedVersion: 2
+        x: 1099
+        y: 681
+        width: 324
+        height: 527
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -129.85217, y: 213.43646}
+        - {x: -129.85217, y: -211.56354}
+        - {x: 131.14783, y: -211.56354}
+        - {x: 131.14783, y: 213.43646}
+      - - {x: -120.85217, y: 205.43646}
+        - {x: 124.14783, y: 205.43646}
+        - {x: 124.14783, y: -203.56354}
+        - {x: -120.85217, y: -203.56354}
+      - - {x: 67.14783, y: -19.563538}
+        - {x: 67.14783, y: 40.436462}
+        - {x: 33.147827, y: 93.43646}
+        - {x: 7.147827, y: 93.43646}
+        - {x: -59.852173, y: 62.436462}
+        - {x: -72.85217, y: 35.436462}
+        - {x: -80.85217, y: 8.436462}
+        - {x: -80.85217, y: -28.563538}
+        - {x: -61.852173, y: -71.56354}
+        - {x: -80.85217, y: -94.56354}
+        - {x: -80.85217, y: -202.56354}
+        - {x: -78.85217, y: -203.56354}
+        - {x: 67.14783, y: -203.56354}
+        - {x: 67.14783, y: -168.56354}
+        - {x: 61.147827, y: -141.56354}
+        - {x: 40.147827, y: -89.56354}
+        - {x: 40.147827, y: -59.563538}
+    - name: 04262016_wayneJump_characterSpritesheet_GRID_3
+      rect:
+        serializedVersion: 2
+        x: 1574
+        y: 681
+        width: 324
+        height: 527
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -130.36194, y: 213.43646}
+        - {x: -130.36194, y: -211.56354}
+        - {x: 130.63806, y: -211.56354}
+        - {x: 130.63806, y: 213.43646}
+      - - {x: -122.36194, y: 205.43646}
+        - {x: 123.63806, y: 205.43646}
+        - {x: 123.63806, y: -203.56354}
+        - {x: -122.36194, y: -203.56354}
+      - - {x: 65.63806, y: 20.436462}
+        - {x: 65.63806, y: 68.43646}
+        - {x: 42.63806, y: 98.43646}
+        - {x: 16.638062, y: 120.43646}
+        - {x: -1.3619385, y: 120.43646}
+        - {x: -56.36194, y: 93.43646}
+        - {x: -82.36194, y: 34.436462}
+        - {x: -82.36194, y: -32.563538}
+        - {x: -79.36194, y: -61.563538}
+        - {x: -82.36194, y: -74.56354}
+        - {x: -82.36194, y: -203.56354}
+        - {x: -22.361938, y: -203.56354}
+        - {x: -14.361938, y: -202.56354}
+        - {x: -9.361938, y: -184.56354}
+        - {x: -8.361938, y: -196.56354}
+        - {x: -3.3619385, y: -200.56354}
+        - {x: 9.638062, y: -203.56354}
+        - {x: 65.63806, y: -203.56354}
+        - {x: 65.63806, y: -123.56354}
+        - {x: 40.63806, y: -68.56354}
+    - name: 04262016_wayneJump_characterSpritesheet_GRID_4
+      rect:
+        serializedVersion: 2
+        x: 2073
+        y: 681
+        width: 324
+        height: 527
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -130.09644, y: 213.43646}
+        - {x: -130.09644, y: -211.56354}
+        - {x: 131.90356, y: -211.56354}
+        - {x: 131.90356, y: 213.43646}
+      - - {x: -122.096436, y: 205.43646}
+        - {x: 122.903564, y: 205.43646}
+        - {x: 122.903564, y: -203.56354}
+        - {x: -122.096436, y: -203.56354}
+      - - {x: 48.903564, y: 13.436462}
+        - {x: 41.903564, y: 87.43646}
+        - {x: 19.903564, y: 125.43646}
+        - {x: -9.096436, y: 139.43646}
+        - {x: -34.096436, y: 139.43646}
+        - {x: -84.096436, y: 101.43646}
+        - {x: -91.096436, y: 64.43646}
+        - {x: -91.096436, y: 2.4364624}
+        - {x: -69.096436, y: -15.563538}
+        - {x: -89.096436, y: -89.56354}
+        - {x: -88.096436, y: -193.56354}
+        - {x: -81.096436, y: -200.56354}
+        - {x: -16.096436, y: -199.56354}
+        - {x: -10.096436, y: -193.56354}
+        - {x: -4.0964355, y: -199.56354}
+        - {x: 29.903564, y: -201.56354}
+        - {x: 63.903564, y: -201.56354}
+        - {x: 63.903564, y: -178.56354}
+        - {x: 32.903564, y: -60.563538}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
