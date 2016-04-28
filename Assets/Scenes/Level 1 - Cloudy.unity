@@ -93248,8 +93248,8 @@ MonoBehaviour:
   HeadPlayers:
   - {fileID: 160958, guid: ec158ef104c45dc4fb52a17cd9eb601c, type: 2}
   - {fileID: 122712, guid: 2a3e3fc0c1e3f684c80dbb359744f8b4, type: 2}
-  - {fileID: 160812, guid: 2dcb3e1c710ea62458fa6dfcfcb44877, type: 2}
   - {fileID: 177622, guid: 8756fbb391d49804ca5e3a79b944c283, type: 2}
+  - {fileID: 160812, guid: 2dcb3e1c710ea62458fa6dfcfcb44877, type: 2}
   - {fileID: 194586, guid: 6352d31f6f3fbb247a3bf0b4463ac014, type: 2}
   HeadBackgrounds:
   - {fileID: 1096140544}
