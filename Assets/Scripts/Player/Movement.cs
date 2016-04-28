@@ -174,7 +174,7 @@ public class Movement : MonoBehaviour
     {
         bool oldStatus = isGrounded;
         isGrounded = status;
-        if (oldStatus != status && status)
+        if (oldStatus != status && status && player.velocity.y < 0)
         {
             GetComponent<LandingParticles>().StartLandingAnimation();
         }

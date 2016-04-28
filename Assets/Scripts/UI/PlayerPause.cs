@@ -53,7 +53,7 @@ public class PlayerPause : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate()
     {
-        Debug.Log(count);
+        //Debug.Log(count);
 
         for (int i = 1; i <= 4; i++)
         {
@@ -163,7 +163,8 @@ public class PlayerPause : MonoBehaviour {
                     if (Input.GetAxis("DPad_YAxis_" + i) == -1 && count == 0)
                     {
                         count++;
-
+                        Source.clip = Scroll;
+                        Source.Play();
                         StartCoroutine("resetCount");
                         restart = false;
                         ColorBlock temp;

@@ -56,7 +56,7 @@ public class PlayerAbilities : MonoBehaviour
                     "R_XAxis",
                     "R_YAxis"
                 }),
-            new Ability(Powerup.BlockDrop.ToString(), 0, 2.5f),
+            new Ability(Powerup.BlockDrop.ToString(), 0, 2.5f, true),
             new Ability(Powerup.GrenadeBlock.ToString(), 0, 7.5f)
         };
         foreach (Ability ability in abilities)
@@ -114,7 +114,14 @@ public class PlayerAbilities : MonoBehaviour
         {
             if (abilities[(int)currentPowerup].AbilityStatus == Ability.Status.READY)
             {
-                StartCoroutine("Ability_" + currentPowerup.ToString() + "_Activate", abilities[(int)currentPowerup]);
+                if (abilities[(int)currentPowerup].UseButton && Input.GetButtonUp("B_" + controller.controllerNumber))
+                {
+                    StartCoroutine("Ability_" + currentPowerup.ToString() + "_Activate", abilities[(int)currentPowerup]);
+                }
+                else if (!abilities[(int)currentPowerup].UseButton)
+                {
+                    StartCoroutine("Ability_" + currentPowerup.ToString() + "_Activate", abilities[(int)currentPowerup]);
+                }
             }
         }
 
@@ -124,6 +131,15 @@ public class PlayerAbilities : MonoBehaviour
     void ZeroVelocity()
     {
         player.velocity = Vector3.zero;
+    }
+
+    public void RemovePowerup()
+    {
+        currentPowerup = Powerup.None;
+        ParticleSystem.EmissionModule em = particleSystems["BlockDrop"].GetComponent<ParticleSystem>().emission;
+        em.enabled = false;
+        em = particleSystems["GrenadeBlock"].GetComponent<ParticleSystem>().emission;
+        em.enabled = false;
     }
 
     #region Ability 1
@@ -181,13 +197,13 @@ public class PlayerAbilities : MonoBehaviour
     {
         ability.AbilityStatus = Ability.Status.ACTIVE;
 
-        ParticleSystem.EmissionModule em = particleSystems[ability.Name].GetComponent<ParticleSystem>().emission;
-        em.enabled = true;
+        
 
         yield return new WaitForSeconds(ability.ActiveTime);
         ability.AbilityStatus = Ability.Status.COOLDOWN;
         yield return new WaitForSeconds(ability.CooldownTime);
 
+        ParticleSystem.EmissionModule em = particleSystems[ability.Name].GetComponent<ParticleSystem>().emission;
         em.enabled = false;
         currentPowerup = Powerup.None;
 
@@ -224,9 +240,11 @@ public class PlayerAbilities : MonoBehaviour
                 other.gameObject.SetActive(false);
             }
             else if (other.CompareTag("Powerup") && other.name == "DropPowerup(Clone)" &&
-                abilities[(int)Powerup.BlockDrop].AbilityStatus == Ability.Status.READY)
+            abilities[(int)Powerup.BlockDrop].AbilityStatus == Ability.Status.READY)
             {
                 currentPowerup = Powerup.BlockDrop;
+                ParticleSystem.EmissionModule em = particleSystems["BlockDrop"].GetComponent<ParticleSystem>().emission;
+                em.enabled = true;
                 other.gameObject.SetActive(false);
             }
         }

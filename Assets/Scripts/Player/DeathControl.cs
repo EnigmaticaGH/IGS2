@@ -52,8 +52,8 @@ public class DeathControl : MonoBehaviour
 
     void Update()
     {
-        bool outOfBounds = transform.position.y < lowerBounds.position.y - 2 || transform.position.y > upperBounds.position.y + 2
-            || transform.position.x < lowerBounds.position.x - 2 || transform.position.x > upperBounds.position.x + 2;
+        bool outOfBounds = transform.position.y < lowerBounds.position.y - 4 || transform.position.y > upperBounds.position.y + 4
+            || transform.position.x < lowerBounds.position.x - 4 || transform.position.x > upperBounds.position.x + 4;
         if (outOfBounds && doneRespawning)
         {
             Kill();
@@ -110,6 +110,7 @@ public class DeathControl : MonoBehaviour
         player.isKinematic = true;
         GetComponentInChildren<SpriteRenderer>().enabled = false;
         GetComponent<DynamicCollider>().Disable();
+        GetComponent<PlayerAbilities>().RemovePowerup();
         yield return new WaitForSeconds(respawnTime);
         Damage = 0;
         GetComponentInChildren<SpriteRenderer>().enabled = true;
@@ -151,6 +152,5 @@ public class DeathControl : MonoBehaviour
     public void AddDamage(float damage)
     {
         Damage += damage;
-        Debug.Log("Damage: " + (Damage * 100) + "%");
     }
 }

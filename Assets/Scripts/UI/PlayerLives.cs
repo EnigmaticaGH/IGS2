@@ -30,22 +30,12 @@ public class PlayerLives : MonoBehaviour
 
     //public CharacterMenuController Control;
 
-    GameObject[] Controllers;
-    ControllerNumber[] cnumbers;
-    DeathControl[] damages;
+    static GameObject[] Controllers;
+    static ControllerNumber[] cnumbers;
+    static Dictionary<int, DeathControl> damages;
 
     void Start()
     {
-
-        Controllers = GameObject.FindGameObjectsWithTag("Player");
-        cnumbers = new ControllerNumber[Controllers.Length];
-        damages = new DeathControl[Controllers.Length];
-        for (int i = 0; i < Controllers.Length; i++)
-        {
-            cnumbers[i] = Controllers[i].GetComponent<ControllerNumber>();
-            damages[i] = Controllers[i].GetComponent<DeathControl>();
-        }
-
         //playerLives = new List<List<int>>();
         player1Lives.gameObject.SetActive(false);
         player2Lives.gameObject.SetActive(false);
@@ -112,14 +102,24 @@ public class PlayerLives : MonoBehaviour
             player3Lives.gameObject.SetActive(true);
         if (activePlayers > 3)
             player4Lives.gameObject.SetActive(true);
+    }
 
-
-
+    public static void InitalizePlayers(GameObject[] players)
+    {
+        Controllers = players;
+        cnumbers = new ControllerNumber[Controllers.Length];
+        damages = new Dictionary<int, DeathControl>();
+        for (int i = 0; i < Controllers.Length; i++)
+        {
+            cnumbers[i] = Controllers[i].GetComponent<ControllerNumber>();
+            damages.Add(cnumbers[i].controllerNumber, Controllers[i].GetComponent<DeathControl>());
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (PlayerTracker.players.Length == 0) return;
         for (int i = 0; i < ControllerNumber && i < PlayerTracker.players.Length; i++)
         {
             Lives[i] = PlayerTracker.players[i].GetComponent<DeathControl>().getLives();
@@ -127,10 +127,10 @@ public class PlayerLives : MonoBehaviour
 
         //numberOfLives = PlayerTracker.players[0].GetComponent<DeathControl>().getNumberOfLives();
 
-        foreach (GameObject controller in Controllers)
+        for (int i = 0; i < Controllers.Length; i++)
         {
-
-            //DamageText[0].text = "" + (Controllers.GetDamage() * 100).toString("0.00%");
+            DamageText[cnumbers[i].controllerNumber - 1].text = (damages[cnumbers[i].controllerNumber].Damage).ToString("0%");
+            DamageText[cnumbers[i].controllerNumber - 1].color = Color.Lerp(Color.white, Color.red, damages[cnumbers[i].controllerNumber].Damage);
         }
 
 
@@ -143,7 +143,6 @@ public class PlayerLives : MonoBehaviour
         if (activePlayers > 1)
         {
             player2Lives.text = "" + PlayerTracker.players[1].GetComponent<DeathControl>().getLives();
-            
             HeadBackgrounds[1].enabled = true;
             HeadBackgrounds[1].sprite = Backgrounds[CharacterMenuController.playerINDEX_Pos[1]];
 

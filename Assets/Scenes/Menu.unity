@@ -325,7 +325,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22485934, guid: 730a1315dffc3134da7a09c6ad2b7427, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 22436816, guid: 730a1315dffc3134da7a09c6ad2b7427, type: 2}
       propertyPath: m_RootOrder
@@ -391,6 +391,14 @@ Prefab:
     - target: {fileID: 11419634, guid: 730a1315dffc3134da7a09c6ad2b7427, type: 2}
       propertyPath: m_Colors.m_HighlightedColor.b
       value: 0.7058823
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400510, guid: 730a1315dffc3134da7a09c6ad2b7427, type: 2}
+      propertyPath: m_FontData.m_FontSize
+      value: 226
+      objectReference: {fileID: 0}
+    - target: {fileID: 22470440, guid: 730a1315dffc3134da7a09c6ad2b7427, type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 1038
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 730a1315dffc3134da7a09c6ad2b7427, type: 2}
@@ -496,7 +504,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1810838517}
-  m_RootOrder: 5
+  m_RootOrder: 4
 --- !u!1001 &1713583741
 Prefab:
   m_ObjectHideFlags: 0

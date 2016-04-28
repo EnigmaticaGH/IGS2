@@ -61,9 +61,9 @@ public class GrabBlock : MonoBehaviour
     void CheckForBlock()
     {
         foundBlock = false;
-        Ray ray = new Ray(transform.position + Vector3.right * sprite.localScale.x + Vector3.down * 1.5f, Vector3.up);
-        Ray ray2 = new Ray(transform.position + Vector3.left * sprite.localScale.x * 1.2f + Vector3.down * 1.5f, Vector3.up);
-        Ray ray3 = new Ray(transform.position + Vector3.up + Vector3.left * 1.5f, Vector3.right);
+        Ray ray = new Ray(transform.position + Vector3.right * -sprite.localScale.x + Vector3.down * 2, Vector3.up);
+        Ray ray2 = new Ray(transform.position + Vector3.left * -sprite.localScale.x + Vector3.down * 2, Vector3.up);
+        Ray ray3 = new Ray(transform.position + Vector3.up + Vector3.left * 2, Vector3.right);
 
         RayCast(ray3);
         RayCast(ray2);
