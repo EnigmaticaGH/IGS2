@@ -21,14 +21,12 @@ public class GrabBlock : MonoBehaviour
     private bool isDead;
     public bool IsInvincible { get; private set; }
     public bool IsThrowing { get; private set; }
-    Controls Controls;
     int count;
 
     void Awake()
     {
         DeathControl.OnDeath += OnDeath;
         DeathControl.OnRespawn += OnRespawn;
-        Controls = GetComponent<Controls>();
     }
 
     void OnDestroy()
