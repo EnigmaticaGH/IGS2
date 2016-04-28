@@ -23,7 +23,7 @@ public class PlayerTracker : MonoBehaviour {
 
     void Start()
     {
-        AddPlayers();
+        //AddPlayers();
     }
 
     public static void AddPlayers()
@@ -39,6 +39,7 @@ public class PlayerTracker : MonoBehaviour {
         players = tempPlayers.ToArray();
         numberOfPlayers = players.Length;
         SmashCamera.InitalizePlayers(players);
+        PlayerLives.InitalizePlayers(players);
     }
 
     void OnDestroy()

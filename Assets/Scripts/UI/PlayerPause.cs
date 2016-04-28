@@ -53,7 +53,7 @@ public class PlayerPause : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate()
     {
-        Debug.Log(count);
+        //Debug.Log(count);
 
         for (int i = 1; i <= 4; i++)
         {
