@@ -49,7 +49,8 @@ public class BlockInteraction : MonoBehaviour {
     }
     void Start()
     {
-        clouds = transform.FindChild("Clouds 1(Clone)").GetComponent<ParticleSystem>();
+        clouds = transform.FindChild("Clouds 1").GetComponent<ParticleSystem>();
+        clouds.transform.position = transform.position + Vector3.back * 0.48f;
         cloudsRenderer = clouds.GetComponent<ParticleSystemRenderer>();
         originalSize = clouds.startSize;
         originalCloudColor = cloudsRenderer.material.color;
@@ -162,7 +163,6 @@ public class BlockInteraction : MonoBehaviour {
     {
         float damage = power.magnitude / pushMult / 100;
         Vector3 force = power * (1 + m.gameObject.GetComponent<DeathControl>().Damage);
-        Debug.Log(force + " | " + power);
         r.MovePosition(r.transform.position + Vector3.up * 0.1f);
         r.AddForce(force);
         if (power.y < -lethalVelocity * pushMult)

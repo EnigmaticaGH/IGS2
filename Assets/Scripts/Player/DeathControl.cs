@@ -75,7 +75,7 @@ public class DeathControl : MonoBehaviour
     {
         
         health = maxHealth;
-        if (--lives < 0)
+        if (--lives <= 0)
             RemoveFromGame();
         else
             Lives.death(controllerNumber, lives);

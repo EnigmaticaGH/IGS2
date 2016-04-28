@@ -145,7 +145,6 @@ public class SpawnZones : MonoBehaviour {
                     ;
                 else
                 {
-                    Debug.Log(col.tag);
                     zoneBlocks--;
                     SafeCheck();
                 }
