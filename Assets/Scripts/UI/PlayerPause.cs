@@ -102,20 +102,20 @@ public class PlayerPause : MonoBehaviour {
                     Source.clip = Scroll;
                     Source.Play();
                     count++;
-                    restart = true;
+                    //restart = true;
                     start1 = false;
-                    quit = false;
+                    quit = true;
                     StartCoroutine("resetCount");
                     ColorBlock temp1;
                     temp1 = PauseButtons[0].GetComponent<Button>().colors;
                     temp1.normalColor = Color.white;
                     PauseButtons[0].GetComponent<Button>().colors = temp1;
                     temp1.normalColor = Color.yellow;
-                    PauseButtons[1].GetComponent<Button>().colors = temp1;
+                    PauseButtons[2].GetComponent<Button>().colors = temp1;
 
                 }
             }
-
+            /*
                 if (restart)
                 {
 
@@ -177,7 +177,7 @@ public class PlayerPause : MonoBehaviour {
                         PauseButtons[2].GetComponent<Button>().colors = temp;
                         quit = true;
                     }
-                }
+                }*/
 
                 if (quit)
                 {
@@ -187,8 +187,7 @@ public class PlayerPause : MonoBehaviour {
                         Source.clip = Back;
                         Source.Play();
                         Debug.Log("Hello");
-                        start1 = false;
-                        restart = false;
+                        start1 = true;
                         count = 0;
                         menuCount = 0;
                         quit = false;
@@ -207,7 +206,7 @@ public class PlayerPause : MonoBehaviour {
                     if (Input.GetAxis("DPad_YAxis_" + i) == 1 && count == 0)
                     {
                         quit = false;
-                        restart = true;
+                        start1 = true;
                         count++;
                         StartCoroutine("resetCount");
                         Source.clip = Scroll;
@@ -215,11 +214,10 @@ public class PlayerPause : MonoBehaviour {
                         ColorBlock temp;
                         temp = PauseButtons[0].GetComponent<Button>().colors;
                         temp.normalColor = Color.white;
-                        PauseButtons[0].GetComponent<Button>().colors = temp;
-                        temp.normalColor = Color.yellow;
-                        PauseButtons[1].GetComponent<Button>().colors = temp;
-                        temp.normalColor = Color.white;
                         PauseButtons[2].GetComponent<Button>().colors = temp;
+                        temp.normalColor = Color.yellow;
+                        PauseButtons[0].GetComponent<Button>().colors = temp;
+
                     }
                 }
           

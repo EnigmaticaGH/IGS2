@@ -14,7 +14,7 @@ public class Setup : MonoBehaviour
     public bool Mode = false;
     public bool Time = false;
     public bool StartCD = false;
-    public Text TimeText;
+    //public Text TimeText;
     public Text LevelText;
     public Image LevelImage;
     public Text ModeText;
@@ -61,11 +61,15 @@ public class Setup : MonoBehaviour
 
         GameController = GameObject.Find("Game Mode").GetComponent<GameModeController>();
 
-        textColor = TimeText.color;
+        textColor = ModeText.color;
 
         ModeText.color = Color.white;
 
-        TimeText.color = Color.white;
+        //TimeText.color = Color.white;
+
+        SelectedLevel = true; //Breaks the level selecting 
+
+        Time = true;
 
     }
 
@@ -188,7 +192,7 @@ public class Setup : MonoBehaviour
                             Source.clip = Back;
                             Source.Play();
                             Mode = false;
-                            SelectedLevel = false;
+                            SceneManager.LoadScene(1);
                             SelectedObjects[1].SetActive(false);
                             ResetDatColor();
                             ResetDatSelected();
@@ -197,8 +201,45 @@ public class Setup : MonoBehaviour
 
                     }
 
+                    if (Mode) 
+                    {
+                        SelectedObjects[1].SetActive(false);
 
-                    if (Mode)
+                        StartCD = true;
+
+                        if (StartCD)
+                        {
+                            SelectedObjects[3].SetActive(true);
+
+                            if (Input.GetButtonDown("Start_" + i) || Input.GetButtonDown("A_" + i) && cd == 0)
+                            {
+                                Source.clip = Click;
+                                Source.Play();
+                                SelectedObjects[3].SetActive(false);
+                                LoadScene = true;
+                                cd++;
+                                Debug.Log("Count");
+                                //SceneManager.LoadScene(placeHolder + 3); //+ 3 for main menu and character selection and setup
+                            }
+
+                            if (Input.GetButtonUp("B_" + i) || Input.GetAxisRaw("L_YAxis_" + i) == 1 || Input.GetAxisRaw("DPad_YAxis_" + i) == 1)
+                            {
+                                Source.clip = Back;
+                                Source.Play();
+                                Time = false;
+                                Mode = false;
+                                StartCD = false;
+                                SelectedObjects[3].SetActive(false);
+                                time++;
+                                Invoke("ResetTime", .5f);
+                                ModeText.color = Color.white;
+                                //TimeText.color = Color.white;
+                            }
+                        }
+                    }
+
+
+                    /*if (Mode)
                     {
                         SelectedObjects[1].SetActive(false);
 
@@ -256,9 +297,8 @@ public class Setup : MonoBehaviour
                                 ModeText.color = Color.white;
                             }
                         }
-
-
-                        if (Time)
+                        
+                        /*if (Time)
                         {
                             SelectedObjects[2].SetActive(false);
 
@@ -292,17 +332,14 @@ public class Setup : MonoBehaviour
                                     TimeText.color = Color.white;
                                 }
                             }
-                        }
+                        }*/
                     }
                 }
-
-
             }
         }
+    
 
 
-
-    }
 
     public int GetSceneNumber()
     {
