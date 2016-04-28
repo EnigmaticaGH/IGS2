@@ -137,7 +137,6 @@ GameObject:
   - 114: {fileID: 11468242}
   - 114: {fileID: 11456962}
   - 114: {fileID: 11451218}
-  - 114: {fileID: 11462754}
   - 114: {fileID: 11460554}
   m_Layer: 8
   m_Name: NerdBoy_Player
@@ -592,17 +591,6 @@ MonoBehaviour:
   CloudPop: {fileID: 8300000, guid: 9ec5c5a7fccf1d3408485339de073779, type: 3}
   Punch: {fileID: 8300000, guid: 563484dea82111b448eaaa7109c2609f, type: 3}
   Jump: {fileID: 8300000, guid: bb35651d50f735e48b7d0cea9e1feef9, type: 3}
---- !u!114 &11462754
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 193262}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c798cf28ad9b8d45b3ca3c67ee473b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &11463668
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -12,14 +12,12 @@ public class JumpControl : MonoBehaviour
     private bool jump;
     private bool doubleJump;
     private string[] jumpAxis;
-    Controls Controls;
 
     PlayerSounds sounds;
 
     void Awake()
     {
         sounds = GetComponent<PlayerSounds>();
-        Controls = GetComponent<Controls>();
         DeathControl.OnRespawn += Reset;
         Movement.MovementStateEvent += MovementStateChange;
     }
@@ -34,13 +32,6 @@ public class JumpControl : MonoBehaviour
     {
         controller = GetComponent<ControllerNumber>();
         player = GetComponent<Rigidbody>();
-        jumpAxis = new string[]
-            {
-                "TriggersL",
-                "L_YAxis",
-                "LB",
-                "Y"
-            };
         jumpAxisInUse = false;
         doubleJump = false;
         jump = false;
@@ -58,10 +49,9 @@ public class JumpControl : MonoBehaviour
     void Update()
     {
         //Debug.Log(name + ": " + controller.controllerNumber);
-        jumpButtonPressed = 
-            Input.GetAxisRaw(jumpAxis[2] + "_" + controller.controllerNumber) == 1 || 
-            Input.GetAxisRaw(jumpAxis[3] + "_" + controller.controllerNumber) == 1 || 
+        jumpButtonPressed =
             Input.GetButtonDown(Controls.JumpControls[0] + controller.controllerNumber) ||
+            Input.GetButtonDown(Controls.JumpControls[1] + controller.controllerNumber) ||
             Input.GetKey(KeyCode.Space);
        
         if (jumpButtonPressed)
