@@ -117,6 +117,10 @@ public class PlayerAbilities : MonoBehaviour
         em.enabled = false;
         em = particleSystems["GrenadeBlock"].GetComponent<ParticleSystem>().emission;
         em.enabled = false;
+        foreach(Ability ability in abilities)
+        {
+            ability.AbilityStatus = Ability.Status.READY;
+        }
     }
 
     #region Ability 1

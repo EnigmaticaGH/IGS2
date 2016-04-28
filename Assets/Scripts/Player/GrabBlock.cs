@@ -205,6 +205,7 @@ public class GrabBlock : MonoBehaviour
         block.GetComponent<Rigidbody>().useGravity = false;
         block.GetComponent<Collider>().enabled = false;
         block.transform.parent = transform;
+        GetComponent<PlayerAbilities>().RemovePowerup();
     }
 
     void ThrowBlock()
@@ -246,7 +247,6 @@ public class GrabBlock : MonoBehaviour
         foundBlock = false;
         IsThrowing = false;
         Invoke("DisableInvincibility", 0.5f);
-        GetComponent<PlayerAbilities>().RemovePowerup();
     }
 
     void EnableCollision()
