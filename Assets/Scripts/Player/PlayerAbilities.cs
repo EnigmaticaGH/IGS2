@@ -50,12 +50,7 @@ public class PlayerAbilities : MonoBehaviour
         }
         abilities = new Ability[]
         {
-            new Ability("BlockSmash", 0.13f, 0.13f, 0.2f,
-                new string[]
-                {
-                    "R_XAxis",
-                    "R_YAxis"
-                }),
+            new Ability("BlockSmash", 0.13f, 0.13f),
             new Ability(Powerup.BlockDrop.ToString(), 0, 2.5f, true),
             new Ability(Powerup.GrenadeBlock.ToString(), 0, 7.5f)
         };
@@ -63,12 +58,6 @@ public class PlayerAbilities : MonoBehaviour
         {
             //Initially set all abilities to READY
             ability.AbilityStatus = Ability.Status.READY;
-            //Deactivate all objects associated with ability
-            if (ability.Objects != null)
-                foreach(GameObject g in ability.Objects)
-                {
-                    g.SetActive(false);
-                }
             //Add abilities to a registry of abilities
             AbilityRegistry.RegisterAbility(name, ability);
         }
@@ -79,14 +68,14 @@ public class PlayerAbilities : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        bool DashPressed = 
+            Input.GetButtonUp(Controls.DashControls[0] + controller.controllerNumber) || 
+            Input.GetButtonUp(Controls.DashControls[1] + controller.controllerNumber);
         if (movement.State == Movement.MovementState.GROUND)
             usedAirDash = false;
         if (movement.State == Movement.MovementState.DISABLED)
             return;
 
-        float x = Input.GetAxis(abilities[0].Axis[0] + "_" + controller.controllerNumber);
-        float y = -Input.GetAxis(abilities[0].Axis[1] + "_" + controller.controllerNumber);
-        Vector3 rThumbstick = new Vector3(x, y);
         if (Input.GetMouseButtonDown(0))
         {
             if (!(GetComponent<GrabBlock>().IsThrowing || GetComponent<GrabBlock>().CarryingBlock) && abilities[0].AbilityStatus == Ability.Status.READY)
@@ -94,20 +83,10 @@ public class PlayerAbilities : MonoBehaviour
                 StartCoroutine("Ability_" + abilities[0].Name + "_Activate", abilities[0]);
             }
         }
-        if (rThumbstick.magnitude != 0)
+
+        if (DashPressed && abilities[0].AbilityStatus == Ability.Status.READY)
         {
-            if (thumbstickInUse == false)
-            {
-                if (!(GetComponent<GrabBlock>().IsThrowing || GetComponent<GrabBlock>().CarryingBlock) && abilities[0].AbilityStatus == Ability.Status.READY)
-                {
-                    StartCoroutine("Ability_" + abilities[0].Name + "_Activate", abilities[0]);
-                }
-                thumbstickInUse = true;
-            }
-        }
-        else if (rThumbstick.magnitude == 0)
-        {
-            thumbstickInUse = false;
+            StartCoroutine("Ability_" + abilities[0].Name + "_Activate", abilities[0]);
         }
 
         if (currentPowerup != Powerup.None)
@@ -124,8 +103,6 @@ public class PlayerAbilities : MonoBehaviour
                 }
             }
         }
-
-
     }
 
     void ZeroVelocity()
@@ -146,8 +123,8 @@ public class PlayerAbilities : MonoBehaviour
 
     IEnumerator Ability_BlockSmash_Activate(Ability ability)
     {
-        float x = Input.GetAxis(ability.Axis[0] + "_" + controller.controllerNumber);
-        float y = -Input.GetAxis(ability.Axis[1] + "_" + controller.controllerNumber);
+        float x = Input.GetAxis("L_XAxis_" + controller.controllerNumber);
+        float y = -Input.GetAxis("L_YAxis_" + controller.controllerNumber);
         Vector3 forceAngle = new Vector3(x, y);
         Vector3 m = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position);
         Vector3 mouse = new Vector3(m.x, m.y, 0).normalized;
@@ -170,7 +147,7 @@ public class PlayerAbilities : MonoBehaviour
         dashTrail.Play();
         Vector3 force = new Vector3(ABILITY_B_FORCE * forceAngle.normalized.x, ABILITY_B_FORCE * forceAngle.normalized.y);
         player.useGravity = false;
-        if (Mathf.Abs(x) > ability.AxisThreshold / 2)
+        if (y < 0.2f)
         {
             player.MovePosition(transform.position + Vector3.up * 0.2f);
         }
