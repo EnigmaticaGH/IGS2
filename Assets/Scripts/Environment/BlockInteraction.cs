@@ -21,6 +21,7 @@ public class BlockInteraction : MonoBehaviour {
     private ParticleSystem clouds;
     private ParticleSystem.ShapeModule cloudsSM;
     private ParticleSystemRenderer cloudsRenderer;
+    private float originalSize;
     private Color originalSTARsColor;
     private Color originalCloudColor;
     private Color currentColor;
@@ -30,6 +31,7 @@ public class BlockInteraction : MonoBehaviour {
     private float startRate;
     private float startSize;
     private float pushMult;
+    private bool executedGrabbed;
 
     void Awake()
     {
@@ -42,12 +44,14 @@ public class BlockInteraction : MonoBehaviour {
         startSize = cloudParticle.startSize;
         startRate = cloudParticleMMC.constantMax;
         IsBeingThrown = false;
+        executedGrabbed = false;
         pushMult = 10;
     }
     void Start()
     {
         clouds = transform.FindChild("Clouds 1(Clone)").GetComponent<ParticleSystem>();
         cloudsRenderer = clouds.GetComponent<ParticleSystemRenderer>();
+        originalSize = clouds.startSize;
         originalCloudColor = cloudsRenderer.material.color;
         cloudsSM = clouds.shape;
         lowGravity = SceneManager.GetActiveScene();
@@ -73,26 +77,30 @@ public class BlockInteraction : MonoBehaviour {
         {
             ResetImmediately();
         }
-        if (!IsGrabbedBySomeoneElse)
+        if (!executedGrabbed && IsGrabbedBySomeoneElse)
         {
-            if (!IsBeingThrown)
-            {
-                float normalizedVelocity = Mathf.Clamp01(body.velocity.magnitude / lethalVelocity);
-                cloudParticle.startColor = Color.Lerp(currentColor, warning, normalizedVelocity);
-                cloudParticle.startSize = startSize;
-            }
-            cloudParticleEM.type = ParticleSystemEmissionType.Distance;
-            cloudParticleMMC.constantMax = startRate;
-            cloudParticleEM.rate = cloudParticleMMC;
-            cloudParticleSM.box = Vector3.one;
-        }
-        else
-        {
+            executedGrabbed = true;
             cloudParticle.startSize = startSize / 3;
-            cloudParticleEM.type = ParticleSystemEmissionType.Time;
-            cloudParticleMMC.constantMax = startRate * 10;
-            cloudParticleEM.rate = cloudParticleMMC;
+            cloudParticleEM.type = ParticleSystemEmissionType.Distance;
             cloudParticleSM.box = Vector3.one / 2;
+            clouds.startSize = 0.6f;
+            clouds.Clear();
+            clouds.Stop();
+            clouds.Play();
+        } 
+        else if (!IsGrabbedBySomeoneElse && clouds.startSize != originalSize)
+        {
+            executedGrabbed = false;
+            clouds.startSize = originalSize;
+            clouds.Clear();
+            clouds.Stop();
+            clouds.Play();
+        }
+        if (!IsGrabbedBySomeoneElse && !IsBeingThrown)
+        {
+            float normalizedVelocity = Mathf.Clamp01(body.velocity.magnitude / lethalVelocity);
+            cloudParticle.startColor = Color.Lerp(currentColor, warning, normalizedVelocity);
+            cloudParticle.startSize = startSize;
         }
         cloudsSM.box = transform.localScale;
     }
@@ -131,6 +139,11 @@ public class BlockInteraction : MonoBehaviour {
             cloudParticle.startColor = currentColor;
             StartCoroutine(Shatter(0.5f));
         }
+    }
+
+    void OnCollisionStay(Collision c)
+    {
+        body.AddForce(Vector3.up * 5);
     }
 
     void Launch(Vector3 force, bool isSidewaysLaunch)

@@ -139,18 +139,16 @@ public class PlayerLives : MonoBehaviour
         
         HeadBackgrounds[0].enabled = true;
         HeadBackgrounds[0].sprite = Backgrounds[CharacterMenuController.playerINDEX_Pos[0]];
-        //Debug.Log(player1.GetComponent<DeathControl>().getLives());
+        
         if (activePlayers > 1)
         {
             player2Lives.text = "" + PlayerTracker.players[1].GetComponent<DeathControl>().getLives();
-            //DamageText[1].text = "" + (Controllers.GetDamage() * 100) + "%";
             HeadBackgrounds[1].enabled = true;
             HeadBackgrounds[1].sprite = Backgrounds[CharacterMenuController.playerINDEX_Pos[1]];
 
             if (activePlayers > 2)
             {
                 player3Lives.text = "" + PlayerTracker.players[2].GetComponent<DeathControl>().getLives();
-                //DamageText[2].text = "" + (Controllers.GetDamage() * 100) + "%";
                 HeadBackgrounds[2].enabled = true;
                 HeadBackgrounds[2].sprite = Backgrounds[CharacterMenuController.playerINDEX_Pos[2]];
             }
@@ -159,7 +157,6 @@ public class PlayerLives : MonoBehaviour
             if (activePlayers > 3)
             {
                 player4Lives.text = "" + PlayerTracker.players[3].GetComponent<DeathControl>().getLives();
-                //DamageText[3].text = "" + (Controllers.GetDamage() * 100) + "%";
                 HeadBackgrounds[3].enabled = true;
                 HeadBackgrounds[3].sprite = Backgrounds[CharacterMenuController.playerINDEX_Pos[3]];
             }
