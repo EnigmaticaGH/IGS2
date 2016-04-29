@@ -7,7 +7,7 @@ public class AudioScript : MonoBehaviour {
 
     public GameObject Audio;
 
-    public AudioSource Source;
+    public AudioSource source;
 
     bool stop = false;
 
@@ -22,8 +22,9 @@ public class AudioScript : MonoBehaviour {
 
         if (level == 0)
         {
-            if (Source.isPlaying)
-                Source.Stop();
+            Destroy(Audio);
+            if (source.isPlaying)
+                source.Stop();
         }
         
 
@@ -31,8 +32,8 @@ public class AudioScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        if (!Source.isPlaying)
-            Source.Play();
+        if (!source.isPlaying)
+            source.Play();
 
 
 	}

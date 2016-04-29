@@ -30,6 +30,8 @@ public class DeathControl : MonoBehaviour
     private ControllerNumber num;
 
     SpawnZonesController Zones;
+
+    
     
 
     void Start()
@@ -82,8 +84,8 @@ public class DeathControl : MonoBehaviour
         Debug.Log("Player killed. Lives: " + lives);
         if (doneRespawning && !outOfLives)
         {
-            if (OnDeath != null)
-                OnDeath(respawnTime, name);
+            //if (OnDeath != null)
+              //  OnDeath(respawnTime, name);
             StartCoroutine(Respawn(respawnTime));
             doneRespawning = false;
         }
@@ -125,6 +127,7 @@ public class DeathControl : MonoBehaviour
 
     void RemoveFromGame()
     {
+        doneRespawning = true;
         outOfLives = true;
         Debug.Log(name + " KOed!");
         if(OutOfLives != null)

@@ -187,12 +187,16 @@ public class Setup : MonoBehaviour
                             Invoke("ResetTime", .5f);
                         }
 
-                        if ((Input.GetButtonUp("B_" + i) || Input.GetAxisRaw("L_YAxis_" + i) == 1 || Input.GetAxisRaw("DPad_YAxis_" + i) == 1) && mode == 0)
+                        if(Input.GetButtonUp("B_" + i))
+                        {
+                            SceneManager.LoadScene(1);
+                        }
+
+                        if ((Input.GetAxisRaw("L_YAxis_" + i) == 1 || Input.GetAxisRaw("DPad_YAxis_" + i) == 1) && mode == 0)
                         {
                             Source.clip = Back;
                             Source.Play();
                             Mode = false;
-                            SceneManager.LoadScene(1);
                             SelectedObjects[1].SetActive(false);
                             ResetDatColor();
                             ResetDatSelected();

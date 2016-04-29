@@ -318,7 +318,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22494114, guid: 5bf96066f8679dd499c5e01d2239e6ab, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -585
+      value: -584.1
       objectReference: {fileID: 0}
     - target: {fileID: 22479872, guid: 5bf96066f8679dd499c5e01d2239e6ab, type: 2}
       propertyPath: m_AnchoredPosition.x
@@ -399,6 +399,14 @@ Prefab:
       propertyPath: m_SizeDelta.x
       value: 572.4
       objectReference: {fileID: 0}
+    - target: {fileID: 22427330, guid: 5bf96066f8679dd499c5e01d2239e6ab, type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -10.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 22427330, guid: 5bf96066f8679dd499c5e01d2239e6ab, type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 197.3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5bf96066f8679dd499c5e01d2239e6ab, type: 2}
   m_IsPrefabParent: 0
@@ -426,8 +434,8 @@ MonoBehaviour:
   m_Script: {fileID: -900027084, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
-  m_EffectDistance: {x: 6, y: -6}
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 4, y: -4}
   m_UseGraphicAlpha: 1
 --- !u!114 &46927034
 MonoBehaviour:
@@ -458,8 +466,8 @@ MonoBehaviour:
   m_Script: {fileID: -900027084, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
-  m_EffectDistance: {x: 6, y: -6}
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 4, y: 4}
   m_UseGraphicAlpha: 1
 --- !u!1 &55744269
 GameObject:
@@ -1180,6 +1188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Audio: {fileID: 931822573}
+  Source: {fileID: 0}
 --- !u!82 &931822575
 AudioSource:
   m_ObjectHideFlags: 0

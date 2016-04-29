@@ -62,7 +62,6 @@ public class PlayerPause : MonoBehaviour {
 
                 if ((Input.GetButtonDown("Start_" + i)) && (count == 0))
                 {
-                    //Time.timeScale = 0;
                     Source.clip = Click;
                     Source.Play();
                     count++;
@@ -78,7 +77,7 @@ public class PlayerPause : MonoBehaviour {
 
                 if ((Input.GetButtonDown("Start_" + i) || Input.GetButtonUp("B_" + i)) && (count == 0))
                 {
-                    Time.timeScale = 1;
+                    
                     Source.clip = Back;
                     Source.Play();
                     Debug.Log("Hello");

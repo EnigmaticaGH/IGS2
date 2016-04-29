@@ -14,7 +14,7 @@ public class MoonController : MonoBehaviour {
             Moons[i].SetActive(false);
         }
 
-        int randomNum = Random.Range(0, 2);
+        int randomNum = Random.Range(0, 3);
 
         if (randomNum == 0)
             Moons[0].SetActive(true);
@@ -22,7 +22,7 @@ public class MoonController : MonoBehaviour {
         if (randomNum == 1)
             Moons[1].SetActive(true);
 
-        if (randomNum == 2)
+        if (randomNum >= 2)
             Moons[2].SetActive(true);
 
 	

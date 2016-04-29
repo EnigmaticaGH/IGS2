@@ -101,6 +101,7 @@ public class CharacterMenuController : MonoBehaviour
 
     void Awake()
     {
+        playerSize.Clear();
         loadingText.enabled = false;
         playerReady = new bool[4];
         startCount = new int[4];
@@ -424,7 +425,7 @@ public class CharacterMenuController : MonoBehaviour
                             }
                         }
 
-
+                    Debug.Log(playerSize);
                 }
             }
         }
