@@ -25,13 +25,13 @@ public class GrabBlock : MonoBehaviour
 
     void Awake()
     {
-        DeathControl.OnDeath += OnDeath;
+        //DeathControl.OnDeath += OnDeath;
         DeathControl.OnRespawn += OnRespawn;
     }
 
     void OnDestroy()
     {
-        DeathControl.OnDeath += OnDeath;
+        //DeathControl.OnDeath += OnDeath;
         DeathControl.OnRespawn -= OnRespawn;
     }
 
@@ -272,20 +272,17 @@ public class GrabBlock : MonoBehaviour
         get { return carryingBlock || carryingExplosive; }
     }
 
-    private void OnDeath(float respawnTime, string sender)
+    public void OnDeath()
     {
-        if (sender == name)
+        isDead = true;
+        throwForce = Vector2.zero;
+        if (carryingBlock)
         {
-            isDead = true;
-            throwForce = Vector2.zero;
-            if (carryingBlock)
-            {
-                ThrowBlock();
-            }
-            else if (carryingExplosive)
-            {
-                ThrowExplosiveBlock();
-            }
+            ThrowBlock();
+        }
+        else if (carryingExplosive)
+        {
+            ThrowExplosiveBlock();
         }
     }
 

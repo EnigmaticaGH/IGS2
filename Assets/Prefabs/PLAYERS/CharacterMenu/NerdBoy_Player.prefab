@@ -667,7 +667,7 @@ MonoBehaviour:
   invincibilityTime: 1
   maxHealth: 1
   numberOfLives: 10
-  lives: 99999
+  lives: 10
 --- !u!136 &13615394
 CapsuleCollider:
   m_ObjectHideFlags: 1

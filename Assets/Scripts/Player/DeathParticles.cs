@@ -13,7 +13,7 @@ public class DeathParticles : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
-        DeathControl.OnDeath += Die;
+        //DeathControl.OnDeath += Die;
         foreach (GameObject g in Resources.LoadAll<GameObject>("Death"))
         {
             prefab = g;
@@ -34,7 +34,7 @@ public class DeathParticles : MonoBehaviour
 
     void OnDestroy()
     {
-        DeathControl.OnDeath -= Die;
+        //DeathControl.OnDeath -= Die;
     }
 
     void Update()
@@ -73,9 +73,8 @@ public class DeathParticles : MonoBehaviour
         death.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
 
-    void Die(float respawnTime, string sender)
+    public void Die()
     {
-        if (sender == name)
-            deathParticles.Play();
+        deathParticles.Play();
     }
 }

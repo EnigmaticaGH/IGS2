@@ -13,7 +13,7 @@ public class DeathControl : MonoBehaviour
     public static event RespawnEvent OnRespawn;
     private Rigidbody player;
     public float respawnTime;
-    private bool doneRespawning = true;
+    private bool doneRespawning;
     //private Vector3 startPosition;
     public float Damage { get; private set; }
 
@@ -21,7 +21,7 @@ public class DeathControl : MonoBehaviour
     public int maxHealth;
     private int health;
     public int numberOfLives;
-    public int lives;
+    public int lives = 0;
     private bool invincible;
     private bool outOfLives;
 
@@ -43,13 +43,15 @@ public class DeathControl : MonoBehaviour
         //Debug.Log(controllerNumber);
         //startPosition = transform.position;
         player = GetComponent<Rigidbody>();
-        lives = numberOfLives;
+        if (lives < 1)
+            lives = numberOfLives;
         health = maxHealth;
         invincible = false;
         outOfLives = false;
         upperBounds = GameObject.Find("UpperBounds").transform;
         lowerBounds = GameObject.Find("LowerBounds").transform;
         Damage = 0;
+        doneRespawning = true;
     }
 
     void Update()
@@ -75,17 +77,24 @@ public class DeathControl : MonoBehaviour
 
     public void Kill()
     {
-        
-        health = maxHealth;
-        if (--lives <= 0)
-            RemoveFromGame();
-        else
-            Lives.death(controllerNumber, lives);
+        if (doneRespawning)
+        {
+            health = maxHealth;
+            if (--lives <= 0)
+                RemoveFromGame();
+            else
+                Lives.death(controllerNumber, lives);
+        }
+
         Debug.Log("Player killed. Lives: " + lives);
         if (doneRespawning && !outOfLives)
         {
             //if (OnDeath != null)
-              //  OnDeath(respawnTime, name);
+            //    OnDeath(respawnTime, name);
+            GetComponent<GrabBlock>().OnDeath();
+            GetComponent<StunParticles>().Die();
+            GetComponent<DeathParticles>().Die();
+
             StartCoroutine(Respawn(respawnTime));
             doneRespawning = false;
         }

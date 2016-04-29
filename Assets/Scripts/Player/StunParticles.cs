@@ -9,7 +9,7 @@ public class StunParticles : MonoBehaviour
 
     void Awake()
     {
-        DeathControl.OnDeath += Die;
+        //DeathControl.OnDeath += Die;
         DeathControl.OnRespawn += Respawn;
         foreach (GameObject g in Resources.LoadAll<GameObject>("Stun"))
         {
@@ -22,7 +22,7 @@ public class StunParticles : MonoBehaviour
 
     void OnDestroy()
     {
-        DeathControl.OnDeath -= Die;
+        //DeathControl.OnDeath -= Die;
         DeathControl.OnRespawn -= Respawn;
     }
 
@@ -45,13 +45,10 @@ public class StunParticles : MonoBehaviour
         em.enabled = false;
     }
 
-    private void Die(float respawnTime, string sender)
+    public void Die()
     {
-        if (sender == name)
-        {
-            isDead = true;
-            em.enabled = false;
-        }
+        isDead = true;
+        em.enabled = false;
     }
 
     private void Respawn(string sender)

@@ -45,6 +45,8 @@ public class LevelSetupController : MonoBehaviour {
         for (int i = 0; i < players.Length; i++)
         {
             players[i].GetComponent<DeathControl>().numberOfLives = 10;
+            players[i].GetComponent<DeathControl>().lives = 10;
+
         }
     }
 
@@ -53,6 +55,7 @@ public class LevelSetupController : MonoBehaviour {
         for (int i = 0; i < players.Length; i++)
         {
             players[i].GetComponent<DeathControl>().numberOfLives = 5;
+            players[i].GetComponent<DeathControl>().lives = 5;
         }
     }
 
@@ -61,6 +64,7 @@ public class LevelSetupController : MonoBehaviour {
         for (int i = 0; i < players.Length; i++)
         {
             players[i].GetComponent<DeathControl>().numberOfLives = 3;
+            players[i].GetComponent<DeathControl>().lives = 3;
         }
     }
 
@@ -69,6 +73,7 @@ public class LevelSetupController : MonoBehaviour {
         for (int i = 0; i < players.Length; i++)
         {
             players[i].GetComponent<DeathControl>().numberOfLives = 1;
+            players[i].GetComponent<DeathControl>().lives = 1;
         }
     }
 
